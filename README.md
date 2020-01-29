@@ -6,21 +6,26 @@
 ## 软件
 
 - Vistual Studio Community 2019: [官网](https://visualstudio.microsoft.com/zh-hans/vs/) 
-
 - CMake 3.16.3：[官网](https://cmake.org/)，[下载链接](https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-win64-x64.msi)，[视频教程](https://www.bilibili.com/video/av85644125/)，[官方教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) 
-
-  > CMake 要求会使用，另外还需会编写 CMakeLists.txt 等文件，可见下边的教程
-
 - Qt 5.12.0：[官网](https://www.qt.io/) 
-
 - Typora：[官网](https://www.typora.io/)，[下载链接](https://www.typora.io/windows/typora-setup-x64.exe?) 
+
+## CMake
+
+本课程要求使用 CMake 来构建项目，这也是众多开源项目采用的方式，如 [pbrt-v3](https://github.com/mmp/pbrt-v3) 
+
+使用他人的开源项目很简单，但自己开发项目需要一定经验
+
+请详细阅读 [官方教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) 和 C++ 热身训练，模仿使用
+
+CMake 内容比较杂，一下子掌握所有内容不太现实，在日后的使用过程中结合搜索和[官方文档](https://cmake.org/documentation/)来解决实际问题
 
 ## C++ 热身训练 [->](CppPratices/) 
 
-- 类
-- 模板
-- STL: list, map
-- 静态库
+- 类 `class` 
+- 模板 `template` 
+- STL: `list`, `map` 
+- 静态库 `lib` 
 - 项目
 
 ## 教程
