@@ -1,0 +1,13 @@
+resources/
+build/
+bin/
+lib/
+
+*Config.h
+*.bmp
+*.png
+*.jpg
+*.gif
+*.mp4
+*.pdf
+*.html
