@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
 project (CppPratices VERSION 1.0)
 
+set(CMAKE_DEBUG_POSTFIX d)
+
 # specify the C++ standard
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
@@ -27,3 +29,9 @@ include_directories (
 )
 
 add_subdirectory (src)
+
+include(InstallRequiredSystemLibraries)
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_PACKAGE_VERSION_MAJOR "${CppPratices_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${CppPratices_VERSION_MINOR}")
+include(CPack)
