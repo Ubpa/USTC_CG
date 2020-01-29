@@ -41,7 +41,7 @@ function(Ubpa_SetupTarget)
 			install(TARGETS ${ARG_NAME}
 					RUNTIME DESTINATION "bin"
 					LIBRARY DESTINATION "lib/${FOLDER_NAME}"
-					ARCHIVE DESTINATION "lib/static/${FOLDER_NAME}")
+					ARCHIVE DESTINATION "lib/${FOLDER_NAME}")
 		endif()
 	endif()
 	
