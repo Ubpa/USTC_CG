@@ -1,20 +1,10 @@
 #pragma once
-#if !defined _DYNAMICARRAY_H_
+#ifndef _DYNAMICARRAY_H_
 #define _DYNAMICARRAY_H_
 
 // interfaces of Dynamic Array class DArray
 class DArray
 {
-private:
-	double	*m_pData;	// the pointer to the array memory
-	int		m_nSize;	// the size of the array
-	int		m_nMax;		
-
-private:
-	void	Init();		// initilize the array
-	void	Free();		// free the array
-	inline	int	InvalidateIndex(int nIndex);	// judge the validate of an index
-
 public:
 	DArray();			// default constructor
 	DArray(int nSize, double dValue = 0);	// set an array with default values
@@ -36,6 +26,15 @@ public:
 	bool	InsertAt(int nIndex, double dValue);	// insert a new element at some index
 	
 	DArray &DArray::operator = (const DArray& arr);		//overload operator '='
+
+private:
+	double* m_pData;	// the pointer to the array memory
+	int		m_nSize;	// the size of the array
+	int		m_nMax;
+
+private:
+	void	Init();		// initilize the array
+	void	Free();		// free the array
 };
 
-#endif // _DYNAMICARRAY_H_
+#endif // !_DYNAMICARRAY_H_

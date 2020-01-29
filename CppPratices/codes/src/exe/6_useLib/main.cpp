@@ -4,7 +4,6 @@
 
 using namespace std;
 
-
 int main()
 {
     PolynomialList p1("../data/P3.txt");
