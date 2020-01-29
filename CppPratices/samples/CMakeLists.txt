@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
 project (CppPratices VERSION 1.0)
 
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR} CACHE PATH "install prefix" FORCE)
+endif()
+
 set(CMAKE_DEBUG_POSTFIX d)
 
 # specify the C++ standard
