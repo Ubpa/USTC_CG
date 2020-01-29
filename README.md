@@ -6,8 +6,9 @@
 ## 软件
 
 - Vistual Studio Community 2019: [官网](https://visualstudio.microsoft.com/zh-hans/vs/) 
-- CMake 3.16.3：[官网](https://cmake.org/)，[下载地址](https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-win64-x64.msi) 
+- CMake 3.16.3：[官网](https://cmake.org/)，[下载链接](https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-win64-x64.msi) 
 - Qt 5.12.0：[官网](https://www.qt.io/) 
+- Typora：[官网](https://www.typora.io/)，[下载链接](https://www.typora.io/windows/typora-setup-x64.exe?) 
 
 ## C++ 热身训练 [->](CppPratices/) 
 
