@@ -6,11 +6,13 @@
 
 ### 1. 基础的动态数组
 
-完成 [1_BasicDArray](src/exe/1_BasicDArray) 
+完成 [src/exe/1_BasicDArray](src/exe/1_BasicDArray) 
+
+详细作业要求见于 
 
 ### 2. 高效的动态数组
 
-完成 [2_EfficientDArray](src/exe/2_EfficientDArray) 
+完成 [src/exe/2_EfficientDArray](src/exe/2_EfficientDArray) 
 
 ### 3. 模板动态数组
 
@@ -26,7 +28,7 @@
 
 ### 6. 静态库
 
-1. 将文件夹 [include/](include/) 中的 [PolynomialList.h](include/PolynomialList.h) 替换成作业 4 中的 [PolynomialList.h](src/exe/4_list_Polynomial/PolynomialList.h) 
+1. 将 [include/PolynomialList.h](include/PolynomialList.h) 替换成作业 4 中的 [src/exe/4_list_Polynomial/PolynomialList.h](src/exe/4_list_Polynomial/PolynomialList.h) 
 2. 将作业 4 中的 [PolynomialList.cpp](src/exe/4_list_Polynomial/PolynomialList.cpp) 复制到文件夹 [src/exe/6_useLib/](src/exe/6_useLib/) 
 3. 编写文件夹 [src/lib/PolynomialList/](src/lib/PolynomialList/) 中的 [CMakeLists.txt](src/lib/PolynomialList/CMakeLists.txt)，使其能生成静态库 lib
 4. 编写文件夹 [src/exe/6_useLib/](src/exe/6_useLib/) 中的 [src/exe/6_useLib/CMakeLists.txt](src/exe/6_useLib/CMakeLists.txt)，使其生成一个 executable，并链接步骤 2 的静态库

@@ -71,7 +71,7 @@ http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array4.rar
 
 要求：
 
-- 完成满足上述接口的动态数组 (Dynamic array) 的程序，递交项目文件
+- 完成满足上述接口的动态数组 (Dynamic array) 的程序，递交项目文件（不含文件夹 `build/`， `bin/` 和 `lib/`，只需包含原有文件夹和 `CMakeLists.txt`）
 - 需要遵循基本的编程规范和风格；
 - 动态分配内存用 C++ 的函数 `new/delete`，不用 `malloc/free`；
 - 处理好动态分配的运用，不要出现内存泄漏；
