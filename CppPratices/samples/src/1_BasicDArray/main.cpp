@@ -1,5 +1,3 @@
-
-#include <iostream>
 #include "DArray.h"
 
 int main(int argc, char** argv)
