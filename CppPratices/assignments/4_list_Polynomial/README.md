@@ -14,7 +14,7 @@ http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/CodingSkills/InsideSTL.ra
 
 是的，你实现的 template DArray 就是 `vector` 的基本原理，可以说是你已经写了一个 `vector` 的“雏形”！因此，你使用 STL 的 `vector` 及其他容器没有任何障碍！ 
 
-### 作业要求
+## 作业要求
 
 - 学会使用 `vector` 和 `list`，并了解数组和链表的区别和各自的优点及不足；
 - 用 `list` 完成一个多项式的类，具体接口为：[`PolynomialList.h`](../../codes/src/exe/4_list_Polynomial/PolynomialList.h) 

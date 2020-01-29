@@ -12,11 +12,11 @@
 
 ## 编写静态库 (*.lib)
 
-
+参照 CMake 教程 https://cmake.org/cmake/help/latest/guide/tutorial/index.html
 
 ## 使用静态库 (*.lib)
 
-
+参照 CMake 教程 https://cmake.org/cmake/help/latest/guide/tutorial/index.html
 
 ## 作业要求
 
