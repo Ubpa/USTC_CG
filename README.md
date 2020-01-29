@@ -7,7 +7,7 @@
 
 - Vistual Studio Community 2019: [官网](https://visualstudio.microsoft.com/zh-hans/vs/) 
 
-- CMake 3.16.3：[官网](https://cmake.org/)，[下载链接](https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-win64-x64.msi) 
+- CMake 3.16.3：[官网](https://cmake.org/)，[下载链接](https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-win64-x64.msi)，[视频教程](https://www.bilibili.com/video/av85644125/)，[官方教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) 
 
   > CMake 要求会使用，另外还需会编写 CMakeLists.txt 等文件，可见下边的教程
 
@@ -28,5 +28,5 @@
 - [菜鸟教程] C 语言教程：https://www.runoob.com/cprogramming/c-tutorial.html
 - [菜鸟教程] C++ 教程：https://www.runoob.com/cplusplus/cpp-tutorial.html
 - C++ Primer：[链接] [https://pan.baidu.com/s/1hmWNmL-KglaRGGbVOuPl5A](https://pan.baidu.com/s/1hmWNmL-KglaRGGbVOuPl5A)，[提取码] h959
-- CMake 教程：https://cmake.org/cmake/help/latest/guide/tutorial/index.html
+- CMake 教程：[视频教程](https://www.bilibili.com/video/av85644125/)，[官方教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) 
 
