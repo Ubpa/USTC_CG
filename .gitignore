@@ -11,3 +11,15 @@ lib/
 *.mp4
 *.pdf
 *.html
+*.rar
+*.zip
+*.doc
+*.docx
+*.ppt
+*.pptx
+
+*.filters
+*.vcxproj
+*.log
+*.sln
+*.user

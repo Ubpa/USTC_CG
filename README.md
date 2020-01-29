@@ -3,7 +3,13 @@
 
 课程主页：[ComputerGraphics 2020 Spring Summer](http://staff.ustc.edu.cn/~lgliu/Courses/ComputerGraphics_2020_spring-summer/default.htm) 
 
-## C++ 热身训练
+## 软件
+
+- Vistual Studio Community 2019: [官网](https://visualstudio.microsoft.com/zh-hans/vs/) 
+- CMake 3.16.3：[官网](https://cmake.org/)，[下载地址](https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-win64-x64.msi) 
+- Qt 5.12.0：[官网](https://www.qt.io/) 
+
+## C++ 热身训练 [->](CppPratices/) 
 
 ### 简介
 
@@ -11,7 +17,8 @@
 
 - 类
 - 模板
-- STL
+- STL: list, map
+- 静态库
 - 项目
 
 ### 教程
