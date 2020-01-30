@@ -65,9 +65,9 @@ double a[100];
 
 ## 作业及要求
 
-现在要求动态数组的类的接口为：[`DArray.h`](../../codes/src/exe/1_BasicDArray/DArray.h) 
+现在要求动态数组的类的接口为：[DArray.h](../../project/src/executables/1_BasicDArray/DArray.h) 
 
-测试代码：[`main.cpp`](../../codes/src/exe/1_BasicDArray/main.cpp) 
+测试代码：[main.cpp](../../project/src/executables/1_BasicDArray/main.cpp) 
 
 要求：
 

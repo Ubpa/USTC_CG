@@ -17,7 +17,7 @@ http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/CodingSkills/InsideSTL.ra
 ## 作业要求
 
 - 学会使用 `vector` 和 `list`，并了解数组和链表的区别和各自的优点及不足；
-- 用 `list` 完成一个多项式的类，具体接口为：[`PolynomialList.h`](../../codes/src/exe/4_list_Polynomial/PolynomialList.h) 
+- 用 `list` 完成一个多项式的类，具体接口为：[PolynomialList.h](../../project/src/executables/4_list_Polynomial/PolynomialList.h) 
 
 具体要求可参见：
 
