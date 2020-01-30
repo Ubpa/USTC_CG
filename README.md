@@ -6,7 +6,7 @@
 
 课程主页：[ComputerGraphics 2020 Spring Summer](http://staff.ustc.edu.cn/~lgliu/Courses/ComputerGraphics_2020_spring-summer/default.htm) 
 
-请详细查看本项目的[攻略](stategy.md) 
+请详细查看本项目的[攻略](strategy.md) 
 
 ## 1. 软件 [->](Softwares/) 
 
