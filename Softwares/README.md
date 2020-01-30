@@ -1,8 +1,8 @@
 # 软件
 
-## Github [->](Github.md) 
+## GitHub [->](GitHub.md) 
 
-学生完成作业需要使用 github 来管理代码，请设为私有库
+学生完成作业需要使用 GitHub 来管理代码，请设为私有库
 
 ## Typora
 
