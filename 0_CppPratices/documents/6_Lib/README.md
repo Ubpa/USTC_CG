@@ -10,7 +10,7 @@
 
 我们先学习编写和使用静态库(*.lib)。
 
-## 编写静态库 (*.lib)
+## 生成静态库 (*.lib)
 
 参照 CMake 教程 https://cmake.org/cmake/help/latest/guide/tutorial/index.html
 
@@ -20,7 +20,7 @@
 
 ## 作业要求
 
-- 学会编写静态库 lib 及使用静态库；
+- 学会生成静态库 lib 及使用静态库；
 - 你可在网上查找到更多有关静态库的知识，稍微学习和体会一下；
 - 将作业 1.4 的 `polynomial` 编写成静态库 `lib`，测试使用后将工程发给我检查。
 

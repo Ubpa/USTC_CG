@@ -38,14 +38,14 @@
 
 ### 6. 静态库
 
-> 详细说明见于 [documents/6_useLib](../documents/6_useLib) 
+> 详细说明见于 [documents/6_Lib](../documents/6_Lib) 
 
 1. 在项目根目录新建文件夹 include/，将作业 4 中的 [src/executables/4_list_Polynomial/PolynomialList.h](src/executables/4_list_Polynomial/PolynomialList.h) 放到其中
-2. 将作业 4 中的 [PolynomialList.cpp](src/executables/4_list_Polynomial/PolynomialList.cpp) 复制到文件夹 [src/executables/6_useLib/](src/executables/6_useLib/) 
-3. 编写文件夹 [src/libraris/PolynomialList/](src/libraris/PolynomialList/) 中的 [CMakeLists.txt](src/libraris/PolynomialList/CMakeLists.txt)，使其能生成静态库 lib
-4. 编写文件夹 [src/executables/6_useLib/](src/executables/6_useLib/) 中的 [src/executables/6_useLib/CMakeLists.txt](src/executables/6_useLib/CMakeLists.txt)，使其生成一个 executable，并链接步骤 2 的静态库
+2. 将作业 4 中的 [PolynomialList.cpp](src/executables/4_list_Polynomial/PolynomialList.cpp) 复制到文件夹 [src/libraris/PolynomialList/](src/libraris/PolynomialList/) 中
+3. 编写文件夹 [src/libraris/PolynomialList/](src/libraris/PolynomialList/) 中的 [CMakeLists.txt](src/libraris/PolynomialList/CMakeLists.txt)，使其能生成静态库 PolynomialList.lib
+4. 编写文件夹 [src/executables/6_UseLib/](src/executables/6_UseLib/) 中的 [src/executables/6_UseLib/CMakeLists.txt](src/executables/6_UseLib/CMakeLists.txt)，使其生成一个 executable，并链接步骤 2 的静态库
 
 ## 注意事项
 
-- 程序默认工作路径为 `bin/`，作业 4 读取文件，在提供相对路径时为 `../data/xxx` 
+- 程序默认工作路径为 `bin/`，作业 4 读取文件提供的相对路径为 `../data/xxx` 
 
