@@ -20,7 +20,7 @@
 
 CMake 内容比较杂，一下子掌握所有内容不太现实，在日后的使用过程中结合搜索和[官方文档](https://cmake.org/documentation/)来解决实际问题
 
-## C++ 热身训练 [->](CppPratices/) 
+## C++ 热身训练 [->](0_CppPratices/) 
 
 - 类 `class` 
 - 模板 `template` 
