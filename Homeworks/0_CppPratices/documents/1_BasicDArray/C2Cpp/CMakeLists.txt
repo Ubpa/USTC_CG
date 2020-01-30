@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 
 # 设定项目
-project (CppPratices VERSION 1.0)
+project (C2Cpp VERSION 1.0)
 
 # 修改默认的安装路径前缀
 if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
@@ -40,7 +40,6 @@ add_subdirectory (src)
 
 # 安装包设置
 include(InstallRequiredSystemLibraries)
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 set(CPACK_PACKAGE_VERSION_MAJOR "${CppPratices_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${CppPratices_VERSION_MINOR}")
 include(CPack)

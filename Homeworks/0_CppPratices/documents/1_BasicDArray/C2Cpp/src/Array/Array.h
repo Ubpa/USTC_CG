@@ -3,8 +3,8 @@
 
 #define ARRAY_MAX_ELEMENTS  15
 
-// interfaces of Dynamic Array class DArray
-class DArray
+// interfaces of Array class
+class Array
 {
 private:
 	double	m_dData[ARRAY_MAX_ELEMENTS];	// the pointer to the array memory
@@ -16,9 +16,9 @@ private:
 	inline	int	InvalidateIndex(int nIndex);	// judge the validate of an index
 
 public:
-	DArray();			// default constructor
-	DArray(int nSize, double dValue = 0);	// set an array with default values
-	~DArray();			// deconstructor
+	Array();			// default constructor
+	Array(int nSize, double dValue = 0);	// set an array with default values
+	~Array();			// deconstructor
 
 
 	void	Display();			// display the elements of the array

@@ -1,10 +1,10 @@
 
 #include <iostream>
-#include "DArray.h"
+#include "Array.h"
 
 int main()
 {
-	DArray a;
+	Array a;
 	a.InsertAt(0, 2.1);
 	a.Display();
 
@@ -18,24 +18,24 @@ int main()
 	a.InsertAt(0, 4.1);
 	a.Display();
 
-	DArray b;
+	Array b;
 	b.PushBack(21);
 	b.Display();
 	b.DeleteAt(0);
 	b.Display();
 	b.PushBack(22);
-	b.SetSize( 5 );
+	b.SetSize(5);
 	b.Display();
 
-	DArray c(5, 3.4);
+	Array c(5, 3.4);
 	c.PushBack(5.5);
 	c.Display();
-	c.SetSize( 10 );
+	c.SetSize(10);
 	c.Display();
 
-	DArray d;
+	Array d;
 
-	for(int i=0; i<17; i++)
+	for (int i = 0; i < 17; i++)
 	{
 		d.PushBack(i);
 		d.Display();
