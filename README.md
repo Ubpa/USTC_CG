@@ -5,6 +5,7 @@
 
 ## 软件
 
+- GitHub Desktop：[官网](https://desktop.github.com/)，[下载链接](https://central.github.com/deployments/desktop/desktop/latest/win32) 
 - Vistual Studio Community 2019: [官网](https://visualstudio.microsoft.com/zh-hans/vs/) 
 - CMake 3.16.3：[官网](https://cmake.org/)，[下载链接](https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-win64-x64.msi)，[视频教程](https://www.bilibili.com/video/av85644125/)，[官方教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) 
 - Qt 5.12.0：[官网](https://www.qt.io/) 
@@ -16,22 +17,21 @@
 
 使用他人的开源项目很简单，但自己开发项目需要一定经验
 
-请详细阅读 [官方教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) 和 C++ 热身训练，模仿使用
+请详细阅读 [官方教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) 和 [0. C++ 热身训练](0_CppPratices/)，模仿使用
 
 CMake 内容比较杂，一下子掌握所有内容不太现实，在日后的使用过程中结合搜索和[官方文档](https://cmake.org/documentation/)来解决实际问题
 
-## C++ 热身训练 [->](0_CppPratices/) 
+## 0. C++ 热身训练 [->](0_CppPratices/) 
 
+- CMake 搭项目
 - 类 `class` 
 - 模板 `template` 
 - STL: `list`, `map` 
-- 静态库 `lib` 
-- 项目
+- 静态库 lib，动态库 dll
 
 ## 教程
 
 - [菜鸟教程] C 语言教程：https://www.runoob.com/cprogramming/c-tutorial.html
 - [菜鸟教程] C++ 教程：https://www.runoob.com/cplusplus/cpp-tutorial.html
 - C++ Primer：[链接] [https://pan.baidu.com/s/1hmWNmL-KglaRGGbVOuPl5A](https://pan.baidu.com/s/1hmWNmL-KglaRGGbVOuPl5A)，[提取码] h959
-- CMake 教程：[视频教程](https://www.bilibili.com/video/av85644125/)，[官方教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) 
 
