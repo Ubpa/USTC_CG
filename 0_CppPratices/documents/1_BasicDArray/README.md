@@ -112,4 +112,5 @@ http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array4.rar
 ## 补充阅读资料
 
 - [C++ 编译](CppCompile.md) 
+- [匈牙利命名法](HungarianNotation.md) 
 - 
