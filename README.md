@@ -14,15 +14,9 @@
 - Qt 5.12.0：[官网](https://www.qt.io/) 
 - Typora：[官网](https://www.typora.io/)，[下载链接](https://www.typora.io/windows/typora-setup-x64.exe?)，[官方文档](http://support.typora.io/) 
 
-## 2. 作业
+## 2. 作业 [->](Homeworks/) 
 
-### 2.0 C++ 热身训练 [->](0_CppPratices/) 
-
-- CMake 搭项目
-- 类 `class` 
-- 模板 `template` 
-- STL: `list`, `map` 
-- 静态库 lib，动态库 dll
+- [0. C++ 热身训练](Homeworks/0_CppPratices) 
 
 ## 3. 教程
 
