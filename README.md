@@ -1,4 +1,4 @@
-# USTC_CG
+# USTC CG
 
 ## 0. 简介
 
@@ -21,7 +21,9 @@
 
 ## 3. 教程
 
-- [菜鸟教程] C 语言教程：https://www.runoob.com/cprogramming/c-tutorial.html
-- [菜鸟教程] C++ 教程：https://www.runoob.com/cplusplus/cpp-tutorial.html
+- [[菜鸟教程] C 语言教程](https://www.runoob.com/cprogramming/c-tutorial.html) 
+- [[菜鸟教程] C++ 教程](https://www.runoob.com/cplusplus/cpp-tutorial.html) 
 - C++ Primer：[链接] [https://pan.baidu.com/s/1hmWNmL-KglaRGGbVOuPl5A](https://pan.baidu.com/s/1hmWNmL-KglaRGGbVOuPl5A)，[提取码] h959
+- OpenGL 教程: [LearnOpenGL](https://learnopengl-cn.github.io/) 
+- [中文技术文档的写作规范](https://github.com/ruanyf/document-style-guide) 
 

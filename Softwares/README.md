@@ -1,12 +1,16 @@
 # 软件
 
-## Github [->](Github/) 
+## Github [->](Github.md) 
 
 学生完成作业需要使用 github 来管理代码，请设为私有库
 
 ## Typora
 
 推荐的 markdown 文件编辑器和阅读器
+
+## Vistual Studio
+
+Windows 操作系统下最佳的 C++ 集成开发环境
 
 ## CMake
 
@@ -18,10 +22,6 @@
 
 CMake 内容比较杂，一下子掌握所有内容不太现实，在日后的使用过程中结合搜索和[官方文档](https://cmake.org/documentation/)来解决实际问题
 
-## Qt
+## Qt [->](Qt.md) 
 
 C++ 跨平台 GUI 框架
-
-## Vistual Studio
-
-Windows 操作系统下最佳的 C++ 集成开发环境
