@@ -1,6 +1,6 @@
 # 软件
 
-## Github
+## Github [->](Github/) 
 
 学生完成作业需要使用 github 来管理代码，请设为私有库
 
