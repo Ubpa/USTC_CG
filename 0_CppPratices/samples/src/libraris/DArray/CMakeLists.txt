@@ -7,7 +7,8 @@ file(GLOB sources
 	"${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 	"${CMAKE_CURRENT_SOURCE_DIR}/*.h"
 )
+list(APPEND sources "${CMAKE_SOURCE_DIR}/include/DArray.h")
 #多个库文件用 ';' 分隔，如果为空，则为 ""
 #如：set(libs "targetName;xxx.lib")
-set(libs "PolynomialList")
-Ubpa_SetupTarget(MODE ${mode} NAME ${targetName} SOURCES ${sources} LIBS ${libs})
+set(libs "")
+Ubpa_SetupTarget(MODE "DLL" NAME ${targetName} SOURCES ${sources} LIBS ${libs})

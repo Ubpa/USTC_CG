@@ -9,6 +9,6 @@ file(GLOB sources
 )
 list(APPEND sources "${CMAKE_SOURCE_DIR}/include/PolynomialList.h")
 #多个库文件用 ';' 分隔，如果为空，则为 ""
-#如：set(libs "lib1.lib;lib2.lib")
+#如：set(libs "targetName;xxx.lib")
 set(libs "")
-Ubpa_SetupTarget(MODE ${mode} NAME ${targetName} SOURCES ${sources} LIBS ${libs})
+Ubpa_SetupTarget(MODE "LIB" NAME ${targetName} SOURCES ${sources} LIBS ${libs})

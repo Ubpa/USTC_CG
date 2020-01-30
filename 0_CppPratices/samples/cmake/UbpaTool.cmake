@@ -29,6 +29,8 @@ function(Ubpa_SetupTarget)
 			add_library(${ARG_NAME} ${ARG_SOURCES})
 			# 无需手动设置
 			#set_target_properties(${ARG_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
+		elseif(${ARG_MODE} STREQUAL "DLL")
+			add_library(${ARG_NAME} SHARED ${ARG_SOURCES})
 		else()
 			message(FATAL_ERROR "mode [${ARG_MODE}] is not supported")
 			set(isSupport OFF)

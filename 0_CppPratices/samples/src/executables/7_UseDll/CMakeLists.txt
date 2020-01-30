@@ -9,5 +9,5 @@ file(GLOB sources
 )
 #多个库文件用 ';' 分隔，如果为空，则为 ""
 #如：set(libs "targetName;xxx.lib")
-set(libs "PolynomialList")
+set(libs "DArray")
 Ubpa_SetupTarget(MODE ${mode} NAME ${targetName} SOURCES ${sources} LIBS ${libs})
