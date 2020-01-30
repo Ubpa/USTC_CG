@@ -1,18 +1,21 @@
 resources/
 build/
-bin/
 lib/
 
 *Config.h
+
 *.bmp
 *.png
 *.jpg
 *.gif
 *.mp4
 *.pdf
+
 *.html
+
 *.rar
 *.zip
+
 *.doc
 *.docx
 *.ppt
@@ -23,3 +26,6 @@ lib/
 *.log
 *.sln
 *.user
+*.dll
+*.lib
+*.exe

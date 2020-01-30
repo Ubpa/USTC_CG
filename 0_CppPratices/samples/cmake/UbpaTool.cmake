@@ -40,7 +40,6 @@ function(Ubpa_SetupTarget)
 			target_link_libraries(${ARG_NAME} ${ARG_LIBS})
 			install(TARGETS ${ARG_NAME}
 					RUNTIME DESTINATION "bin"
-					LIBRARY DESTINATION "lib/${FOLDER_NAME}"
 					ARCHIVE DESTINATION "lib/${FOLDER_NAME}")
 		endif()
 	endif()
