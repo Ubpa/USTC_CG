@@ -39,27 +39,27 @@ double a[100];
 
 上述的程序大概形式可见：
 
-http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array0.rar（项目暂时未更新，仅参考代码）
+[http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array0.rar](http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array0.rar)（项目暂时未更新，仅参考代码）
 
 由于 `p` 和 `n` 之间有强烈的逻辑关系，自然可以用 `struct` 将它们“包”在一起处理，见：
 
-http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array1.0.rar（项目暂时未更新，仅参考代码）
+[http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array1.0.rar](http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array1.0.rar)（项目暂时未更新，仅参考代码）
 
-http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array1.1.rar（项目暂时未更新，仅参考代码）
+[http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array1.1.rar](http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array1.1.rar)（项目暂时未更新，仅参考代码）
 
 这时发现那些操作数组的接口函数，都是操作 `struct` 的数据，自然可以想到将这些函数“放”到 `struct` 里面。在 `struct` 中放函数在 C 中是不行的，但是在 C++ 中是可以的。这样大概如下形式：
 
-http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array2.rar（项目暂时未更新，仅参考代码）
+[http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array2.rar](http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array2.rar)（项目暂时未更新，仅参考代码）
 
 此时发现，数据 `p`, `n` 及处理它们的函数都“包”在一起，放在一个 `struct` 中，这就是对它们的一种封装。用户只要操作这个 `struct` 的函数，就可以操作一个“数组”。
 
 我们将关键词 `struct` 改为 `class`，然后将函数的类型改为 `public`，其他不变，这个程序就可以编译运行。这事实上就是一个简单的 C++ 的程序，并且大致完成了一个 `class`！见：
 
-http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array3.rar（项目暂时未更新，仅参考代码）
+[http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array3.rar](http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array3.rar)（项目暂时未更新，仅参考代码）
 
 在写 C++ 程序时，一般一个类需要 2 个文件，一个头文件 .h（定义了这个类的接口），一个实现文件 .cpp（具体这个类的实现），见：
 
-http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array4.rar（项目暂时未更新，仅参考代码）
+[http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array4.rar](http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/C2C++/Array4.rar)（项目暂时未更新，仅参考代码）
 
 希望上述过程好好体会一下。注意：上述的代码都不太符合编程规范，只是演示了大致的一个过程。你需按照严格的编程规范来完成该练习。
 

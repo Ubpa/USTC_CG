@@ -1,40 +1,40 @@
 # 作业项目
 
-此为 [0. C++ 热身训练](../) 的作业项目
+## 0. CMake
 
-## 要求
+熟读 [CMakeLists.txt](CMakeLists.txt/)，[cmake/UbpaTool.cmake](cmake/UbpaTool.cmake)，理解每一行代码的含义，若不理解则借助注释，搜索和[官方文档](https://cmake.org/documentation/) 
 
-### 1. 基础的动态数组
+## 1. 基础的动态数组
 
 > 详细说明见于 [documents/1_BasicDArray](../documents/1_BasicDArray) 
 
 完成 [src/exe/1_BasicDArray](src/exe/1_BasicDArray) 
 
-### 2. 高效的动态数组
+## 2. 高效的动态数组
 
 > 详细说明文档见于 [documents/2_EfficientDArray](../documents/2_EfficientDArray) 
 
 完成 [src/exe/2_EfficientDArray](src/exe/2_EfficientDArray) 
 
-### 3. 模板动态数组
+## 3. 模板动态数组
 
 > 详细说明见于 [documents/3_TemplateDArray](../documents/3_TemplateDArray) 
 
 仿照作业 1 和作业 2，在文件夹 [src/exe/](src/exe) 中添加文件夹 `3_TemplateDArray` 并生成一个 executable
 
-### 4. 基于 `list` 的多项式类
+## 4. 基于 `list` 的多项式类
 
 > 详细说明见于 [documents/4_list_Polynomial](../documents/4_list_Polynomial) 
 
 完成 [4_list_Polynomial](src/exe/4_list_Polynomial) 
 
-###  5. 基于 `map` 的多项式类
+##  5. 基于 `map` 的多项式类
 
 > 详细说明见于 [documents/5_map_Polynomial](../documents/5_map_Polynomial) 
 
 在文件夹 [src/exe/](src/exe) 中添加文件夹 `5_map_DArray` 并生成一个 executable，测试作业 4 和作业 5 的性能
 
-### 6. 静态库
+## 6. 静态库
 
 > 详细说明见于 [documents/6_useLib](../documents/6_useLib) 
 
