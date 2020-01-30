@@ -6,6 +6,8 @@
 
 课程主页：[ComputerGraphics 2020 Spring Summer](http://staff.ustc.edu.cn/~lgliu/Courses/ComputerGraphics_2020_spring-summer/default.htm) 
 
+请详细查看本项目的[攻略](stategy.md) 
+
 ## 1. 软件 [->](Softwares/) 
 
 - GitHub Desktop：[官网](https://desktop.github.com/)，[下载链接](https://central.github.com/deployments/desktop/desktop/latest/win32)，[官方文档](https://help.github.com/en/desktop)，[简易说明](Softwares/Github.md) 
