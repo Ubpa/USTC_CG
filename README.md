@@ -8,11 +8,12 @@
 
 ## 1. 软件 [->](Softwares/) 
 
-- [GitHub Desktop](Softwares/Github/)：[官网](https://desktop.github.com/)，[下载链接](https://central.github.com/deployments/desktop/desktop/latest/win32)，[官方文档](https://help.github.com/en/desktop) 
+- [GitHub Desktop](Softwares/Github.md)：[官网](https://desktop.github.com/)，[下载链接](https://central.github.com/deployments/desktop/desktop/latest/win32)，[官方文档](https://help.github.com/en/desktop) 
+- Typora：[官网](https://www.typora.io/)，[下载链接](https://www.typora.io/windows/typora-setup-x64.exe?)，[官方文档](http://support.typora.io/) 
 - Vistual Studio Community 2019: [官网](https://visualstudio.microsoft.com/zh-hans/vs/) 
 - CMake 3.16.3：[官网](https://cmake.org/)，[下载链接](https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-win64-x64.msi)，[视频教程](https://www.bilibili.com/video/av85644125/)，[官方教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html)，[官方文档](https://cmake.org/documentation/) 
-- Qt 5.12.0：[官网](https://www.qt.io/) 
-- Typora：[官网](https://www.typora.io/)，[下载链接](https://www.typora.io/windows/typora-setup-x64.exe?)，[官方文档](http://support.typora.io/) 
+- [Qt 5.12.0](Softwares/Qt.md)：[官网](https://www.qt.io/)，[官方文档 | Class](https://doc.qt.io/qt-5.12/classes.html) 
+- 辅助工具：[Bandicam](https://www.bandicam.cn/)（录制屏幕），[小丸工具箱](https://maruko.appinn.me/)（压制视频）
 
 ## 2. 作业 [->](Homeworks/) 
 
