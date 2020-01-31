@@ -13,7 +13,7 @@
 
 ## 1. 课程作业 [->](Homeworks/) 
 
-- [0. C++ 课前热身练习](Homeworks/0_CppPratices) ，递交时间：2020年2月16日星期日
+- [0. C++ 课前热身练习](Homeworks/0_CppPratices) 
 
 ## 2. 相关软件 [->](Softwares/) 
 
