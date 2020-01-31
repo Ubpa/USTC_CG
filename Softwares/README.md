@@ -4,7 +4,7 @@
 
 ## Vistual Studio (VS)
 
-微软的Visual Studio (VS)是Windows 操作系统下最佳的 C++ 集成开发环境。本课程使用微软的`VS 2019版本`来进行代码编写及调试。
+微软的Visual Studio (VS)是Windows 操作系统下最佳的 C++ 集成开发环境。本课程使用微软的`VS 2019`版本来进行代码编写及调试。
 
 - Visual Studio Community 2019可从官网免费下载: [官网](https://visualstudio.microsoft.com/zh-hans/vs/) 
 - Visual Studio 2019家庭版/企业版可从科大内网中免费下载（科大的OEM版）
