@@ -31,7 +31,7 @@ QT是一个跨平台的 C++ 开发库，主要用来开发图形用户界面（G
 本课程要求使用GitHub来管理和维护作业的代码，须设为私有库。
 
 - GitHub Desktop：[官网](https://desktop.github.com/)，[下载链接](https://central.github.com/deployments/desktop/desktop/latest/win32)，[官方文档](https://help.github.com/en/desktop)，[简易说明](Softwares/Github.md) 
-- 简略使用说明 [->](GitHub.md) 
+- 简略使用说明 [->](Github.md) 
 
 ## Typora
 
