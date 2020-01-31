@@ -1,4 +1,4 @@
-# GitHub
+# GitHub 简略使用说明
 
 > [官网](https://desktop.github.com/)，[下载链接](https://central.github.com/deployments/desktop/desktop/latest/win32)，[官方文档](https://help.github.com/en/desktop) 
 
