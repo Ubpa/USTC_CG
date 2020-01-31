@@ -2,9 +2,8 @@
 
 > [官网](https://desktop.github.com/)，[下载链接](https://central.github.com/deployments/desktop/desktop/latest/win32)，[官方文档](https://help.github.com/en/desktop) 
 
-Git 是很好的代码版本管理工具，GitHub 是 Git 一个托管平台（把本地的代码历史上传到云端）
-
-因此需要学习两个内容：Git 和 GitHub
+- GIT: 是一个面向开源及私有软件项目的托管平台，是一个分布式的版本控制软件，它可以有效、高速地处理各种项目的版本管理。
+- GitHub: 是 Git 的一个托管平台（把本地的代码历史上传到云端），相对于传统的SVN(Subversion)，GitHub具有更强大的功能，已成为当前人们用来管理代码及各种文档的利器。
 
 ## Git
 
@@ -13,7 +12,7 @@ Git 是很好的代码版本管理工具，GitHub 是 Git 一个托管平台（�
 - [廖雪峰 Git 教程](https://www.liaoxuefeng.com/wiki/896043488029600) 
 - [Git 教程 | 菜鸟教程](https://www.runoob.com/git/git-tutorial.html) 
 
-重点学会以下命令
+需要学会以下几个重要的命令：
 
 - `git log`：查看历史版本信息
 - `git reset --soft <hash-code>`：跳转到任意版本，保留代码不变
@@ -22,11 +21,10 @@ Git 是很好的代码版本管理工具，GitHub 是 Git 一个托管平台（�
 
 ## GitHub
 
-官方有一个教程：[https://lab.github.com/](https://lab.github.com/) 
+官方教程：[https://lab.github.com/](https://lab.github.com/) 
 
-用软件 Github Desktop 可简化 Git 与 GitHub 间的操作，是 Git 功能的简单封装
+## GitHub Desktop
 
-一般的操作可以在上边完成，复杂操作就只能使用 Git 的命令行
+Github Desktop是GitHub的客户端（桌面端）软件 ，它与GitHub进行在线同步，可简化 Git 与 GitHub 间的操作，是 Git 功能的简单封装。可以完成一般的操作，但复杂的操作就只能使用 Git 的命令行。推荐使用！
 
-可查阅文档简单学习一下 [https://help.github.com/en/desktop](https://help.github.com/en/desktop) 
-
+学习文档： [https://help.github.com/en/desktop](https://help.github.com/en/desktop) 
