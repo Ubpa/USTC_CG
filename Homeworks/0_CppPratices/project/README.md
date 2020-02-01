@@ -51,7 +51,7 @@
 1. 将小练习 4 中的 [PolynomialList.h](src/executables/4_list_Polynomial/PolynomialList.h) 放到 [include/](include/) 中
 2. 将小练习 4 中的 [PolynomialList.cpp](src/executables/4_list_Polynomial/PolynomialList.cpp) 复制到文件夹 [src/libraries/PolynomialList/](src/libraries/PolynomialList/) 中
 3. 编写 [src/libraries/PolynomialList/CMakeLists.txt](src/libraries/PolynomialList/CMakeLists.txt)，使其能生成静态库 PolynomialList.lib
-4. 编写 [src/executables/6_UseLib/CMakeLists.txt](src/executables/6_UseLib/CMakeLists.txt)，使其能生成一个 executable，并链接步骤 2 的静态库
+4. 编写 [src/executables/6_UseLib/CMakeLists.txt](src/executables/6_UseLib/CMakeLists.txt)，使其能生成一个 executable，并链接步骤 3 的静态库
 
 ### 小练习 7. 动态库
 
@@ -60,5 +60,5 @@
 1. 将小练习 2 中的 [DArray.h](src/executables/2_EfficientDArray/DArray.h) 放到文件夹 [include/](include/) 中
 2. 将小练习 2 中的 [DArray.cpp](src/executables/2_EfficientDArray/DArray.cpp) 复制到文件夹 [src/libraries/DArray/](src/libraries/DArray/) 中
 3. 编写 [src/libraries/DArray/CMakeLists.txt](src/libraries/PolynomialList/CMakeLists.txt)，使其能生成动态库 DArray.dll（同时会有 DArray.lib 生成）
-4. 编写 [src/executables/7_UseDll/CMakeLists.txt](src/executables/6_UseLib/CMakeLists.txt)，使其能生成一个 executable，并链接步骤 2 的动态库
+4. 编写 [src/executables/7_UseDll/CMakeLists.txt](src/executables/6_UseLib/CMakeLists.txt)，使其能生成一个 executable，并链接步骤 3 的动态库
 
