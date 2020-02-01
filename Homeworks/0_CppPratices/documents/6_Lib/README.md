@@ -12,11 +12,17 @@
 
 ## 生成静态库 (*.lib)
 
-参照 CMake 教程 https://cmake.org/cmake/help/latest/guide/tutorial/index.html
+参照 [CMake 教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) 的 step 2
+
+在使用 CMake 时，需要用到 [project/cmake/UbpaTool.cmake](../../project/cmake/UbpaTool.cmake) 的函数 `Ubpa_SetupTarget`，调用方法为
+
+```cmake
+Ubpa_SetupTarget(MODE "LIB" NAME <target-name> SOURCES <sources> LIBS <libs>)
+```
 
 ## 使用静态库 (*.lib)
 
-参照 CMake 教程 https://cmake.org/cmake/help/latest/guide/tutorial/index.html
+参照 [CMake 教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) 的 step 2
 
 ## 作业要求
 

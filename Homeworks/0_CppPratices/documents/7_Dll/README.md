@@ -6,9 +6,27 @@
 
 参照 [CMake 教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html)  的 step 9
 
-VS 在生成 dll 时会预定义一个宏，`<target-name>_EXPORTS`，本作业需要用到这个宏
+VS 在生成 dll 时会预定义一个宏，`<target-name>_EXPORTS`，本作业需要用到这个宏，用法如下
 
-[project/cmake/UbpaTool.cmake](../../project/cmake/UbpaTool.cmake) 提供了函数 `Ubpa_SetupTarget`，只需调用
+```c++
+#ifdef _WIN32
+#  ifdef DArray_EXPORTS
+#    define DECLSPEC __declspec(dllexport)
+#  else
+#    define DECLSPEC __declspec(dllimport)
+#  endif
+#else // non windows
+#  define DECLSPEC
+#endif
+```
+
+对于需要输出的类，在关键字 `class` 后添加 `DECLSPEC`，如下
+
+```C++
+class DECLSPEC DArray{ /*...*/ };
+```
+
+在使用 CMake 时，需要用到 [project/cmake/UbpaTool.cmake](../../project/cmake/UbpaTool.cmake) 的函数 `Ubpa_SetupTarget`，调用方法为
 
 ```cmake
 Ubpa_SetupTarget(MODE "DLL" NAME <target-name> SOURCES <sources> LIBS <libs>)
@@ -16,7 +34,7 @@ Ubpa_SetupTarget(MODE "DLL" NAME <target-name> SOURCES <sources> LIBS <libs>)
 
 ## 使用动态库
 
-参照 CMake 教程 https://cmake.org/cmake/help/latest/guide/tutorial/index.html
+参照 [CMake 教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html)  的 step 9
 
 ## 作业要求
 
