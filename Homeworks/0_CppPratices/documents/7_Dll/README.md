@@ -4,7 +4,15 @@
 
 ## 生成动态库
 
-参照 CMake 教程 https://cmake.org/cmake/help/latest/guide/tutorial/index.html
+参照 [CMake 教程](https://cmake.org/cmake/help/latest/guide/tutorial/index.html)  的 step 9
+
+VS 在生成 dll 时会预定义一个宏，`<target-name>_EXPORTS`，本作业需要用到这个宏
+
+[project/cmake/UbpaTool.cmake](../../project/cmake/UbpaTool.cmake) 提供了函数 `Ubpa_SetupTarget`，只需调用
+
+```cmake
+Ubpa_SetupTarget(MODE "DLL" NAME <target-name> SOURCES <sources> LIBS <libs>)
+```
 
 ## 使用动态库
 
