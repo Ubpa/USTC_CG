@@ -72,7 +72,7 @@ void DArray::Free()
 }
 
 // judge the validate of an index
-inline int DArray::InvalidateIndex(int nIndex)
+bool DArray::InvalidateIndex(int nIndex) const
 {
 	if(nIndex < 0 || nIndex >= m_nSize)
 	{
