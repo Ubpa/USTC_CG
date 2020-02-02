@@ -37,6 +37,7 @@ void DArray::Print() const {
 	cout << "size= " << m_nSize << ":";
 	for (int i = 0; i < m_nSize; i++)
 		cout << " " << GetAt(i);
+
 	cout << endl;
 }
 
