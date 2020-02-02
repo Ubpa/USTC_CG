@@ -74,7 +74,7 @@ void DArray::Free()
 // judge the validate of an index
 inline int DArray::InvalidateIndex(int nIndex)
 {
-	if(nIndex < 0 || nIndex > m_nSize)
+	if(nIndex < 0 || nIndex >= m_nSize)
 	{
 		return true;
 	}

@@ -34,7 +34,7 @@ private:
 private:
 	void	Init();		// initilize the array
 	void	Free();		// free the array
-	inline	int	InvalidateIndex(int nIndex);	// judge the validate of an index
+	int	InvalidateIndex(int nIndex);	// judge the validate of an index
 };
 
 #endif // !_DYNAMICARRAY_H_
