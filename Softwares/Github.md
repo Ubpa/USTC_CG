@@ -29,7 +29,34 @@ Github Desktop是GitHub的客户端（桌面端）软件 ，它与GitHub进行�
 
 学习文档： [https://help.github.com/en/desktop](https://help.github.com/en/desktop) 
 
-## Private Fork
+## Private Fork 工作流
 
 > 参考来源：https://gist.github.com/0xjac/85097472043b697ab57ba1b1c7530274
+
+### 1. 初始化
+
+- 使用 [the Import a Repository feature](https://github.com/new/import) 拷贝 `https://github.com/Ubpa/USTC_CG` 得到自己的**私有库** 
+
+- 将该私有库 `clone` 到本地
+
+- 在库的本地根目录执行
+
+  ```bash
+  git remote add https://github.com/Ubpa/USTC_CG.git
+  git remote set-url --push upstream DISABLE
+  ```
+
+### 2. 从 USTC_CG 拉取更新
+
+- 在库的本地根目录执行
+
+  ```bash
+  git fetch upstream
+  ```
+
+- 在 GitHub Desktop 中，点击菜单栏的 `branch->merge into current branch`，弹出的窗口中选择 other branches 的 `upstream/master` 
+
+- 如果没有冲突，则可点击下边的 "Merge `upstream/master` into `master`；否则需要解决相应冲突
+
+> 冲突是因为你的私有库和 USTC_CG 修改了同一个文件
 
