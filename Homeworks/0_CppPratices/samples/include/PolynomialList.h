@@ -1,59 +1,46 @@
+#pragma once
 #ifndef POLYNOMIALLIST_H
 #define POLYNOMIALLIST_H
+
 #include <list>
 #include <string>
 #include <vector>
+
 class PolynomialList
 {
 public:
-
-
     PolynomialList();
     PolynomialList(const PolynomialList& other);
     PolynomialList(const std::string& file); // initialization using file
-    PolynomialList(const double *cof,const int *deg, int n);
-    PolynomialList( const std::vector<int>& deg,const std::vector<double>& cof);
-    virtual ~PolynomialList();
+    PolynomialList(const double* cof, const int* deg, int n);
+    PolynomialList(const std::vector<int>& deg, const std::vector<double>& cof);
 
-    double coff(int i) const;
     double& coff(int i);
+    double coff(int i) const;
 
     void compress();
+
     // overload
-    PolynomialList operator+( const PolynomialList &right ) const; //Overload operator +
-    PolynomialList operator-( const PolynomialList &right ) const; //Overload operator -
-    PolynomialList operator*( const PolynomialList &right ) const; //Overload operator *
-    PolynomialList& operator=(const PolynomialList &right ); //Overload operator =
+    PolynomialList operator+(const PolynomialList& right) const; //Overload operator +
+    PolynomialList operator-(const PolynomialList& right) const; //Overload operator -
+    PolynomialList operator*(const PolynomialList& right) const; //Overload operator *
+    PolynomialList& operator=(const PolynomialList& right); //Overload operator =
 
     void Print() const;
+
 private:
-    struct Node
-    {
-        Node():deg(0),cof(0)
-        {
-
-        }
-
-        Node(int _deg, double _cof):
-            deg(_deg),cof(_cof)
-        {
-
-        }
+    struct Term {
         int deg;
         double cof;
-        bool operator < (const Node& n) const
-        {
-            if(deg <n.deg)
-                return true;
-            return false;
-        }
+
+        Term(int deg, double cof) : deg(deg), cof(cof) { }
+        Term() : Term(0, 0) { }
     };
     bool ReadFromFile(const std::string& file);
-    double& AddOneTerm(const Node& term); // add one term into m_Polynomial
-
+    Term& AddOneTerm(const Term& term); // add one term into m_Polynomial
 
 private:
-    std::list<Node> m_Polynomial;
+    std::list<Term> m_Polynomial; // high degree -> low degree
 };
 
 #endif // POLYNOMIALLIST_H

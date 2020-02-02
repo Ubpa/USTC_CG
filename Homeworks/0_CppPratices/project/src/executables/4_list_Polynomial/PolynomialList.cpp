@@ -2,79 +2,68 @@
 
 using namespace std;
 
-PolynomialList::PolynomialList()
-{
-    /// do nothing
-}
-
-PolynomialList::PolynomialList(const PolynomialList &other)
-{
+PolynomialList::PolynomialList(const PolynomialList& other) {
     // TODO
 }
 
-PolynomialList::PolynomialList(const string &file)
-{
+PolynomialList::PolynomialList(const string& file) {
     // TODO
 }
 
-PolynomialList::PolynomialList(const double *cof, const int *deg, int n)
-{
+PolynomialList::PolynomialList(const double* cof, const int* deg, int n) {
     // TODO
 }
 
-PolynomialList::PolynomialList(const vector<int> &deg, const vector<double> &cof)
-{
+PolynomialList::PolynomialList(const vector<int>& deg, const vector<double>& cof) {
     // TODO
 }
 
-PolynomialList::~PolynomialList()
-{
-    // TODO
-}
-
-double PolynomialList::coff(int i) const
-{
+double PolynomialList::coff(int i) const {
     // TODO
     return 0.;
 }
 
-double &PolynomialList::coff(int i)
-{
+double& PolynomialList::coff(int i) {
     // TODO
-    static double error; // you should delete this line
-    return error;
+    static double ERROR; // you should delete this line
+    return ERROR;
 }
 
-void PolynomialList::compress()
-{
+void PolynomialList::compress() {
     // TODO
 }
 
-PolynomialList PolynomialList::operator+(const PolynomialList &right) const
-{
+PolynomialList PolynomialList::operator+(const PolynomialList& right) const {
     // TODO
     return {};
 }
 
-PolynomialList PolynomialList::operator-(const PolynomialList &right) const
-{
+PolynomialList PolynomialList::operator-(const PolynomialList& right) const {
     // TODO
     return {};
 }
 
-PolynomialList PolynomialList::operator*(const PolynomialList &right) const
-{
+PolynomialList PolynomialList::operator*(const PolynomialList& right) const {
     // TODO
     return {};
 }
 
-PolynomialList &PolynomialList::operator=(const PolynomialList &right)
-{
+PolynomialList& PolynomialList::operator=(const PolynomialList& right) {
     // TODO
     return *this;
 }
 
-void PolynomialList::Print() const
-{
+void PolynomialList::Print() const {
     // TODO
+}
+
+bool PolynomialList::ReadFromFile(const string& file) {
+    // TODO
+    return false;
+}
+
+PolynomialList::Term& PolynomialList::AddOneTerm(const Term& term) {
+    // TODO
+    static Term ERROR; // you should delete this line
+    return ERROR;
 }
