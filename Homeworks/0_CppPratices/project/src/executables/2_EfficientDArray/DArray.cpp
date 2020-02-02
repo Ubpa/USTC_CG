@@ -1,9 +1,5 @@
 // implementation of class DArray
-#include <iostream>
-
 #include "DArray.h"
-
-using namespace std;
 
 // default constructor
 DArray::DArray()

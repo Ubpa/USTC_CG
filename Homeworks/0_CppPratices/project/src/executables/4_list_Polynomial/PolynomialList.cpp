@@ -1,10 +1,7 @@
 #include "PolynomialList.h"
-#include <iostream>
-#include <algorithm>
-#include <fstream>
-#include <math.h>
-#define EPSILON 1.0e-10	// zero double
+
 using namespace std;
+
 PolynomialList::PolynomialList()
 {
     /// do nothing
