@@ -54,10 +54,9 @@ int DArray::GetSize()
 }
 
 // set the size of the array
-bool DArray::SetSize(int nSize)
+void DArray::SetSize(int nSize)
 {
 	//TODO
-	return 0.;
 }
 
 // get an element at an index
@@ -68,10 +67,9 @@ double DArray::GetAt(int nIndex)
 }
 
 // set the value of an element 
-bool	DArray::SetAt(int nIndex, double dValue)
+void DArray::SetAt(int nIndex, double dValue)
 {
 	//TODO
-	return false;
 }
 
 // overload operator '[]'
@@ -82,24 +80,21 @@ double DArray::operator[](int nIndex) const
 }
 
 // add a new element at the end of the array
-bool DArray::PushBack(double dValue)
+void DArray::PushBack(double dValue)
 {
 	//TODO
-	return false;
 }
 
 // delete an element at some index
-bool DArray::DeleteAt(int nIndex)
+void DArray::DeleteAt(int nIndex)
 {
 	//TODO
-	return false;
 }
 
 // insert a new element at some index
-bool DArray::InsertAt(int nIndex, double dValue)
+void DArray::InsertAt(int nIndex, double dValue)
 {
 	//TODO
-	return false;
 }
 
 // overload operator '='
