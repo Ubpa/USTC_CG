@@ -33,7 +33,7 @@ DArray::~DArray() {
 }
 
 // display the elements of the array
-void DArray::Print() {
+void DArray::Print() const {
 	cout << "size= " << m_nSize << ":";
 	for (int i = 0; i < m_nSize; i++)
 		cout << " " << GetAt(i);
@@ -57,7 +57,7 @@ void DArray::Free() {
 }
 
 // get the size of the array
-int DArray::GetSize() {
+int DArray::GetSize() const {
 	return m_nSize;
 }
 
@@ -89,7 +89,7 @@ void DArray::SetSize(int nSize) {
 }
 
 // get an element at an index
-double DArray::GetAt(int nIndex) {
+const double& DArray::GetAt(int nIndex) const {
 	assert(nIndex >= 0 && nIndex < m_nSize);
 	return m_pData[nIndex];
 }
@@ -101,7 +101,7 @@ void DArray::SetAt(int nIndex, double dValue) {
 }
 
 // overload operator '[]'
-double DArray::operator[](int nIndex) const {
+const double& DArray::operator[](int nIndex) const {
 	assert(nIndex >= 0 && nIndex < m_nSize);
 	return m_pData[nIndex];
 }
