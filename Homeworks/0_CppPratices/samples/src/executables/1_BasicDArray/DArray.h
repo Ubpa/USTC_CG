@@ -25,7 +25,7 @@ public:
 	bool	DeleteAt(int nIndex);		// delete an element at some index
 	bool	InsertAt(int nIndex, double dValue);	// insert a new element at some index
 	
-	DArray &DArray::operator = (const DArray& arr);		//overload operator '='
+	DArray& operator = (const DArray& arr);		//overload operator '='
 
 private:
 	double* m_pData;	// the pointer to the array memory

@@ -40,7 +40,7 @@ public:
 	bool	DeleteAt(int nIndex);		// delete an element at some index
 	bool	InsertAt(int nIndex, T dValue);	// insert a new element at some index
 	
-	DArray &DArray::operator = (const DArray& arr);		//overload operator '='
+	DArray& operator = (const DArray& arr);		//overload operator '='
 };
 
 // default constructor
@@ -378,6 +378,8 @@ bool DArray<T>::InsertAt(int nIndex, T dValue)
 template<class T>
 DArray<T>& DArray<T>::operator = (const DArray& arr)
 {
+	delete m_pData;
+
 	m_nSize = arr.m_nSize;
 	m_nMax = arr.m_nSize;
 	m_pData = new T [m_nSize];
