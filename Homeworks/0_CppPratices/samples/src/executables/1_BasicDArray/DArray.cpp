@@ -127,7 +127,7 @@ void DArray::DeleteAt(int nIndex) {
 
 // insert a new element at some index
 void DArray::InsertAt(int nIndex, double dValue) {
-	assert(nIndex<0 && nIndex > m_nSize); // nIndex == m_nSize is legal
+	assert(nIndex>=0 && nIndex <= m_nSize); // nIndex == m_nSize is legal
 	
 	double* pTemp = new double[static_cast<size_t>(m_nSize) + 1];
 
