@@ -278,7 +278,7 @@ bool DArray::InsertAt(int nIndex, double dValue)
 // overload operator '='
 DArray& DArray::operator = (const DArray& arr)
 {
-	delete m_pData;
+	delete [] m_pData;
 
 	m_nSize = arr.m_nSize;
 	m_pData = new double [m_nSize];
