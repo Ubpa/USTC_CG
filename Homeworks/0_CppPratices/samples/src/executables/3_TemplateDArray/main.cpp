@@ -21,10 +21,10 @@ int main(int argc, char** argv)
 	DArray<double> acopy = a;  //此处用到了拷贝构造函数
 	acopy.Print();
 
-	DArray<double> acopy2 (a);  //该语句等同于上面的语句，都是初始化
+	DArray<double> acopy2(a);  //该语句等同于上面的语句，都是初始化
 	acopy2.Print();
 
-	DArray<double> acopy3, acopy4; 
+	DArray<double> acopy3, acopy4;
 	acopy4 = acopy3 = a;					//此处用到了赋值操作符号"="的重载
 	acopy3.Print();
 

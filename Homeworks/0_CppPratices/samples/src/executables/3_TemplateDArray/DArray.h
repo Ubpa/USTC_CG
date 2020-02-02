@@ -102,15 +102,15 @@ void DArray<T>::Init()
 {
 	m_nSize = 0;
 	m_nMax = 0;
-	m_pData = NULL;
+	m_pData = nullptr;
 }
 
 // free the array
 template<class T>
 void DArray<T>::Free()
 {
-	delete [] m_pData;
-	m_pData = NULL;
+	delete[] m_pData;
+	m_pData = nullptr;
 
 	m_nSize = 0;
 	m_nMax = 0;
@@ -141,10 +141,10 @@ int DArray<T>::GetSize()
 template<class T>
 bool DArray<T>::SetSize(int nSize)
 {
-	if( m_pData == NULL )
+	if( m_pData == nullptr )
 	{
 		m_pData = new T [nSize];
-		if( m_pData == NULL )
+		if( m_pData == nullptr )
 		{
 			cout<< "Can not alloc memory in SetSize()!" << endl;
 			return false;
@@ -164,9 +164,9 @@ bool DArray<T>::SetSize(int nSize)
 	}
 	else
 	{
-		T *pTemp=NULL;
+		T *pTemp=nullptr;
 		pTemp = new T [nSize];
-		if( pTemp == NULL )
+		if( pTemp == nullptr )
 		{
 			cout<< "Can not alloc memory in SetSize()!" << endl;
 			return false;
@@ -190,7 +190,7 @@ bool DArray<T>::SetSize(int nSize)
 			pTemp[i] = m_pData[i];
 		}
 
-		delete [] m_pData;
+		delete[] m_pData;
 		m_pData = pTemp;
 		m_nSize = nSize;
 		m_nMax = nSize;
@@ -257,9 +257,9 @@ bool DArray<T>::PushBack(T dValue)
 			m_nMax *= 2;
 		}
 
-		T *pTemp=NULL;
+		T *pTemp=nullptr;
 		pTemp = new T [m_nMax];
-		if( pTemp == NULL )
+		if( pTemp == nullptr )
 		{
 			cout<< "Can not alloc memory in PushBack()!" << endl;
 			return false;
@@ -271,7 +271,7 @@ bool DArray<T>::PushBack(T dValue)
 		}
 		pTemp[m_nSize] = dValue;
 
-		delete [] m_pData;
+		delete[] m_pData;
 		m_pData = pTemp;
 		m_nSize++;
 	}
@@ -290,9 +290,9 @@ bool DArray<T>::DeleteAt(int nIndex)
 	}
 	else
 	{
-		T *pTemp=NULL;
+		T *pTemp=nullptr;
 		pTemp = new T [m_nSize-1];
-		if( pTemp == NULL )
+		if( pTemp == nullptr )
 		{
 			cout<< "Can not alloc memory in DeleteAt()!" << endl;
 			return false;
@@ -308,7 +308,7 @@ bool DArray<T>::DeleteAt(int nIndex)
 			pTemp[i] = m_pData[i+1];
 		}
 
-		delete [] m_pData;
+		delete[] m_pData;
 		m_pData = pTemp;
 		m_nSize--;
 		m_nMax = m_nSize;
@@ -339,7 +339,7 @@ bool DArray<T>::InsertAt(int nIndex, T dValue)
 		}
 		else
 		{
-			T *pTemp=NULL;
+			T *pTemp=nullptr;
 			if(m_nMax == 0 )
 			{
 				m_nMax = 1;
@@ -349,7 +349,7 @@ bool DArray<T>::InsertAt(int nIndex, T dValue)
 				m_nMax *= 2;
 			}
 			pTemp = new T [m_nMax];
-			if( pTemp == NULL )
+			if( pTemp == nullptr )
 			{
 				cout<< "Can not alloc memory in InsertAt()!" << endl;
 				return false;
@@ -365,7 +365,7 @@ bool DArray<T>::InsertAt(int nIndex, T dValue)
 				pTemp[i] = m_pData[i-1];
 			}
 
-			delete [] m_pData;
+			delete[] m_pData;
 			m_pData = pTemp;
 			m_nSize++;
 		}

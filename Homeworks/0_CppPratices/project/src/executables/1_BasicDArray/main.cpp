@@ -19,10 +19,10 @@ int main(int argc, char** argv)
 	DArray acopy = a; //此处用到了拷贝构造函数
 	acopy.Print();
 
-	DArray acopy2 (a); //该语句等同于上面的语句，都是初始化
+	DArray acopy2(a); //该语句等同于上面的语句，都是初始化
 	acopy2.Print();
 
-	DArray acopy3, acopy4; 
+	DArray acopy3, acopy4;
 	acopy4 = acopy3 = a;	//此处用到了赋值操作符号"="的重载
 	acopy3.Print();
 	acopy4.Print();
@@ -33,7 +33,7 @@ int main(int argc, char** argv)
 	b.DeleteAt(0);
 	b.Print();
 	b.PushBack(22);
-	b.SetSize( 5 );
+	b.SetSize(5);
 	b.Print();
 
 	DArray c;
