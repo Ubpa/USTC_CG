@@ -6,10 +6,9 @@
 #include <string>
 #include <vector>
 
-class PolynomialList
-{
+class PolynomialList {
 public:
-    PolynomialList();
+    PolynomialList() { }
     PolynomialList(const PolynomialList& other);
     PolynomialList(const std::string& file); // initialization using file
     PolynomialList(const double* cof, const int* deg, int n);

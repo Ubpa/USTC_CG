@@ -11,13 +11,8 @@
 
 using namespace std;
 
-PolynomialList::PolynomialList() {
-    /// do nothing
-}
-
 PolynomialList::PolynomialList(const PolynomialList& other) {
-    for (const Term& term : other.m_Polynomial)
-        AddOneTerm(term);
+    m_Polynomial = other.m_Polynomial;
 }
 
 PolynomialList::PolynomialList(const string& file) {
@@ -52,7 +47,7 @@ double& PolynomialList::coff(int i) {
 }
 
 void PolynomialList::compress() {
-    list<Term>::iterator itr = m_Polynomial.begin();
+    auto itr = m_Polynomial.begin();
     while (itr != m_Polynomial.end()) {
         if (fabs((*itr).cof) < EPSILON)
             itr = m_Polynomial.erase(itr);
@@ -106,20 +101,23 @@ void PolynomialList::Print() const {
     }
 
     for (; itr != m_Polynomial.end(); itr++) {
-        const auto& term = *itr;
-        if (itr != m_Polynomial.begin() && term.cof > 0)
-            cout << " +";
+        if (itr != m_Polynomial.begin()) {
+            cout << " ";
+            if (itr->cof > 0)
+                cout << "+";
+        }
 
-        cout << term.cof;
+        cout << itr->cof;
 
-        if (term.deg > 0)
-            cout << "x^" << term.deg;
+        if (itr->deg > 0)
+            cout << "x^" << itr->deg;
     }
     cout << endl;
 }
 
 bool PolynomialList::ReadFromFile(const string& file) {
     m_Polynomial.clear();
+
     ifstream inp;
     inp.open(file.c_str());
     if (!inp.is_open()) {
@@ -127,6 +125,7 @@ bool PolynomialList::ReadFromFile(const string& file) {
             << "\t" << "file [" << file << "] opens failed" << endl;
         return false;
     }
+
     char ch;
     int n;
     inp >> ch;
@@ -138,7 +137,9 @@ bool PolynomialList::ReadFromFile(const string& file) {
 
         AddOneTerm(nd);
     }
+
     inp.close();
+
     return true;
 }
 
