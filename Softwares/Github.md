@@ -44,7 +44,7 @@ Github Desktop是GitHub的客户端（桌面端）软件 ，它与GitHub进行�
 - 在库的本地根目录执行
 
   ```bash
-  git remote add https://github.com/Ubpa/USTC_CG.git
+  git remote add upstream https://github.com/Ubpa/USTC_CG.git
   git remote set-url --push upstream DISABLE
   ```
 
