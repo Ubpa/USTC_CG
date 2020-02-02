@@ -21,8 +21,7 @@ void generateTestCase(int size, std::vector<int>& deg, std::vector<double>& cof)
     }
 }
 
-int main()
-{
+int main(int argc, char** argv) {
     srand(unsigned(time(0)));
     TestPolynomial<PolynomialList> testList;
     TestPolynomial<PolynomialMap> testMap;

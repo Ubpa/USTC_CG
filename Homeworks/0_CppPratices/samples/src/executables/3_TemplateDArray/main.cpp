@@ -1,9 +1,8 @@
-
-#include <iostream>
 #include "DArray.h"
 
-int main(int argc, char** argv)
-{
+#include <iostream>
+
+int main(int argc, char** argv) {
 	DArray<double> a;
 	a.InsertAt(0, 2.1);
 	a.Print();
@@ -18,14 +17,14 @@ int main(int argc, char** argv)
 	a.InsertAt(0, 4.1);
 	a.Print();
 
-	DArray<double> acopy = a;  //此处用到了拷贝构造函数
+	DArray<double> acopy = a; // 此处用到了拷贝构造函数
 	acopy.Print();
 
-	DArray<double> acopy2(a);  //该语句等同于上面的语句，都是初始化
+	DArray<double> acopy2(a); // 该语句等同于上面的语句，都是初始化
 	acopy2.Print();
 
 	DArray<double> acopy3, acopy4;
-	acopy4 = acopy3 = a;					//此处用到了赋值操作符号"="的重载
+	acopy4 = acopy3 = a; // 此处用到了赋值操作符号"="的重载
 	acopy3.Print();
 
 	DArray<int> b;

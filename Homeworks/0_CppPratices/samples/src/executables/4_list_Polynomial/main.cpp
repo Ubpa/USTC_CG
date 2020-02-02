@@ -1,12 +1,11 @@
 #include "PolynomialList.h"
+
 #include <list>
 #include <iostream>
 
 using namespace std;
 
-
-int main()
-{
+int main(int argc, char** argv) {
 	PolynomialList p1("../data/P3.txt");
 	PolynomialList p2("../data/P4.txt");
 	PolynomialList p3;
