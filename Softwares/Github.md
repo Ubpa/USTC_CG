@@ -27,6 +27,8 @@
 
 Github Desktop是GitHub的客户端（桌面端）软件 ，它与GitHub进行在线同步，可简化 Git 与 GitHub 间的操作，是 Git 功能的简单封装。可以完成一般的操作，但复杂的操作就只能使用 Git 的命令行。推荐使用！
 
+必须学会**冲突**的解决（在 merge 其他分支到 `master` 分支的时候很容易产生冲突）
+
 学习文档： [https://help.github.com/en/desktop](https://help.github.com/en/desktop) 
 
 ## Private Fork 工作流
