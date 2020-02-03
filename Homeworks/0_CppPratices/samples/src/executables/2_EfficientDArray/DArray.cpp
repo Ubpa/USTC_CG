@@ -129,8 +129,10 @@ void DArray::InsertAt(int nIndex, double dValue) {
 	assert(nIndex >= 0 && nIndex <= m_nSize); // nIndex == m_nSize is legal
 
 	Reserve(m_nSize + 1);
-	for (int i = nIndex; i < m_nSize; i++)
-		m_pData[i + 1] = m_pData[i];
+
+	for (int i = m_nSize; i > nIndex; i--)
+		m_pData[i] = m_pData[i - 1];
+
 	m_pData[nIndex] = dValue;
 
 	m_nSize++;
