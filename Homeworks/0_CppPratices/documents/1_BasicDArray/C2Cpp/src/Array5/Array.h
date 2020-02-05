@@ -1,8 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
+#include <cstdio>
+#include <cstdlib>
 
-#include <typeinfo.h>
-#include <string.h>
+#include <typeinfo>
+#include <cstring>
 
 template <class DataType>
 class DArray
@@ -95,10 +95,9 @@ int	DArray<DataType>::PrintArray()
 	{
 		char const *typen = typeid( DataType ).name();
 		if( !strcmp( typen, "double" ) )
-			printf(" type: %lf ", pData[i] );
+			printf(" %s: %lf ", typen, pData[i] );
 		else if( !strcmp( typen, "int" ) )
-			printf(" type: %d ", pData[i] );
-
+			printf(" %s: %d ", typen, pData[i] );
 		printf("\n");
 	}
 

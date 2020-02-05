@@ -1,6 +1,9 @@
 
 #include "Array.h"
 
+#include <cstdio>
+#include <cstdlib>
+
 
 DArray::DArray()
 {
