@@ -21,6 +21,8 @@ http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/CodingSkills/InsideSTL.ra
 
 **数据格式** 
 
+> 数据文件夹为：[data/](../../project/data/) 
+
 第一行：第 1 个字符为 'P'，然后空格后跟一正整数，表示多项式的项数
 
 第二行开始：每一行表示多项式的某项的次数和系数
@@ -37,7 +39,7 @@ http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/CodingSkills/InsideSTL.ra
 > 2 6
 > ```
 >
-> 表示多项式：f(x)=2+6 x^2 -3 x^5 + 5 x^12
+> 表示多项式：$f(x)=2+6 x^2 -3 x^5 + 5 x^{12}$ 
 
 ## 补充阅读资料
 

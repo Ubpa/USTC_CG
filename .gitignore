@@ -1,6 +1,7 @@
 resources/
 build/
 lib/
+.vs/
 
 *Config.h
 
@@ -29,3 +30,5 @@ lib/
 *.dll
 *.lib
 *.exe
+*.ilk
+*.pdb

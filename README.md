@@ -7,9 +7,9 @@
 - 课程主页：[Computer Graphics 2020 (Spring Summer)](http://staff.ustc.edu.cn/~lgliu/Courses/ComputerGraphics_2020_spring-summer/default.htm) 
 - 授课教师：[刘利刚教授](http://staff.ustc.edu.cn/~lgliu) 
 
-每个课程作业是作为一个Github项目来进行发布（如下第1部分），具体的使用方法请详细查看[攻略](strategy.md) 。
+每个课程作业是作为一个 Github 项目来进行发布（如下第 1 部分），具体的使用方法请详细查看[【攻略】](strategy.md) 。
 
-本页面的第2部分提供了课程所需的相关软件的下载链接及使用说明，第3部分提供了课程相关的辅助资料。
+本页面的第 2 部分提供了课程所需的相关软件的下载链接及使用说明，第 3 部分提供了课程相关的辅助资料。
 
 ## 1. 课程作业 [->](Homeworks/) 
 
