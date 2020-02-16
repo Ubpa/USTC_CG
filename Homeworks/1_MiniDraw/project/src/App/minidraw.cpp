@@ -1,6 +1,6 @@
 #include "minidraw.h"
 
-MiniDraw::MiniDraw(QWidget *parent)
+MiniDraw::MiniDraw(QWidget* parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
