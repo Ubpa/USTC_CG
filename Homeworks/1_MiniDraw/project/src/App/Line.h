@@ -2,7 +2,7 @@
 
 #include"shape.h"
 
-class Line :public shape
+class Line :public Shape
 {
 public:
 	Line();

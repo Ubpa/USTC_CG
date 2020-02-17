@@ -6,22 +6,21 @@ ViewWidget::ViewWidget(QWidget* parent)
 	ui.setupUi(this);
 	draw_status_ = false;
 	shape_ = NULL;
-	type_ = shape::kDefault;
+	type_ = Shape::kDefault;
 }
 
 ViewWidget::~ViewWidget()
 {
-
 }
 
 void ViewWidget::setLine()
 {
-	type_ = shape::kLine;
+	type_ = Shape::kLine;
 }
 
 void ViewWidget::setRect()
 {
-	type_ = shape::kRect;
+	type_ = Shape::kRect;
 }
 
 void ViewWidget::mousePressEvent(QMouseEvent* event)
@@ -30,13 +29,13 @@ void ViewWidget::mousePressEvent(QMouseEvent* event)
 	{
 		switch (type_)
 		{
-		case shape::kLine:
+		case Shape::kLine:
 			shape_ = new Line();
 			break;
-		case shape::kDefault:
+		case Shape::kDefault:
 			break;
 
-		case shape::kRect:
+		case Shape::kRect:
 			shape_ = new Rect();
 			break;
 		}

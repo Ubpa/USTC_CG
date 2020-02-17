@@ -38,7 +38,7 @@ class MiniDraw : public QMainWindow
 {
     //...
 private:
-    ViewWidget*        view_widget_; // 声明 ViewWidget 指针
+    ViewWidget* view_widget_; // 声明 ViewWidget 指针
 };
 ```
 
@@ -151,7 +151,7 @@ public:
     }
 
 private:
-    int    start_point_x_, start_point_y_, end_point_x_, end_point_y_;
+    int start_point_x_, start_point_y_, end_point_x_, end_point_y_;
 };
 
 ```
@@ -267,15 +267,15 @@ public:
     }
 
 private:
-    int    start_point_x_, start_point_y_, end_point_x_, end_point_y_;
+    int start_point_x_, start_point_y_, end_point_x_, end_point_y_;
 };
 ```
 
 然后 ViewWidget 里添加
 
 ```c++
-vector<Line* >        line_array_;
-vector<Ellipse* >        ellipse_array_;
+vector<Line*> line_array_;
+vector<Ellipse*> ellipse_array_;
 ```
 
 然而这是好做法吗？

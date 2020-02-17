@@ -1,22 +1,19 @@
 #include "shape.h"
 
-
-shape::shape()
-{
-
-}
-
-
-shape::~shape()
+Shape::Shape()
 {
 }
 
-void shape::set_start(QPoint s)
+Shape::~Shape()
+{
+}
+
+void Shape::set_start(QPoint s)
 {
 	start = s;
 }
 
-void shape::set_end(QPoint e)
+void Shape::set_end(QPoint e)
 {
 	end = e;
 }

@@ -2,11 +2,11 @@
 
 #include <QtGui>
 
-class shape
+class Shape
 {
 public:
-	shape();
-	virtual ~shape();
+	Shape();
+	virtual ~Shape();
 	virtual void Draw(QPainter &paint)=0;	void set_start(QPoint s);	void set_end(QPoint e);
 
 public:

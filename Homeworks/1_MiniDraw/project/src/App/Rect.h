@@ -1,7 +1,8 @@
 #pragma once
 
-#include"shape.h"
-class Rect:public shape
+#include"Shape.h"
+
+class Rect:public Shape
 {
 public:
 	Rect();
