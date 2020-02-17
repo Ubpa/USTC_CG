@@ -10,7 +10,7 @@
 
 只看其中的**示例可执行程序**，其余内容已移植到 GitHub
 
-- [Qt 入门](QtIntro,md) 
+- [Qt 入门](QtIntro.md) 
 - [Qt HelloWorld 项目](QtHello.md) 
 - [Qt GDI 项目](QtGDI.md) 
 
