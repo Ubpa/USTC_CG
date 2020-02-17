@@ -36,9 +36,9 @@ Qt GUI 绘图可以在 `QWidget` 控件中实现，我们将自定义继承于 `
 
 class MiniDraw : public QMainWindow
 {
-	//...
+    //...
 private:
-	ViewWidget*		view_widget_; // 声明 ViewWidget 指针
+    ViewWidget*        view_widget_; // 声明 ViewWidget 指针
 };
 ```
 
@@ -49,11 +49,11 @@ private:
 // Init 函数将在 MiniDraw 的构造函数中被调用
 void MiniDraw::Init()
 {
-	//...
-	view_widget_ = new ViewWidget(); // 实例化 ViewWidget 控件窗口
-	//...
-	setCentralWidget(view_widget_); // 将 ViewWidget 控件设置为主窗口的中心位置
-	//...
+    //...
+    view_widget_ = new ViewWidget(); // 实例化 ViewWidget 控件窗口
+    //...
+    setCentralWidget(view_widget_); // 将 ViewWidget 控件设置为主窗口的中心位置
+    //...
 }
 ```
 
@@ -66,16 +66,16 @@ void MiniDraw::Init()
 ```c++
 class ViewWidget : public QWidget
 {
-	// ...
+    // ...
 public:
-	void mousePressEvent(QMouseEvent *event); // 鼠标击发响应函数（左右键，单双击）
-	void mouseMoveEvent(QMouseEvent *event); // 鼠标移动响应函数（其一个重要性质在文档最后有详述）
-	void mouseReleaseEvent(QMouseEvent *event); // 鼠标释放响应函数（左右键，单双击）
+    void mousePressEvent(QMouseEvent *event); // 鼠标击发响应函数（左右键，单双击）
+    void mouseMoveEvent(QMouseEvent *event); // 鼠标移动响应函数（其一个重要性质在文档最后有详述）
+    void mouseReleaseEvent(QMouseEvent *event); // 鼠标释放响应函数（左右键，单双击）
     void paintEvent(QPaintEvent *); // Qt 所有的绘制都只能在此函数中完成
 private:
-	bool draw_status_; // 当前绘制状态，true 为绘制当前鼠标拖动的图元，false 为不绘制
-	QPoint start_point_; // 当前图元的起始点
-	QPoint end_point_; // 当前图元的终止点
+    bool draw_status_; // 当前绘制状态，true 为绘制当前鼠标拖动的图元，false 为不绘制
+    QPoint start_point_; // 当前图元的起始点
+    QPoint end_point_; // 当前图元的终止点
 };
 ```
 
@@ -83,40 +83,40 @@ private:
 
 ```c++
 ViewWidget::ViewWidget(QWidget *parent)
-	: QWidget(parent)
+    : QWidget(parent)
 {
     // ...
-	draw_status_ = false; // 设置初始绘制状态为 – 不绘制
+    draw_status_ = false; // 设置初始绘制状态为 – 不绘制
 }
 
 void ViewWidget::mousePressEvent(QMouseEvent *event)
 {
-	if (Qt::LeftButton == event->button()) // 判断是否是鼠标左击
-	{
-		draw_status_ = true; // 设置绘制状态为 – 绘制
-		start_point_ = end_point_ = event->pos(); // 将图元初始点设置为当前鼠标击发点
-	}
+    if (Qt::LeftButton == event->button()) // 判断是否是鼠标左击
+    {
+        draw_status_ = true; // 设置绘制状态为 – 绘制
+        start_point_ = end_point_ = event->pos(); // 将图元初始点设置为当前鼠标击发点
+    }
 }
 
 void ViewWidget::mouseMoveEvent(QMouseEvent *event)
 {
-	if (draw_status_) // 判断当前绘制状态
-	{
-		end_point_ = event->pos(); // 若为真，则设置图元终止点位鼠标当前位置
-	}
+    if (draw_status_) // 判断当前绘制状态
+    {
+        end_point_ = event->pos(); // 若为真，则设置图元终止点位鼠标当前位置
+    }
 }
 
 void ViewWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-	draw_status_ = false; // 设置绘制状态为 – 不绘制
+    draw_status_ = false; // 设置绘制状态为 – 不绘制
 }
 
 void ViewWidget::paintEvent(QPaintEvent *)
 {
-	QPainter painter(this); // 定义painter在this指向的控件（此例为ViewWidget）中绘图
-	painter.drawLine(start_point_, end_point_); // 绘制线段
-	painter.end(); // 结束绘图
-	update(); // 更新窗口
+    QPainter painter(this); // 定义painter在this指向的控件（此例为ViewWidget）中绘图
+    painter.drawLine(start_point_, end_point_); // 绘制线段
+    painter.end(); // 结束绘图
+    update(); // 更新窗口
 }
 ```
 
@@ -134,24 +134,24 @@ void ViewWidget::paintEvent(QPaintEvent *)
 class Line
 {
 public:
-	Line(void);
-	Line(int start_point_x, int start_point_y, int end_point_x, int end_point_y)
-	{
-		start_point_x_ = start_point_x;
-		start_point_y_ = start_point_y;
-		end_point_x_ = end_point_x;
-		end_point_y_ = end_point_y;
-	}
-	~Line(void);
-	
+    Line(void);
+    Line(int start_point_x, int start_point_y, int end_point_x, int end_point_y)
+    {
+        start_point_x_ = start_point_x;
+        start_point_y_ = start_point_y;
+        end_point_x_ = end_point_x;
+        end_point_y_ = end_point_y;
+    }
+    ~Line(void);
+    
 public:
-	void Draw(QPainter &paint)
-	{
-		paint.drawLine(start_point_x_, start_point_y_, end_point_x_, end_point_y_);
-	}
+    void Draw(QPainter &paint)
+    {
+        paint.drawLine(start_point_x_, start_point_y_, end_point_x_, end_point_y_);
+    }
 
 private:
-	int	start_point_x_, start_point_y_, end_point_x_, end_point_y_;
+    int    start_point_x_, start_point_y_, end_point_x_, end_point_y_;
 };
 
 ```
@@ -168,7 +168,7 @@ class ViewWidget : public QWidget
 {
     // ...
 private:
-	vector<Line*> line_array_;
+    vector<Line*> line_array_;
 }
 ```
 
@@ -177,22 +177,22 @@ private:
 ```c++
 void ViewWidget::mouseReleaseEvent(QMouseEvent *event)
 {
-	Line* current_line_ = NULL;
-	current_line_ = new Line(start_point_.rx(), start_point_.ry(), end_point_.rx(), end_point_.ry());
-		line_array_.push_back(current_line_);
-	draw_status_ = false;
+    Line* current_line_ = NULL;
+    current_line_ = new Line(start_point_.rx(), start_point_.ry(), end_point_.rx(), end_point_.ry());
+        line_array_.push_back(current_line_);
+    draw_status_ = false;
 }
 
 void ViewWidget::paintEvent(QPaintEvent *)
 {
-	QPainter painter(this);
+    QPainter painter(this);
     // 重画所有线段
-	for (size_t i = 0; i < line_array_.size(); i++)
-	{
-		line_array_[i]->Draw(painter);
-	}
-	painter.end();
-	painter.drawLine(start_point_, end_point_);
+    for (size_t i = 0; i < line_array_.size(); i++)
+    {
+        line_array_[i]->Draw(painter);
+    }
+    painter.end();
+    painter.drawLine(start_point_, end_point_);
 }
 ```
 
@@ -223,14 +223,14 @@ Object dump complete.
 ```c++
 ViewWidget::~ViewWidget()
 {
-	for (size_t i = 0; i < line_array_.size(); i++)
-	{
-		if (line_array_[i])
-		{
-			delete line_array_[i];
-			line_array_[i] = NULL;
-		}
-	}
+    for (size_t i = 0; i < line_array_.size(); i++)
+    {
+        if (line_array_[i])
+        {
+            delete line_array_[i];
+            line_array_[i] = NULL;
+        }
+    }
 }
 ```
 
@@ -250,32 +250,32 @@ Qt 的资源：QAction* QMenu* 等将由 Qt 自己回收，不需要用户自己
 class Ellipse
 {
 public:
-	Ellipse (void);
-	Ellipse (int start_point_x, int start_point_y, int end_point_x, int end_point_y)
-	{
-		start_point_x_ = start_point_x;
-		start_point_y_ = start_point_y;
-		end_point_x_ = end_point_x;
-		end_point_y_ = end_point_y;
-	}
-	~Ellipse (void);
-	
+    Ellipse (void);
+    Ellipse (int start_point_x, int start_point_y, int end_point_x, int end_point_y)
+    {
+        start_point_x_ = start_point_x;
+        start_point_y_ = start_point_y;
+        end_point_x_ = end_point_x;
+        end_point_y_ = end_point_y;
+    }
+    ~Ellipse (void);
+    
 public:
-	void Draw(QPainter &paint)
-	{
-		paint.drawEllipse (start_point_x_, start_point_y_, end_point_x_ - start_point_x_, end_point_y_ - start_point_y_);
-	}
+    void Draw(QPainter &paint)
+    {
+        paint.drawEllipse (start_point_x_, start_point_y_, end_point_x_ - start_point_x_, end_point_y_ - start_point_y_);
+    }
 
 private:
-	int	start_point_x_, start_point_y_, end_point_x_, end_point_y_;
+    int    start_point_x_, start_point_y_, end_point_x_, end_point_y_;
 };
 ```
 
 然后 ViewWidget 里添加
 
 ```c++
-vector<Line* >		line_array_;
-vector<Ellipse* >		ellipse_array_;
+vector<Line* >        line_array_;
+vector<Ellipse* >        ellipse_array_;
 ```
 
 然而这是好做法吗？
@@ -298,11 +298,11 @@ C++ 继承与多态概念自行学习，本文只介绍应用
 class Figure
 {
 public:
-	virtual void Draw(QPainter &paint);
+    virtual void Draw(QPainter &paint);
     // 父类的析构函数必须是 virtual 的
     // 否则当用父类指针指向子类的实例并删除该实例时，将只会调用父类的析构函数
     // 而不调用子类的析构函数。会造成内存泄漏
-	virtual ~Figure();
+    virtual ~Figure();
 }
 
 class Line : public Figure { /*...*/ };
@@ -315,17 +315,17 @@ class Ellipse : public Figure { /*...*/ };
 ```c++
 class ViewWidget : public QWidget
 {
-	vector<Figure* >  figure_array_;
-	FigureType  figure_type_;
+    vector<Figure* >  figure_array_;
+    FigureType  figure_type_;
 }
 
 enum FigureType // 推荐用枚举类代表图元类型
 {
-	kDefault = 0,
-	kLine = 1,
-	kRectangle = 2,
-	kEllipse = 3,
-	kPolygon = 4,
+    kDefault = 0,
+    kLine = 1,
+    kRectangle = 2,
+    kEllipse = 3,
+    kPolygon = 4,
 };
 ```
 
@@ -333,7 +333,7 @@ enum FigureType // 推荐用枚举类代表图元类型
 // 修改 mouseReleaseEvent 函数，使用父类指针指向子类实例
 void ViewWidget::mouseReleaseEvent(QMouseEvent *event) 
 {
-	Figure* current_figure_ = NULL; // 声明父类指针
+    Figure* current_figure_ = NULL; // 声明父类指针
 
     current_figure_ = start_pointnew Line(start_point_.rx(), _.ry(), end_point_.rx(), end_point_.ry()); // 实例化子类
 
@@ -343,37 +343,37 @@ void ViewWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void ViewWidget::set_figure_type_to_line()
 {
-	figure_type_ = kLine;
+    figure_type_ = kLine;
 }
 
 void ViewWidget::set_figure_type_to_ellipse()
 {
-	figure_type_ = kEllipse;
+    figure_type_ = kEllipse;
 }
 
 void ViewWidget::mouseReleaseEvent(QMouseEvent *event)
-{	
-	Figure* current_figure_ = NULL;
+{    
+    Figure* current_figure_ = NULL;
 
-	switch (figure_type_)
-	{
-	case kDefault:
-		break;
-	case kLine:
-		current_figure_ = new Line(start_point_.rx(), start_point_.ry(), end_point_.rx(), end_point_.ry());
-		figure_array_.push_back(current_figure_);
-		draw_status_ = false;
-		break;
-	case kEllipse:
-		current_figure_ = new Ellipse(start_point_.rx(), start_point_.ry(), end_point_.rx(), end_point_.ry());
-		figure_array_.push_back(current_figure_);
-		draw_status_ = false;
-		break;
-	default:
-		break;
-	}
+    switch (figure_type_)
+    {
+    case kDefault:
+        break;
+    case kLine:
+        current_figure_ = new Line(start_point_.rx(), start_point_.ry(), end_point_.rx(), end_point_.ry());
+        figure_array_.push_back(current_figure_);
+        draw_status_ = false;
+        break;
+    case kEllipse:
+        current_figure_ = new Ellipse(start_point_.rx(), start_point_.ry(), end_point_.rx(), end_point_.ry());
+        figure_array_.push_back(current_figure_);
+        draw_status_ = false;
+        break;
+    default:
+        break;
+    }
 
-	current_figure_ = NULL;
+    current_figure_ = NULL;
 }
 ```
 
@@ -382,29 +382,29 @@ void ViewWidget::mouseReleaseEvent(QMouseEvent *event)
 ```c++
 void ViewWidget::paintEvent(QPaintEvent *)
 {
-	QPainter painter(this);
+    QPainter painter(this);
 
-	for (size_t i = 0; i < figure_array_.size(); i++)
-	{
-		figure_array_[i]->Draw(painter);
-	}
+    for (size_t i = 0; i < figure_array_.size(); i++)
+    {
+        figure_array_[i]->Draw(painter);
+    }
 
-	if (draw_status_)
-	{
-		switch (figure_type_)
-		{
-		case kDefault:
-			break;
-		case kLine:
-			painter.drawLine(start_point_, end_point_);
-			break;
-		case kEllipse:
-			painter.drawEllipse(start_point_.rx(), start_point_.ry(), end_point_.rx() - start_point_.rx(), end_point_.ry() - start_point_.ry());
-			break;
-		}
-	}
+    if (draw_status_)
+    {
+        switch (figure_type_)
+        {
+        case kDefault:
+            break;
+        case kLine:
+            painter.drawLine(start_point_, end_point_);
+            break;
+        case kEllipse:
+            painter.drawEllipse(start_point_.rx(), start_point_.ry(), end_point_.rx() - start_point_.rx(), end_point_.ry() - start_point_.ry());
+            break;
+        }
+    }
 
-	update();
+    update();
 }
 ```
 
