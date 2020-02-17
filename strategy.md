@@ -17,5 +17,8 @@
 
 ## 1. 画图小工具
 
-- 安装 Qt，查看[简易说明](Softwares/Qt.md)，查看[文档](Homeworks/1_MiniDraw/documents) 
+- 安装 Qt，查看[简易说明](Softwares/Qt.md) 
+- 查看[文档](Homeworks/1_MiniDraw/documents)，内含多个小教程
+- 完成 [project](Homeworks/1_MiniDraw/project/) 
+- 按照[作业规范](Homeworks/README.md)提交作业
 
