@@ -4,9 +4,15 @@
 
 内含
 
-- 示例程序
-- Qt 安装和[入门资料](QtIntro.md) 
+- 示例可执行程序
+- Qt 安装和入门资料（内含源码）
 - 编程资料
+
+只看其中的**示例可执行程序**，其余内容已移植到 GitHub
+
+- [Qt 入门](QtIntro,md) 
+- [Qt HelloWorld 项目](QtHello.md) 
+- [Qt GDI 项目](QtGDI.md) 
 
 ## 说明
 
