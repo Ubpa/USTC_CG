@@ -7,7 +7,7 @@
 - 点击 "Downloads for open sources users" 的 "Go open source"（此时需要登录）得到下载器
 - 打开下载器，选择 Qt 5.12.2 的 MSVC 2017 64-bit（可以用于 VS2019）
 - 将 `YOUR_PATH_TO/Qt5/msvc 2017 64/bin` 加入到环境变量 `Path` 中
-- VS 2019 菜单栏->扩展->管理扩展，搜索 Qt，找到 Qt Visual Studio Tools 并安装（需提出 VS），该工具以便在 VS 中打开 *.qrc 和 *.ui 文件时可以自动打开 Qt Resource Editor 和 Qt Designer
+- VS 2019 菜单栏->扩展->管理扩展，搜索 Qt，找到 Qt Visual Studio Tools 并安装（需退出 VS），该工具以便在 VS 中打开 *.qrc 和 *.ui 文件时可以自动打开 Qt Resource Editor 和 Qt Designer
 - 安装 Qt Visual Studio Tools 成功后，重启 VS，菜单栏->扩展->Qt VS Tool->Qt Options，在弹出的窗口中
   - Qt Versions 下选择 Add，添加 path 为 `YOUR_PATH_TO/Qt5/msvc 2017 64` 
   - Qt Default Settings 下 Ask before checkout files 选择 **False** 
