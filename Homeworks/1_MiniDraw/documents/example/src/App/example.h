@@ -9,19 +9,17 @@
 class example : public QMainWindow
 {
 	Q_OBJECT
-
+	
 public:
 	example(QWidget *parent = 0);
 	~example();
-QMenu		*pMenutest;
-QAction		*pAction;
-QToolBar	*main_toolbar_;
+
+	QMenu *pMenutest;
+	QAction *pAction;
+	QToolBar *main_toolbar_;
 
 private slots:
-void 		hello();
-
-
-
+	void hello();
 
 private:
 	Ui::exampleClass ui;

@@ -13,8 +13,6 @@ example::example(QWidget *parent)
 	main_toolbar_->addAction(pAction);
 	
 	connect(pAction, &QAction::triggered, this, &example::hello);
-
-
 }
 
 example::~example()
@@ -25,5 +23,4 @@ example::~example()
 void example::hello()
 {
 	QMessageBox::information(NULL, "Hello", "Hello, Qt", QMessageBox::Yes);
-
 }
