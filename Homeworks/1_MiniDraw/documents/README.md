@@ -25,7 +25,7 @@ Qt 的 GUI 程序可以添加控制台窗口，查看 `printf`，`cout` 输出�
 - 大致阅读一下 [Qt 入门](QtIntro,md) 和 [Qt HelloWorld 项目](QtHello.md)，不完全懂也没关系，不用担心！（不必完全搞清楚 Qt，就能动手写 Qt 程序）
 - Qt 自带了很多简单的例子，学习的过程中可以阅读这些例子的代码和对应的代码解释，Qt 完备的文档系统是学习 Qt 最好的资料。
 - 完全按照 [Qt GDI 项目](QtGDI.md) 中的示范，一步一步地完成画**直线**和**椭圆**的 MiniDraw 程序。搞清楚如何添加 buttons，如何利用信号槽机制响应鼠标的交互等
-- 模仿上述过程，添加画 `Rect`, `Polyline`, `Freehand`（可选）的功能！
+- 模仿上述过程，添加画 `Rect`, `Polygon`, `Freehand`（可选）的功能！
 
 ## 提示：如何学习Qt编程？
 
