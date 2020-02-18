@@ -1,6 +1,8 @@
 # Qt Hello
 
-本文教会大家如何利用 Qt + CMake 创建一个 [Hello World 级别的项目](example) 
+本文教会大家如何利用 Qt + CMake 创建一个 [Hello World 级别的项目](hello/) 
+
+> [hello 项目](hello/) 代码已经填充完整了，只要大概试着操作就行，不然就重复代码了
 
 ## 创建空项目
 
