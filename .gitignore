@@ -1,6 +1,7 @@
 resources/
 build/
 lib/
+students/
 .vs/
 
 *Config.h

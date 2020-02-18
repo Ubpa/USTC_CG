@@ -3,16 +3,16 @@
 ## 作业提交规范与要求
 
 ### (1) 代码管理
-- 每个同学通过各自的GitHub进行管理和维护各自的作业代码及相关文档
-- 该GitHub项目作为本课程作业专用的，设为私有的，不要公开
+- 每个同学通过各自的 GitHub 进行管理和维护各自的作业代码及相关文档
+- 该 GitHub 项目作为本课程作业专用的，设为私有的，不要公开
 
 ### (2) 提交系统
-- 每次作业须通过SmartChair投稿软件系统来完成：[作业提交系统](http://www.smartchair.org/CG2020)
+- 每次作业须通过 SmartChair 投稿软件系统来完成：[作业提交系统](http://www.smartchair.org/CG2020)
 - 作业提交系统的使用可详细查看：[作业提交系统说明](https://pan.baidu.com/s/1Gd68C2DZXq4j9wevW_IG_Q)
 
 ### (3) 提交要求
-每次作业仅须提交一个压缩包(zip或rar格式），文件命名为 `ID_姓名_Homework*.rar/zip`，其中包含：
-- 代码 project 的整个文件夹：须删除一些不必要的文件，比如 debug/release目录、bin、lib、build等
+每次作业仅须提交一个压缩包(zip 或 rar 格式），文件命名为 `ID_姓名_Homework*.rar/zip`，其中包含：
+- 代码 project 的整个文件夹：须删除一些不必要的文件，比如 debug/release 目录、bin、lib、build等
 - 作业报告（如要求的话）
 - 可选：演示视频等其他辅助说明材料
 
@@ -35,4 +35,6 @@
 
 ## 具体课程作业
 
-### 0. C++ 课前热身练习 [->](0_CppPratices/) 
+0. C++ 课前热身练习 [->](0_CppPratices/) 
+1. 画图小工具 [->](1_MiniDraw) 
+

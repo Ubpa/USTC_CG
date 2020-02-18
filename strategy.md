@@ -15,3 +15,10 @@
 - 完成项目 [0.课前热身练习](Homeworks/0_CppPratices/project/)，总共有 7 个小练习，一边查看说明文档一边完成。完成一个小练习就去查看[示例代码](Homeworks/0_CppPratices/samples)的相的应参考代码，对比学习理解后再进行下一个小练习
 - 按照[作业规范](Homeworks/README.md)提交作业
 
+## 1. 画图小工具
+
+- 安装 Qt，查看[简易说明](Softwares/Qt.md) 
+- 查看[文档](Homeworks/1_MiniDraw/documents)，内含多个小教程
+- 完成 [project](Homeworks/1_MiniDraw/project/) 
+- 按照[作业规范](Homeworks/README.md)提交作业
+
