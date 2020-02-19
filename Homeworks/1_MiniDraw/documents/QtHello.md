@@ -123,7 +123,7 @@ void MainWindow::CreateButtons()
     hello_world_action_ = new QAction(tr("&Hello world"), this);
     
     // 此句先不用理会
-    // connect(hello_world_action_, &QAction::triggered, this, &QTHelloWorld::HelloWorld);
+    // connect(hello_world_action_, &QAction::triggered, this, &MainWindow::HelloWorld);
     
     // 创建菜单，标签为Main
     main_menu_ = menuBar()->addMenu(tr("&Main"));
@@ -175,7 +175,7 @@ void MainWindow::CreateButtons()
     
     // 使用 connect 函数将信号与槽连接起来
     // connect(信号发射方，信号，信号接收方，槽函数);
-    connect(hello_world_action_, &QAction::triggered, this, &QTHelloWorld::HelloWorld);
+    connect(hello_world_action_, &QAction::triggered, this, &MainWindow::HelloWorld);
     
     main_menu_ = menuBar()->addMenu(tr("&Main"));
     main_menu_->addAction(hello_world_action_);
