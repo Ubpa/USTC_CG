@@ -116,6 +116,8 @@ private:
 添加函数定义
 
 ```c++
+#include <QToolBar> // include QToolBar head file
+
 void MainWindow::CreateButtons()
 {
     // 创建动作，标签为Hello world
