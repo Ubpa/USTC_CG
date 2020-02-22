@@ -9,7 +9,7 @@
 已提供简单可复用的 CMake 模板 [hello/](hello/)，我们将在其中添加文件从而得到 Qt 项目
 
 - 打开 Qt Creator
-  - 菜单栏文件 -> 新建项目或文件->Qt Wdgets Application -> Choose
+  - 菜单栏文件 -> 新建项目或文件->Qt Widgets Application -> Choose
     - 名称：hello
     - 路径：[hello/src/App/](hello/src/App/) 
     - 下一步直到完成，从而在 [hello/src/App/](hello/src/App/)hello/ 生成了一些文件

@@ -8,7 +8,7 @@
 ## 要求
 
 - 实现 Image Warping 的两种算法
-  - [Inverse distance-weighted interpolation methods](documents/0_InvDist.md) 
+  - [Inverse distance-weighted interpolation methods](documents/0_IDW.md) 
   - [Radial basis functions, RBF](documents/1_RBF.md) 
 - 撰写实验报告：[示例参考](http://pan.baidu.com/s/1i3mi2yT) 
 

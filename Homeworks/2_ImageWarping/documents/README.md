@@ -8,8 +8,8 @@
 
 本次作业要求实现两种算法
 
-- [Inverse distance-weighted interpolation methods](documents/0_InvDist.md) 
-- [Radial basis functions, RBF](documents/1_RBF.md) 
+- [Inverse distance-weighted interpolation methods](0_IDW.md) 
+- [Radial basis functions](documents/1_RBF.md) 
 
 效果示例如下
 
