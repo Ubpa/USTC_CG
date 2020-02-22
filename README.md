@@ -15,6 +15,7 @@
 
 - [0. C++ 课前热身练习](Homeworks/0_CppPratices) 
 - [1. 画图小工具](Homeworks/1_MiniDraw) 
+- [2. 图像扭曲](Homeworks/2_ImageWarping) 
 
 ## 2. 相关软件 [->](Softwares/) 
 
