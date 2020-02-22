@@ -3,6 +3,7 @@ build/
 lib/
 students/
 .vs/
+_deps/
 
 *Config.h
 
