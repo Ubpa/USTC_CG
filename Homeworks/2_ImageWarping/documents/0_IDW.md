@@ -1,4 +1,4 @@
-# Inverse distance-weighted interpolation methods[^InvDist]
+# Inverse distance-weighted interpolation methods[^IDW]
 
 $$
 \pmb{f}(\pmb{p})=\sum w_i(\pmb{p})\pmb{f}_i(\pmb{p})
