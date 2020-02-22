@@ -30,7 +30,7 @@
     - 公式：Google Chrome 浏览器插件 [MathJax](https://chrome.google.com/webstore/detail/mathjax-plugin-for-github/ioemnmodlmafdkllaclgeombjnmnbima) 
   - 本地查看
     - 图片：可从 GitHub 仓库 [Ubpa | PicGoImgBed](https://github.com/Ubpa/PicGoImgBed) 下载在本地查看
-    - 公式：使用 markdown 编辑器 Typora（[下载链接](https://www.typora.io/windows/typora-setup-x64.exe?)）
+    - 公式：使用 markdown 编辑器 Typora（[下载链接](https://www.typora.io/windows/typora-setup-x64.exe?)），需要手动打开“内联公式”功能（Typora 菜单 -> 偏好设置 -> Markdown -> Markdown 扩展语法 -> 内联公式）
 - 查看[文档](Homeworks/2_ImageWarping/documents)，内含多个小教程
 - 完成 [project](Homeworks/2_ImageWarping/project/) 
 - 按照[作业规范](Homeworks/README.md)提交作业

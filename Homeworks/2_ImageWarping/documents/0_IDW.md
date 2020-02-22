@@ -7,7 +7,7 @@ $$
 其中
 
 $$
-w_i(\pmb{p})=\frac{\sigma_i(\pmb{p})}{\sum \sigma_i(\pmb{p})}
+w_i(\pmb{p})=\frac{\sigma_i(\pmb{p})}{\sum \sigma_j(\pmb{p})}
 $$
 
 $$
@@ -18,5 +18,5 @@ $$
 
 ## 参考文献
 
-[^InvDist]: Ruprecht D, Muller H. [**Image warping with scattered data interpolation**](http://citeseer.ist.psu.edu/426836.html)[J]. IEEE Computer Graphics and Applications, 1995, 15(2): 37-43.
+[^IDW]: Ruprecht D, Muller H. [**Image warping with scattered data interpolation**](http://citeseer.ist.psu.edu/426836.html)[J]. IEEE Computer Graphics and Applications, 1995, 15(2): 37-43.
 
