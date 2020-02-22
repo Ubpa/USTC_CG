@@ -37,5 +37,5 @@
 
 0. C++ 课前热身练习 [->](0_CppPratices/) 
 1. 画图小工具 [->](1_MiniDraw) 
-2. 图像扭曲 [->](2_ImageWarping) 
+2. 图像变形 [->](2_ImageWarping) 
 
