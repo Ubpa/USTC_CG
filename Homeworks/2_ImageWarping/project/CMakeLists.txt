@@ -49,6 +49,7 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 include_directories (
 	${PROJECT_SOURCE_DIR}/include
+	${PROJECT_SOURCE_DIR}/include/_deps
 	# $ENV{XXX_INCLUDE_PATH}
 	# ...
 )

@@ -4,6 +4,23 @@
 >
 > **只看其 demo 部分** 
 
+## 概要
+
+本次作业要求实现两种算法
+
+- [Inverse distance-weighted interpolation methods](documents/0_InvDist.md) 
+- [Radial basis functions, RBF](documents/1_RBF.md) 
+
+效果示例如下
+
+![需要科学上网来访问图片](https://raw.githubusercontent.com/Ubpa/PicGoImgBed/master/ImgWarpingDemo.jpg)
+
+交互示例如下
+
+![需要科学上网来访问图片](https://raw.githubusercontent.com/Ubpa/PicGoImgBed/master/ui_demo.jpg)
+
+## 细节说明
+
 通过以前的练习你学会了
 
 通过 [练习 3](../../0_CppPratices) 你已经掌握了面向对象编程的基本思想（类的封装、继承、多态），你需要好好体会。现在的理念就是：
@@ -16,7 +33,7 @@
 
 用户界面可参考 demo 目录下的程序；需用[**格子图像**](https://raw.githubusercontent.com/Ubpa/PicGoImgBed/master/warp_test.png)来进行测试
 
-![warp_test](https://raw.githubusercontent.com/Ubpa/PicGoImgBed/master/warp_test.png)
+![需要科学上网来访问图片](https://raw.githubusercontent.com/Ubpa/PicGoImgBed/master/warp_test.png)
 
 须看懂英文论文，只要看懂算法过程即可，不必追究太多背景知识及细节内容；实现基本算法即可，不必拘泥于太多细节。
 
@@ -26,6 +43,8 @@
 - **注意 `QPoint` 的坐标是整数**，你不能拿整数来做运算，要用浮点运算才能保证计算精度。
 
 结果图像中有时会出现白色空洞或条纹，你需要分析是什么原因造成的？空洞的填补可以利用周围的已知像素进行插值填充。这也是个插值问题（即利用空洞周围一定范围的已知像素来插值该像素的颜色）。你可以尝试如何用你实现的 `IDW warping` 类（或者对 `IDW warping` 类的简单改造。）来填充这些空洞像素的颜色？
+
+![需要科学上网来访问图片](https://raw.githubusercontent.com/Ubpa/PicGoImgBed/master/white_stitch.jpg)
 
 求解线性方程组的功能，你可以自己实现，也可以从网上找其他程序或库来用。我们建议使用 Eigen 库，我们提供了使用示例：[eigen_example](eigen_example/) 
 

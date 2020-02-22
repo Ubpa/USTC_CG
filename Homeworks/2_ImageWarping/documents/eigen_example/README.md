@@ -6,7 +6,7 @@
 
 - [src/](src/)：源代码
 - [include/](include/)：头文件
-  - [_deps/](include/_deps/)：依赖
+  - [_deps/](include/_deps/)：依赖（目前为空）
 
 ## 使用说明
 
@@ -15,7 +15,7 @@
 - [官方网站](http://eigen.tuxfamily.org/) 
 - [Eigen 3.3.7 下载链接](https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.zip) 
 
-将 eigen-3.3.7 下的文件夹 Eigen 置于 [include/_deps/](include/_deps/) 
+将 eigen-3.3.7 下的文件夹 Eigen 置于 [include/_deps/](include/_deps/) 中
 
 ## 其他说明
 

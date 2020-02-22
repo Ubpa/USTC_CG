@@ -4,7 +4,13 @@
 
 本项目目录包含以下若干子目录：
 
-- [`src/`](src/)：本次作业项目的源代码
+- [src/](src/)：源代码
+- [include/](include/)：头文件
+  - [_deps/](include/_deps/)：依赖（目前为空）
+
+## 使用说明
+
+如需 Eigen，参考 [Eigen 示例项目](../documents/eigen_example) 
 
 ## 其他说明
 
