@@ -2,44 +2,43 @@
 
 > 旧版资料：https://pan.baidu.com/s/151e-R8tEKmI3die5rBVBAA
 >
-> **只看其 demo 部分** 
+> **只须看其 demo 目录的可执行程序及操作演示** 
 
-## 概要
+## 作业要求
 
-本次作业要求实现两种算法
+- 本次作业要求实现两种算法：
 
-- [Inverse distance-weighted interpolation methods](0_IDW.md) 
-- [Radial basis functions](documents/1_RBF.md) 
+-- [Inverse distance-weighted interpolation method (IDW)](0_IDW.md) 
+-- [Radial basis functions interpolation method (RBF)](documents/1_RBF.md) 
 
-效果示例如下
+- 测试例子：须用以下 [**格子图像**](../project/data/test.png) 来进行测试，可以很清楚看到warping方法的特点
 
-![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg)
+![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/test.png](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/test.png)
 
-> 图片无法加载则访问该链接：[USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg) 
+> 图片无法加载则访问该链接：[USTC_CG_image@master/Homeworks/02_ImageWarping/test.png](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/test.png) 
 
-交互示例如下
+- 用户交互示例如下：
 
 ![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/ui_demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/ui_demo.jpg)
 
 > 图片无法加载则访问该链接：[USTC_CG_image@master/Homeworks/02_ImageWarping/ui_demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/ui_demo.jpg) 
 
-## 细节说明
+- 变形效果示例如下：
 
-通过以前的练习你学会了
+![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg)
 
-通过 [练习 3](../../0_CppPratices) 你已经掌握了面向对象编程的基本思想（类的封装、继承、多态），你需要好好体会。现在的理念就是：
+> 图片无法加载则访问该链接：[USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg) 
+
+
+## 作业说明
+
+通过 [C++ 课前热身练习](../../0_CppPratices) 你已经掌握了面向对象编程的基本思想（类的封装、继承、多态），其理念就是：
 
 **程序＝对象＋对象＋对象＋…** 
 
 对象＝数据结构＋算法
 
 这是与面向过程编程不一样的。
-
-用户界面可参考 demo 目录下的程序；需用 [**格子图像**](../project/data/test.png) 来进行测试
-
-![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/test.png](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/test.png)
-
-> 图片无法加载则访问该链接：[USTC_CG_image@master/Homeworks/02_ImageWarping/test.png](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/test.png) 
 
 须看懂英文论文，只要看懂算法过程即可，不必追究太多背景知识及细节内容；实现基本算法即可，不必拘泥于太多细节。
 
