@@ -16,11 +16,11 @@
 - 递交内容：程序代码及实验报告 
 - 递交时间：2020 年 3 月 1 日星期日
 
-## 要求
+## 作业要求
 
 - 实现 Image Warping 的两种算法
   - [Inverse distance-weighted interpolation method (IDW)](documents/0_IDW.md) 
-  - [Radial basis functions (RBF)](documents/1_RBF.md) 
+  - [Radial basis functions interpolation method (RBF)](documents/1_RBF.md) 
 - 作业实验报告范例：[示例参考](http://pan.baidu.com/s/1i3mi2yT) 
 
 ## 提供的材料
