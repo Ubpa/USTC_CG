@@ -50,12 +50,14 @@
 
 ### Eigen库
 
-求解线性方程组的功能，你可以自己实现，也可以从网上找其他程序或库来用。我们建议使用 Eigen 库，我们提供了使用示例：[eigen_example](eigen_example/) 
+- 实现RBF方法需要求解线性方程组，你可以自己实现，也可以从网上找其他程序或库来用
+- 强烈推荐使用 Eigen 库来求解线性方程组，Eigen 库是强大的数学算法库，是计算机图形学必须使用的算法库
+- 我们提供了 Eigen 库的使用示例：[eigen_example](eigen_example/) 
 
 > [eigen_example](eigen_example/) 演示的添加依赖的方式重点掌握，另外为了保证项目的简洁性，不要将依赖部分加到 git 版本管理中，使用 [.gitignore](../../../.gitignore) 忽略掉 [eigen_example/include/_deps/](eigen_example/include/_deps/) 
 
 
-### 补洞
+### 补洞（Optional）
 
 结果图像中有时会出现白色空洞或条纹，你需要分析是什么原因造成的？空洞的填补可以利用周围的已知像素进行插值填充。这也是个插值问题（即利用空洞周围一定范围的已知像素来插值该像素的颜色）。你可以尝试如何用你实现的 `IDW warping` 类（或者对 `IDW warping` 类的简单改造。）来填充这些空洞像素的颜色？
 
@@ -63,7 +65,7 @@
 
 > 图片无法加载则访问该链接：[USTC_CG_image@master/Homeworks/02_ImageWarping/white_stitch.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/white_stitch.jpg) 
 
-### ANN库
+### ANN库（Optional）
 
 若你需要用搜索最近点的任务（在补洞的任务中），建议学习使用如下的库：
 
