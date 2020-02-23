@@ -1,4 +1,4 @@
-# Radial basis functions[^RBF] 
+# Radial basis functions interpolation method [^RBF] 
 
 $$
 \pmb{f}(\pmb{p})=\sum a_i R(d)+Aq+a
