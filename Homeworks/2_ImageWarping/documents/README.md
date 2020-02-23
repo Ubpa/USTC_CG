@@ -4,18 +4,17 @@
 >
 > **只须看其 demo 目录的可执行程序及操作演示** 
 
-## 作业要求
-
-- 本次作业要求实现两种算法：
-
--- [Inverse distance-weighted interpolation method (IDW)](0_IDW.md) 
--- [Radial basis functions interpolation method (RBF)](documents/1_RBF.md) 
+## 测试图片及报告范例
 
 - 测试例子：须用以下 [**格子图像**](../project/data/test.png) 来进行测试，可以很清楚看到warping方法的特点
 
 ![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/test.png](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/test.png)
 
 > 图片无法加载则访问该链接：[USTC_CG_image@master/Homeworks/02_ImageWarping/test.png](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/test.png) 
+
+- 作业实验报告范例：[示例参考](http://pan.baidu.com/s/1i3mi2yT) 
+
+## 其他测试图片
 
 - 用户交互示例如下：
 
@@ -32,6 +31,8 @@
 
 ## 作业说明
 
+# 面向对象编程思想
+
 通过 [C++ 课前热身练习](../../0_CppPratices) 你已经掌握了面向对象编程的基本思想（类的封装、继承、多态），其理念就是：
 
 **程序＝对象＋对象＋对象＋…** 
@@ -39,6 +40,8 @@
 对象＝数据结构＋算法
 
 这是与面向过程编程不一样的。
+
+# 图像库
 
 须看懂英文论文，只要看懂算法过程即可，不必追究太多背景知识及细节内容；实现基本算法即可，不必拘泥于太多细节。
 
