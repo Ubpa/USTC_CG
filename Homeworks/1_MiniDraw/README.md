@@ -1,9 +1,11 @@
 # 1. 画图小工具 MiniDraw
 
-> 作业步骤：
+> 预备：
 > - 安装 Qt，查看[简易说明](../../Softwares/Qt.md) 
+>
+> 作业步骤：
 > - 查看[文档](documents/)，内含多个小教程
-> - 完成 [project](project/) 
+> - 完成项目 [project](project/) 
 > - 按照[作业规范](../README.md)提交作业
 
 ## 作业递交
