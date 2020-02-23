@@ -1,4 +1,4 @@
-# 作业说明文档
+# 作业说明
 
 > 旧版资料：https://pan.baidu.com/s/151e-R8tEKmI3die5rBVBAA
 >
@@ -29,9 +29,9 @@
 > 图片无法加载则访问该链接：[USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg) 
 
 
-## 作业说明
+## 详细说明
 
-# 面向对象编程思想
+### 面向对象编程思想
 
 通过 [C++ 课前热身练习](../../0_CppPratices) 你已经掌握了面向对象编程的基本思想（类的封装、继承、多态），其理念就是：
 
@@ -41,7 +41,7 @@
 
 这是与面向过程编程不一样的。
 
-# 图像库
+### 图像库
 
 须看懂英文论文，只要看懂算法过程即可，不必追究太多背景知识及细节内容；实现基本算法即可，不必拘泥于太多细节。
 
