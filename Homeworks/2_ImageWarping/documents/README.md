@@ -13,11 +13,11 @@
 
 效果示例如下
 
-![USTC_CG_Homeworks_02_ImageWarping_documents_warp_demo.jpg](https://i.loli.net/2020/02/22/MVYGS8vC7I3DNdF.jpg)
+![warp_demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/warp_demo.jpg)
 
 交互示例如下
 
-![USTC_CG_Homeworks_02_ImageWarping_documents_ui_demo.jpg](https://i.loli.net/2020/02/22/VvkFGXucYAz4JQ7.jpg)
+![ui_demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/ui_demo.jpg)
 
 ## 细节说明
 
@@ -33,7 +33,7 @@
 
 用户界面可参考 demo 目录下的程序；需用 [**格子图像**](../project/data/test.png) 来进行测试
 
-![USTC_CG_Homeworks_02_ImageWarping_project_data_test.png](https://i.loli.net/2020/02/22/pCxrDVyt5KHfsqR.png)
+![test.png](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/test.png)
 
 须看懂英文论文，只要看懂算法过程即可，不必追究太多背景知识及细节内容；实现基本算法即可，不必拘泥于太多细节。
 
@@ -44,7 +44,7 @@
 
 结果图像中有时会出现白色空洞或条纹，你需要分析是什么原因造成的？空洞的填补可以利用周围的已知像素进行插值填充。这也是个插值问题（即利用空洞周围一定范围的已知像素来插值该像素的颜色）。你可以尝试如何用你实现的 `IDW warping` 类（或者对 `IDW warping` 类的简单改造。）来填充这些空洞像素的颜色？
 
-![USTC_CG_Homeworks_02_ImageWarping_documents_white_stitch.jpg](https://i.loli.net/2020/02/22/NrAkD95pSudmlBL.jpg)
+![white_stitch.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/white_stitch.jpg)
 
 求解线性方程组的功能，你可以自己实现，也可以从网上找其他程序或库来用。我们建议使用 Eigen 库，我们提供了使用示例：[eigen_example](eigen_example/) 
 
