@@ -39,13 +39,12 @@ include(FetchContent)
 FetchContent_Declare(
   UCMake
   GIT_REPOSITORY https://github.com/Ubpa/UCMake
-  GIT_TAG        fcde6ae
+  GIT_TAG        d133da1
 )
 FetchContent_MakeAvailable(UCMake)
 
-# 获取 Qt5
-find_package(Qt5 REQUIRED Widgets)
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+# 初始化 Qt5
+Ubpa_QtInit(COMPONENTS Core Gui Widgets)
 
 include_directories (
 	${PROJECT_SOURCE_DIR}/include
@@ -58,7 +57,7 @@ link_directories (
 	# ...
 )
 
-add_subdirectory (src)
+Ubpa_AddSubDirsRec(src)
 
 include (InstallRequiredSystemLibraries)
 set (CPACK_PACKAGE_VERSION_MAJOR "${${PROJECT_NAME}_VERSION_MAJOR}")
