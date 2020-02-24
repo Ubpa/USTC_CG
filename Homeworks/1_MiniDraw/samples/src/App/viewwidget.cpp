@@ -113,8 +113,11 @@ void ViewWidget::mouseMoveEvent(QMouseEvent* mouseEvent) {
 		if (pointHovered) {
 			delete figureVec.back();
 			figureVec.pop_back();
+			pointHovered = nullptr;
 		}
+	}
 
+	if (!isDrawing) {
 		// draw circle around hovered point
 		QPoint pos = mouseEvent->pos();
 		for (size_t i = 0; i < figureVec.size(); i++) {
@@ -130,10 +133,8 @@ void ViewWidget::mouseMoveEvent(QMouseEvent* mouseEvent) {
 				break;
 			}
 		}
-	}
-
-	if (!isDrawing)
 		return;
+	}
 
 	QPoint end_point = mouseEvent->pos();
 

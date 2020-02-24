@@ -1,14 +1,17 @@
-# 作业项目
+# 参考项目
 
-## 目录结构
+## 说明
 
-本项目目录包含以下若干子目录：
+本项目使用了 `QStyleSheet`，需自行下载以下文件夹
 
-- [`src/`](src/)：本次作业项目的源代码
+https://github.com/ColinDuquesnoy/QDarkStyleSheet/tree/master/qdarkstyle/rc
 
-## 其他说明
+并将文件夹 `rc/` 放到 [src/App/](src/App/) 下
 
-- Qt：[简易说明](../../../Softwares/Qt.md) 
-- CMake-GUI 在 configure 的时候，Optional platform for generator 要选 **x64** 
-- CMake 一开始会拉取 [UCMake](https://github.com/Ubpa/UCMake)，所以会稍微久一点，拉取的 UCMake 位于 `build/_deps/`，内含一些 CMake 的自定义函数 `Ubpa_xxx`，详细请看 [UbpaTool.cmake](https://github.com/Ubpa/UCMake/blob/master/cmake/UbpaTool.cmake)，构建好的工程中会自带一些 UCMake 中的[示例项目](https://github.com/Ubpa/UCMake/tree/master/src)，可以查看模仿
+如下载有困难，可不使用 `QStyleSheet`，将 [src/App/](src/App/) 下的文件 `style.qrc` 改名为 `style.qrc_bk` 
 
+## 示例图片
+
+![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/sample.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/sample.jpg)
+
+> 图片无法查看则点击该链接 [->](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_image@master/Homeworks/02_ImageWarping/sample.jpg) 
