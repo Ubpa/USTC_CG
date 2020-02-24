@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="MiniDraw">
+      <file>images\Line.jpg</file>
+      <file>images\Rectangle.jpg</file>
+      <file>images\Ellipse.jpg</file>
+      <file>images\Polygon.jpg</file>
+      <file>images\Freehand.jpg</file>
+      <file>images\BezierCurve.jpg</file>
+      <file>images\Drag.jpg</file>
+      <file>images\Color.jpg</file>
+      <file>images\Width.jpg</file>
+      <file>images\Undo.jpg</file>
+    </qresource>
+</RCC>
