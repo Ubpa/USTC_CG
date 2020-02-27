@@ -45,14 +45,42 @@ FetchContent_MakeAvailable(UCMake)
 
 Ubpa_QtInit(COMPONENTS Core Gui Widgets)
 
+message(STATUS "----------")
+find_package(OpenCV REQUIRED)
+
+message(STATUS "----------")
+# https://eigen.tuxfamily.org/dox/TopicCMakeGuide.html
+# https://gitlab.com/libeigen/eigen/-/blob/master/cmake/Eigen3Config.cmake.in
+# https://gitlab.com/libeigen/eigen/-/blob/master/cmake/UseEigen3.cmake
+find_package(Eigen3 3.3 NO_MODULE)
+if(TARGET Eigen3::Eigen)
+	message(STATUS "EIGEN3_FOUND: ${EIGEN3_FOUND}")
+	message(STATUS "EIGEN3_USE_FILE: ${EIGEN3_USE_FILE}")
+	message(STATUS "EIGEN3_DEFINITIONS: ${EIGEN3_DEFINITIONS}")
+	message(STATUS "EIGEN3_INCLUDE_DIR: ${EIGEN3_INCLUDE_DIR}")
+	message(STATUS "EIGEN3_INCLUDE_DIRS: ${EIGEN3_INCLUDE_DIRS}")
+	message(STATUS "EIGEN3_ROOT_DIR: ${EIGEN3_ROOT_DIR}")
+	message(STATUS "EIGEN3_VERSION_STRING: ${EIGEN3_VERSION_STRING}")
+	include(${EIGEN3_USE_FILE})
+else()
+	message(WARNING "find_package(Eigen3 3.3 NO_MODULE) failed, so use include/_deps/Eigen/")
+	if(NOT EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/Eigen")
+		message(FATAL_ERROR "not found Eigen/ in ${PROJECT_SOURCE_DIR}/include/_deps/")
+	endif()
+endif()
+
 include_directories (
 	${PROJECT_SOURCE_DIR}/include
+	${PROJECT_SOURCE_DIR}/include/_deps
 	${utemplate_SOURCE_DIR}/include
+	${OpenCV_DIR}/include
+	# ${Eigen_DIR}/include
 	# $ENV{XXX_INCLUDE_PATH}
 	# ...
 )
 link_directories (
 	${PROJECT_SOURCE_DIR}/lib
+	${OpenCV_DIR}/x64/vc15/lib
 	# $ENV{XXX_LIB_PATH}
 	# ...
 )
