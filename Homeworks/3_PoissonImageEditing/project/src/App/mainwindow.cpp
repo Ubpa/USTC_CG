@@ -37,12 +37,12 @@ void MainWindow::CreateActions()
 	// 	action_new_->setStatusTip(tr("Create a new file"));
 
 		// File IO
-	action_open_ = new QAction(QIcon(":/MainWindow/Resources/images/open.png"), tr("&Open..."), this);
+	action_open_ = new QAction(QIcon(":/MainWindow/Resources/images/open.jpg"), tr("&Open..."), this);
 	action_open_->setShortcuts(QKeySequence::Open);
 	action_open_->setStatusTip(tr("Open an existing file"));
 	connect(action_open_, SIGNAL(triggered()), this, SLOT(Open()));
 
-	action_save_ = new QAction(QIcon(":/MainWindow/Resources/images/save.png"), tr("&Save"), this);
+	action_save_ = new QAction(QIcon(":/MainWindow/Resources/images/save.jpg"), tr("&Save"), this);
 	action_save_->setShortcuts(QKeySequence::Save);
 	action_save_->setStatusTip(tr("Save the document to disk"));
 	connect(action_save_, SIGNAL(triggered()), this, SLOT(Save()));
