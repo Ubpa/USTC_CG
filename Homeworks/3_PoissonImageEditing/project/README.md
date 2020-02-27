@@ -1,5 +1,7 @@
 # 3. Poisson Image Editing
 
+- [include/](inculde/)：头文件
+  - [_deps/](_deps/)：依赖库（目前为空）
 - [src/](src/)：源代码
 - [data/](data/)：资源文件夹（目前为空）
 
@@ -15,15 +17,13 @@
 
 ### Eigen 配置
 
-作业 2 ImageWarping 的项目 [documents/eigen_example](../../2_ImageWarping/documents/eigen_example) 所述的方法，将 Eigen 源码放在了项目内部。
+作业 2 ImageWarping 的项目 [documents/eigen_example](../../2_ImageWarping/documents/eigen_example) 所述的方法是将 Eigen 源码放在了项目内部。
 
 本次项目可采用更合理的方式
 
 > 当然你**可以**沿用之前的方法（将 Eigen/ 放在 [include/_deps/](include/_deps/)），本项目提供了支持
 >
 > 但不推荐，这样又拷贝了一份 Eigen
->
-> 下边介绍
 
 - 下载 eigen-3.3.7：[官方网站](http://eigen.tuxfamily.org/)，[下载链接](https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.zip) 
 - 用 CMake-GUI 对其进行 Configure（不要点 Generate, Open Project）（较久）
