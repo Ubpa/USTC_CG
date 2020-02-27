@@ -25,13 +25,13 @@
 
 ## 3. 资源介绍
 
-- 进一步规范代码实现规范和习惯，继续阅读并提高C++编程的技巧和经验
-  - 提高C++编程的50项技巧（[百度网盘](http://pan.baidu.com/s/1gdECTBd)）
-  - 改进C++程序的6个技巧（[百度网盘](http://pan.baidu.com/s/1ntNojhf)）
+- 进一步规范代码实现规范和习惯，继续阅读并提高 C++ 编程的技巧和经验
+  - 提高 C++ 编程的 50 项技巧（[百度网盘](http://pan.baidu.com/s/1gdECTBd)）
+  - 改进 C++ 程序的 6 个技巧（[百度网盘](http://pan.baidu.com/s/1ntNojhf)）
   - [Google 命名规则](http://zh-google-styleguide-fix.readthedocs.org/en/latest/google-cpp-styleguide/naming.html) 
 - 如何查找文献（[百度网盘](http://pan.baidu.com/s/1o6z56T8)）
 - [数学在计算机图形学中的应用](http://staff.ustc.edu.cn/~lgliu/Resources/CG/Math_for_CG_Turk_CN.htm) 
-- Qt 原理了解：现在开始可以有意识地开始看一些有关 Qt 原理的参考书，在使用的过程中逐步体会。另外，可以逐渐追踪 Qt 的源代码，自己试着修改 Qt 的代码，实现自己的功能。比如，你也可以试着追踪 STL 的源码，看看其实现原理，且与你以前自己实现的 Dynamic Array 的原理比较一下。Qt5 刚刚出现不久（2014/04/12），较之 Qt4 有较大变动，而市面上大多数书都是 Qt4。所以我们更建议你看 Qt 官方 example，以及在 Qt 官网上的资料。
+- Qt 原理了解：现在开始可以有意识地开始看一些有关 Qt 原理的参考书，在使用的过程中逐步体会。另外，可以逐渐追踪 Qt 的源代码，自己试着修改 Qt 的代码，实现自己的功能。比如，你也可以试着追踪 STL 的源码，看看其实现原理，且与你以前自己实现的 Dynamic Array 的原理比较一下。Qt 5 刚刚出现不久（2014/04/12），较之 Qt 4 有较大变动，而市面上大多数书都是 Qt 4。所以我们更建议你看 Qt 官方 example，以及在 Qt 官网上的资料。
 - 学习使用图像库 OpenCV：`QImage` 类只是一个非常简单的图像类，本次作业须学习使用 OpenCV（Open Computer Vision）库。它是一个非常强大的图像处理的开发库，集成了很多算法。是从事图像处理和计算机视觉的研究工作者首选的图像库。
 
 ## 参考

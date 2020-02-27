@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/MainWindow">
+        <file>Resources/images/open.jpg</file>
+        <file>Resources/images/save.jpg</file>
+    </qresource>
+</RCC>
