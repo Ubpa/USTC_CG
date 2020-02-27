@@ -13,13 +13,13 @@
 - 学会使用 Qt 多窗口显示框架：项目 [project/](../project/)  写好了一个多窗口框架，展示了如何得到每个子窗口的指针即可。详见说明文档。
 - 继续巩固 OOP 编程思想。
 
-## 2. 1. 测试说明
+## 2. 测试说明
 
-### 1.2 测试图像
+### 2.1 测试图像
 
 须用 [**测试图像**](../project/data/) 来进行测试
 
-### 1.1 结果示例
+### 2.2 结果示例
 
 ![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/03_PoissonImageEditing/demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/03_PoissonImageEditing/demo.jpg)
 
