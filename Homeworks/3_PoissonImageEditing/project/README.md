@@ -5,7 +5,7 @@
 
 ## 使用说明
 
-本次作业涉及的测试图片下载方式参考 [data/README.md](/data/README.md) 
+本次作业涉及的测试图片下载方式参考 [data/README.md](data/README.md) 
 
 ## 其他说明
 

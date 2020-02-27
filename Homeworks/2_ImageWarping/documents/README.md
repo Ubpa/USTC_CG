@@ -6,7 +6,7 @@
 
 ## 测试图片及报告范例
 
-- 测试例子：须用以下 [**格子图像**](../project/data/test.png) 来进行测试，可以很清楚看到warping方法的特点
+- 测试例子：须用以下 [**格子图像**](../project/data/test.png) 来进行测试，可以很清楚看到 warping 方法的特点
 
 ![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/02_ImageWarping/test.png](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/02_ImageWarping/test.png)
 
