@@ -74,7 +74,6 @@ include_directories (
 	${PROJECT_SOURCE_DIR}/include/_deps
 	${utemplate_SOURCE_DIR}/include
 	${OpenCV_DIR}/include
-	# ${Eigen_DIR}/include
 	# $ENV{XXX_INCLUDE_PATH}
 	# ...
 )
