@@ -3,7 +3,7 @@
 ## 1. 作业任务
 
 - 实现 **Poisson Image Editing 算法** [^03Perez] 
-- 实现**扫描线算法**：对于任意多边形边界的封闭区域，要得到它的内部像素，需要使用扫描线算法。参考任一计算机图形学书。
+- 实现[**扫描线算法**](ScanningLine.md)：对于任意多边形边界的封闭区域，要得到它的内部像素，需要使用扫描线算法。参考任一计算机图形学书。
 - 实时拖动多边形区域得到结果：需要使用矩阵求解方法（分解方法），对特定的问题使用适应的矩阵分解方法会极大的提高求解效率，提升求解稳定性。
 - 使用矩阵**预分解**技术，实现**实时**的 Poisson Image Editing。
 - 对于线性方程组 $AX=b_i$，对于相同的 $A$，不同的 $b_i$，如果每次都重新整体求解方程组，耗时太严重。常用的做法是对 $A$ 进行预分解，这样对于不同的 $b_i$，只需要花费很少的时间，就可以得到解。
@@ -13,7 +13,17 @@
 - 学会使用 Qt 多窗口显示框架：项目 [project/](../project/)  写好了一个多窗口框架，展示了如何得到每个子窗口的指针即可。详见说明文档。
 - 继续巩固 OOP 编程思想。
 
-## 2. 资源介绍
+## 2. 1. 测试说明
+
+### 1.2 测试图像
+
+须用 [**测试图像**](../project/data/) 来进行测试
+
+### 1.1 结果示例
+
+![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/03_PoissonImageEditing/demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/03_PoissonImageEditing/demo.jpg)
+
+## 3. 资源介绍
 
 - 进一步规范代码实现规范和习惯，继续阅读并提高C++编程的技巧和经验
   - 提高C++编程的50项技巧（[百度网盘](http://pan.baidu.com/s/1gdECTBd)）
