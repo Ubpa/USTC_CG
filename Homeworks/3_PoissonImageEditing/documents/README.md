@@ -4,6 +4,7 @@
 
 - 实现 Siggraph 2003 论文 “Poisson Image Editing” 的算法 [下载](https://www.cs.jhu.edu/~misha/Fall07/Papers/Perez03.pdf)
   - 至少须实现文中的Seamless cloning的应用
+  - 可执行示范程序可见课程百度云盘的目录 'Homework/Homework3/Demo'（百度云链接见课程主页）
 - 实现[**多边形扫描转换算法**](ScanningLine.md)，可参考任一计算机图形学教材。
 - 学习使用 Qt 多窗口显示框架：项目 [project/](../project/)  写好了一个多窗口框架，展示了如何得到每个子窗口的指针即可。详见说明文档。
 - 学习使用图像库 OpenCV：`QImage` 类只是一个非常简单的图像类，本次作业须学习使用 OpenCV（Open Computer Vision）库。它是一个非常强大的图像处理的开发库，集成了很多算法。是从事图像处理和计算机视觉的研究工作者首选的图像库。我们提供了配置和使用 OpenCV 的示例项目 [opencv_example](opencv_example/)，请务必编译运行成功。
