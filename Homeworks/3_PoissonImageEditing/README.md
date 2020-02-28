@@ -9,8 +9,7 @@
 ## 作业要求
 
 - 实现 Poisson Image Editing 算法
-  - Pérez, Patrick, Michel Gangnet, and Andrew Blake. "Poisson image editing." ACM Transactions on Graphics (Proc. SIGGRAPH). Vol. 22. No. 3. ACM, 2003. [下载](https://www.cs.jhu.edu/~misha/Fall07/Papers/Perez03.pdf)
-- 任意区域填充的[扫描线算法](documents/ScanningLine.md) 
+- 实现多边形光栅化的[扫描线转换算法](documents/ScanningLine.md) 
 - 学习使用Eigen库求解大型稀疏方程组
 - 学习使用 OpenCV
 - 实时拖动区域显示结果（Optional）
