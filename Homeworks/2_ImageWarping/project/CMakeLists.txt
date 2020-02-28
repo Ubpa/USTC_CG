@@ -35,13 +35,24 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${CMAKE_SOURCE_DIR}/lib")
 # 开启 VS 的文件夹功能
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-include(FetchContent)
-FetchContent_Declare(
-  UCMake
-  GIT_REPOSITORY https://github.com/Ubpa/UCMake
-  GIT_TAG        fcde6ae
-)
-FetchContent_MakeAvailable(UCMake)
+set(USE_ANN OFF CACHE BOOL OFF)
+if(USE_ANN)
+	include(FetchContent)
+	FetchContent_Declare(
+	  UANN
+	  GIT_REPOSITORY https://github.com/Ubpa/UANN
+	  GIT_TAG        47688f0
+	)
+	FetchContent_MakeAvailable(UANN)
+else()
+	include(FetchContent)
+	FetchContent_Declare(
+	  UCMake
+	  GIT_REPOSITORY https://github.com/Ubpa/UCMake
+	  GIT_TAG        1713889
+	)
+	FetchContent_MakeAvailable(UCMake)
+endif()
 
 # 获取 Qt5
 find_package(Qt5 REQUIRED Widgets)
@@ -59,7 +70,7 @@ link_directories (
 	# ...
 )
 
-add_subdirectory (src)
+Ubpa_AddSubDirsRec(src)
 
 include (InstallRequiredSystemLibraries)
 set (CPACK_PACKAGE_VERSION_MAJOR "${${PROJECT_NAME}_VERSION_MAJOR}")

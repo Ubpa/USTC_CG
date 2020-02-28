@@ -10,7 +10,15 @@
 
 ## 使用说明
 
+### Eigen
+
 如需 Eigen，参考 [Eigen 示例项目](../documents/eigen_example) 
+
+### ANN (Optional)
+
+如需 ANN，参考 [ANN 示例项目](../documents/ann_example/) 
+
+对于本项目，在 CMake 进行 Configure 后，配置框中找到 `USE_ANN` 并勾选上，然后重新 Configure 后再 Generate 和 Open Project 即可完成配置
 
 ## 其他说明
 

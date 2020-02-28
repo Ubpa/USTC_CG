@@ -69,7 +69,9 @@
 
 若你需要用搜索最近点的任务（在补洞的任务中），建议学习使用如下的库：
 
-[ANN: A Library for Approximate Nearest Neighbor Searching](http://www.cs.umd.edu/~mount/ANN/) （[百度云盘](http://pan.baidu.com/s/1EMZqm)）
+[ANN: A Library for Approximate Nearest Neighbor Searching](http://www.cs.umd.edu/~mount/ANN/) 
+
+我们提供了测试项目 [ann_example](ann_example/) 
 
 
 ### 注意事项
