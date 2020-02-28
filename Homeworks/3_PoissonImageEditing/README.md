@@ -1,4 +1,4 @@
-# 3. 泊松图像编辑
+# 3. 泊松图像编辑 (Poisson Image Editing)
 
 
 ## 作业递交
@@ -9,12 +9,10 @@
 ## 作业要求
 
 - 实现 Poisson Image Editing 算法
+  - Pérez, Patrick, Michel Gangnet, and Andrew Blake. "Poisson image editing." ACM Transactions on Graphics (Proc. SIGGRAPH). Vol. 22. No. 3. ACM, 2003. [下载](https://www.cs.jhu.edu/~misha/Fall07/Papers/Perez03.pdf)
 - 任意区域填充的[扫描线算法](documents/ScanningLine.md) 
-- 无缝融合
-  - 大型稀疏方程组求解
+- 学习使用Eigen库求解大型稀疏方程组
 - 学习使用 OpenCV
-- 项目报告
-  - 各种试验例子
 - 实时拖动区域显示结果（Optional）
   - 矩阵预分解
 
