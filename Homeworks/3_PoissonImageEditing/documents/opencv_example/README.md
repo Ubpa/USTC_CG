@@ -10,7 +10,7 @@
   - 将 `your-path-to-opencv/build/x64/vc15/bin` 加到系统变量 Path 中
   - 新建系统变量（用于 CMake 命令 `find_package(OpenCV REQUIRED)`）
     - 变量名：`OpenCV_DIR` 
-    - 变量值：`your-path-to-opencv/build/x64/vc15/lib` 
+    - 变量值：`your-path-to-opencv/build` 
 
 **CMake** 
 
