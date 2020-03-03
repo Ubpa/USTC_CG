@@ -82,7 +82,7 @@ void MainWindow::CreateMenus()
 {
 	menu_file_ = menuBar()->addMenu(tr("&File"));
 	menu_file_->setStatusTip(tr("File menu"));
-	menu_file_->addAction(action_new_);
+	// menu_file_->addAction(action_new_);
 	menu_file_->addAction(action_open_);
 	menu_file_->addAction(action_save_);
 	menu_file_->addAction(action_saveas_);
@@ -98,7 +98,7 @@ void MainWindow::CreateMenus()
 void MainWindow::CreateToolBars()
 {
 	toolbar_file_ = addToolBar(tr("File"));
-	toolbar_file_->addAction(action_new_);
+	// toolbar_file_->addAction(action_new_);
 	toolbar_file_->addAction(action_open_);
 	toolbar_file_->addAction(action_save_);
 
