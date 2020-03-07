@@ -84,7 +84,7 @@ $$
 $$
 则微分坐标
 $$
-\delta_i=v_i-\frac{1}{d_i}\sum_{v\in N(i)}(v_i-v)=\frac{1}{d_i}\sum_{v\in N(i)}(v_i-v)=0
+\delta_i=v_i-\frac{1}{d_i}\sum_{v\in N(i)}v=\frac{1}{d_i}\sum_{v\in N(i)}(v_i-v)=0
 $$
 
 ### 计算方法
