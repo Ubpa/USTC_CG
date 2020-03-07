@@ -37,6 +37,10 @@
 
 ![image-20200308060027277](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308060027277.jpg)
 
+相关资料：[half-edge](https://kaba.hilvi.org/homepage/blog/halfedge/halfedge.htm) 
+
+本次作业已提供半边结构：[UHEMesh](https://github.com/Ubpa/UHEMesh)，设计思路见于 [C++ 半边数据结构 UHEMesh](https://zhuanlan.zhihu.com/p/103510964) 
+
 ### 顶点的微分坐标
 
 $$
