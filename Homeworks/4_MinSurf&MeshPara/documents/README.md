@@ -93,7 +93,7 @@ $$
 
 ![image-20200308061223252](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061223252.jpg)
 
-### 操作步骤
+### 实现步骤
 
 - 检测边界
 - 固定边界
@@ -171,7 +171,7 @@ $$
 
 ![image-20200308062312949](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308062312949.jpg)
 
-### 操作步骤
+### 实现步骤
 
 - 检测边界
 - 将边界映射到**正方形边界**或**圆边界** （只有这一步与上面的求极小曲面不同）
