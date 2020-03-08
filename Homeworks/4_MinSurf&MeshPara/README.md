@@ -10,9 +10,9 @@
 
 - 初步了解 \*.obj 格式的 3D 数据（\*.obj, \*.mtl)
   - 使用 Win10 自带的 “3D 查看器” 查看 obj 数据文件
-  - 安装并使用 [MeshLab] (http://www.meshlab.net) 查看 3D 数据文件 （MeshLab 开源，功能较多，可多学习使用）
+  - 安装并使用开源3D几何处理框架 [MeshLab](http://www.meshlab.net) 查看 3D 数据文件 （MeshLab 功能多，可多学习使用）
 - 学习三角网格的数据结构及操作
-  - 使用 UEngine 网格程序框架，学习三角网格的半边数据结构
+  - 使用 UEngine 网格程序框架，学习三角网格的半边数据结构[刘利刚教授](http://staff.ustc.edu.cn/~lgliu) 
   - 寻找**非封闭**网格曲面的边界
 - 实现极小曲面与网格参数化
   - 极小曲面：边界固定，求解稀疏方程组
