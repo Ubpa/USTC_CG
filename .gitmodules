@@ -1,0 +1,15 @@
+[submodule "Homeworks/4_MinSurfMeshPara/project/external/UCMake"]
+	path = Homeworks/4_MinSurfMeshPara/project/external/UCMake
+	url = https://github.com/Ubpa/UCMake
+[submodule "Homeworks/4_MinSurfMeshPara/project/external/UGM"]
+	path = Homeworks/4_MinSurfMeshPara/project/external/UGM
+	url = https://github.com/Ubpa/UGM
+[submodule "Homeworks/4_MinSurfMeshPara/project/external/UTemplate"]
+	path = Homeworks/4_MinSurfMeshPara/project/external/UTemplate
+	url = https://github.com/Ubpa/UTemplate
+[submodule "Homeworks/4_MinSurfMeshPara/project/external/UDP"]
+	path = Homeworks/4_MinSurfMeshPara/project/external/UDP
+	url = https://github.com/Ubpa/UDP
+[submodule "Homeworks/4_MinSurfMeshPara/project/external/UHEMesh"]
+	path = Homeworks/4_MinSurfMeshPara/project/external/UHEMesh
+	url = https://github.com/Ubpa/UHEMesh
