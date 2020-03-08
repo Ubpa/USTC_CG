@@ -46,6 +46,7 @@
 $$
 \delta_i=v_i-\sum_{j\in N(i)}w_jv_j
 $$
+
 ![image-20200308052934359](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308052934359.jpg)
 
 所有顶点联立，得到整个网格的 Laplacian 方程 $AV=b$ 
@@ -73,16 +74,21 @@ $$
 ### 理论
 
 平均曲率处处为 0，即
+
 $$
 H(v_i)=0,\forall i
 $$
+
 又
 
 ![image-20200308061030193](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061030193.jpg)
+
 $$
 \lim_{len(y)\to 0}\frac{1}{len(\gamma)}\int_{v\in \gamma}(v_i-v)\mathrm{d}s=H(v_i)\pmb{n}_i
 $$
+
 则微分坐标
+
 $$
 \delta_i=v_i-\frac{1}{d_i}\sum_{v\in N(i)}v=\frac{1}{d_i}\sum_{v\in N(i)}(v_i-v)=0
 $$
@@ -128,11 +134,14 @@ $$
 ![image-20200308061921615](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061921615.jpg)
 
 定义嵌入（embedding）如下
+
 $$
 Wx=b_x\\
 Wy=b_y
 $$
+
 其中
+
 $$
 w_{ij}=\left\{\begin{array}{l}
 <0 & (i,j)\in E\\
@@ -141,6 +150,7 @@ w_{ij}=\left\{\begin{array}{l}
 \end{array}
 \right.
 $$
+
 因此 $W$ 是对称矩阵，权重 $w_{ij}$ 控制了参数化形状
 
 > **原理** 
