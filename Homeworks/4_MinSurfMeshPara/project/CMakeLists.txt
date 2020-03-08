@@ -67,6 +67,22 @@ if(TARGET tinyxml2::tinyxml2)
 endif()
 
 message(STATUS "----------")
+if(EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/stb_image.h"
+   AND EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/stb_image_write.h")
+	message(STATUS "found stb_image.h and stb_image_write.h")
+else()
+	message(FATAL_ERROR "not found stb_image.h or stb_image_write.h in include/_deps/\n"
+		"read setup.md for more detail")
+endif()
+
+message(STATUS "----------")
+if(EXISTS "${PROJECT_SOURCE_DIR}/src/App/UEngine/Resources")
+else()
+	message(FATAL_ERROR "not found Resources/ in src/App/UEngine/\n"
+		"read setup.md for more detail")
+endif()
+
+message(STATUS "----------")
 # https://eigen.tuxfamily.org/dox/TopicCMakeGuide.html
 # https://gitlab.com/libeigen/eigen/-/blob/master/cmake/Eigen3Config.cmake.in
 # https://gitlab.com/libeigen/eigen/-/blob/master/cmake/UseEigen3.cmake
@@ -83,7 +99,8 @@ if(TARGET Eigen3::Eigen)
 else()
 	message(WARNING "find_package(Eigen3 3.3 NO_MODULE) failed, so use include/_deps/Eigen/")
 	if(NOT EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/Eigen")
-		message(FATAL_ERROR "not found Eigen/ in ${PROJECT_SOURCE_DIR}/include/_deps/")
+		message(FATAL_ERROR "not found Eigen/ in ${PROJECT_SOURCE_DIR}/include/_deps/\n"
+			"read setup.md for more detail")
 	endif()
 endif()
 

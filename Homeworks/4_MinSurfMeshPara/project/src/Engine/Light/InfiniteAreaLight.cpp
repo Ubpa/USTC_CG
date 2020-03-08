@@ -10,7 +10,8 @@ using namespace Ubpa;
 using namespace std;
 
 void InfiniteAreaLight::SetImg(Ptr<Image> img) {
-	this->img = img;
+	if(img && img->IsValid())
+		this->img = img;
 	cout << "WARNING::InfiniteAreaLight:" << endl
 		<< "\t" << "not implemented" << endl;
 }

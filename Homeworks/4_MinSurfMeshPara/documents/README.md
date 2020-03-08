@@ -8,12 +8,12 @@
 
 > [obj 三维网格文件格式](obj.md) 
 
-- [Balls.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara/mesh/Balls.obj) 
-- [Bunny_head.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara/mesh/Bunny_head.obj) 
-- [Cat_head.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara/mesh/Cat_head.obj) 
-- [David328.mtl](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara/mesh/David328.mtl) 
-- [David328.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara/mesh/David328.obj) 
-- [Nefertiti_face.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara/mesh/Nefertiti_face.obj) 
+- [Balls.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/mesh/Balls.obj) 
+- [Bunny_head.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/mesh/Bunny_head.obj) 
+- [Cat_head.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/mesh/Cat_head.obj) 
+- [David328.mtl](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/mesh/David328.mtl) 
+- [David328.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/mesh/David328.obj) 
+- [Nefertiti_face.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/mesh/Nefertiti_face.obj) 
 
 ### 纹理图片
 
@@ -27,15 +27,15 @@
 
 3D 网格曲面是2D流形曲面的离散形式。本质上是 2D 三角网格的顶点映射(lift)到 3D 中：
 
-![image-20200308055839320](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308055839320.jpg)
+![image-20200308055839320](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308055839320.jpg)
 
 ### 顶点的连接关系
 
-![image-20200308060001167](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308060001167.jpg)
+![image-20200308060001167](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308060001167.jpg)
 
 ### 存储数据结构：半边结构
 
-![image-20200308060027277](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308060027277.jpg)
+![image-20200308060027277](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308060027277.jpg)
 
 相关资料：[half-edge](https://kaba.hilvi.org/homepage/blog/halfedge/halfedge.htm) 
 
@@ -47,7 +47,7 @@ $$
 \delta_i=v_i-\sum_{j\in N(i)}w_jv_j
 $$
 
-![image-20200308052934359](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308052934359.jpg)
+![image-20200308052934359](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308052934359.jpg)
 
 所有顶点联立，得到整个网格的 Laplacian 方程 $AV=b$ 
 
@@ -63,13 +63,13 @@ $$
 
 平均曲率处处为 0 的曲面
 
-![image-20200308060338091](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308060338091.jpg)
+![image-20200308060338091](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308060338091.jpg)
 
 ### 以空间曲线为边界的极小曲面
 
 插值给定空间边界曲线
 
-![image-20200308060458907](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308060458907.jpg)
+![image-20200308060458907](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308060458907.jpg)
 
 ### 理论
 
@@ -81,7 +81,7 @@ $$
 
 又
 
-![image-20200308061030193](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061030193.jpg)
+![image-20200308061030193](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308061030193.jpg)
 
 $$
 \lim_{len(y)\to 0}\frac{1}{len(\gamma)}\int_{v\in \gamma}(v_i-v)\mathrm{d}s=H(v_i)\pmb{n}_i
@@ -97,7 +97,7 @@ $$
 
 固定边界，微分坐标均为0，将所有顶点的方程联立一起求解
 
-![image-20200308061223252](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061223252.jpg)
+![image-20200308061223252](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308061223252.jpg)
 
 ### 实现步骤
 
@@ -109,29 +109,29 @@ $$
 
 > 思考：高亏格曲面能做吗？
 >
-> ![image-20200308061348293](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061348293.jpg)
+> ![image-20200308061348293](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308061348293.jpg)
 
 ## 3. 网格参数化
 
 ### 曲面展开：将 3D 网格曲面（非封闭、带边界的）展开到平面
 
-![image-20200308061556138](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061556138.jpg)
+![image-20200308061556138](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308061556138.jpg)
 
 ### 纹理映射
 
-![image-20200308053734074](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308053734074.jpg)
+![image-20200308053734074](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308053734074.jpg)
 
 ### 线性方法 Linear method[^Floater97] 
 
 将边界固定到平面凸多边形（比如单位圆或单位正方形）上
 
-![image-20200308054033382](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308054033382.jpg)
+![image-20200308054033382](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308054033382.jpg)
 
 ### 2D Barycentric Embeddings
 
 将 2D 边界固定到凸多边形（比如单位圆或单位正方形）上
 
-![image-20200308061921615](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061921615.jpg)
+![image-20200308061921615](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308061921615.jpg)
 
 定义嵌入（embedding）如下
 
@@ -163,7 +163,7 @@ $$
 >
 > **示例** 
 >
-> ![image-20200308062006721](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308062006721.jpg)
+> ![image-20200308062006721](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308062006721.jpg)
 
 ### 参数化方法 [^Floater97] 
 
@@ -175,11 +175,11 @@ $$
 
 ### 示例
 
-![image-20200308062240566](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308062240566.jpg)
+![image-20200308062240566](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308062240566.jpg)
 
-![image-20200308062257708](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308062257708.jpg)
+![image-20200308062257708](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308062257708.jpg)
 
-![image-20200308062312949](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308062312949.jpg)
+![image-20200308062312949](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/image-20200308062312949.jpg)
 
 ### 实现步骤
 
