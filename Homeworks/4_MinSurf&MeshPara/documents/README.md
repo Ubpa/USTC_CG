@@ -174,7 +174,7 @@ $$
 ### 操作步骤
 
 - 检测边界
-- 将边界映射到**正方形边界**或**圆边界** 
+- 将边界映射到**正方形边界**或**圆边界** （只有这一步与上面的求极小曲面不同）
 - 构建稀疏方程组
 - 求解稀疏方程组
 - 更新顶点坐标
@@ -182,4 +182,4 @@ $$
 
 ## 参考文献
 
-[^Floater97]: Floater M S. [**Parametrization and smooth approximation of surface triangulations**](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.6676&rep=rep1&type=pdf)[J]. Computer aided geometric design, 1997, 14(3): 231-250.
+[^Floater97]: Floater M S. [**Parametrization and smooth approximation of surface triangulations**](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.102.6676&rep=rep1&type=pdf)[J]. Computer aided geometric design, 1997, 14(3): 231-250. （此为参数化论文。本次作业只要实现前2种方法，即Uniform weight和Cotangent weight方法即可）
