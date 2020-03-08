@@ -425,7 +425,7 @@ void Attribute::ComponentVisitor::ImplVisit(Ptr<BSDF_Diffuse> bsdf) {
 void Attribute::ComponentVisitor::ImplVisit(Ptr<BSDF_Emission> bsdf) {
 	auto grid = GetGrid(attr->componentType2item[typeid(CmptMaterial)]);
 	grid->AddEditColor("- Color", bsdf->color);
-	grid->AddEditVal("- Intensity", bsdf->intensity, 0, 20, 2000);
+	grid->AddEditVal("- Intensity", bsdf->intensity, 0, 100, 1000);
 }
 
 void Attribute::ComponentVisitor::ImplVisit(Ptr<BSDF_Glass> bsdf) {

@@ -648,15 +648,30 @@ Ptr<Scene> GenScene11() {
 	meshObj->AddComponent<CmptTransform>();
 	meshObj->AddComponent<CmptMaterial>(BSDF_Frostbite::New());
 
-	auto lightObj = SObj::New(sobjRoot, "light");
-	lightObj->AddComponent<CmptLight>(InfiniteAreaLight::New(Image::New(ROOT_PATH+"data/textures/newport_loft.hdr")));
-	auto ball = SObj::Load(ROOT_PATH + "data/objects/Balls.obj");
-	if(ball)
-		sobjRoot->AddChild(ball);
-	else {
-		cout << "WARNING::GenScene11:" << endl
-			<< "\t" << "load fail: data/objects/Balls.obj" << endl;
+	auto hdr = Image::New(ROOT_PATH + "data/textures/newport_loft.hdr");
+	if (hdr->IsValid()) {
+		auto lightObj = SObj::New(sobjRoot, "light");
+		lightObj->AddComponent<CmptLight>(InfiniteAreaLight::New(hdr));
+		auto ball = SObj::Load(ROOT_PATH + "data/objects/Balls.obj");
+		if (ball)
+			sobjRoot->AddChild(ball);
+		else {
+			cout << "WARNING::GenScene11:" << endl
+				<< "\t" << "load fail: data/objects/Balls.obj" << endl;
+		}
 	}
+	else {
+		auto sobj_areaLight = SObj::New(sobjRoot, "area light");
+		rgbf lightColor(0.33f, 1.0f, 0.f);
+		sobj_areaLight->AddComponent<CmptLight>(AreaLight::New(lightColor, 3000.f));
+		sobj_areaLight->AddComponent<CmptTransform>(pointf3(0.f, 3.f, 0.f), scalef3{ 1.f }, quatf(vecf3{ 1,0,0 }, to_radian(180.f)));
+		sobj_areaLight->AddComponent<CmptGeometry>(Plane::New());
+		sobj_areaLight->AddComponent<CmptMaterial>(BSDF_Emission::New(lightColor, 100.f));
+	}
+
+	auto sobj_Camera = SObj::New(sobjRoot, "camera");
+	auto camera = CmptCamera::New(sobj_Camera, 50.0f);
+	auto cameraTransform = CmptTransform::New(sobj_Camera);
 
 	return Scene::New(sobjRoot);
 }

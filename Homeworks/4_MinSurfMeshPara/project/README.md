@@ -9,4 +9,5 @@
 ## Bug
 
 - 方向光
+- 相机：按钮 To Roamer Camera
 
