@@ -1,10 +1,12 @@
 # 作业说明
 
+【注】作业说明亦可见课程百度云的目录“Homework/Homework4”。
+
 ## 0. 测试数据
 
 ### 非封闭网格（一条边界）
 
-> [objs 文件格式](obj.md) 
+> [obj 三维网格文件格式](obj.md) 
 
 - [Balls.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara/mesh/Balls.obj) 
 - [Bunny_head.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara/mesh/Bunny_head.obj) 
@@ -13,7 +15,7 @@
 - [David328.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara/mesh/David328.obj) 
 - [Nefertiti_face.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara/mesh/Nefertiti_face.obj) 
 
-### 图片
+### 纹理图片
 
 ![https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/02_ImageWarping/test.png](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/02_ImageWarping/test.png)
 
@@ -23,9 +25,7 @@
 
 ### 3D 网格曲面
 
-3D 网格曲面是二维流形曲面的离散
-
-2D 三角网格的顶点映射到 3D 中
+3D 网格曲面是2D流形曲面的离散形式。本质上是 2D 三角网格的顶点映射(lift)到 3D 中：
 
 ![image-20200308055839320](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308055839320.jpg)
 
@@ -64,7 +64,7 @@ $$
 
 ![image-20200308060338091](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308060338091.jpg)
 
-### 曲线的极小曲面
+### 以空间曲线为边界的极小曲面
 
 插值给定空间边界曲线
 
@@ -89,7 +89,7 @@ $$
 
 ### 计算方法
 
-固定边界，微分坐标 = 0，将所有顶点的方程联立一起求解
+固定边界，微分坐标均为0，将所有顶点的方程联立一起求解
 
 ![image-20200308061223252](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061223252.jpg)
 
@@ -101,13 +101,13 @@ $$
 - 求解稀疏方程组
 - 更新顶点坐标
 
-> 高亏格曲面？
+> 思考：高亏格曲面能做吗？
 >
 > ![image-20200308061348293](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061348293.jpg)
 
 ## 3. 网格参数化
 
-### 曲面展开
+### 曲面展开：将 3D 网格曲面（非封闭、带边界的）展开到平面
 
 ![image-20200308061556138](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061556138.jpg)
 
@@ -117,13 +117,13 @@ $$
 
 ### 线性方法 Linear method[^Floater97] 
 
-将边界固定到单位圆或单位正方形上
+将边界固定到平面凸多边形（比如单位圆或单位正方形）上
 
 ![image-20200308054033382](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308054033382.jpg)
 
 ### 2D Barycentric Embeddings
 
-将 2D 边界固定到凸多边形上
+将 2D 边界固定到凸多边形（比如单位圆或单位正方形）上
 
 ![image-20200308061921615](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurf&MeshPara//image-20200308061921615.jpg)
 
@@ -161,7 +161,7 @@ $$
 - Cotangent weight (geometry aware): $w_j =  (\cot \alpha + \cot\beta)$ 
 - shape preserving parametrization
 
-如何判断哪个参数化方法更好？
+【注】只要实现前两种方法。
 
 ### 示例
 
