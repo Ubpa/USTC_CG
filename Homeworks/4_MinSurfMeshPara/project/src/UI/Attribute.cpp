@@ -5,6 +5,7 @@
 #include <Engine/MeshEdit/Glue.h>
 #include <Engine/MeshEdit/MinSurf.h>
 #include <Engine/MeshEdit/Paramaterize.h>
+#include <Engine/MeshEdit/IsotropicRemeshing.h>
 
 #include <Engine/Scene/SObj.h>
 #include <Engine/Scene/AllComponents.h>
@@ -348,7 +349,17 @@ void Attribute::ComponentVisitor::ImplVisit(Ptr<TriMesh> mesh) {
 		if (paramaterize->Run())
 			printf("Paramaterize done\n");
 		pOGLW->DirtyVAO(mesh);
-		
+	});
+
+	grid->AddButton("Isotropic Remeshing", [mesh, pOGLW = attr->pOGLW]() {
+		printf("[Isotropic Remeshing] start\n");
+		auto isotropicRemeshing = IsotropicRemeshing::New(mesh);
+		printf("[Isotropic Remeshing] init done\n");
+		if (isotropicRemeshing->Run(5))
+			printf("[Isotropic Remeshing] success\n");
+		else
+			printf("[Isotropic Remeshing] fail\n");
+		pOGLW->DirtyVAO(mesh);
 	});
 }
 
