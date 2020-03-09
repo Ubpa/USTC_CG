@@ -6,6 +6,15 @@
 
 安装步骤参考 [setup.md](setup.md) 
 
+## 作业 4
+
+主要完成
+
+- 极小化曲面：[inlcude/Engine/MeshEdit/MinSurf.h](inlcude/Engine/MeshEdit/MinSurf.h) 和 [src/Engine/MeshEdit/MinSurf.cpp](src/Engine/MeshEdit/MinSurf.cpp) 
+- 参数化：[inlcude/Engine/MeshEdit/Paramaterize.h](inlcude/Engine/MeshEdit/Paramaterize.h) 和 [src/Engine/MeshEdit/Paramaterize.cpp](src/Engine/MeshEdit/Paramaterize.cpp) 
+
+如果需要改动 UI（如可视化参数化的中间步骤，方便写报告），可仿照 [src/UI/Attribute.cpp](src/UI/Attribute.cpp) 进行扩充
+
 ## Bug
 
 - 方向光
