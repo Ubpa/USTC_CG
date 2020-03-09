@@ -6,7 +6,7 @@
 - 安装 Eigen
 - 下载 Qt UI style 资源 [Resources.zip](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/Resources.zip) 并置于 [src/App/UEngine/](src/App/UEngine/) 下
 - 可选（安装方式与之前的 Eigen 共享安装方式类似：下载源码，cmake config 时选择好 install path，得到 vs 工程后执行里边的 INSTALL，然后将相应 bin/ 路径加到系统环境变量 Path 中）
-  - [assimp](https://github.com/assimp/assimp)（读取 obj）（没有也可以运行，但作业需要读取 obj）
+  - [assimp](https://github.com/assimp/assimp)（读取 obj）（没有也可以运行，但作业需要读取 obj）（INSTALL 时会报错说 `assimp-vc142-mtd.pdb` 找不到，你可以手动在 build 下搜到它并放到其安装路径的 bin/ 中）
   - [tinyxml2](https://github.com/leethomason/tinyxml2)（保存场景）
 
 ## CMake

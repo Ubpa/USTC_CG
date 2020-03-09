@@ -17,6 +17,8 @@
 
 你需要用到半边结构 [UHEMesh](https://github.com/Ubpa/UHEMesh)，使用方式参考 [IsotropicRemeshing.cpp](src/Engine/MeshEdit/IsotropicRemeshing.cpp) 
 
+另外还要用到 [UGM](https://github.com/Ubpa/UGM)，使用方式参考其中的示例（去下载 UGM 源码并编译看看测试例子）
+
 ## Bugs
 
 - 方向光
