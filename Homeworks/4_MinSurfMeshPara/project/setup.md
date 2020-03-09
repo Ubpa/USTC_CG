@@ -4,6 +4,6 @@
 - 安装 Eigen
 - 下载 Qt UI style 资源 [Resources.zip](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/04_MinSurfMeshPara/Resources.zip) 并置于 [src/App/UEngine/](src/App/UEngine/) 下
 - 可选
-  - assimp（读取 obj）
-  - tinyxml2（保存场景）
+  - [assimp](https://github.com/assimp/assimp)（读取 obj）
+  - [tinyxml2](https://github.com/leethomason/tinyxml2)（保存场景）
 
