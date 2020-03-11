@@ -40,16 +40,16 @@ bool MinSurf::Init(Ptr<TriMesh> triMesh) {
 	heMesh->Reserve(nV);
 	heMesh->Init(triangles);
 
-	for (int i = 0; i < nV; i++) {
-		auto v = heMesh->Vertices().at(i);
-		v->pos = triMesh->GetPositions()[i].cast_to<vecf3>();
-	}
-
 	if (!heMesh->IsTriMesh() || !heMesh->HaveBoundary()) {
 		printf("ERROR::MinSurf::Init:\n"
 			"\t""trimesh is not a triangle mesh or hasn't a boundaries\n");
 		heMesh->Clear();
 		return false;
+	}
+
+	for (int i = 0; i < nV; i++) {
+		auto v = heMesh->Vertices().at(i);
+		v->pos = triMesh->GetPositions()[i].cast_to<vecf3>();
 	}
 
 	this->triMesh = triMesh;
@@ -79,8 +79,8 @@ bool MinSurf::Run() {
 	indice.reserve(3 * nF);
 	for (auto v : heMesh->Vertices())
 		positions.push_back(v->pos.cast_to<pointf3>());
-	for (auto f : heMesh->Polygons()) {
-		for (auto v : f->BoundaryVertice())
+	for (auto f : heMesh->Polygons()) { // f is triangle
+		for (auto v : f->BoundaryVertice()) // vertices of the triangle
 			indice.push_back(static_cast<unsigned>(heMesh->Index(v)));
 	}
 

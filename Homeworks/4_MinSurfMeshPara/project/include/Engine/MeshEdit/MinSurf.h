@@ -16,12 +16,17 @@ namespace Ubpa {
 			return Ubpa::New<MinSurf>(triMesh);
 		}
 	public:
+		// clear cache data
 		void Clear();
+
+		// init cache data (eg. half-edge structure) for Run()
 		bool Init(Ptr<TriMesh> triMesh);
 
+		// call it after Init()
 		bool Run();
 
 	private:
+		// kernel part of the algorithm
 		void Minimize();
 
 	private:
