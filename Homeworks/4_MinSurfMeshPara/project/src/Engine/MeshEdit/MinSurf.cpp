@@ -32,6 +32,7 @@ bool MinSurf::Init(Ptr<TriMesh> triMesh) {
 		return false;
 	}
 
+	// init half-edge structure
 	size_t nV = triMesh->GetPositions().size();
 	vector<vector<size_t>> triangles;
 	triangles.reserve(triMesh->GetTriangles().size());
@@ -47,6 +48,7 @@ bool MinSurf::Init(Ptr<TriMesh> triMesh) {
 		return false;
 	}
 
+	// triangle mesh's positions ->  half-edge structure's positions
 	for (int i = 0; i < nV; i++) {
 		auto v = heMesh->Vertices().at(i);
 		v->pos = triMesh->GetPositions()[i].cast_to<vecf3>();
@@ -65,12 +67,7 @@ bool MinSurf::Run() {
 
 	Minimize();
 
-	if (!heMesh->IsTriMesh() || !heMesh->HaveBoundary()) {
-		printf("ERROR::LoopSubdivision::Run\n"
-			"\t""!heMesh->IsTriMesh() || !heMesh->HaveBoundary(), algorithm error\n");
-		return false;
-	}
-
+	// half-edge structure -> triangle mesh
 	size_t nV = heMesh->NumVertices();
 	size_t nF = heMesh->NumPolygons();
 	vector<pointf3> positions;
