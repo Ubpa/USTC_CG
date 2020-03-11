@@ -33,7 +33,7 @@ bool StrAPI::IsEndWith(const string & str, const string & postfix) {
 	return Tail(str, static_cast<int>(postfix.size())) == postfix;
 }
 
-const vector<string> StrAPI::Spilt(const string & str, const string & separator) {
+const vector<string> StrAPI::Split(const string & str, const string & separator) {
 	vector<string> rst;
 
 	if (separator.empty())
@@ -68,7 +68,7 @@ const string StrAPI::Join(const vector<string> & strs, const string & separator)
 }
 
 const string StrAPI::Replace(const string & str, const string & orig, const string & target) {
-	return Join(Spilt(str, orig), target);
+	return Join(Split(str, orig), target);
 }
 
 const std::string StrAPI::DelTailAfter(const std::string & str, char c) {

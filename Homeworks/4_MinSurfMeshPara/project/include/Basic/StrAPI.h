@@ -13,8 +13,8 @@ namespace Ubpa {
 		bool IsBeginWith(const std::string& str, const std::string& suffix);
 		bool IsEndWith(const std::string& str, const std::string& postfix);
 
-		const std::vector<std::string> Spilt(const std::string& str, const std::string& separator);
-		inline const std::vector<std::string> Spilt(const std::string& str, char separator) { return Spilt(str, std::string(1, separator)); }
+		const std::vector<std::string> Split(const std::string& str, const std::string& separator);
+		inline const std::vector<std::string> Split(const std::string& str, char separator) { return Split(str, std::string(1, separator)); }
 
 		// rst = str[0] + separator + str[1] + separator + ... + str[strs.size()-1]
 		const std::string Join(const std::vector<std::string>& strs, const std::string& separator = "");

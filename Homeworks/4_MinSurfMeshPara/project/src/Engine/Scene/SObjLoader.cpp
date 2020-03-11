@@ -35,11 +35,11 @@ const Ptr<Image> SObjLoader::To(const Key & key) {
 template<>
 const vector<unsigned> SObjLoader::To(const Key& key) {
 	vector<unsigned> triangles;
-	auto triangleStrs = StrAPI::Spilt(key, '\n');
+	auto triangleStrs = StrAPI::Split(key, '\n');
 	for (const auto& triangleStr : triangleStrs) {
 		if (triangleStr.empty())
 			continue;
-		auto idxStrs = StrAPI::Spilt(triangleStr, ' ');
+		auto idxStrs = StrAPI::Split(triangleStr, ' ');
 		for (const auto& idxStr : idxStrs)
 			triangles.push_back(static_cast<unsigned>(stoi(idxStr)));
 	}
@@ -49,11 +49,11 @@ const vector<unsigned> SObjLoader::To(const Key& key) {
 template<>
 const vector<pointf3> SObjLoader::To(const Key& key) {
 	vector<pointf3> positions;
-	auto positionStrs = StrAPI::Spilt(key, '\n');
+	auto positionStrs = StrAPI::Split(key, '\n');
 	for (const auto& positionStr : positionStrs) {
 		if (positionStr.empty())
 			continue;
-		auto valStrs = StrAPI::Spilt(positionStr, ' ');
+		auto valStrs = StrAPI::Split(positionStr, ' ');
 		positions.emplace_back(stof(valStrs[0]), stof(valStrs[1]), stof(valStrs[2]));
 	}
 	return positions;

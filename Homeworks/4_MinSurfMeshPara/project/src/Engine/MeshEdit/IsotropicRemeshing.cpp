@@ -123,7 +123,7 @@ bool IsotropicRemeshing::Kernel(size_t n) {
 				dEs.erase(iter);
 
 				if (e->Length() > maxL) {
-					auto v = heMesh->SpiltEdge(e, e->Centroid());
+					auto v = heMesh->SplitEdge(e, e->Centroid());
 
 					for (auto adjE : v->AdjEdges())
 						dEs.insert(adjE);

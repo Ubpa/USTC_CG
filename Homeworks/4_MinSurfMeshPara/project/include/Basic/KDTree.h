@@ -11,7 +11,7 @@ namespace Ubpa {
 
 	public:
 		int GetAxis() const { return axis; }
-		float GetSpiltVal() const { return spiltVal; }
+		float GetSplitVal() const { return spiltVal; }
 		const DataT& GetData() const { return data; }
 		const Ptr<NodeT> GetParent() const { return parent.lock(); }
 		const Ptr<NodeT> GetLeft() const { return left; }
