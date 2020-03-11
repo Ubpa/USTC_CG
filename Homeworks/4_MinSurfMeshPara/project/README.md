@@ -21,9 +21,10 @@
 
 ## Bugs
 
-- 方向光
-- 相机：按钮 To Roamer Camera
-- 法线贴图
+- [ ] 方向光
+- [ ] 相机：按钮 To Roamer Camera
+- [ ] 法线贴图
+- [x] 拖动 area light 时报错
 
 ## 依赖库
 
