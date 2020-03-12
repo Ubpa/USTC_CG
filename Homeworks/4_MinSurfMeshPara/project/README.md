@@ -14,7 +14,7 @@
 
 - 框架用 `class TriMesh` 进行渲染，内部存储了简单的顶点位置 `positions`，法向量 `normals` 和纹理坐标 `texcoords` 等；其中提供了基本的数据获取的接口。
 - 在做网格计算（如本次作业的极小曲面，参数化）时，就使用半边结构 `class HEMesh`，包含了点线面的连接关系。
-- 网格计算流程：`class TriMesh` -> `class HEMesh` -> `class TriMesh` 
+- 网格计算流程：`class TriMesh` -> `class HEMesh` -> 在 `HEMesh` 上做网格计算 -> `class TriMesh` 
 
 ### 目标
 
