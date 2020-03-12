@@ -6,6 +6,7 @@
 - UEngine 是一个三角网格曲面的处理与渲染的框架，其安装步骤可参考 [setup.md](setup.md) 
 - 本课程将在后续的作业中都使用 UEngine，请务必掌握并妥善维护
 - 该框架仍在不断更新，会不断提升用户使用体验；如在使用过程中遇到任何问题或bugs，可及时联系助教
+- 建议大家在作业之前，多操作下 UEngine 操作界面，感觉它所能得到的呈现结果。比如，在左边的`Hierachy`的 `mesh`处点击右键可添加一个3D网格数据；在右边的`Attribute`处可以改变各种属性，然后看看渲染窗口中的变换
 
 ### UEngine中的三角网格数据结构
 
@@ -20,7 +21,7 @@
 
 - `class TriMesh` 是用于渲染，内部仅存储了顶点 `positions`，法向量 `normals` 和纹理坐标 `texcoords` 等列表，这些数据作为vertex buffer直接传给OpenGL渲染管线进行渲染
   - 如果需要修改三角网格的顶点坐标，可通过以下接口进行修改： `bool TriMesh::Update(const std::vector<pointf3>& positions);`，系统会自动更改网格的显示
-  - 如果需要修改顶点的纹理坐标，可通过以下接口进行修改：`bool TriMesh::Update(const std::vector<pointf2>& texcoords);`，系统会自动更改网格贴上了纹理的显示（如果已加载了纹理图像）；如果此时还未加载纹理图像，则仍是网格显示方式
+  - 如果需要修改顶点的纹理坐标，可通过以下接口进行修改：`bool TriMesh::Update(const std::vector<pointf2>& texcoords);`，系统会自动纹理映射的结果（如果已加载了纹理图像）；如果此时还未加载纹理图像，则仍是网格显示方式
 
 ### UHEMesh 三角网格数据结构
 
@@ -40,7 +41,6 @@
 
 ## 作业完成步骤
 
-
 ### 目标
 
 - 极小化曲面类：[MinSurf.h](include/Engine/MeshEdit/MinSurf.h) 和 [MinSurf.cpp](src/Engine/MeshEdit/MinSurf.cpp) ，在其中完成极小曲面生成算法
@@ -51,13 +51,14 @@
 
 - `class MinSurf` 为极小曲面 (minimal surface) 的类，在接口 `Minimize()` 中实现极小曲面的算法
 - `class Paramaterize` 为参数化 (parameterization) 的类，模仿 `class MinSurf` 留了 4 个接口，可模仿 `MinSurf` 来完成参数化的实现，也可自行添加其他接口
- - 可以直接修改网格的顶点坐标（比如z分量为0），即可显示参数化结果
+  - 可以将参数化的结果直接修改网格的顶点坐标（比如z分量为0），即可显示参数化结果
 
-- 显示纹理映射结果（可选）
- - 计算完毕后，需要按照将结果传给 `class TriMesh` 来更新纹理坐标。注意纹理坐标的范围缺省为 [0,1] x [0,1]，因此映射网格边界的范围最好在 [0,1] x [0,1] 范围。
- - 为了可视化参数化的结果（2D 三角网格），用于书写作业报告，可以增加个 UI 界面，可仿照 [Attribute.cpp](src/UI/Attribute.cpp) 来扩充 UI 按钮
- - 可在 UI 上加载（Hierarchy 中选取网格对象，然后再 Attribute 中找到 Material，并在其中的 Albedo Texture 中通过 Load 按钮加载图片（png 格式）。如果设置了纹理坐标，且想显示纹理贴图的效果，别忘了要加载纹理图像。
-
+- 显示纹理映射（可选）
+ - 增加按钮：为了可视化参数化的结果，可以在 UI 界面中增加个按钮用于显示纹理映射结果，可仿照 [Attribute.cpp](src/UI/Attribute.cpp) 来增添 UI 按钮
+ - 添加网格：建议保留上面的参数化结果用于显示。如需显示纹理映射结果，可再添加一个网格（在左边的`Hierachy`的 `mesh`处点击右键再添加一个3D网格数据）
+ - 加载纹理：在右边的 `Attribute` 处的 `Material` 处的  `Albedo Texture` 中通过 Load 按钮加载图片（png 格式）
+ - 纹理坐标：在`class Paramaterize` 中计算好的参数化的值（范围最好为 [0,1] x [0,1]）来更新网格的纹理坐标，即可看到贴上纹理的三维网格曲面
+  
 ## Bugs 记录（助教会逐步 fix 这些 bugs，同学们忽略）
 
 - [ ] 方向光
