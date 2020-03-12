@@ -10,20 +10,18 @@
 
 ## 作业完成步骤
 
-### 作业 4
-
-#### 框架相关说明
+### 框架相关说明
 
 - 框架用 `class TriMesh` 进行渲染，内部存储了简单的顶点位置 `positions`，法向量 `normals` 和纹理坐标 `texcoords` 等；其中提供了基本的数据获取的接口。
 - 在做网格计算（如本次作业的极小曲面，参数化）时，就使用半边结构 `class HEMesh`，包含了点线面的连接关系。
 - 网格计算流程：`class TriMesh` -> `class HEMesh` -> `class TriMesh` 
 
-#### 目标
+### 目标
 
 - 极小化曲面类：[MinSurf.h](include/Engine/MeshEdit/MinSurf.h) 和 [MinSurf.cpp](src/Engine/MeshEdit/MinSurf.cpp) 
 - 参数化类：[Paramaterize.h](include/Engine/MeshEdit/Paramaterize.h) 和 [Paramaterize.cpp](src/Engine/MeshEdit/Paramaterize.cpp) 
 
-#### 步骤
+### 步骤
 
 - 学习和了解三角网格的半边结构的数据结构及相关接口 [UHEMesh](https://github.com/Ubpa/UHEMesh)，接口如下
   - [HEMesh](https://github.com/Ubpa/UHEMesh/blob/master/include/UHEMesh/HEMesh.h) 
