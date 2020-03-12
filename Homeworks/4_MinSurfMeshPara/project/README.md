@@ -13,6 +13,8 @@
 ### 框架相关说明
 
 - 框架用 `class TriMesh` 进行渲染，内部存储了简单的顶点位置 `positions`，法向量 `normals` 和纹理坐标 `texcoords` 等；其中提供了基本的数据获取的接口。
+  - 如果需要修改三角网格的顶点坐标，可通过以下接口进行修改： `bool TriMesh::Update(const std::vector<pointf3>& positions);`，这时系统会自动更改网格的显示。
+  - 如果需要修改顶点的纹理坐标，可通过以下接口进行修改：`bool TriMesh::Update(const std::vector<pointf2>& texcoords);`。这时系统会自动更改网格贴上了纹理的显示（如果已加载了纹理图像）；如果此时还未加载纹理图像，则仍是网格显示方式。可在 UI 上加载（Hierarchy 中选取网格对象，然后再 Attribute 中找到 Material，并在其中的 Albedo Texture 中通过 Load 按钮加载图片（png 格式）。如果设置了纹理坐标，且想显示纹理贴图的效果，别忘了要加载纹理图像。
 - 在做网格计算（如本次作业的极小曲面，参数化）时，就使用半边结构 `class HEMesh`，包含了点线面的连接关系。
 - 网格计算流程：`class TriMesh` -> `class HEMesh` -> 在 `HEMesh` 上做网格计算 -> `class TriMesh` 
 
@@ -29,9 +31,7 @@
   - [THalfEdge](https://github.com/Ubpa/UHEMesh/blob/master/include/UHEMesh/THalfEdge.h) 
   - [TPolygon](https://github.com/Ubpa/UHEMesh/blob/master/include/UHEMesh/TPolygon.h) 
   - [TVertex](https://github.com/Ubpa/UHEMesh/blob/master/include/UHEMesh/TVertex.h) 
-- [UHEMesh](https://github.com/Ubpa/UHEMesh) 具体使用可参考 [IsotropicRemeshing.cpp](src/Engine/MeshEdit/IsotropicRemeshing.cpp) ，`IsotropicRemeshing` 为一个重新进行网格生成的类。
-- 如果需要修改三角网格的顶点坐标，可通过以下接口进行修改： `bool Update(const std::vector<pointf3>& positions);`，这时系统会自动更改网格的显示。
-- 如果需要修改顶点的纹理坐标，可通过以下接口进行修改：`bool Update(const std::vector<pointf2>& texcoords);`。这时系统会自动更改网格贴上了纹理的显示（如果已加载了纹理图像）；如果此时还未加载纹理图像，则仍是网格显示方式。可在 UI 上加载（Hierarchy 中选取网格对象，然后再 Attribute 中找到 Material，并在其中的 Albedo Texture 中通过 Load 按钮加载图片（png 格式）。如果设置了纹理坐标，且想显示纹理贴图的效果，别忘了要加载纹理图像。
+- [UHEMesh](https://github.com/Ubpa/UHEMesh) 具体使用可参考 [IsotropicRemeshing.cpp](src/Engine/MeshEdit/IsotropicRemeshing.cpp) ，`IsotropicRemeshing` 为一个重新进行网格生成的类，无需理解算法，只需看看 HEMesh 的使用方式。
 - `class MinSurf` 为我们提供的极小曲面 (minimal surface) 的类，完成接口 `Minimize()` 实现极小曲面的算法；
 - `class Paramaterize` 为我们提供的参数化 (parameterization) 的类，模仿 `class MinSurf` 留了 4 个接口，可模仿 `MinSurf` 来完成参数化的实现，也可自行修改接口。计算完毕后，需要按照将结果传给 `class TriMesh` 来更新纹理坐标。注意纹理坐标的范围缺省为 [0,1] x [0,1]，因此映射网格边界的范围最好在 [0,1] x [0,1] 范围。
 - 为了可视化参数化的结果（2D 三角网格），用于书写作业报告，可以增加个 UI 界面，可仿照 [Attribute.cpp](src/UI/Attribute.cpp) 来扩充 UI 按钮
