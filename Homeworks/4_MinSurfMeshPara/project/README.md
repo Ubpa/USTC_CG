@@ -20,8 +20,8 @@
 
 #### 目标
 
-- 极小化曲面类：[MinSurf.h](inlcude/Engine/MeshEdit/MinSurf.h) 和 [MinSurf.cpp](src/Engine/MeshEdit/MinSurf.cpp) 
-- 参数化类：[Paramaterize.h](inlcude/Engine/MeshEdit/Paramaterize.h) 和 [Paramaterize.cpp](src/Engine/MeshEdit/Paramaterize.cpp) 
+- 极小化曲面类：[MinSurf.h](include/Engine/MeshEdit/MinSurf.h) 和 [MinSurf.cpp](src/Engine/MeshEdit/MinSurf.cpp) 
+- 参数化类：[Paramaterize.h](include/Engine/MeshEdit/Paramaterize.h) 和 [Paramaterize.cpp](src/Engine/MeshEdit/Paramaterize.cpp) 
 
 #### 步骤
 
