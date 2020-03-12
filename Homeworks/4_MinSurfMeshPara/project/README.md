@@ -5,21 +5,21 @@
 ### UEngine简介
 - UEngine 是一个三角网格曲面的处理与渲染的框架，其安装步骤可参考 [setup.md](setup.md) 
 - 本课程将在后续的作业中都使用 UEngine，请务必掌握并妥善维护
-- 该框架仍在不断更新，会不断提升用户使用体验；如在使用过程中遇到任何问题或bugs，可及时联系助教
-- 建议大家在作业之前，多操作下 UEngine 操作界面，感觉它所能得到的呈现结果。比如，在左边的`Hierachy`的 `mesh`处点击右键可添加一个3D网格数据；在右边的`Attribute`处可以改变各种属性，然后看看渲染窗口中的变换
+- 该框架仍在不断更新，会不断提升用户使用体验；如在使用过程中遇到任何问题或 bugs，可及时联系助教
+- 建议大家在作业之前，多操作下 UEngine 操作界面，感受它所能得到的呈现结果。比如，在左边的 `Hierachy` 的 `mesh` 处点击右键可添加一个3D网格数据；在右边的 `Attribute` 处可以改变各种属性，然后看看渲染窗口中的变换
 
 ### UEngine中的三角网格数据结构
 
-三角网格本质上是个图的数据结构，有存储空间与计算效率的矛盾与折衷。UEngine框架中同时使用了2个三角网格的数据结构：
- - class TriMesh 为面向渲染的数据结构，存储量少（仅仅存储了vertex, normal等数组），作为vertex buffer传给OpenGL渲染管线进行渲染
- - class HEMesh 为面向计算的数据结构，使用了半边结构 (Half-Edge data structure) 的数据结构，存储量多（存储了点、线、面的连接关系），便于高效网格的计算与处理
- - 两个三角网格对象中都提供了相互数据结构转换的接口，比如Init()等
- - 一般网格处理与计算的流程：`class TriMesh`  -> `class HEMesh` -> 在 `HEMesh` 上做网格的处理与计算操作 -> `class TriMesh` ，即使用TriMesh处理I/O读取网格数据，然后转为HEMesh在其上做处理与计算，然后再转为TriMesh进行渲染。
+三角网格本质上是个图的数据结构，有存储空间与计算效率的矛盾与折衷。UEngine 框架中同时使用了 2 个三角网格的数据结构：
+ - `class TriMesh` 为面向渲染的数据结构，存储量少（仅仅存储了 `positions`, `normals` 等数组），作为 vertex buffer 传给 OpenGL 渲染管线进行渲染
+ - `class HEMesh` 为面向计算的数据结构，使用了半边结构 (Half-Edge data structure) 的数据结构，存储量多（存储了点、线、面的连接关系），便于高效网格的计算与处理
+ - 两个三角网格对象中都提供了相互数据结构转换的接口，比如 `Init()` 等
+ - 一般网格处理与计算的流程：`class TriMesh`  -> `class HEMesh` -> 在 `HEMesh` 上做网格的处理与计算操作 -> `class TriMesh` ，即使用 `TriMesh` 处理 I/O 读取网格数据，然后转为 `HEMesh` 在其上做处理与计算，然后再转为 `TriMesh` 进行渲染。
 
 
 ### TriMesh 三角网格数据结构
 
-- `class TriMesh` 是用于渲染，内部仅存储了顶点 `positions`，法向量 `normals` 和纹理坐标 `texcoords` 等列表，这些数据作为vertex buffer直接传给OpenGL渲染管线进行渲染
+- `class TriMesh` 是用于渲染，内部仅存储了顶点 `positions`，法向量 `normals` 和纹理坐标 `texcoords` 等列表，这些数据作为 vertex buffer 直接传给OpenGL渲染管线进行渲染
   - 如果需要修改三角网格的顶点坐标，可通过以下接口进行修改： `bool TriMesh::Update(const std::vector<pointf3>& positions);`，系统会自动更改网格的显示
   - 如果需要修改顶点的纹理坐标，可通过以下接口进行修改：`bool TriMesh::Update(const std::vector<pointf2>& texcoords);`，系统会自动纹理映射的结果（如果已加载了纹理图像）；如果此时还未加载纹理图像，则仍是网格显示方式
 
