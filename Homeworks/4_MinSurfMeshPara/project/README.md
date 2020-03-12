@@ -10,7 +10,7 @@
 
 ## 作业完成步骤
 
-### 主要完成
+### 目标
 
 - 极小化曲面类：[MinSurf.h](inlcude/Engine/MeshEdit/MinSurf.h) 和 [MinSurf.cpp](src/Engine/MeshEdit/MinSurf.cpp) 
 - 参数化类：[Paramaterize.h](inlcude/Engine/MeshEdit/Paramaterize.h) 和 [Paramaterize.cpp](src/Engine/MeshEdit/Paramaterize.cpp) 
@@ -39,7 +39,7 @@
 5. 为了可视化参数化的结果（2D三角网格），用于书写作业报告，可以增加个UI界面，可仿照 [Attribute.cpp](src/UI/Attribute.cpp) 来扩充UI按钮；
 
 
-## Bugs
+## Bugs记录（助教会逐步fix这些bugs，同学们忽略）
 
 - [ ] 方向光
 - [ ] 相机：按钮 To Roamer Camera
