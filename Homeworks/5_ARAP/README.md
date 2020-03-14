@@ -1,4 +1,4 @@
-# 5. As-Rigid-As-Possible (ARAP)[^08Liu] 
+# 5. ARAP参数化 
 
 
 ## 作业递交
@@ -9,9 +9,9 @@
 ## 作业要求
 
 - 在给定的网格框架上完成作业，实现
-  - ASAP 算法
-  - ARAP 算法：局部步骤，全局步骤
-  - Hybrid 方法（可选）
+  - ASAP (As-similar-as-possible) 参数化算法
+  - ARAP (As-rigid-as-possible) 参数化算法
+  - Hybrid 参数化方法（可选）
 - 继续学习三角网格的数据结构及编程
 - 学习和实现矩阵的 SVD 分解
 - 进一步巩固使用 Eigen 库求解大型稀疏线性方程组
