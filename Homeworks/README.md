@@ -48,4 +48,5 @@
 2. 图像变形 [->](2_ImageWarping) 
 3. 泊松图像编辑 [->](3_PoissonImageEditing/) 
 4. 极小曲面和网格参数化 [->](4_MinSurfMeshPara) 
+5. ARAP [->](5_ARAP/) 
 
