@@ -12,7 +12,8 @@
   - ASAP (As-similar-as-possible) 参数化算法
   - ARAP (As-rigid-as-possible) 参数化算法
   - Hybrid 参数化方法（可选）
-- 继续学习三角网格的数据结构及编程
+- 对各种参数化方法（包括作业4的Floater方法、ASAP/ARAP方法等）进行比较
+- 继续学习和巩固三角网格的数据结构及编程
 - 学习和实现矩阵的 SVD 分解
 - 进一步巩固使用 Eigen 库求解大型稀疏线性方程组
 
