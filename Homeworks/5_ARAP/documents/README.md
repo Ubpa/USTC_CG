@@ -1,6 +1,6 @@
 # 作业说明
 
-实现 SGP 2008 的 ARAP 参数化算法[^08Liu] 
+实现 SGP 2008 的 ARAP (As-rigid-as-possible) 参数化算法[^08Liu] 
 
 ![cow.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/05_ARAP/assets/cow.jpg)
 
@@ -33,7 +33,7 @@
 
 ### 1.2 非线性参数化方法
 
-如果不固定边界，边界的点也有自由度进行移动，能得到更好的参数化结果
+如果不固定边界，边界的点也有自由度进行移动，能减小三角形的形变量，从而得到更好的参数化结果
 
 ![monster.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/05_ARAP/assets/monster.jpg)
 
@@ -51,12 +51,12 @@ $$
 - 其次实现 **ARAP 算法** 
   - 局部步骤：相对简单
   - 全局步骤：矩阵结构不变，元素需要更新
-- 如果有时间，可实现下 **Hybrid 方法**（可选）
+- 如果有时间，可实现下文中的 ASAP 方法与 ARAP 方法之间的 **Hybrid 方法**（可选）
 - [0. 材料](#0. 材料) 给了一些文中所使用的带有边界的网格数据及测试纹理，使用这些数据来做测试即可
 - 在课程百度云中的目录 Homework/Homework5/bin 中有可执行程序，能生成 ASAP、ARAP、Hybrid 方法的结果，可利用其进行参考对比
 
 ## 参考文献
 
-[^08Liu]:Liu, Ligang, et al. "[**A local/global approach to mesh parameterization.**](http://cs.harvard.edu/~sjg/papers/arap.pdf)" *Computer Graphics Forum*. Vol. 27. No. 5. Oxford, UK: Blackwell Publishing Ltd, 2008.
+[^08Liu]: Ligang Liu, et al. "[**A local/global approach to mesh parameterization.**](http://cs.harvard.edu/~sjg/papers/arap.pdf)" *Computer Graphics Forum* (Proc. SGP). , 2008.
 
 
