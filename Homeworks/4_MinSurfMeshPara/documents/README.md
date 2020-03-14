@@ -136,14 +136,18 @@ $$
 定义嵌入（embedding）如下
 
 $$
-Wx=b_x\\
+Wx=b_x
+$$
+
+$$
 Wy=b_y
 $$
 
 其中
 
 $$
-w_{ij}=\left\{\begin{array}{l}
+w_{ij} = \left \{
+\begin{array}{l}
 <0 & (i,j)\in E\\
 -\sum_{j\neq i} w_{ij} & (i,i)\\
 0 & \text{otherwise}
