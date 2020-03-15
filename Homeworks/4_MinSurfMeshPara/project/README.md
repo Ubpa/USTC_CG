@@ -44,7 +44,7 @@
 ### 目标
 
 - 极小化曲面类：[MinSurf.h](include/Engine/MeshEdit/MinSurf.h) 和 [MinSurf.cpp](src/Engine/MeshEdit/MinSurf.cpp) ，在其中完成极小曲面生成算法
-  - 求解好极小曲面后，需要重新更新顶点法向方向，渲染才是曲面；否则渲染效果看起来是具有原始网格的几何细节的
+  - 求解好极小曲面后，需要重新更新顶点法向方向，渲染才是光滑的极小曲面；否则渲染效果看起来是具有原始网格的几何细节的
 - 参数化类：[Paramaterize.h](include/Engine/MeshEdit/Paramaterize.h) 和 [Paramaterize.cpp](src/Engine/MeshEdit/Paramaterize.cpp) ，在其中完成网格参数化算法
   - 显示纹理映射结果（可选）
 
