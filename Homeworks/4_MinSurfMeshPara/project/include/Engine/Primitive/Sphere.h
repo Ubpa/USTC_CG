@@ -6,7 +6,7 @@
 #include <UGM/normal.h>
 
 namespace Ubpa {
-	class Sphere final : public Primitive {
+	class Sphere : public Primitive {
 	public:
 		Sphere() = default;
 	public:

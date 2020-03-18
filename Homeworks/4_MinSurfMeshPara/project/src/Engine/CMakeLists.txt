@@ -17,4 +17,6 @@ if(TARGET tinyxml2::tinyxml2)
 	add_definitions(-DUSE_TINYXML2)
 endif()
 
+list(APPEND libs Ubpa::UHEMesh_core Ubpa::UDP_core)
+
 Ubpa_AddTarget(MODE "LIB" SOURCES ${sources} LIBS ${libs})

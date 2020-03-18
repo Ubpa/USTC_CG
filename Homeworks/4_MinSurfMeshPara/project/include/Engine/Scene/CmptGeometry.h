@@ -5,9 +5,9 @@
 namespace Ubpa {
 	class Primitive;
 
-	class CmptGeometry final : public Component {
+	class CmptGeometry : public Component {
 	public:
-		CmptGeometry(Ptr<SObj> sobj, Ptr<Primitive> primitive)
+		CmptGeometry(Ptr<SObj> sobj = nullptr, Ptr<Primitive> primitive = nullptr)
 			: Component(sobj), primitive(primitive) { }
 
 	public:

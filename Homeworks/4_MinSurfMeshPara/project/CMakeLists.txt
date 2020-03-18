@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 # 设定项目
-project(UEngine VERSION 1.0)
+project(UEngine VERSION 0.1)
 message(STATUS "[Project] ${PROJECT_NAME}")
 
 # 修改默认的安装路径前缀
@@ -37,18 +37,28 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE "${PROJECT_SOURCE_DIR}/lib")
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 include(FetchContent)
-FetchContent_Declare(
-  UGit
-  GIT_REPOSITORY https://github.com/Ubpa/UGit
-  GIT_TAG        3c3cd3f
-)
-FetchContent_MakeAvailable(UGit)
 
-Ubpa_InitGit()
-Ubpa_UpdateSubModule()
+find_package(UCMake 0.1 EXACT QUIET)
+if(${UCMake_FOUND})
+	message(STATUS "UCMake-0.1 found")
+else()
+	message(STATUS "UCMake-0.1 not found, so fetch it ...")
+	FetchContent_Declare(
+	  UCMake
+	  GIT_REPOSITORY https://github.com/Ubpa/UCMake
+	  GIT_TAG "v0.1"
+	)
+	FetchContent_MakeAvailable(UCMake)
+	message(STATUS "UCMake-0.1 fetch done")
+endif()
 
-list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/external/UCMake/cmake")
-include(UbpaTool)
+# 修改默认的安装路径前缀
+Ubpa_InitInstallPrefix()
+
+Ubpa_AddDep(UTemplate 0.1)
+Ubpa_AddDep(UDP 0.1)
+Ubpa_AddDep(UGM 0.1)
+Ubpa_AddDep(UHEMesh 0.1)
 
 Ubpa_QtInit(COMPONENTS Core Gui Widgets OpenGL)
 
@@ -109,17 +119,8 @@ configure_file(config/ROOT_PATH.h.in config/ROOT_PATH.h)
 include_directories (
 	${PROJECT_SOURCE_DIR}/include
 	${PROJECT_SOURCE_DIR}/include/_deps
-	${PROJECT_SOURCE_DIR}/external/UHEMesh/include
-	${PROJECT_SOURCE_DIR}/external/UGM/include
-	${PROJECT_SOURCE_DIR}/external/UTemplate/include
-	${PROJECT_SOURCE_DIR}/external/UDP/include
 	${CMAKE_BINARY_DIR}/config
 	# $ENV{XXX_INCLUDE_PATH}
-	# ...
-)
-link_directories (
-	${PROJECT_SOURCE_DIR}/lib
-	# $ENV{XXX_LIB_PATH}
 	# ...
 )
 

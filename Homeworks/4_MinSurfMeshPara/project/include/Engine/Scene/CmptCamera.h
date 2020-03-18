@@ -7,9 +7,9 @@
 namespace Ubpa {
 	class Ray;
 
-	class CmptCamera final : public Component {
+	class CmptCamera : public Component {
 	public:
-		CmptCamera(Ptr<SObj> sobj, float fov = 60.f, float ar = 16.f / 9.f, float nearPlane = 0.001f, float farPlane = 1000.f);
+		CmptCamera(Ptr<SObj> sobj = nullptr, float fov = 60.f, float ar = 16.f / 9.f, float nearPlane = 0.001f, float farPlane = 1000.f);
 
 	public:
 		static const Ptr<CmptCamera> New(Ptr<SObj> sobj, float fov = 60.f, float ar = 16.f / 9.f, float nearPlane = 0.001f, float farPlane = 1000.f) {

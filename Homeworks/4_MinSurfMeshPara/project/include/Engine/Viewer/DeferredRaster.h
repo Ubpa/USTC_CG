@@ -9,7 +9,7 @@
 
 #include <UGM/transform.h>
 
-#include <UDP/MultiVisitor.h>
+#include <UDP/Visitor/MultiVisitor.h>
 
 #include <set>
 

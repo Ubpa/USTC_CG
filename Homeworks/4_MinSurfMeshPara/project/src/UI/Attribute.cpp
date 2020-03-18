@@ -35,7 +35,7 @@
 #include <Basic/Math.h>
 #include <Basic/EventManager.h>
 
-#include <UDP/MultiVisitor.h>
+#include <UDP/Visitor/MultiVisitor.h>
 
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QDoubleSpinBox>

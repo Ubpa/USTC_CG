@@ -7,7 +7,7 @@ namespace Ubpa {
 
 	class InfiniteAreaLight : public Light {
 	public:
-		InfiniteAreaLight(Ptr<Image> img, const rgbf& colorFactor = rgbf(1.f), float intensity = 1.f)
+		InfiniteAreaLight(Ptr<Image> img = nullptr, const rgbf& colorFactor = rgbf(1.f), float intensity = 1.f)
 			: colorFactor(colorFactor), intensity(intensity) {
 			SetImg(img);
 		}

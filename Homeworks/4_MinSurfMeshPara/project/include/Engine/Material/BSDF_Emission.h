@@ -3,7 +3,7 @@
 #include <Engine/Material/BSDF.h>
 
 namespace Ubpa {
-	class BSDF_Emission final : public BSDF {
+	class BSDF_Emission : public BSDF {
 	public:
 		BSDF_Emission(const rgbf& color = rgbf(1.f), float intensity = 1.f)
 			: color(color), intensity(intensity) { }

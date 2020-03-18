@@ -9,7 +9,7 @@
 
 #include <UGM/transform.h>
 
-#include <UDP/Visitor.h>
+#include <UDP/Visitor/Visitor.h>
 
 namespace Ubpa {
 	class Image;

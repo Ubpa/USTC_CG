@@ -3,7 +3,7 @@
 #include "Primitive.h"
 
 namespace Ubpa {
-	class Plane final : public Primitive {
+	class Plane : public Primitive {
 	public:
 		Plane() = default;
 	public:

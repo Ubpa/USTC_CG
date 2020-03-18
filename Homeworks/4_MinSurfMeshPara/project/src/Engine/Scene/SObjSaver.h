@@ -3,7 +3,7 @@
 #include <Basic/Ptr.h>
 #include <Basic/HeapObj.h>
 
-#include <UDP/MultiVisitor.h>
+#include <UDP/Visitor/MultiVisitor.h>
 #include <UGM/transform.h>
 
 #include <UGM/point.h>

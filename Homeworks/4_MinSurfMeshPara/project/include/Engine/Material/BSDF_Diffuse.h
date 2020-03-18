@@ -5,7 +5,7 @@
 #include <Basic/Sampler/CosHsSampler3D.h>
 
 namespace Ubpa {
-	class BSDF_Diffuse final : public BSDF {
+	class BSDF_Diffuse : public BSDF {
 	public:
 		BSDF_Diffuse(const rgbf& colorFactor = rgbf(1.f))
 			: colorFactor(colorFactor), albedoTexture(nullptr) { }

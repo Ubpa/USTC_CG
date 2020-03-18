@@ -1,6 +1,6 @@
 #pragma once
 
-#include <UTemplate/FuncTraits.h>
+#include <UTemplate/Func.h>
 
 #include <vector>
 #include <thread>

@@ -7,7 +7,7 @@ namespace Ubpa {
 
 	// 因为 Triangle 依赖于 Mesh，而且 Mesh 又可以取代 Triangle
 	// 所以不把 Triangle 当作 Primitive，只让 Mesh 当作 Primitive
-	class Triangle final : public Shape {
+	class Triangle : public Shape {
 		friend class TriMesh;
 	public:
 		Triangle(unsigned idx0, unsigned idx1, unsigned idx2)

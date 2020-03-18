@@ -3,7 +3,7 @@
 #include <Engine/Material/BSDF.h>
 
 namespace Ubpa {
-	class BSDF_CookTorrance final : public BSDF {
+	class BSDF_CookTorrance : public BSDF {
 	public:
 		BSDF_CookTorrance(float ior = 1.5f, float m = 0.2f, const rgbf& refletance = rgbf(1.f), const rgbf& albedo = rgbf(1.f))
 			: ior(ior), m(m), refletance(refletance), albedo(albedo) { }

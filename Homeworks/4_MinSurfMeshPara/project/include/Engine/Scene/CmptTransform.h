@@ -4,10 +4,10 @@
 #include <UGM/transform.h>
 
 namespace Ubpa {
-	class CmptTransform final : public Component {
+	class CmptTransform : public Component {
 	public:
 		CmptTransform(
-			Ptr<SObj> sobj,
+			Ptr<SObj> sobj = nullptr,
 			const pointf3& pos = pointf3(0.f),
 			const scalef3& scale = scalef3(1.0f),
 			const quatf& rot = quatf::imag_real({ 0.f,0.f,0.f }, 1.f)
