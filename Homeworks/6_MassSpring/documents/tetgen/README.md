@@ -1,6 +1,6 @@
 # TetGen使用代码
 
-本目录为使用tetgen进行网格剖分代码，tetgen具体下载和使用方法可由官网（http://www.wias-berlin.de/software/tetgen/）获得：
+本目录为使用tetgen进行网格剖分代码，tetgen具体下载和使用方法可由官网（http://www.wias-berlin.de/software/tetgen）获得：
 
 代码中main.cpp中设置读入表面网格文件路径（代码写的接口支持.stl, . poly)和输出网格路径（输出四面体网格为自定义格式.tet），poly文件可参考tetgen官方文档；
 
