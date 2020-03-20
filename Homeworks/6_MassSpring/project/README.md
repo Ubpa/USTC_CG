@@ -2,7 +2,7 @@
 
 ## 项目说明
 
-本次项目读取obj格式面网格或tet体网格，生成类MassSpring用于传输用于模拟的网格数据，MassSpring中存储模拟类Simulate，类Simulate；程序ui窗口最上方设置两个按钮分别为开始（或继续）模拟时间计时和停止时间计时；attribute中新添了Simulation组件用于设置模拟参数
+本次项目读取obj格式面网格或tet体网格，生成类MassSpring用于传输用于模拟的网格数据，且MassSpring中存储了模拟方法类Simulate；程序ui窗口最上方设置两个按钮分别为开始（或继续）模拟时间计时和停止时间计时；attribute中新添了Simulation组件用于设置模拟的一些参数
 
 
 
