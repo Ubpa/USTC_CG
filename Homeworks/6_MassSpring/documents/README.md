@@ -67,8 +67,8 @@ $$
 带入弹力公式得：
 $$
 \frac{\partial  \boldsymbol f_1}{\partial \boldsymbol x_1} =\frac{\partial  \boldsymbol h(\boldsymbol x_1-\boldsymbol x_2)}{\partial \boldsymbol x_1}=k(\frac{l}{||\boldsymbol r||}-1)\boldsymbol I-kl||\boldsymbol r||^{-3}\boldsymbol r \boldsymbol r^T,其中\boldsymbol r=\boldsymbol x_1-\boldsymbol x_2, \boldsymbol I为单位阵\\
-\frac{\partial  \boldsymbol f_1}{\partial \boldsymbol x_2}=-\frac{\partial  \boldsymbol f_1}{\partial \boldsymbol x_1},\,\,\,\,\,\,\,\,\,\,
-\frac{\partial  \boldsymbol f_2}{\partial \boldsymbol x_1}=-\frac{\partial  \boldsymbol f_1}{\partial \boldsymbol x_1},\,\,\,\,\,\,\,\,\,\,
+\frac{\partial  \boldsymbol f_1}{\partial \boldsymbol x_2}=-\frac{\partial  \boldsymbol f_1}{\partial \boldsymbol x_1},
+\frac{\partial  \boldsymbol f_2}{\partial \boldsymbol x_1}=-\frac{\partial  \boldsymbol f_1}{\partial \boldsymbol x_1},
 \frac{\partial  \boldsymbol f_2}{\partial \boldsymbol x_2}=\frac{\partial  \boldsymbol f_1}{\partial \boldsymbol x_1},
 $$
 对所有弹簧求导并组装即可求得力的导数（组装为稀疏矩阵，矩阵为对称阵）。
@@ -97,7 +97,7 @@ $$
 $$
 其中
 $$
-\boldsymbol U=\{\boldsymbol d=(\boldsymbol d_1,\boldsymbol d_2,...,\boldsymbol d_s),\boldsymbol d_s\in R^3,||\boldsymbol d_i||=l_i \}\,\,\,\,(l_i为第i个弹簧原长),
+\boldsymbol U= \{ \boldsymbol d=(\boldsymbol d_1,\boldsymbol d_2,...,\boldsymbol d_s),\boldsymbol d_s\in R^3,||\boldsymbol d_i||=l_i \} (l_i为第i个弹簧原长),
 $$
 <img src="README.assets/5.PNG" alt="5" style="zoom: 67%;" />
 
@@ -124,7 +124,7 @@ $$
 
 将所有n个质点的坐标列为列向量$x\in R^{3n}$，将所有m个自由质点坐标（无约束坐标）列为列向量$x_f\in R^{3m}$,则两者关系：
 $$
-\boldsymbol x_f=\boldsymbol K\boldsymbol x,\\\boldsymbol x=\boldsymbol K^T\boldsymbol x_f+\boldsymbol b,
+\boldsymbol x_f=\boldsymbol K\boldsymbol x,\\  \boldsymbol x=\boldsymbol K^T\boldsymbol x_f+\boldsymbol b,
 $$
 其中$K\in R^{3m\times 3n}$为单位阵删去约束坐标序号对应行所得的稀疏矩阵，$b$为与约束位移有关的向量，计算为$b=x-K^TKx$, 若约束为固定质点则$b$为常量。由此我们将原本的关于$x$的优化问题转化为对$x_f$的优化问题：欧拉隐式方法中求解方程为：
 $$
