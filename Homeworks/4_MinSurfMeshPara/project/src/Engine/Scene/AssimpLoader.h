@@ -5,6 +5,7 @@
 #include <string>
 #include <map>
 #include <array>
+#include <vector>
 
 struct aiNode;
 struct aiMesh;
@@ -22,6 +23,7 @@ namespace Ubpa {
 		using Str2Img = std::map<std::string, Ptr<Image>>;
 		const Ptr<SObj> LoadNode(Str2Img& str2img, const std::string& dir, aiNode* node, const aiScene* scene);
 		void LoadMesh(Str2Img& str2img, const std::string& dir, aiMesh* mesh, const aiScene* scene, Ptr<SObj> sobj);
+		const Ptr<SObj> LoadTet(const std::string& dir);
 		Ptr<Image> LoadTexture(Str2Img& str2img, const std::string& dir, aiMaterial* material, aiTextureType type);
 	};
 }

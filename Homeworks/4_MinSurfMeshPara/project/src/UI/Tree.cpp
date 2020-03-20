@@ -277,7 +277,7 @@ void Tree::contextMenuEvent(QContextMenuEvent *event) {
 		QString fileName = QFileDialog::getOpenFileName(this,
 			tr("Load SObj"),
 			"./",
-			tr("SObj Files (*.sobj *.obj *.FBX)"));
+			tr("SObj Files (*.sobj *.obj *.FBX *.tet)"));
 
 		if (fileName.isEmpty())
 			return;

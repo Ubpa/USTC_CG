@@ -12,8 +12,11 @@
 #include <Engine/Scene/CmptMaterial.h>
 #include <Engine/Scene/CmptTransform.h>
 #include <Engine/Scene/CmptGeometry.h>
+#include <Engine/Scene/CmptSimu/CmptSimulate.h>
 
 #include <Engine/Primitive/TriMesh.h>
+#include <Engine/Primitive/TetMesh.h>
+#include <Engine/Scene/CmptSimu/MassSpring.h>
 #include <Engine/Material/BSDF_Frostbite.h>
 
 #include <Basic/StrAPI.h>
@@ -22,7 +25,7 @@
 #include <limits>
 
 #include <iostream>
-
+#include <fstream>
 using namespace Ubpa;
 
 using namespace std;
@@ -165,6 +168,19 @@ void AssimpLoader::LoadMesh(Str2Img & str2img, const string & dir, aiMesh *mesh,
 		pos = (scale * (pos.cast_to<vecf3>() + offset)).cast_to<pointf3>();
 
 	auto triMesh = TriMesh::New(indices, poses, normals, texcoords, tangents);
+
+
+
+	auto spring = MassSpring::New(triMesh);
+	spring->InitSimu();
+
+
+	auto springmesh = SObj::New(sobj, "SpringSimulate");
+	//CmptGeometry::New(sobj, spring);
+	CmptSimulate::New(sobj, spring);
+	CmptTransform::New(springmesh);
+
+
 	CmptGeometry::New(sobj, triMesh);
 
 	auto bsdf = BSDF_Frostbite::New();
@@ -189,6 +205,92 @@ void AssimpLoader::LoadMesh(Str2Img & str2img, const string & dir, aiMesh *mesh,
 	cout << "ERROR::ASSIMP:" << endl <<
 		"\t" << "no assimp because not found it when cmake, read setup.md for more details" << endl;
 #endif
+}
+
+const Ptr<SObj> AssimpLoader::LoadTet(const std::string& dir)
+{
+	vector<pointf3> poses;
+	vector<unsigned> tetindices;
+
+	std::ifstream tet;
+	tet.open(dir);
+	if (!tet)
+	{
+		cout << "fail to open the file" << endl;
+		return nullptr;
+	}
+	char c;
+	tet >> c;
+	tet >> c;
+	tet >> c;
+	int numberofpoints, numberoftetrahedra;
+	tet >> numberofpoints;
+	tet >> numberoftetrahedra;
+
+	cout << "point:  "<<numberofpoints << "    tet:  " << numberoftetrahedra << endl;
+
+	pointf3 pos;
+	for (size_t i = 0; i < numberofpoints; i++)
+	{
+		tet >> pos[0];
+		tet >> pos[1];
+		tet >> pos[2];
+		poses.push_back(pos);
+	}
+
+	unsigned a = 0;
+	for (size_t i = 0; i < 4 * numberoftetrahedra; i++)
+	{
+		tet >> a;
+		tetindices.push_back(a);
+	}
+	tet.close();
+
+
+	// offset, scale
+	pointf3 minP(std::numeric_limits<float>::max());
+	pointf3 maxP(-std::numeric_limits<float>::max());
+	for (const auto& pos : poses) {
+		minP = pointf3::min(minP, pos);
+		maxP = pointf3::max(maxP, pos);
+	}
+	auto offset = -pointf3::mid(minP, maxP).cast_to<vecf3>();
+	float scale = sqrt(3.f / (maxP - minP).norm2());
+	for (auto& pos : poses)
+		pos = (scale * (pos.cast_to<vecf3>() + offset)).cast_to<pointf3>();
+
+	auto tetMesh = TetMesh::New(poses, tetindices);
+
+	auto spring = MassSpring::New(tetMesh);
+	spring->InitSimu();
+
+
+	auto sobj = SObj::New(nullptr, "tetmesh_");
+	//CmptGeometry::New(sobj, tetMesh);
+	CmptTransform::New(sobj);
+
+	auto springmesh = SObj::New(sobj, "SpringSimulate");
+	//CmptGeometry::New(sobj, spring);
+	CmptSimulate::New(sobj, spring);
+	CmptTransform::New(springmesh);
+
+	auto meshObj = SObj::New(springmesh, "trimesh");
+	CmptTransform::New(meshObj);
+	CmptGeometry::New(springmesh, tetMesh->GetTriMesh());
+
+
+
+
+	auto bsdf = BSDF_Frostbite::New();
+	CmptMaterial::New(springmesh, bsdf);
+
+
+
+
+
+
+	return sobj;
+
 }
 
 Ptr<Image> AssimpLoader::LoadTexture(Str2Img & str2img, const string & dir, aiMaterial* material, aiTextureType type) {

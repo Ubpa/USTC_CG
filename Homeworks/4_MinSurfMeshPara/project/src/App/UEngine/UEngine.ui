@@ -238,7 +238,7 @@
           <x>0</x>
           <y>0</y>
           <width>232</width>
-          <height>722</height>
+          <height>725</height>
          </rect>
         </property>
         <attribute name="label">
@@ -354,6 +354,20 @@ font: 15pt &quot;Consolas&quot;;
        </property>
        <property name="text">
         <string>Save Ray Tracer Img</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_SimulateStart">
+       <property name="text">
+        <string>SimulateStart</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_SimulateStop">
+       <property name="text">
+        <string>SimulateStop</string>
        </property>
       </widget>
      </item>

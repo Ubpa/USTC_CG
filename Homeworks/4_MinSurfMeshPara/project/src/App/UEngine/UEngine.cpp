@@ -14,7 +14,10 @@
 #include <Engine/Viewer/Viewer.h>
 #include <Engine/Scene/Scene.h>
 #include <Engine/Scene/SObj.h>
-
+#include <Engine/Scene/CmptGeometry.h>
+#include <Engine/Scene/CmptSimu/CmptSimulate.h>
+#include <Engine/Scene/CmptSimu/MassSpring.h>
+#include <Engine/Primitive/TriMesh.h>
 #include <Basic/Image.h>
 #include <Basic/Op/LambdaOp.h>
 #include <Basic/GStorage.h>
@@ -81,6 +84,15 @@ UEngine::UEngine(QWidget *parent)
 	Attribute::GetInstance()->Init(ui.tbox_Attribute, ui.OGLW_Raster);
 
 	InitSetting();
+
+
+	QTimer* timer_simu = new QTimer(this);
+	timer_simu->start(30);
+	timer_simu->stop();
+	connect(ui.btn_SimulateStart, SIGNAL(clicked()), timer_simu, SLOT(start()));
+	connect(ui.btn_SimulateStop, SIGNAL(clicked()), timer_simu, SLOT(stop()));
+	connect(timer_simu, SIGNAL(timeout()), this, SLOT(updateSimulate()));
+
 }
 
 void UEngine::on_btn_RenderStart_clicked(){
@@ -152,6 +164,20 @@ void UEngine::on_btn_SaveRayTracerImg_clicked() {
 	// should not use grabFramebuffer to get the image because of the border
 	auto img = Image::New(*paintImgOp->GetImg());
 	img->SaveAsPNG(fileName.toStdString(), true);
+}
+
+void UEngine::updateSimulate()
+{
+	auto cmpts = Hierarchy::GetInstance()->GetRoot()->GetComponentsInChildren<CmptSimulate>();
+	for (auto cmpt : cmpts) {
+		auto mesh = CastTo<MassSpring>(cmpt->GetMesh());
+		if (mesh) {
+			//cout << "ooll1" << endl;
+			mesh->RunSimu();
+			ui.OGLW_Raster->DirtyVAO(mesh->GetTriMesh());
+			
+		}
+	}
 }
 
 void UEngine::on_btn_SaveRasterImg_clicked() {

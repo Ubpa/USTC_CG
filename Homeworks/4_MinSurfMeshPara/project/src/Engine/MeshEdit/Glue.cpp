@@ -19,6 +19,8 @@ bool Glue::Run() {
 	vector<pointf3> uniquePos;
 	map<pointf3, unsigned> pos2idx;
 
+
+
 	for (auto triangle : triMesh->GetTriangles()) {
 		for (int i = 0; i < 3; i++) {
 			auto pos = positions[triangle->idx[i]];

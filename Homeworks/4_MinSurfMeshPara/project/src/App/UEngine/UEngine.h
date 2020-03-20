@@ -32,7 +32,7 @@ private slots:
 	void on_btn_RenderStop_clicked();
 	void on_btn_SaveRasterImg_clicked();
 	void on_btn_SaveRayTracerImg_clicked();
-
+	void updateSimulate();
 	void UI_Op(Ptr<Op> op);
 
 private:

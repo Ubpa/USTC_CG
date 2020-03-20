@@ -5,3 +5,5 @@
 #include <Engine/Scene/CmptLight.h>
 #include <Engine/Scene/CmptMaterial.h>
 #include <Engine/Scene/CmptTransform.h>
+#include <Engine/Scene/CmptSimu/CmptSimulate.h>
+

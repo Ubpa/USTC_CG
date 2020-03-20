@@ -467,6 +467,24 @@ void Grid::AddEditVal(const vector<string> & texts, const Ubpa::valf3 & val, con
 	}
 }
 
+void Ubpa::Grid::AddEditVal(const std::vector<std::string>& texts, const float val, const float singleStep, const std::function<void(const float)>& slot)
+{
+	QDoubleSpinBox* spinboxs = new QDoubleSpinBox;
+
+	spinboxs->setMinimum(0.1);
+	spinboxs->setMaximum(DBL_MAX);
+	spinboxs->setSingleStep(singleStep);
+	spinboxs->setValue(val);
+	void (QDoubleSpinBox:: * signalFunc)(double) = &QDoubleSpinBox::valueChanged;
+
+	page->connect(spinboxs, signalFunc, [=](double) {
+		auto x = spinboxs->value();
+		slot(x);
+	});
+
+	AddRow(texts[0], spinboxs);
+}
+
 void Grid::AddButton(const std::string & text, const std::function<void()> & slot) {
 	auto button = new QPushButton;
 	stringstream stylesheet;

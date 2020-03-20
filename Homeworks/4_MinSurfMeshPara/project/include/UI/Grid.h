@@ -46,6 +46,7 @@ namespace Ubpa {
 			AddEditVal(text, val, [&val](int v) {val = v; });
 		}
 		void AddEditVal(const std::vector<std::string> & texts, const Ubpa::valf3 & val, const Ubpa::valf3 & singleStep, const std::function<void(const Ubpa::valf3 &)> & slot);
+		void AddEditVal(const std::vector<std::string>& texts, const float val, const float singleStep, const std::function<void(const float)>& slot);
 		void AddEditVal(const std::vector<std::string> & texts, Ubpa::valf3 & val, const Ubpa::valf3 & singleStep) {
 			AddEditVal(texts, val, singleStep, [&](const Ubpa::valf3 & newVal) {val = newVal; });
 		}
