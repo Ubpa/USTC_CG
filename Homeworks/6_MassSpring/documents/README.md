@@ -13,9 +13,11 @@
 
 ### 3D 四面体网格
 
-- 对实体物体 (solid objects) 的模拟通常将实体剖分为四面体单元（当然也可以是其他形式单元的剖分，比如六面体单元），其实质就是 3D 空间的 graph：![tet1.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/tet1.PNG)
+- 对实体物体 (solid objects) 的模拟通常将实体剖分为四面体单元（当然也可以是其他形式单元的剖分，比如六面体单元），其实质就是 3D 空间的 graph：
 
-### 3D 网格剖分
+![tet1.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/tet1.PNG)
+
+### 3D 网格剖分生成
 
 - 对于一个封闭的 3D 模型（通常由表面的顶点来表达，比如obj，stl文件等），如需要将其看成实体，需要对进行三角剖分从而得到四面体网格：
 
