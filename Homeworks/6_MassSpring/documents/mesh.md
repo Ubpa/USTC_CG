@@ -4,8 +4,8 @@
 
 ### 网格
 
-- [square_sparse.obj](https://github.com/Ubpa/USTC_CG_Data/tree/master/Homeworks/06_MassSpring/Mesh/square_sparse) 
-- [square_sparse.obj](https://github.com/Ubpa/USTC_CG_Data/tree/master/Homeworks/06_MassSpring/Mesh/square_sparse) 
+- [square_sparse.obj](https://github.com/Ubpa/USTC_CG_Data/tree/master/Homeworks/06_MassSpring/Mesh/square_sparse.obj) 
+- [square_sparse.obj](https://github.com/Ubpa/USTC_CG_Data/tree/master/Homeworks/06_MassSpring/Mesh/square_sparse.obj) 
 - [cuboid.tet](https://github.com/Ubpa/USTC_CG_Data/tree/master/Homeworks/06_MassSpring/Mesh/cuboid.tet) 
 
 ## 实现例子
