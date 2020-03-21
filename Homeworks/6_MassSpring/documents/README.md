@@ -4,19 +4,19 @@
 
 ### 3D 四面体网格
 
-对实体的模拟通常将实体剖分为四面体单元（也有六面体单元）：![1](README.assets/1.PNG)
+对实体的模拟通常将实体剖分为四面体单元（也有六面体单元）：![tet1.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/tet1.PNG)
 
 ### 网格剖分
 
 3d模型数据通常只会给出表面网格（如obj，stl文件），进行模拟前就需要对进行三角剖分从而得到四面体网格：
 
-![2](README.assets/2.PNG)
+![tet2.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/tet2.PNG)
 
 ### 弹簧质点模型
 
 对于四面体网格可以将其每个顶点看为一个质点，将其每条边看为一根弹簧来进行模拟（对于三角网格也可以这样进行模拟，可以以此来模拟布料）：
 
-![4](README.assets/4.PNG)
+![cloth.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/cloth.PNG)
 
 ## 2. 模拟方法
 
@@ -99,7 +99,7 @@ $$
 $$
 \boldsymbol U= \{ \boldsymbol d=(\boldsymbol d_1,\boldsymbol d_2,...,\boldsymbol d_s),\boldsymbol d_s\in R^3,||\boldsymbol d_i||=l_i \} (l_i为第i个弹簧原长),
 $$
-<img src="README.assets/5.PNG" alt="5" style="zoom: 67%;" />
+<img src="https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/remark.PNG" alt="5" style="zoom: 67%;" />
 
 从而可以对x，d迭代优化求得该优化问题的解：
 $$
