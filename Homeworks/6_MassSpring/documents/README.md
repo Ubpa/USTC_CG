@@ -2,21 +2,26 @@
 
 ## 1. 基础知识
 
+### 弹簧质点模型
+
+- 一个弹簧质点系统就是由节点及节点之间的边所构成的图（Graph），也就是网格。网格图的每个顶点看为一个质点，每条边看为一根弹簧。
+
+- 网格可以是二维网格 (Triangular meshes)，用于模拟布料、纸张等物体 (sheet objects)，如下图；也可以是三维体网格 (Tetrahedral meshes)，用于模拟体物体 (solid objects)，如后面段落介绍。
+
+![cloth.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/cloth.PNG)
+
+
 ### 3D 四面体网格
 
-对实体的模拟通常将实体剖分为四面体单元（也有六面体单元）：![tet1.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/tet1.PNG)
+- 对实体物体 (solid objects) 的模拟通常将实体剖分为四面体单元（当然也可以是其他形式单元的剖分，比如六面体单元），其实质就是 3D 空间的 graph：![tet1.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/tet1.PNG)
 
-### 网格剖分
+### 3D 网格剖分
 
-3d模型数据通常只会给出表面网格（如obj，stl文件），进行模拟前就需要对进行三角剖分从而得到四面体网格：
+- 对于一个封闭的 3D 模型（通常由表面的顶点来表达，比如obj，stl文件等），如需要将其看成实体，需要对进行三角剖分从而得到四面体网格：
 
 ![tet2.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/tet2.PNG)
 
-### 弹簧质点模型
-
-对于四面体网格可以将其每个顶点看为一个质点，将其每条边看为一根弹簧来进行模拟（对于三角网格也可以这样进行模拟，可以以此来模拟布料）：
-
-![cloth.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/cloth.PNG)
+- Tetgen 是一个简单易用的生成四面体网格的开源库，推荐使用
 
 ## 2. 模拟方法
 
@@ -138,8 +143,8 @@ $$
 
 ## 4.作业要求
 
-- 了解四面体网格数据及其处理方式，了解使用tetgen库完成对3d网格的四面体剖分
-- 实现弹簧质点模型的欧拉隐式及加速方法
+- 了解四面体网格数据及其处理方式，了解使用Tetgen库完成对3D网格的四面体剖分
+- 实现弹簧质点模型的欧拉隐式方法及加速方法
 
 
 
