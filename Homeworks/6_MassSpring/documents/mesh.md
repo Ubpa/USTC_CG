@@ -5,7 +5,7 @@
 ### 三角网格数据
 
 - [square_sparse.obj](https://github.com/Ubpa/USTC_CG_Data/tree/master/Homeworks/06_MassSpring/Mesh/square_sparse.obj) 
-- [square_sparse.obj](https://github.com/Ubpa/USTC_CG_Data/tree/master/Homeworks/06_MassSpring/Mesh/square_sparse.obj) 
+- [square_dense.obj](https://github.com/Ubpa/USTC_CG_Data/tree/master/Homeworks/06_MassSpring/Mesh/square_dense.obj) 
 
 ### 四面体网格数据
 
