@@ -27,7 +27,7 @@
 
 ## 2. 模拟方法
 
-问题：由前n帧信息，求得第n+1帧信息（位移$x$，速度$v$）(设时间步长为$h$)？
+问题：由前$n$帧信息，求得第$n+1$帧信息（位移$\boldsymbol x$，速度$\boldsymbol v$）(设时间步长为$h$)？
 
 ### 欧拉隐式方法
 
@@ -40,7 +40,7 @@ $$
 $$
 \boldsymbol y =\boldsymbol x_n + h\boldsymbol v_n + h^2\boldsymbol M^{-1}\boldsymbol f_{ext}, \tag{*}
 $$
-则原问题转化为求解关于x的方程：
+则原问题转化为求解关于$\boldsymbol x$的方程：
 $$
 \boldsymbol g(\boldsymbol x) = \boldsymbol M(\boldsymbol x-\boldsymbol y) -h^2\boldsymbol f_{int}(\boldsymbol x) = 0,
 $$
@@ -58,7 +58,7 @@ $$
 
 
 
-上式中涉及关于弹力的求导，对于单个弹簧（端点为$x_1$，$x_2$），劲度系数为$k$，原长为$l$，有：
+上式中涉及关于弹力的求导，对于单个弹簧（端点为$\boldsymbol  x_1$，$\boldsymbol  x_2$），劲度系数为$k$，原长为$l$，有：
 $$
 \boldsymbol x_1所受弹力：     \boldsymbol f_1(\boldsymbol x_1,\boldsymbol x_2)=k(||\boldsymbol x_1-\boldsymbol x_2||-l)\frac{\boldsymbol x_2-\boldsymbol x_1}{||\boldsymbol x_1-\boldsymbol x_2||},\\
 \boldsymbol x_2所受弹力：     \boldsymbol f_2(\boldsymbol x_1,\boldsymbol x_2)=-\boldsymbol f_1(\boldsymbol x_1,\boldsymbol x_2),
@@ -84,9 +84,9 @@ $$
 
 ### 加速方法（projective dynamic）
 
-（参考论文“Fast Simulation of Mass-Spring Systems”）
+【参考文献】 Tiantian Liu, et al. "Fast simulation of mass-spring systems." *Acm Transactions on Graphics (Pro. Siggraph Asia)* 32.6(2013):1-7.
 
-在上述欧拉方法中，对于内力(为保守力)有：
+在上述欧拉方法中，对于内力（为保守力）有：
 $$
 \boldsymbol f_{int}(x)=-\nabla E(\boldsymbol x)
 $$
@@ -108,7 +108,7 @@ $$
 $$
 <img src="https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/remark.PNG" alt="5" style="zoom: 67%;" />
 
-从而可以对x，d迭代优化求得该优化问题的解：
+从而可以对$\boldsymbol x$，$\boldsymbol d$迭代优化求得该优化问题的解：
 $$
 \boldsymbol x 优化：\,\,求解方程(\boldsymbol M+h^2\boldsymbol L)\boldsymbol x=h^2\boldsymbol J \boldsymbol d+ \boldsymbol M \boldsymbol y（这里可以预分解矩阵），\\
 \boldsymbol d 优化：\boldsymbol d_i=l_i\frac{\boldsymbol p_{i_1}-\boldsymbol p_{i_2}}{||\boldsymbol p_{i_1}-\boldsymbol p_{i_2}||}（这里l_i为第i个弹簧原长，\boldsymbol p_{i_1}，\boldsymbol p_{i_2}为其两端点），
@@ -119,15 +119,20 @@ $$
 
 ## 3.边界条件和约束
 
-通常模拟过程中物体会有各种约束或额外条件，例如物体被固定了几个点。
+通常模拟过程中物体会有各种约束或额外条件，例如物体被固定了几个点，对某些点施加外力（如重力、浮力、风力等）。
 
 ### 外力条件
 
-物体受到的外力可以直接加在模拟的外力项中，其导数为0；对于重力，可以将其加在外力中，另一方面，重力为保守力，也可以将重力势能加在能量项中与弹性势能何并。
+- 物体受到的外力可以直接加在模拟的外力项中，其导数为0
+- 对于重力，可以将其加在外力中，另一方面，重力为保守力，也可以将重力势能加在能量项中与弹性势能进行合并
 
 ### 位移约束
 
-这里主要考虑固定部分质点的情形，一种考虑是在每一帧中求出该点的内力，再施加与该内力大小相同，方向相反的外力，但与上一种情形不同的是，若该内力对位移导数不为0，则该外力对位移导数也不为0，需要将其导数考虑进去；另一种处理方法为仅考虑真正的自由坐标，降低问题的维数，具体如下：
+这里主要考虑固定部分质点的情形，有两种方法处理：
+
+- 第一种方法是在每一帧中求出该点的内力，再施加与该内力大小相同，方向相反的外力，但与上一种情形不同的是，若该内力对位移导数不为0，则该外力对位移导数也不为0，需要将其导数考虑进去；
+
+- 第二种方法为仅考虑真正的自由坐标，降低问题的维数，具体如下：
 
 将所有n个质点的坐标列为列向量$x\in R^{3n}$，将所有m个自由质点坐标（无约束坐标）列为列向量$x_f\in R^{3m}$,则两者关系：
 $$
@@ -145,12 +150,11 @@ $$
 
 ## 4.作业要求
 
-- 了解四面体网格数据及其处理方式，了解使用Tetgen库完成对3D网格的四面体剖分
+- 了解四面体网格数据及其数据结构，了解使用Tetgen库完成对3D网格的四面体剖分
 - 实现弹簧质点模型的欧拉隐式方法及加速方法
-
 
 
 ## 参考文献
 
-[^Liu13]: Liu, Tiantian , et al. "Fast simulation of mass-spring systems." *Acm Transactions on Graphics* 32.6(2013):1-7.
+[^Liu13]: Tiantian Liu, et al. "Fast simulation of mass-spring systems." *Acm Transactions on Graphics (Pro. Siggraph Asia)* 32.6(2013):1-7.
 
