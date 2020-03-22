@@ -24,6 +24,8 @@
 ![tet2.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/tet2.PNG)
 
 - Tetgen 是一个简单易用的生成四面体网格的开源库，推荐使用
+- Tetgen使用例子：`tetgen` [->](documents/tetgen) 
+- 网格数据：`mesh` [->](documents/mesh.md) 
 
 ## 2. 模拟方法
 
