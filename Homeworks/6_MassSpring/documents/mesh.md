@@ -4,8 +4,8 @@
 
 ### 三角网格数据
 
-- [square_sparse.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/Mesh/square_sparse.obj) 
-- [square_dense.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/Mesh/square_dense.obj) 
+- [square_sparse.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/Mesh/square_sparse.obj)  一个10x10格子的网格数据
+- [square_dense.obj](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/Mesh/square_dense.obj) 一个20x20格子的网格数据
 
 ### 四面体网格数据
 
@@ -13,9 +13,14 @@
 
 ### 未剖分的网格
 
-- [cube.stl](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/Mesh/cube.stl) （边长为20的正方体，使用tetgen时注意调整剖分参数）
-- 可以在一些提供3d打印模型的网站下载stl模型（如https://www.thingiverse.com ）
-- stl文件可由win10自带的3d查看器查看
+- Tetgen 以 STL 网格数据作为输入：STL数据也是一种常见的 3D 网格的数据格式，常用于 3D 打印的领域
+  - 有关 STL 的数据格式可以在网上找到，比如[->](https://all3dp.com/what-is-stl-file-format-extension-3d-printing) 
+  - 不少网站提供 STL 数据的下载，比如[->](https://www.thingiverse.com) 
+- STL 网格数据也可以使用 Windows 10 自带的“3D查看器”进行浏览查看
+- STL 网格数据有文本和二进制两种存储格式，文本的方式可读性比较好，与 OBJ 网格数据比较相似
+  - 这是一个边长为20的立方体的 STL 网格数据[cube.stl](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/Mesh/cube.stl) 
+  - 也可以自己生成其他的 STL 数据用于测试
+- 使用 Tetgen 生成四面体网格数据时须注意调整剖分参数
 
 ## 试验例子
 
