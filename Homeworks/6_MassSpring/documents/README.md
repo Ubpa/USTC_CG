@@ -21,17 +21,17 @@
 
 ### 3D 网格剖分生成
 
-- 对于一个封闭的 3D 模型（通常由表面的顶点来表达，比如obj，stl文件等），如需要将其看成实体，需要对进行三角剖分从而得到四面体网格：
+- 对于一个封闭的 3D 模型（通常由表面的顶点来表达，比如 obj，stl 文件等），如需要将其看成实体，需要对进行三角剖分从而得到四面体网格：
 
 ![tet2.PNG](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/tet2.PNG)
 
 - Tetgen 是一个简单易用的生成四面体网格的开源库，推荐使用
-- Tetgen使用例子：`tetgen` [->](tetgen/) 
+- Tetgen 使用例子：`tetgen` [->](tetgen/) 
 - 网格数据：`mesh` [->](mesh.md) 
 
 ## 2. 模拟方法
 
-问题：由前$n$帧信息，求得第$n+1$帧信息（位移$\boldsymbol x$，速度$\boldsymbol v$）(设时间步长为$h$)？
+问题：由前 $n$ 帧信息，求得第 $n+1$ 帧信息（位移 $\boldsymbol x$，速度 $\boldsymbol v$）（设时间步长为 $h$）？
 
 ### 欧拉隐式方法
 
@@ -92,7 +92,7 @@ $$
 
 ### 加速方法（projective dynamic）
 
-【参考文献】 Tiantian Liu, et al. "Fast simulation of mass-spring systems." *Acm Transactions on Graphics (Pro. Siggraph Asia)* 32.6(2013):1-7.
+> 【参考文献】 Tiantian Liu, et al. "Fast simulation of mass-spring systems." *Acm Transactions on Graphics (Pro. Siggraph Asia)* 32.6(2013):1-7.
 
 在上述欧拉方法中，对于内力（为保守力）有：
 $$
@@ -100,15 +100,15 @@ $$
 $$
 故对方程$(*)$的求解可以转为为一个最小化问题：
 $$
-\boldsymbol x_{n+1}=\mathop{min}\limits_{x}\frac{1}{2}(\boldsymbol x-\boldsymbol y)^T\boldsymbol M(\boldsymbol x-\boldsymbol y)+h^2E(\boldsymbol x)
+\boldsymbol x_{n+1}=\min\limits_{x}\frac{1}{2}(\boldsymbol x-\boldsymbol y)^T\boldsymbol M(\boldsymbol x-\boldsymbol y)+h^2E(\boldsymbol x)
 $$
 同时对于弹簧的弹性势能可以描述为一个最小化问题：
 $$
-\frac{1}{2}k(||\boldsymbol p_1-\boldsymbol p_2||-r)^2=\frac{1}{2}k \mathop{min}\limits_{||\boldsymbol d||=r}||\boldsymbol p_1-\boldsymbol p_2-\boldsymbol d||^2,
+\frac{1}{2}k(||\boldsymbol p_1-\boldsymbol p_2||-r)^2=\frac{1}{2}k \min\limits_{||\boldsymbol d||=r}||\boldsymbol p_1-\boldsymbol p_2-\boldsymbol d||^2,
 $$
 从而原问题转化为：
 $$
-\boldsymbol x_{n+1}=\mathop{min}\limits_{x,\boldsymbol d\in\boldsymbol U}\frac{1}{2}\boldsymbol x^T(\boldsymbol M+h^2\boldsymbol L)\boldsymbol x-h^2\boldsymbol x^T\boldsymbol J \boldsymbol d-\boldsymbol x^T \boldsymbol M \boldsymbol y
+\boldsymbol x_{n+1}=\min\limits_{x,\boldsymbol d\in\boldsymbol U}\frac{1}{2}\boldsymbol x^T(\boldsymbol M+h^2\boldsymbol L)\boldsymbol x-h^2\boldsymbol x^T\boldsymbol J \boldsymbol d-\boldsymbol x^T \boldsymbol M \boldsymbol y
 $$
 其中
 $$
@@ -116,7 +116,7 @@ $$
 $$
 <img src="https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/remark.PNG" alt="5" style="zoom: 67%;" />
 
-从而可以对$\boldsymbol x$，$\boldsymbol d$迭代优化求得该优化问题的解：
+从而可以对 $\boldsymbol x$，$\boldsymbol d$ 迭代优化求得该优化问题的解：
 $$
 \boldsymbol x 优化：\,\,求解方程(\boldsymbol M+h^2\boldsymbol L)\boldsymbol x=h^2\boldsymbol J \boldsymbol d+ \boldsymbol M \boldsymbol y（这里可以预分解矩阵），\\
 $$
@@ -134,34 +134,34 @@ $$
 
 ### 外力条件
 
-- 物体受到的外力可以直接加在模拟的外力项中，其导数为0
+- 物体受到的外力可以直接加在模拟的外力项中，其导数为 0
 - 对于重力，可以将其加在外力中，另一方面，重力为保守力，也可以将重力势能加在能量项中与弹性势能进行合并
 
 ### 位移约束
 
 这里主要考虑固定部分质点的情形，有两种方法处理：
 
-- 第一种方法是在每一帧中求出该点的内力，再施加与该内力大小相同，方向相反的外力，但与上一种情形不同的是，若该内力对位移导数不为0，则该外力对位移导数也不为0，需要将其导数考虑进去；
+- 第一种方法是在每一帧中求出该点的内力，再施加与该内力大小相同，方向相反的外力，但与上一种情形不同的是，若该内力对位移导数不为 0，则该外力对位移导数也不为 0，需要将其导数考虑进去；
 
 - 第二种方法为仅考虑真正的自由坐标，降低问题的维数，具体如下：
 
-将所有n个质点的坐标列为列向量$x\in R^{3n}$，将所有m个自由质点坐标（无约束坐标）列为列向量$x_f\in R^{3m}$,则两者关系：
+将所有n个质点的坐标列为列向量 $x\in R^{3n}$，将所有 m 个自由质点坐标（无约束坐标）列为列向量 $x_f\in R^{3m}$,则两者关系：
 $$
 \boldsymbol x_f=\boldsymbol K\boldsymbol x,\\  \boldsymbol x=\boldsymbol K^T\boldsymbol x_f+\boldsymbol b,
 $$
-其中$K\in R^{3m\times 3n}$为单位阵删去约束坐标序号对应行所得的稀疏矩阵，$b$为与约束位移有关的向量，计算为$b=x-K^TKx$, 若约束为固定质点则$b$为常量。由此我们将原本的关于$x$的优化问题转化为对$x_f$的优化问题：欧拉隐式方法中求解方程为：
+其中 $K\in R^{3m\times 3n}$ 为单位阵删去约束坐标序号对应行所得的稀疏矩阵，$b$ 为与约束位移有关的向量，计算为 $b=x-K^TKx$, 若约束为固定质点则 $b$ 为常量。由此我们将原本的关于 $x$ 的优化问题转化为对 $x_f$ 的优化问题：欧拉隐式方法中求解方程为：
 $$
 \boldsymbol g_1(\boldsymbol x_f) = K(\boldsymbol M(\boldsymbol x-\boldsymbol y) -h^2\boldsymbol f_{int}(\boldsymbol x)) = 0,\\
 梯度：\nabla_{x_f} \boldsymbol g_1(\boldsymbol x_f) = K\nabla_{x} \boldsymbol g(\boldsymbol x)K^T,\\
 $$
-加速方法中优化问题中$x$迭代步骤转化为求解关于$x_f$的方程：
+加速方法中优化问题中 $x$ 迭代步骤转化为求解关于 $x_f$ 的方程：
 $$
 K(\boldsymbol M+h^2\boldsymbol L)K^T\boldsymbol x_f=K(h^2\boldsymbol J \boldsymbol d+ \boldsymbol M \boldsymbol y-(\boldsymbol M+h^2\boldsymbol L)\boldsymbol b)
 $$
 
 ## 4.作业要求
 
-- 了解四面体网格数据及其数据结构，了解使用Tetgen库完成对3D网格的四面体剖分
+- 了解四面体网格数据及其数据结构，了解使用 Tetgen 库完成对 3D 网格的四面体剖分
 - 实现弹簧质点模型的欧拉隐式方法及加速方法
 
 
