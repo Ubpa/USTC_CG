@@ -11,7 +11,7 @@
 
 - [cuboid.tet](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/Mesh/cuboid.tet) 
 
-### 未剖分的网格
+### STL 网格数据
 
 - Tetgen 以 STL 网格数据作为输入：STL数据也是一种常见的 3D 网格的数据格式，常用于 3D 打印的领域
   - 有关 STL 的数据格式可以在网上找到，比如[->](https://all3dp.com/what-is-stl-file-format-extension-3d-printing) 
