@@ -32,7 +32,7 @@ Ptr<SObj> SimpleObjLoader::Load(const string& path) {
 	vector<pointf3> positions;
 	vector<unsigned> indices;
 	for (auto line : data) {
-		if (line.empty())
+		if (line.empty() || line == "\n")
 			continue;
 		stringstream ss(line);
 		char id;
