@@ -14,7 +14,7 @@
 ### 未剖分的网格
 
 - [cube.stl](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/06_MassSpring/Mesh/cube.stl) （边长为20的正方体，使用tetgen时注意调整剖分参数）
-- 可以在一些提供3d打印模型的网站下载stl模型（如https://www.thingiverse.com/）
+- 可以在一些提供3d打印模型的网站下载stl模型（如https://www.thingiverse.com ）
 - stl文件可由win10自带的3d查看器查看
 
 ## 试验例子
