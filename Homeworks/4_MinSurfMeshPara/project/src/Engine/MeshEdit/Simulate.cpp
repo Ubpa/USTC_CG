@@ -62,7 +62,7 @@ void Ubpa::Simulate::SetLeftFix()
 		}
 	}
 
-
+	Init();
 }
 
 void Simulate::SimulateOnce() {
