@@ -6,13 +6,13 @@
 
 
 namespace Ubpa {
-	class CmptSimulate final : public Component {
+	class CmptSimulate : public Component {
 	public:
 		/*CmptSimulate(
 			Ptr<SObj> sobj, Ptr<Simulate> simu,float stiff = 1000.0f)
 			: Component(sobj), simulate(simu),stiffness(stiff) { }*/
 		CmptSimulate(
-			Ptr<SObj> sobj, Ptr<Primitive> primitive)
+			Ptr<SObj> sobj = nullptr, Ptr<Primitive> primitive = nullptr)
 			: Component(sobj), primitive(primitive) { }
 
 
