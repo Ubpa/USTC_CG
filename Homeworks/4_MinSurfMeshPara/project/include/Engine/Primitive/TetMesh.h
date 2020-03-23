@@ -3,7 +3,7 @@
 
 
 namespace Ubpa {
-	class TetMesh final: public Primitive {
+	class TetMesh : public Primitive {
 	public:
 		TetMesh(const std::vector<pointf3> &pointlist, const std::vector<unsigned> &tetrahedronlist)
 		{
@@ -20,14 +20,12 @@ namespace Ubpa {
 
 		bool Update(const std::vector<pointf3>& positions);
 
-	private:
-
-	private:
+	protected:
 		virtual ~TetMesh() = default;
 
 	private:
-		virtual void Init_AfterGenPtr() override {
-		};
+		virtual void Init_AfterGenPtr() override { };
+
 	public:
 		virtual const bboxf3 GetBBox() const override {
 			return trimesh->GetBBox();
@@ -40,9 +38,6 @@ namespace Ubpa {
 		const std::vector<unsigned>& GetEdgeIndice() const { return edgelist; }
 		const Ptr<TriMesh> GetTriMesh() const { return trimesh; }
 		//void SetTriMesh(Ptr<TriMesh> mesh)  { trimesh = mesh; }
-
-		
-
 
 	public:
 		void UpdateNorm();

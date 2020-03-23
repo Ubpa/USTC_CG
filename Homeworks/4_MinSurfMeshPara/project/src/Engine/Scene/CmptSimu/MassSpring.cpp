@@ -48,11 +48,11 @@ bool Ubpa::MassSpring::Update(const std::vector<pointf3>& positions)
 
 void Ubpa::MassSpring::GenEdge(const std::vector<unsigned>& facelist)
 {
-	int numofface = facelist.size() / 3;
+	size_t numofface = facelist.size() / 3;
 	vector<vector<unsigned>> edge;
 	edge.resize(numofface * 3);
 	vector<unsigned> tem(3);
-	for (int i = 0; i < numofface; i++)
+	for (size_t i = 0; i < numofface; i++)
 	{
 		tem[0] = facelist[3 * i];
 		tem[1] = facelist[3 * i + 1];
@@ -71,14 +71,14 @@ void Ubpa::MassSpring::GenEdge(const std::vector<unsigned>& facelist)
 	{
 		idx.push_back(0);
 	}
-	for (int i = 1; i < 3 * numofface; i++)
+	for (size_t i = 1; i < 3 * numofface; i++)
 	{
 		if (edge[i][0] != edge[i - 1][0] || edge[i][1] != edge[i - 1][1])
 		{
-			idx.push_back(i);
+			idx.push_back(static_cast<unsigned>(i));
 		}
 	}
-	for (int i = 0; i < idx.size(); i++)
+	for (size_t i = 0; i < idx.size(); i++)
 	{
 		edgelist.push_back(edge[idx[i]][0]);
 		edgelist.push_back(edge[idx[i]][1]);

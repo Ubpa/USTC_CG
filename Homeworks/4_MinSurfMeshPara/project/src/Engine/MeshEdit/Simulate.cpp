@@ -74,7 +74,7 @@ void Simulate::SimulateOnce() {
 	for (int i = 0; i < positions.size(); i++)
 	{
 
-		this->velocity[i][0] += -h*1.0;
+		this->velocity[i][0] += -h*1.f;
 		this->positions[i][0] += h * this->velocity[i][0];
 	}
 

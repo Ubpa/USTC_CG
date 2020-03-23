@@ -13,7 +13,7 @@
 #include <UGM/rgb.h>
 #include <UGM/rgba.h>
 
-#include <UTemplate/FuncTraits.h>
+#include <UTemplate/Func.h>
 
 #include <string>
 #include <map>

@@ -105,11 +105,11 @@ void Ubpa::TetMesh::UpdateNorm()
 
 void Ubpa::TetMesh::GenEdge()
 {
-	int numofface = facelist.size() / 3;
+	size_t numofface = facelist.size() / 3;
 	vector<vector<unsigned>> edge;
 	edge.resize(numofface * 3);
 	vector<unsigned> tem(3);
-	for (int i = 0; i < numofface; i++)
+	for (size_t i = 0; i < numofface; i++)
 	{
 		tem[0] = facelist[3 * i];
 		tem[1] = facelist[3 * i + 1];
@@ -143,7 +143,7 @@ void Ubpa::TetMesh::GenEdge()
 }
 void Ubpa::TetMesh::GenFace()
 {
-	int numberoftetrahedra = tetrahedronlist.size() / 4;
+	size_t numberoftetrahedra = tetrahedronlist.size() / 4;
 	vector<vector<unsigned>> face;
 	vector<unsigned> tem(4);
 	face.resize(4 * numberoftetrahedra);
@@ -157,19 +157,19 @@ void Ubpa::TetMesh::GenFace()
 		face[4 * i].push_back(tem[0]);
 		face[4 * i].push_back(tem[1]);
 		face[4 * i].push_back(tem[2]);
-		face[4 * i].push_back(i);
+		face[4 * i].push_back(static_cast<unsigned>(i));
 		face[4 * i + 1].push_back(tem[0]);
 		face[4 * i + 1].push_back(tem[1]);
 		face[4 * i + 1].push_back(tem[3]);
-		face[4 * i + 1].push_back(i);
+		face[4 * i + 1].push_back(static_cast<unsigned>(i));
 		face[4 * i + 2].push_back(tem[0]);
 		face[4 * i + 2].push_back(tem[2]);
 		face[4 * i + 2].push_back(tem[3]);
-		face[4 * i + 2].push_back(i);
+		face[4 * i + 2].push_back(static_cast<unsigned>(i));
 		face[4 * i + 3].push_back(tem[1]);
 		face[4 * i + 3].push_back(tem[2]);
 		face[4 * i + 3].push_back(tem[3]);
-		face[4 * i + 3].push_back(i);
+		face[4 * i + 3].push_back(static_cast<unsigned>(i));
 	}
 	std::sort(face.begin(), face.end(), SortFace);
 	vector<unsigned> idx;
