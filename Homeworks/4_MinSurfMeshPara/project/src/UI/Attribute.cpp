@@ -11,6 +11,7 @@
 
 #include <Engine/Scene/SObj.h>
 #include <Engine/Scene/AllComponents.h>
+#include <Engine/MeshEdit/Simulate.h>
 
 #include <Engine/Primitive/Sphere.h>
 #include <Engine/Primitive/Plane.h>
@@ -64,7 +65,8 @@ public:
 			CmptGeometry,
 			CmptLight,
 			CmptMaterial,
-			CmptTransform>();
+			CmptTransform,
+			CmptSimulate>();
 
 		Regist<Sphere,
 			Plane,
@@ -132,6 +134,7 @@ protected:
 	void ImplVisit(Ptr<BSDF_Frostbite> bsdf);
 
 	void ImplVisit(Ptr<CmptTransform> cmpt);
+	void ImplVisit(Ptr<CmptSimulate> cmpt);
 
 private:
 	QWidget * GenItem(Ptr<Component> component, const QString & str) {
@@ -178,6 +181,19 @@ void Attribute::ComponentVisitor::ImplVisit(Ptr<CmptTransform> transform) {
 	grid->AddEditVal({ "x","y","z" }, transform->GetScale().cast_to<Ubpa::valf3>(), Ubpa::valf3(0.1f), [=](const Ubpa::valf3 & val) {
 		transform->SetScale(val.cast_to<Ubpa::scalef3>());
 	});
+}
+
+void Attribute::ComponentVisitor::ImplVisit(Ptr<CmptSimulate> simulate) {
+	auto item = GenItem(simulate, "Simulate");
+	auto grid = GetGrid(item);
+
+	grid->AddText("- Simulate");
+	grid->AddEditVal({ "stiff" }, simulate->GetStiff(), 0.1f, [=](const float& val) {
+		simulate->SetStiff(val);
+		});
+	grid->AddButton("set x min fix", [simulate]() {
+		simulate->SetLeftFix();
+		});
 }
 
 // -------------- Camera --------------
@@ -829,8 +845,8 @@ void Attribute::AddController(Ptr<SObj> sobj) {
 
 	grid->AddTitle("[ Component ]");
 
-	const int componentNum = 5;
-	vector<string> componentNames{ "Camera" , "Geometry", "Light", "Material", "Transform" };
+	const int componentNum = 6;
+	vector<string> componentNames{ "Camera" , "Geometry", "Light", "Material", "Transform" ,"Simulate" };
 
 	vector<function<Ptr<Component>()>> componentGenFuncs{
 		[=]()->Ptr<Component> { return CmptCamera::New(nullptr); },
@@ -838,6 +854,7 @@ void Attribute::AddController(Ptr<SObj> sobj) {
 		[=]()->Ptr<Component> { return CmptLight::New(nullptr, nullptr); },
 		[=]()->Ptr<Component> { return CmptMaterial::New(nullptr, nullptr); },
 		[=]()->Ptr<Component> { return CmptTransform::New(nullptr); },
+		[=]()->Ptr<Component> { return CmptSimulate::New(nullptr, nullptr); },
 	};
 
 	vector<function<Ptr<Component>()>> componentDelFuncs{
@@ -864,6 +881,11 @@ void Attribute::AddController(Ptr<SObj> sobj) {
 		[=]()->Ptr<Component> {
 			auto component = sobj->GetComponent<CmptTransform>();
 			sobj->DetachComponent<CmptTransform>();
+			return component;
+		},
+		[=]()->Ptr<Component> {
+			auto component = sobj->GetComponent<CmptSimulate>();
+			sobj->DetachComponent<CmptSimulate>();
 			return component;
 		},
 	};
