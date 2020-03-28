@@ -14,7 +14,7 @@
 ### Taichi 图形学框架
 
 - Taichi 框架是 MIT 博士生 Yuanming Hu（胡渊鸣）开发的计算机图形学代码库，在此基础上可以实现很多物理模拟算法，参考 [Taichi](http://taichi.graphics/) 
-- 我们只学习使用“88行实现冰雪奇缘”中的2D版本的代码
+- 我们只学习使用 [88行实现冰雪奇缘](https://zhuanlan.zhihu.com/p/97700605) 中的2D版本的代码
   - [mls-mpm88](../project/src/example/00_mls_mpm88/mls-mpm88.cpp) 是一个 MLS-MPM 算法 2D 实现，只需包含头文件 [taichi.h](https://github.com/Ubpa/USTC_CG_Data/blob/master/Homeworks/07_SimulationTaichi/mls_mpm88/taichi.h) 即可编译运行
   - 代码展示的是三个方块的雪块碰撞掉落地上的仿真
 
@@ -53,3 +53,6 @@ MPM 的基本流程是：模拟对象的物理量存储在粒子中，在每一�
 [^Stomakhin et al. 2013]: Stomakhin et al. "A Material Point Method for Snow Simulation." *ACM Transactions on Graphics (SIGGRAPH 2013)* 
 
 [^Hu et al. 2018]: Hu et al. "A Moving Least Squares Material Point Method with Displacement Discontinuity and Two-Way Rigid Body Coupling." *ACM Transactions on Graphics (SIGGRAPH 2018)*
+
+[^Hu et al. 2019]: Taichi: A Language for High-Performance Computation on Spatially Sparse Data Structures. *ACM Transactions on Graphics (SIGGRAPH Asia 2019)*
+
