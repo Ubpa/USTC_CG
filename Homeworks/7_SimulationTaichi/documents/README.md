@@ -51,4 +51,5 @@ MPM 的基本流程是：模拟对象的物理量存储在粒子中，在每一�
 ## 参考文献
 
 [^Stomakhin et al. 2013]: Stomakhin et al. "A Material Point Method for Snow Simulation." *ACM Transactions on Graphics (SIGGRAPH 2013)* 
+
 [^Hu et al. 2018]: Hu et al. "A Moving Least Squares Material Point Method with Displacement Discontinuity and Two-Way Rigid Body Coupling." *ACM Transactions on Graphics (SIGGRAPH 2018)*
