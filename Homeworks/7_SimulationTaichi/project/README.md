@@ -8,5 +8,5 @@
 
 ### 项目配置
 
-下载库文件 [taichi.h](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/07_SimulationTaichi/mls_mpm88/taichi.h) 并放到 `include/_deps/` 中（自行在 include/ 中创建文件夹 _deps/）
+下载库文件 [taichi.h](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/07_SimulationTaichi/mls_mpm88/taichi.h) 并放到 `include/_deps/` 中（自行创建文件夹）
 
