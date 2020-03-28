@@ -14,13 +14,9 @@
 ### Taichi 图形学框架
 
 - Taichi 框架是 MIT 博士生 Yuanming Hu（胡渊鸣）开发的计算机图形学代码库，在此基础上可以实现很多物理模拟算法，参考 [Taichi](http://taichi.graphics/) 
-- 我们只学习使用“88行实现冰雪奇缘”中的2D版本的代码：[mls-mpm88](../project/src/example/00_mls_mpm88/mls-mpm88.cpp) 是一个 MLS-MPM 算法 2D 实现，只需包含头文件 [taichi.h](https://github.com/Ubpa/USTC_CG_Data/blob/master/Homeworks/07_SimulationTaichi/mls_mpm88/taichi.h) 即可编译运行
-- [project](../project/) 中包含若干示例代码： 
-  - example_00_mls_mpm88：为作者提供的示例代码
-  - example_01_mls_mpm88_x：同上，规范了格式、注释等
-  - example_02_mls_mpm88_snowball：为我们提供的示例，两团雪在空中碰撞掉落地上的仿真
-  - example_03_mls_mpm88_cubes：为我们提供的示例，三个方块（2个雪块和1个刚性块）碰撞掉落地上的仿真
-  - example_04_mls_mpm88_fountain：为我们提供的示例，一个不断喷出水的喷泉的仿真
+- 我们只学习使用“88行实现冰雪奇缘”中的2D版本的代码
+  - [mls-mpm88](../project/src/example/00_mls_mpm88/mls-mpm88.cpp) 是一个 MLS-MPM 算法 2D 实现，只需包含头文件 [taichi.h](https://github.com/Ubpa/USTC_CG_Data/blob/master/Homeworks/07_SimulationTaichi/mls_mpm88/taichi.h) 即可编译运行
+  - 代码展示的是三个方块的雪块碰撞掉落地上的仿真
 
 
 ## 2. [mls-mpm88](../project/src/example/00_mls_mpm88/mls-mpm88.cpp) （example_00_mls_mpm88）说明
