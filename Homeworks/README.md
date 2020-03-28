@@ -49,4 +49,6 @@
 3. 泊松图像编辑 [->](3_PoissonImageEditing/) 
 4. 极小曲面和网格参数化 [->](4_MinSurfMeshPara) 
 5. ARAP [->](5_ARAP/) 
+6. 质点弹簧系统仿真 [->](6_MassSpring/) 
+7. 基于 Taichi 的仿真 [->](7_SimulationTaichi/) 
 
