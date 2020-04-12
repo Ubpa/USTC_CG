@@ -1,13 +1,13 @@
-#include <glad/glad.h>
+#include <UGL/UGL>
+#include <UGM/UGM>
+
 #include <GLFW/glfw3.h>
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-#include <UGL/UGL>
-#include <UGM/UGM>
-
-#include "../../camera/camera.h"
+#include "../tool/Camera.h"
+#include "../tool/SimpleLoader.h"
 
 #include <iostream>
 
@@ -80,50 +80,11 @@ int main()
     gl::Shader fs(gl::ShaderType::FragmentShader, "../data/shaders/img.fs"); // you can name your shader files however you like
     gl::Program program(&vs, &fs);
 
-    // set up vertex data (and buffer(s)) and configure vertex attributes
+    // load model
     // ------------------------------------------------------------------
-    float vertices[] = {
-        // positions      // uv      // normals       // tangent
-        -1.f, -1.f, -1.f, 1.f, 0.f,  0.f,  0.f, -1.f, -1.f,  0.f,  0.f,
-        -1.f,  1.f, -1.f, 1.f, 1.f,  0.f,  0.f, -1.f, -1.f,  0.f,  0.f,
-         1.f, -1.f, -1.f, 0.f, 0.f,  0.f,  0.f, -1.f, -1.f,  0.f,  0.f,
-         1.f,  1.f, -1.f, 0.f, 1.f,  0.f,  0.f, -1.f, -1.f,  0.f,  0.f,
-
-        -1.f, -1.f,  1.f, 0.f, 0.f,  0.f,  0.f,  1.f,  1.f,  0.f,  0.f,
-         1.f, -1.f,  1.f, 1.f, 0.f,  0.f,  0.f,  1.f,  1.f,  0.f,  0.f,
-        -1.f,  1.f,  1.f, 0.f, 1.f,  0.f,  0.f,  1.f,  1.f,  0.f,  0.f,
-         1.f,  1.f,  1.f, 1.f, 1.f,  0.f,  0.f,  1.f,  1.f,  0.f,  0.f,
-
-        -1.f, -1.f,  1.f, 1.f, 0.f, -1.f,  0.f,  0.f,  0.f,  0.f,  1.f,
-        -1.f,  1.f,  1.f, 1.f, 1.f, -1.f,  0.f,  0.f,  0.f,  0.f,  1.f,
-        -1.f, -1.f, -1.f, 0.f, 0.f, -1.f,  0.f,  0.f,  0.f,  0.f,  1.f,
-        -1.f,  1.f, -1.f, 0.f, 1.f, -1.f,  0.f,  0.f,  0.f,  0.f,  1.f,
-
-         1.f,  1.f,  1.f, 0.f, 1.f,  1.f,  0.f,  0.f,  0.f,  0.f, -1.f,
-         1.f, -1.f,  1.f, 0.f, 0.f,  1.f,  0.f,  0.f,  0.f,  0.f, -1.f,
-         1.f,  1.f, -1.f, 1.f, 1.f,  1.f,  0.f,  0.f,  0.f,  0.f, -1.f,
-         1.f, -1.f, -1.f, 1.f, 0.f,  1.f,  0.f,  0.f,  0.f,  0.f, -1.f,
-
-         1.f, -1.f,  1.f, 1.f, 1.f,  0.f, -1.f,  0.f,  1.f,  0.f,  0.f,
-        -1.f, -1.f,  1.f, 0.f, 1.f,  0.f, -1.f,  0.f,  1.f,  0.f,  0.f,
-         1.f, -1.f, -1.f, 1.f, 0.f,  0.f, -1.f,  0.f,  1.f,  0.f,  0.f,
-        -1.f, -1.f, -1.f, 0.f, 0.f,  0.f, -1.f,  0.f,  1.f,  0.f,  0.f,
-
-        -1.f,  1.f,  1.f, 0.f, 0.f,  0.f,  1.f,  0.f,  1.f,  0.f,  0.f,
-         1.f,  1.f,  1.f, 1.f, 0.f,  0.f,  1.f,  0.f,  1.f,  0.f,  0.f,
-        -1.f,  1.f, -1.f, 0.f, 1.f,  0.f,  1.f,  0.f,  1.f,  0.f,  0.f,
-         1.f,  1.f, -1.f, 1.f, 1.f,  0.f,  1.f,  0.f,  1.f,  0.f,  0.f,
-    };
-    unsigned int indices[] = {
-         0,  1,  2,  3,  2,  1,
-         4,  5,  6,  7,  6,  5,
-         8,  9, 10, 11, 10,  9,
-        12, 13, 14, 15, 14, 13,
-        16, 17, 18, 19, 18, 17,
-        20, 21, 22, 23, 22, 21,
-    };
+    auto obj = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj");
     // world space positions of our cubes
-    pointf3 cubePositions[] = {
+    pointf3 instancePositions[] = {
         pointf3(0.0f,  0.0f,  0.0f),
         pointf3(2.0f,  5.0f, -15.0f),
         pointf3(-1.5f, -2.2f, -2.5f),
@@ -135,14 +96,6 @@ int main()
         pointf3(1.5f,  0.2f, -1.5f),
         pointf3(-1.3f,  1.0f, -1.5f)
     };
-    gl::VertexArray::Format format;
-    gl::VertexBuffer vbo(sizeof(vertices), vertices, gl::BufferUsage::StaticDraw);
-    gl::ElementBuffer ebo(gl::BasicPrimitiveType::Triangles, 12, indices);
-    format.attrptrs.push_back(vbo.AttrPtr(3, gl::DataType::Float, GL_FALSE, 11 * sizeof(GLfloat), (const void*)(0)));
-    format.attrptrs.push_back(vbo.AttrPtr(2, gl::DataType::Float, GL_FALSE, 11 * sizeof(GLfloat), (const void*)(3 * sizeof(float))));
-    format.eb = &ebo;
-    gl::VertexArray vao({ 0,1 }, format);
-
 
     // load and create a texture 
     // -------------------------
@@ -150,8 +103,8 @@ int main()
     texture0.SetWrapFilter(gl::WrapMode::Repeat, gl::WrapMode::Repeat, gl::MinFilter::Linear, gl::MagFilter::Linear);
     // load image, create texture and generate mipmaps
     int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char* data = stbi_load("../data/textures/checkerboard.png", &width, &height, &nrChannels, 0);
+    stbi_set_flip_vertically_on_load(false); // tell stb_image.h to flip loaded texture's on the y-axis.
+    unsigned char* data = stbi_load("../data/textures/spot_texture.png", &width, &height, &nrChannels, 0);
     if (data)
     {
         texture0.SetImage(0, gl::PixelDataInternalFormat::Rgb, width, height, gl::PixelDataFormat::Rgb, gl::PixelDataType::UnsignedByte, data);
@@ -166,7 +119,6 @@ int main()
     // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
     // -------------------------------------------------------------------------------------------
     program.SetTex("texture0", 0);
-
 
     // render loop
     // -----------
@@ -202,9 +154,9 @@ int main()
         {
             // calculate the model matrix for each object and pass it to shader before drawing
             float angle = 20.0f * i + 10.f * (float)glfwGetTime();
-            transformf model(cubePositions[i], quatf{ vecf3(1.0f, 0.3f, 0.5f), to_radian(angle) });
+            transformf model(instancePositions[i], quatf{ vecf3(1.0f, 0.3f, 0.5f), to_radian(angle) });
             program.SetMatf4("model", model);
-            vao.Draw(&program);
+            obj->va->Draw(&program);
         }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -215,6 +167,7 @@ int main()
 
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
+    delete obj;
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
