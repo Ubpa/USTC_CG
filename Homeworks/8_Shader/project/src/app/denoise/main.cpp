@@ -18,10 +18,12 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 gl::Texture2D loadTexture(char const* path);
+gl::Texture2D genDisplacementmap(const SimpleLoader::OGLResources* resources);
 
 // settings
 unsigned int scr_width = 800;
 unsigned int scr_height = 600;
+bool have_denoise = false;
 
 // camera
 Camera camera(pointf3(0.0f, 0.0f, 3.0f));
@@ -77,11 +79,12 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    gl::Shader vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2n3.vs"); // you can name your shader files however you like
+    gl::Shader vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2n3_denoise.vs"); // you can name your shader files however you like
     gl::Shader fs(gl::ShaderType::FragmentShader, "../data/shaders/light.fs"); // you can name your shader files however you like
     gl::Program program(&vs, &fs);
     rgbf ambient{ 0.2f,0.2f,0.2f };
     program.SetTex("albedo_texture", 0);
+    program.SetTex("displacementmap", 1);
     program.SetVecf3("point_light_pos", { 0,5,0 });
     program.SetVecf3("point_light_radiance", { 100,100,100 });
     program.SetVecf3("ambient_irradiance", ambient);
@@ -90,7 +93,7 @@ int main()
 
     // load model
     // ------------------------------------------------------------------
-    auto obj = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj", true);
+    auto spot = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj", true);
     // world space positions of our cubes
     pointf3 instancePositions[] = {
         pointf3(0.0f,  0.0f,  0.0f),
@@ -108,6 +111,8 @@ int main()
     // load and create a texture 
     // -------------------------
     gl::Texture2D spot_albedo = loadTexture("../data/textures/spot_albedo.png");
+
+    gl::Texture2D displacementmap = genDisplacementmap(spot);
 
     // render loop
     // -----------
@@ -132,6 +137,7 @@ int main()
 
         // bind textures on corresponding texture units
         program.Active(0, &spot_albedo);
+        program.Active(1, &displacementmap);
 
         // pass projection matrix to shader (note that in this case it could change every frame)
         transformf projection = transformf::perspective(to_radian(camera.Zoom), (float)scr_width / (float)scr_height, 0.1f, 100.f);
@@ -140,6 +146,9 @@ int main()
         // camera/view transformation
         program.SetMatf4("view", camera.GetViewMatrix());
 
+        program.SetBool("have_denoise", have_denoise);
+        program.SetFloat("displacement_coefficient", 0.2f); // TODO: 0.2f as default, you can use other value
+
         // render spots
         for (unsigned int i = 0; i < 10; i++)
         {
@@ -147,7 +156,7 @@ int main()
             float angle = 20.0f * i + 10.f * (float)glfwGetTime();
             transformf model(instancePositions[i], quatf{ vecf3(1.0f, 0.3f, 0.5f), to_radian(angle) });
             program.SetMatf4("model", model);
-            obj->va->Draw(&program);
+            spot->va->Draw(&program);
         }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -158,7 +167,7 @@ int main()
 
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
-    delete obj;
+    delete spot;
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
@@ -185,6 +194,9 @@ void processInput(GLFWwindow *window)
         camera.ProcessKeyboard(Camera::Movement::UP, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
         camera.ProcessKeyboard(Camera::Movement::DOWN, deltaTime);
+
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        have_denoise = !have_denoise;
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -257,4 +269,18 @@ gl::Texture2D loadTexture(char const* path)
     stbi_image_free(data);
 
     return tex;
+}
+
+gl::Texture2D genDisplacementmap(const SimpleLoader::OGLResources* resources) {
+    const float* displacementData = new float[1024 * 1024];
+    // [TODO] set displacementData with resources's positions, indices, normals, ...
+
+    // ...
+
+    gl::Texture2D displacementmap;
+    displacementmap.SetImage(0, gl::PixelDataInternalFormat::Red, 1024, 1024, gl::PixelDataFormat::Red, gl::PixelDataType::Float, displacementData);
+    delete[] displacementData;
+    displacementmap.SetWrapFilter(gl::WrapMode::Repeat, gl::WrapMode::Repeat,
+        gl::MinFilter::Linear, gl::MagFilter::Linear);
+    return displacementmap;
 }

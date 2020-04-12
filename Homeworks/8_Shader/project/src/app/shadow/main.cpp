@@ -22,7 +22,7 @@ gl::Texture2D loadTexture(char const* path);
 // settings
 unsigned int scr_width = 800;
 unsigned int scr_height = 600;
-bool have_shadow = true;
+bool have_shadow = false;
 
 // camera
 Camera camera(pointf3(0.0f, 0.0f, 3.0f));

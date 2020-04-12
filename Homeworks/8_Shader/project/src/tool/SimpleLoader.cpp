@@ -161,6 +161,11 @@ SimpleLoader::OGLResources* SimpleLoader::LoadObj(const std::string& path, bool 
 	rst->name2vb["t"] = vb_t;
 	rst->eb = eb;
 	rst->va = new gl::VertexArray({ 0,1,2,3 }, format);
+	rst->positions = move(positions);
+	rst->texcoords = move(texcoords);
+	rst->normals = move(normals);
+	rst->tangents = move(tangents);
+	rst->indices = move(indices);
 
 	return rst;
 }
