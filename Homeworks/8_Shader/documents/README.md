@@ -15,9 +15,9 @@
 
 > 示例
 >
-> ![img](https://learnopengl-cn.github.io/img/05/04/normal_mapping_compare.png)
+> ![normal_mapping_compare](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/normal_mapping_compare.jpg)
 
-详细内容可参考：[LearnOpenGL - 法线贴图]([https://learnopengl-cn.github.io/05%20Advanced%20Lighting/04%20Normal%20Mapping/](https://learnopengl-cn.github.io/05 Advanced Lighting/04 Normal Mapping/))。
+详细内容可参考：[LearnOpenGL - 法线贴图](https://learnopengl-cn.github.io/05%20Advanced%20Lighting/04%20Normal%20Mapping/)。
 
 ### 1.2 置换贴图
 
@@ -37,7 +37,7 @@
 
 > 示例
 >
-> ![img](https://learnopengl-cn.github.io/img/05/03/01/shadow_mapping_with_without.png)
+> ![shadow_mapping_with_without](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/shadow_mapping_with_without.jpg)
 
 详细内容可参考：[LearnOpenGL - 阴影映射](https://learnopengl-cn.github.io/05%20Advanced%20Lighting/03%20Shadows/01%20Shadow%20Mapping/) 
 
