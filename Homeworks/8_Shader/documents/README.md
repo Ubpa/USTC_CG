@@ -7,7 +7,7 @@
 
 典型使用方式如下
 
-![image-20200412213207467](assets/README/image-20200412213207467.png)
+![normal_map_usage](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/normal_map_usage.jpg)
 
 其中法线贴图在渲染中用于改变原法向，从而影响着色效果。
 
@@ -23,7 +23,7 @@
 
 典型使用方式如下
 
-![image-20200412214519054](assets/README/image-20200412214519054.png)
+![displacement_map_usage](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/displacement_map_usage.jpg)
 
 其中置换贴图用于改变顶点的位置，0 （黑色）表示不动，1（白色）表示沿着法向偏移。
 
@@ -31,7 +31,7 @@
 
 由于置换贴图只改变了顶点的位置，不改变顶点的法向，所以，如果不添加相应的法线贴图的话，渲染效果不太正确，如下
 
-![image-20200412214928623](assets/README/image-20200412214928623.png)
+![displacement_map_error](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/displacement_map_error.jpg)
 
 ### 1.3 点光源阴影
 
