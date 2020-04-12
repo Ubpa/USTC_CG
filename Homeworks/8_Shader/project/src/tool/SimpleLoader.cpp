@@ -101,6 +101,32 @@ SimpleLoader::OGLResources* SimpleLoader::LoadObj(const std::string& path) {
 	for (auto& pos : positions)
 		pos = (scale * (pos - center)).cast_to<pointf3>();
 
+	/*bool noise = true;
+	float lambda = 0.05f;
+	if (noise) {
+		if (normals.empty())
+			normals = detail::SimpleLoader_::GenNormal(positions, indices);
+		uniform_real_distribution distribution(0.f, 1.f);
+		default_random_engine engine;
+		map<pointf3, vecf3> p2o;
+		for (size_t i = 0; i < positions.size(); i++) {
+			pointf3 pos = positions[i];
+			vecf3 offset;
+
+			auto target = p2o.find(pos);
+			if (target == p2o.end()) {
+				float Xi = distribution(engine);
+				offset = lambda * Xi * normals[i].cast_to<vecf3>();
+				p2o[pos] = offset;
+			}
+			else
+				offset = target->second;
+
+			positions[i] += offset;
+		}
+		normals.clear();
+	}*/
+
 	// [generate texcoords, normals, tangents]
 	if (texcoords.empty())
 		texcoords = detail::SimpleLoader_::GenUV(positions);
@@ -127,7 +153,7 @@ SimpleLoader::OGLResources* SimpleLoader::LoadObj(const std::string& path) {
 	format.attrptrs.push_back(vb_pos->AttrPtr(3, gl::DataType::Float, false, sizeof(pointf3)));
 	format.attrptrs.push_back(vb_uv->AttrPtr(2, gl::DataType::Float, false, sizeof(pointf2)));
 	format.attrptrs.push_back(vb_n->AttrPtr(3, gl::DataType::Float, false, sizeof(normalf)));
-	format.attrptrs.push_back(vb_t->AttrPtr(3, gl::DataType::Float, false, sizeof(pointf2)));
+	format.attrptrs.push_back(vb_t->AttrPtr(3, gl::DataType::Float, false, sizeof(vecf3)));
 	format.eb = eb;
 
 	rst->name2vb["pos"] = vb_pos;

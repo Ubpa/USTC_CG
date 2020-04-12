@@ -6,8 +6,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-#include "../tool/Camera.h"
-#include "../tool/SimpleLoader.h"
+#include "../../tool/Camera.h"
+#include "../../tool/SimpleLoader.h"
 
 #include <iostream>
 

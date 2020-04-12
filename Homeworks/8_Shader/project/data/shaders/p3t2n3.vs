@@ -16,11 +16,11 @@ uniform mat4 model;
 
 void main()
 {
-    vec4 worldPos4 = model * vec4(aPos, 1.0);
+    vec4 worldPos = model * vec4(aPos, 1.0);
 	
-	vs_out.WorldPos = worldPos4.xyz / worldPos4.w;
+	vs_out.WorldPos = worldPos.xyz / worldPos.w;
     vs_out.TexCoord = aTexCoord;
     vs_out.Normal = normalize(transpose(inverse(mat3(model))) * aNormal);
 	
-    gl_Position = projection * view * worldPos4;
+    gl_Position = projection * view * worldPos;
 }
