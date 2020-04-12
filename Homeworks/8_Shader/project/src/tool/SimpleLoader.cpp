@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <random>
 
 using namespace Ubpa;
 using namespace std;
@@ -80,7 +81,7 @@ SimpleLoader::OGLResources* SimpleLoader::LoadObj(const std::string& path) {
 		else if (id == "vn") {
 			normalf n;
 			ss >> n;
-			normals.push_back(n);
+			normals.push_back(n.normalize());
 		}
 		else if (id == "vt") {
 			pointf2 uv;
@@ -157,15 +158,18 @@ namespace Ubpa::detail::SimpleLoader_ {
 	vector<normalf> GenNormal(const vector<pointf3>& positions, const vector<unsigned> indices) {
 		vector<normalf> wNs(positions.size(), normalf{ 0.f });
 		for (size_t i = 0; i < indices.size(); i += 3) {
-			const auto& p0 = positions[i];
-			const auto& p1 = positions[i + 1];
-			const auto& p2 = positions[i + 2];
+			size_t idx0 = indices[i];
+			size_t idx1 = indices[i + 1];
+			size_t idx2 = indices[i + 2];
+			const auto& p0 = positions[idx0];
+			const auto& p1 = positions[idx1];
+			const auto& p2 = positions[idx2];
 			auto v01 = p1 - p0;
 			auto v02 = p2 - p0;
 			auto wN = v01.cross(v02).cast_to<normalf>();
-			wNs[i] += wN;
-			wNs[i + 1] += wN;
-			wNs[i + 2] += wN;
+			wNs[idx0] += wN;
+			wNs[idx1] += wN;
+			wNs[idx2] += wN;
 		}
 		for (auto& n : wNs)
 			n.normalize_self();

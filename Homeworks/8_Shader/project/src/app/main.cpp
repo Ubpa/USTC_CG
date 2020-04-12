@@ -17,6 +17,7 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
+gl::Texture2D loadTexture(char const* path);
 
 // settings
 const unsigned int SCR_WIDTH = 800;
@@ -76,9 +77,16 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    gl::Shader vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2.vs"); // you can name your shader files however you like
-    gl::Shader fs(gl::ShaderType::FragmentShader, "../data/shaders/img.fs"); // you can name your shader files however you like
+    gl::Shader vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2n3.vs"); // you can name your shader files however you like
+    gl::Shader fs(gl::ShaderType::FragmentShader, "../data/shaders/light.fs"); // you can name your shader files however you like
     gl::Program program(&vs, &fs);
+    rgbf ambient{ 0.2f,0.2f,0.2f };
+    program.SetTex("albedo_texture", 0);
+    program.SetVecf3("point_light_pos", { 0,5,0 });
+    program.SetVecf3("point_light_radiance", { 100,100,100 });
+    program.SetVecf3("ambient_irradiance", ambient);
+    program.SetFloat("roughness", 0.5f );
+    program.SetFloat("metalness", 0.f);
 
     // load model
     // ------------------------------------------------------------------
@@ -99,26 +107,7 @@ int main()
 
     // load and create a texture 
     // -------------------------
-    gl::Texture2D texture0;
-    texture0.SetWrapFilter(gl::WrapMode::Repeat, gl::WrapMode::Repeat, gl::MinFilter::Linear, gl::MagFilter::Linear);
-    // load image, create texture and generate mipmaps
-    int width, height, nrChannels;
-    stbi_set_flip_vertically_on_load(false); // tell stb_image.h to flip loaded texture's on the y-axis.
-    unsigned char* data = stbi_load("../data/textures/spot_texture.png", &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        texture0.SetImage(0, gl::PixelDataInternalFormat::Rgb, width, height, gl::PixelDataFormat::Rgb, gl::PixelDataType::UnsignedByte, data);
-        texture0.GenerateMipmap();
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-    stbi_image_free(data);
-    
-    // tell opengl for each sampler to which texture unit it belongs to (only has to be done once)
-    // -------------------------------------------------------------------------------------------
-    program.SetTex("texture0", 0);
+    gl::Texture2D spot_albedo = loadTexture("../data/textures/spot_albedo.png");
 
     // render loop
     // -----------
@@ -136,11 +125,13 @@ int main()
 
         // render
         // ------
-        gl::ClearColor({ 0.2f, 0.3f, 0.3f, 1.0f });
+        gl::ClearColor({ ambient, 1.0f });
         gl::Clear(gl::BufferSelectBit::ColorBufferBit | gl::BufferSelectBit::DepthBufferBit); // also clear the depth buffer now!
 
+        program.SetVecf3("camera_pos", camera.Position);
+
         // bind textures on corresponding texture units
-        program.Active(0, &texture0);
+        program.Active(0, &spot_albedo);
 
         // pass projection matrix to shader (note that in this case it could change every frame)
         transformf projection = transformf::perspective(to_radian(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.f);
@@ -193,7 +184,7 @@ void processInput(GLFWwindow *window)
     if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
         camera.ProcessKeyboard(Camera::Movement::UP, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
-        camera.ProcessKeyboard(Camera::Movement::RIGHT, deltaTime);
+        camera.ProcessKeyboard(Camera::Movement::DOWN, deltaTime);
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -231,4 +222,26 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
     camera.ProcessMouseScroll(static_cast<float>(yoffset));
+}
+
+gl::Texture2D loadTexture(char const* path)
+{
+    gl::Texture2D tex;
+    tex.SetWrapFilter(gl::WrapMode::Repeat, gl::WrapMode::Repeat, gl::MinFilter::Linear, gl::MagFilter::Linear);
+    // load image, create texture and generate mipmaps
+    int width, height, nrChannels;
+    stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
+    unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
+    if (data)
+    {
+        tex.SetImage(0, gl::PixelDataInternalFormat::Rgb, width, height, gl::PixelDataFormat::Rgb, gl::PixelDataType::UnsignedByte, data);
+        tex.GenerateMipmap();
+    }
+    else
+    {
+        std::cout << "Failed to load texture" << std::endl;
+    }
+    stbi_image_free(data);
+
+    return tex;
 }
