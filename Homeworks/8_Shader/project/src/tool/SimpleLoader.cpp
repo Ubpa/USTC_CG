@@ -23,7 +23,7 @@ SimpleLoader::OGLResources::~OGLResources() {
 		delete vb;
 }
 
-SimpleLoader::OGLResources* SimpleLoader::LoadObj(const std::string& path) {
+SimpleLoader::OGLResources* SimpleLoader::LoadObj(const std::string& path, bool noise) {
 	// [read file to buffer]
 	ifstream objfile(path, ios::in | ios::ate);
 	if (!objfile.is_open()) {
@@ -101,8 +101,7 @@ SimpleLoader::OGLResources* SimpleLoader::LoadObj(const std::string& path) {
 	for (auto& pos : positions)
 		pos = (scale * (pos - center)).cast_to<pointf3>();
 
-	/*bool noise = true;
-	float lambda = 0.05f;
+	const float lambda = 0.03f;
 	if (noise) {
 		if (normals.empty())
 			normals = detail::SimpleLoader_::GenNormal(positions, indices);
@@ -124,8 +123,8 @@ SimpleLoader::OGLResources* SimpleLoader::LoadObj(const std::string& path) {
 
 			positions[i] += offset;
 		}
-		normals.clear();
-	}*/
+		//normals.clear();
+	}
 
 	// [generate texcoords, normals, tangents]
 	if (texcoords.empty())

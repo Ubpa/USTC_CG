@@ -12,6 +12,7 @@ namespace Ubpa {
 			gl::ElementBuffer* eb{ nullptr };
 		};
 
-		OGLResources* LoadObj(const std::string& path);
+		// noise: position[p] += 0.05 * Xi * normal[p], Xi is random in [0, 1]
+		OGLResources* LoadObj(const std::string& path, bool noise = false);
 	}
 }

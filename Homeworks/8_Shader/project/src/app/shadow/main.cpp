@@ -20,13 +20,14 @@ void processInput(GLFWwindow *window);
 gl::Texture2D loadTexture(char const* path);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+unsigned int scr_width = 800;
+unsigned int scr_height = 600;
+bool have_shadow = true;
 
 // camera
 Camera camera(pointf3(0.0f, 0.0f, 3.0f));
-float lastX = SCR_WIDTH / 2.0f;
-float lastY = SCR_HEIGHT / 2.0f;
+float lastX = scr_width / 2.0f;
+float lastY = scr_height / 2.0f;
 bool firstMouse = true;
 
 // timing
@@ -48,7 +49,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(scr_width, scr_height, "HW8 - shadow", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -77,20 +78,27 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    gl::Shader vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2n3.vs"); // you can name your shader files however you like
-    gl::Shader fs(gl::ShaderType::FragmentShader, "../data/shaders/light.fs"); // you can name your shader files however you like
-    gl::Program program(&vs, &fs);
+    gl::Shader p3t2n3_vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2n3.vs");
+    gl::Shader p3_vs(gl::ShaderType::VertexShader, "../data/shaders/p3.vs");
+
+    gl::Shader light_shadow_fs(gl::ShaderType::FragmentShader, "../data/shaders/light_shadow.fs");
+    gl::Shader empty_fs(gl::ShaderType::FragmentShader, "../data/shaders/empty.fs");
+
+    gl::Program light_shadow_program(&p3t2n3_vs, &light_shadow_fs);
+    gl::Program shadow_program(&p3_vs, &empty_fs);
+
     rgbf ambient{ 0.2f,0.2f,0.2f };
-    program.SetTex("albedo_texture", 0);
-    program.SetVecf3("point_light_pos", { 0,5,0 });
-    program.SetVecf3("point_light_radiance", { 100,100,100 });
-    program.SetVecf3("ambient_irradiance", ambient);
-    program.SetFloat("roughness", 0.5f );
-    program.SetFloat("metalness", 0.f);
+    light_shadow_program.SetTex("albedo_texture", 0);
+    light_shadow_program.SetTex("shadowmap", 1);
+    light_shadow_program.SetVecf3("point_light_pos", { 0,5,0 });
+    light_shadow_program.SetVecf3("point_light_radiance", { 100,100,100 });
+    light_shadow_program.SetVecf3("ambient_irradiance", ambient);
+    light_shadow_program.SetFloat("roughness", 0.5f );
+    light_shadow_program.SetFloat("metalness", 0.f);
 
     // load model
     // ------------------------------------------------------------------
-    auto obj = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj");
+    auto spot = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj");
     // world space positions of our cubes
     pointf3 instancePositions[] = {
         pointf3(0.0f,  0.0f,  0.0f),
@@ -109,6 +117,19 @@ int main()
     // -------------------------
     gl::Texture2D spot_albedo = loadTexture("../data/textures/spot_albedo.png");
 
+    // shadow buffer
+    // -------------------------
+    const size_t SHADOW_TEXTURE_SIZE = 1024;
+    gl::Texture2D shadowmap;
+    shadowmap.SetImage(0, gl::PixelDataInternalFormat::DepthComponent, SHADOW_TEXTURE_SIZE, SHADOW_TEXTURE_SIZE,
+        gl::PixelDataFormat::DepthComponent, gl::PixelDataType::Float, 0);
+    shadowmap.SetWrapFilter(gl::WrapMode::ClampToBorder, gl::WrapMode::ClampToBorder,
+        gl::MinFilter::Nearest, gl::MagFilter::Nearest);
+    rgbaf borderColor{ 1.f,1.f,1.f,1.f };
+    gl::TexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor.data());
+    gl::FrameBuffer shadowFB;
+    shadowFB.Attach(gl::FramebufferAttachment::DepthAttachment, &shadowmap);
+
     // render loop
     // -----------
     while (!glfwWindowShouldClose(window))
@@ -125,29 +146,54 @@ int main()
 
         // render
         // ------
-        gl::ClearColor({ ambient, 1.0f });
-        gl::Clear(gl::BufferSelectBit::ColorBufferBit | gl::BufferSelectBit::DepthBufferBit); // also clear the depth buffer now!
 
-        program.SetVecf3("camera_pos", camera.Position);
+        // [ shadow ]
+        shadowFB.Bind();
+        gl::Viewport({ 0,0 }, SHADOW_TEXTURE_SIZE, SHADOW_TEXTURE_SIZE);
+        gl::Clear(gl::BufferSelectBit::DepthBufferBit);
+
+        // [TODO] generate shadow map
+        // 1. set shadow_program's uniforms: model, view, projection, ...
+        //   - projection: transformf::perspective(...)
+        // 2. draw scene : spot->va->Draw(&shadow_program)
+        //   - 10 spots
+        //   - (optional) plane : receive shadow
+        // -------
+        // ref: https://learnopengl-cn.github.io/05%20Advanced%20Lighting/03%20Shadows/01%20Shadow%20Mapping/
+
+        // ... (your codes)
+
+        //=================================
+
+        gl::FrameBuffer::BindReset(); // default framebuffer
+        gl::Viewport({ 0,0 }, scr_width, scr_height);
+        gl::ClearColor({ ambient, 1.0f });
+        gl::Clear(gl::BufferSelectBit::ColorBufferBit | gl::BufferSelectBit::DepthBufferBit);
+
+        light_shadow_program.SetVecf3("camera_pos", camera.Position);
 
         // bind textures on corresponding texture units
-        program.Active(0, &spot_albedo);
+        light_shadow_program.Active(0, &spot_albedo);
+        light_shadow_program.Active(1, &shadowmap);
 
         // pass projection matrix to shader (note that in this case it could change every frame)
-        transformf projection = transformf::perspective(to_radian(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.f);
-        program.SetMatf4("projection", projection);
+        transformf projection = transformf::perspective(to_radian(camera.Zoom), (float)scr_width / (float)scr_height, 0.1f, 100.f);
+        light_shadow_program.SetMatf4("projection", projection);
 
         // camera/view transformation
-        program.SetMatf4("view", camera.GetViewMatrix());
+        light_shadow_program.SetMatf4("view", camera.GetViewMatrix());
 
-        // render boxes
+        // [TODO] set uniforms about shadow
+        light_shadow_program.SetBool("have_shadow", have_shadow);
+        // near plane, far plane, projection, ...
+
         for (unsigned int i = 0; i < 10; i++)
         {
             // calculate the model matrix for each object and pass it to shader before drawing
             float angle = 20.0f * i + 10.f * (float)glfwGetTime();
             transformf model(instancePositions[i], quatf{ vecf3(1.0f, 0.3f, 0.5f), to_radian(angle) });
-            program.SetMatf4("model", model);
-            obj->va->Draw(&program);
+            light_shadow_program.SetMatf4("model", model);
+            spot->va->Draw(&light_shadow_program);
         }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -158,7 +204,7 @@ int main()
 
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
-    delete obj;
+    delete spot;
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
@@ -185,6 +231,9 @@ void processInput(GLFWwindow *window)
         camera.ProcessKeyboard(Camera::Movement::UP, deltaTime);
     if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
         camera.ProcessKeyboard(Camera::Movement::DOWN, deltaTime);
+
+    if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+        have_shadow = !have_shadow;
 }
 
 // glfw: whenever the window size changed (by OS or user resize) this callback function executes
@@ -194,6 +243,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     gl::Viewport({ 0, 0 }, width, height);
+    scr_width = width;
+    scr_height = height;
 }
 
 

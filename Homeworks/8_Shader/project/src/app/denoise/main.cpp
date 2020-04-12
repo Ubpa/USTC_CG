@@ -12,7 +12,6 @@
 #include <iostream>
 
 using namespace Ubpa;
-using namespace std;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -21,13 +20,13 @@ void processInput(GLFWwindow *window);
 gl::Texture2D loadTexture(char const* path);
 
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+unsigned int scr_width = 800;
+unsigned int scr_height = 600;
 
 // camera
 Camera camera(pointf3(0.0f, 0.0f, 3.0f));
-float lastX = SCR_WIDTH / 2.0f;
-float lastY = SCR_HEIGHT / 2.0f;
+float lastX = scr_width / 2.0f;
+float lastY = scr_height / 2.0f;
 bool firstMouse = true;
 
 // timing
@@ -49,7 +48,7 @@ int main()
 
     // glfw window creation
     // --------------------
-    GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "HW8 - displacement & normal", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(scr_width, scr_height, "HW8 - denoise", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -78,66 +77,20 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    gl::Shader vs(gl::ShaderType::VertexShader, "../data/shaders/dn.vs"); // you can name your shader files however you like
-    gl::Shader fs(gl::ShaderType::FragmentShader, "../data/shaders/light_dn.fs"); // you can name your shader files however you like
+    gl::Shader vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2n3.vs"); // you can name your shader files however you like
+    gl::Shader fs(gl::ShaderType::FragmentShader, "../data/shaders/light.fs"); // you can name your shader files however you like
     gl::Program program(&vs, &fs);
     rgbf ambient{ 0.2f,0.2f,0.2f };
     program.SetTex("albedo_texture", 0);
-    program.SetTex("normalmap", 1);
-    program.SetTex("displacementmap", 2);
-    program.SetFloat("displacement_coefficient", 0.2f);
-    program.SetVecf3("point_light_pos", { 0,10,0 });
+    program.SetVecf3("point_light_pos", { 0,5,0 });
     program.SetVecf3("point_light_radiance", { 100,100,100 });
     program.SetVecf3("ambient_irradiance", ambient);
-    program.SetFloat("roughness", 0.8f );
+    program.SetFloat("roughness", 0.5f );
     program.SetFloat("metalness", 0.f);
 
     // load model
     // ------------------------------------------------------------------
-    // plane
-    vector<pointf3> positions;
-    vector<pointf2> texcoords;
-    vector<normalf> normals;
-    vector<vecf3> tangents;
-    vector<GLuint> indices;
-    constexpr size_t N = 200;
-    const pointf3 LBCorner{ -1,0,1 };
-    const vecf3 right{ 2,0,0 };
-    const vecf3 up{ 0,0,-2 };
-    for (size_t j = 0; j <= N; j++) {
-        float v = j / static_cast<float>(N);
-        for (size_t i = 0; i <= N; i++) {
-            float u = i / static_cast<float>(N);
-            positions.push_back(LBCorner + u * right + v * up);
-            texcoords.emplace_back(u, v);
-            normals.emplace_back(0, 1, 0);
-            tangents.emplace_back(1, 0, 0);
-        }
-    }
-    for (size_t j = 0; j < N; j++) {
-        for (size_t i = 0; i < N; i++) {
-            size_t two_tri[6] = {
-                j * (N + 1) + i, j * (N + 1) + i + 1, (j + 1) * (N + 1) + i,
-                (j + 1) * (N + 1) + i + 1,(j + 1) * (N + 1) + i,j * (N + 1) + i + 1
-            };
-            for (auto idx : two_tri)
-                indices.push_back(static_cast<GLuint>(idx));
-        }
-    }
-    gl::VertexBuffer vb_pos(positions.size() * sizeof(pointf3), positions[0].data());
-    gl::VertexBuffer vb_uv(texcoords.size() * sizeof(pointf2), texcoords[0].data());
-    gl::VertexBuffer vb_n(normals.size() * sizeof(normalf), normals[0].data());
-    gl::VertexBuffer vb_t(tangents.size() * sizeof(vecf3), tangents[0].data());
-    gl::ElementBuffer eb(gl::BasicPrimitiveType::Triangles, indices.size() / 3, indices.data());
-
-    gl::VertexArray::Format format;
-    format.attrptrs.push_back(vb_pos.AttrPtr(3, gl::DataType::Float, false, sizeof(pointf3)));
-    format.attrptrs.push_back(vb_uv.AttrPtr(2, gl::DataType::Float, false, sizeof(pointf2)));
-    format.attrptrs.push_back(vb_n.AttrPtr(3, gl::DataType::Float, false, sizeof(normalf)));
-    format.attrptrs.push_back(vb_t.AttrPtr(3, gl::DataType::Float, false, sizeof(vecf3)));
-    format.eb = &eb;
-    gl::VertexArray plane({ 0,1,2,3 }, format);
-
+    auto obj = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj", true);
     // world space positions of our cubes
     pointf3 instancePositions[] = {
         pointf3(0.0f,  0.0f,  0.0f),
@@ -154,9 +107,7 @@ int main()
 
     // load and create a texture 
     // -------------------------
-    gl::Texture2D checkerboard = loadTexture("../data/textures/checkerboard.png");
-    gl::Texture2D normalmap = loadTexture("../data/textures/cg_normalmap.jpg");
-    gl::Texture2D displacementmap = loadTexture("../data/textures/cg_displacementmap.jpg");
+    gl::Texture2D spot_albedo = loadTexture("../data/textures/spot_albedo.png");
 
     // render loop
     // -----------
@@ -180,25 +131,23 @@ int main()
         program.SetVecf3("camera_pos", camera.Position);
 
         // bind textures on corresponding texture units
-        program.Active(0, &checkerboard);
-        program.Active(1, &normalmap);
-        program.Active(2, &displacementmap);
+        program.Active(0, &spot_albedo);
 
         // pass projection matrix to shader (note that in this case it could change every frame)
-        transformf projection = transformf::perspective(to_radian(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.f);
+        transformf projection = transformf::perspective(to_radian(camera.Zoom), (float)scr_width / (float)scr_height, 0.1f, 100.f);
         program.SetMatf4("projection", projection);
 
         // camera/view transformation
         program.SetMatf4("view", camera.GetViewMatrix());
 
-        // render boxes
-        for (size_t i = 0; i < 10; i++)
+        // render spots
+        for (unsigned int i = 0; i < 10; i++)
         {
             // calculate the model matrix for each object and pass it to shader before drawing
             float angle = 20.0f * i + 10.f * (float)glfwGetTime();
             transformf model(instancePositions[i], quatf{ vecf3(1.0f, 0.3f, 0.5f), to_radian(angle) });
             program.SetMatf4("model", model);
-            plane.Draw(&program);
+            obj->va->Draw(&program);
         }
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
@@ -209,6 +158,7 @@ int main()
 
     // optional: de-allocate all resources once they've outlived their purpose:
     // ------------------------------------------------------------------------
+    delete obj;
 
     // glfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
@@ -244,8 +194,9 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
     // make sure the viewport matches the new window dimensions; note that width and 
     // height will be significantly larger than specified on retina displays.
     gl::Viewport({ 0, 0 }, width, height);
+    scr_width = width;
+    scr_height = height;
 }
-
 
 // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
