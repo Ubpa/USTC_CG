@@ -232,9 +232,21 @@ gl::Texture2D loadTexture(char const* path)
     int width, height, nrChannels;
     stbi_set_flip_vertically_on_load(true); // tell stb_image.h to flip loaded texture's on the y-axis.
     unsigned char* data = stbi_load(path, &width, &height, &nrChannels, 0);
+    gl::PixelDataFormat c2f[4] = {
+        gl::PixelDataFormat::Red,
+        gl::PixelDataFormat::Rg,
+        gl::PixelDataFormat::Rgb,
+        gl::PixelDataFormat::Rgba
+    };
+    gl::PixelDataInternalFormat c2if[4] = {
+        gl::PixelDataInternalFormat::Red,
+        gl::PixelDataInternalFormat::Rg,
+        gl::PixelDataInternalFormat::Rgb,
+        gl::PixelDataInternalFormat::Rgba
+    };
     if (data)
     {
-        tex.SetImage(0, gl::PixelDataInternalFormat::Rgb, width, height, gl::PixelDataFormat::Rgb, gl::PixelDataType::UnsignedByte, data);
+        tex.SetImage(0, c2if[nrChannels - 1], width, height, c2f[nrChannels - 1], gl::PixelDataType::UnsignedByte, data);
         tex.GenerateMipmap();
     }
     else
