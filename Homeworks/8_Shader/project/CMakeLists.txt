@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 # 设定项目
-project(HW8_Shader VERSION 0.0.1)
+project(HW8_Shader VERSION 0.0.2)
 message(STATUS "[Project] ${PROJECT_NAME}")
 
 # 在 Debug 模式下自动对 dll 和 lib 文件名后边加 d，但 exe 仍然需要手动设置
@@ -60,16 +60,10 @@ if(TARGET glfw)
 	message(STATUS "glfw3_DIR: ${glfw3_DIR}")
 endif()
 
-message(STATUS "----------")
-if(EXISTS "${PROJECT_SOURCE_DIR}/include/_deps/stb_image.h")
-	message(STATUS "found stb_image.h")
-else()
-	message(FATAL_ERROR "not found stb_image.h in include/_deps/\n"
-		"read README.md for more detail")
-endif()
-
 include_directories(${PROJECT_SOURCE_DIR}/include/_deps/)
 
-Ubpa_AddDep(UGL 0.1.2)
+Ubpa_AddDep(UGL 0.1.3)
 
+Ubpa_AddSubDirsRec(include)
+Ubpa_AddSubDirsRec(data)
 Ubpa_AddSubDirsRec(src)
