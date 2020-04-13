@@ -78,11 +78,11 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    gl::Shader p3t2n3_vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2n3.vs");
-    gl::Shader p3_vs(gl::ShaderType::VertexShader, "../data/shaders/p3.vs");
+    gl::Shader p3t2n3_vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2n3.vert");
+    gl::Shader p3_vs(gl::ShaderType::VertexShader, "../data/shaders/p3.vert");
 
-    gl::Shader light_shadow_fs(gl::ShaderType::FragmentShader, "../data/shaders/light_shadow.fs");
-    gl::Shader empty_fs(gl::ShaderType::FragmentShader, "../data/shaders/empty.fs");
+    gl::Shader light_shadow_fs(gl::ShaderType::FragmentShader, "../data/shaders/light_shadow.frag");
+    gl::Shader empty_fs(gl::ShaderType::FragmentShader, "../data/shaders/empty.frag");
 
     gl::Program light_shadow_program(&p3t2n3_vs, &light_shadow_fs);
     gl::Program shadow_program(&p3_vs, &empty_fs);

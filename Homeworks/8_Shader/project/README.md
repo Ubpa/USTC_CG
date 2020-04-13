@@ -11,6 +11,7 @@
   - 将 `<your-path-to-GLFW>/bin` 加到系统环境变量 `Path` 中
   - 删除 glfw3 的 build
 - VS 2019
+- VS2019 -> 菜单栏 -> 扩展 -> 管理扩展 -> 搜索 glsl -> 安装 **GLSL language integration** 
 - [Python](https://www.python.org/) 3.7（也可 VS2019->工具->获取工具和功能->下载 Python）
 
 环境准备好之后，用 CMake-GUI 进行 configure 时会下载一些依赖项目（UCMake，UTemplate，UDP，UGM，UGL 等），较慢，网络良好的情况下耗时 2 分钟左右。
@@ -45,7 +46,7 @@ UGL 是 OpenGL 的 C++ wrapper，提供了 OpenGL 对象，函数，`enum` 等�
 
 ### 1. 法线贴图和置换贴图
 
-完成 [data/shaders/dn.vs](data/shaders/dn.vs) 和 [data/shaders/light_dn.fs](data/shaders/light_dn.fs) （以文本的方式打开，可使用 sublime，notepad++，vscode，vs2019 等）的 TODO 部分
+完成 [data/shaders/dn.vert](data/shaders/dn.vert) 和 [data/shaders/light_dn.frag](data/shaders/light_dn.frag) （以文本的方式打开，可使用 sublime，notepad++，vscode，vs2019 等，已自动加入到解决方案中，安装 **GLSL language integration** 后含有语法高亮支持）的 TODO 部分
 
 可修改置换函数
 
@@ -53,11 +54,11 @@ UGL 是 OpenGL 的 C++ wrapper，提供了 OpenGL 对象，函数，`enum` 等�
 
 完成 [src/app/1_denoise/main.cpp](src/app/1_denoise/main.cpp) 中的函数 `genDisplacementmap()`  
 
-完成 [data/shaders/p3t2n3_denoise.vs](data/shaders/p3t2n3_denoise.vs) 中的 TODO 部分
+完成 [data/shaders/p3t2n3_denoise.vert](data/shaders/p3t2n3_denoise.vert) 中的 TODO 部分
 
 ### 3. （可选）点光源阴影
 
 完成 [src/app/2_shadow/main.cpp](src/app/2_shadow/main.cpp) 中的 TODO 部分
 
-完成 [data/shaders/light_shadow.fs](data/shaders/light_shadow.fs) 中的 TODO 部分
+完成 [data/shaders/light_shadow.frag](data/shaders/light_shadow.frag) 中的 TODO 部分
 

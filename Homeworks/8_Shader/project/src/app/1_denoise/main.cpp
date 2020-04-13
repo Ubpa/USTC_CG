@@ -82,8 +82,8 @@ int main()
 
     // build and compile our shader zprogram
     // ------------------------------------
-    gl::Shader vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2n3_denoise.vs"); // you can name your shader files however you like
-    gl::Shader fs(gl::ShaderType::FragmentShader, "../data/shaders/light.fs"); // you can name your shader files however you like
+    gl::Shader vs(gl::ShaderType::VertexShader, "../data/shaders/p3t2n3_denoise.vert");
+    gl::Shader fs(gl::ShaderType::FragmentShader, "../data/shaders/light.frag");
     gl::Program program(&vs, &fs);
     rgbf ambient{ 0.2f,0.2f,0.2f };
     program.SetTex("albedo_texture", 0);
