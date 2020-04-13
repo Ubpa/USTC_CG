@@ -7,6 +7,9 @@ _deps/
 
 *Config.h
 
+*.obj
+*.uscene
+
 *.bmp
 *.png
 *.jpg
