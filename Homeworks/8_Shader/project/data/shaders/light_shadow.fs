@@ -77,8 +77,9 @@ void main() {
 	vec3 specular = fr * D * G / (4 * max(dot(L, N)*dot(V, N), EPSILON));
 	
 	vec3 brdf = diffuse + specular;
-	
-	vec3 Lo_direct = brdf * point_light_radiance * max(cos_theta, 0) / dist2; // TODO : caculate shadow
+	// [ TODO ] shadow
+	float visible = 1.0; // if the fragment is in shadow, set it to 0
+	vec3 Lo_direct = visible * brdf * point_light_radiance * max(cos_theta, 0) / dist2;
 	vec3 Lo_ambient = (1-metalness) * albedo / PI * ambient_irradiance;
 	vec3 Lo = Lo_direct + Lo_ambient;
 	
