@@ -152,7 +152,6 @@ int main()
         program.SetFloat("displacement_scale", displacement_scale);
         program.SetFloat("displacement_lambda", displacement_lambda);
         program.SetBool("have_denoise", have_denoise);
-        program.SetFloat("displacement_coefficient", 0.2f); // TODO: 0.2f as default, you can use other value
 
         // render spots
         for (unsigned int i = 0; i < 10; i++)
