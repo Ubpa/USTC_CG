@@ -2,9 +2,11 @@
 
 ## 依赖配置
 
-- 用 CMake 安装 [glfw3](https://github.com/glfw/glfw) （将 `<your-path-to-GLFW>/bin` 加到系统环境变量 `Path` 中）
+- 用 CMake 安装 [glfw3](https://github.com/glfw/glfw) （将 `<your-path-to-GLFW>/bin` 加到系统环境变量 `Path` 中，注意删除 glfw3 的 build）
 - VS 2019
 - [Python](https://www.python.org/) 3.7（也可 VS2019->工具->获取工具和功能->下载 Python）
+
+环境准备好之后，用 CMake-GUI 进行 configure 时会下载一些依赖项目（UCMake，UTemplate，UDP，UGM，UGL 等），较慢，网络良好的情况下耗时 2 分钟左右
 
 ## 作业
 
