@@ -94,23 +94,33 @@
 
 虽然给顶点加了噪声，但法线还是用了原本的，所以含噪声模型在渲染的不同主要体现在纹理的扭曲和边缘的凹凸不平上。
 
-我们只需将顶点进行合理的偏移就能达到不错的去噪效果
+我们只需将顶点进行合理的偏移就能达到不错的去噪效果。
 
+步骤如下：
 
+- 计算每个顶点的偏移量
 
-计算每个顶点的偏移量
 $$
 \delta_i=p_i-\frac{1}{|N(i)|}\sum_{j\in N(i)}p_j
 $$
-然后将偏移量投影到法向上
+
+- 将偏移量投影到法向上
+
 $$
 \delta^*_i=\langle\delta_i,\pmb{n}_i\rangle \pmb{n}_i
 $$
-对每一个顶点进行偏移
+
+- 对每一个顶点进行偏移
+
 $$
 p^*_i=p_i-\lambda \delta_i^*=p_i-\lambda\langle\delta_i,\pmb{n}_i\rangle \pmb{n}_i
 $$
-我们将 $\langle\delta_i,\pmb{n}_i\rangle$ 存到置换贴图中，注意设置好 bias 和 scale 将值变换到 0 和 1 之间
+
+- 我们将 $\langle\delta_i,\pmb{n}_i\rangle$ 存到置换贴图中，注意设置好 bias 和 scale 将值变换到 0 和 1 之间
+
+  > 简单来说，每个顶点有纹理坐标，将图像中该位置设为 bias 和 scale 后的 $\langle\delta_i,\pmb{n}_i\rangle$ 
+  >
+  > 但图像是离散的，这是这么做难免出现重合、缺漏，因此要根据每个顶点的偏移量，合理插值出整个置换贴图
 
 ### 2.3 （可选）点光源阴影
 

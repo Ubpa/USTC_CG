@@ -15,7 +15,9 @@ uniform mat4 view;
 uniform mat4 model;
 
 uniform sampler2D displacementmap;
-uniform float displacement_coefficient;
+uniform float displacement_bias;
+uniform float displacement_scale;
+uniform float displacement_lambda;
 uniform bool have_denoise;
 
 void main()

@@ -23,6 +23,9 @@ gl::Texture2D genDisplacementmap(const SimpleLoader::OGLResources* resources);
 // settings
 unsigned int scr_width = 800;
 unsigned int scr_height = 600;
+float displacement_bias = 0.f;
+float displacement_scale = 1.f;
+float displacement_lambda = 0.2f;
 bool have_denoise = false;
 
 // camera
@@ -145,7 +148,9 @@ int main()
 
         // camera/view transformation
         program.SetMatf4("view", camera.GetViewMatrix());
-
+        program.SetFloat("displacement_bias", displacement_bias);
+        program.SetFloat("displacement_scale", displacement_scale);
+        program.SetFloat("displacement_lambda", displacement_lambda);
         program.SetBool("have_denoise", have_denoise);
         program.SetFloat("displacement_coefficient", 0.2f); // TODO: 0.2f as default, you can use other value
 
@@ -273,7 +278,9 @@ gl::Texture2D loadTexture(char const* path)
 
 gl::Texture2D genDisplacementmap(const SimpleLoader::OGLResources* resources) {
     const float* displacementData = new float[1024 * 1024];
-    // [TODO] set displacementData with resources's positions, indices, normals, ...
+    // [TODO]
+    // 1. set displacementData with resources's positions, indices, normals, ...
+    // 2. change global variable: displacement_bias, displacement_scale, displacement_lambda
 
     // ...
 
