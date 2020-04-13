@@ -10,6 +10,14 @@
 
 在 CMake-GUI 中找到 `Ubpa_BuildTest` 并勾选，可以构建测试用例（大概 70 个，包含各个项目的测试用例，可以玩玩看），可能会因为路径过长而部分项目构建失败，解决办法是将 project 放到浅层路径中，如 `D:/`。
 
+对于使用 N 卡的同学，可以下载 [Nsight](https://developer.nvidia.com/nsight-visual-studio-edition)（自行研究如何安装，着重参考[手册](https://docs.nvidia.com/nsight-visual-studio-edition/2019.4/Nsight_Visual_Studio_Edition_User_Guide.htm#Release_Notes_in_User_Guide.htm)）来进行 debug（查看渲染指令，中间结果，uniforms 等等），配置好之后可以在 vs2019 的菜单栏中选择 扩展->Nsight-> Start Graphics Debugging（需要提前编译好需要 debug 的项目），之后会运行项目，按 ctrl+Z 后再按空格可截取一帧
+
+![Nsight0.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/Nsight0.jpg)
+
+并在 vs2019 的 API Inspector 中可查看各 drawcall 的情况
+
+![Nsight1.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/Nsight1.jpg)
+
 ## 框架说明
 
 UGL 是 OpenGL 的 C++ wrapper，提供了 OpenGL 对象，函数，`enum` 等的简单封装，从而可以简化资源申请和释放，简化资源设置，避免错误使用 `GLenum` 等
