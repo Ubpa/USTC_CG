@@ -6,17 +6,25 @@
 - VS 2019
 - [Python](https://www.python.org/) 3.7（也可 VS2019->工具->获取工具和功能->下载 Python）
 
-环境准备好之后，用 CMake-GUI 进行 configure 时会下载一些依赖项目（UCMake，UTemplate，UDP，UGM，UGL 等），较慢，网络良好的情况下耗时 2 分钟左右
+环境准备好之后，用 CMake-GUI 进行 configure 时会下载一些依赖项目（UCMake，UTemplate，UDP，UGM，UGL 等），较慢，网络良好的情况下耗时 2 分钟左右。
+
+在 CMake-GUI 中找到 `Ubpa_BuildTest` 并勾选，可以构建测试用例（大概 70 个，包含各个项目的测试用例，可以玩玩看），可能会因为路径过长而部分项目构建失败，解决办法是将 project 放到浅层路径中，如 `D:/`。
 
 ## 框架说明
 
-UGL 是 OpenGL 的 C++ wrapper，提供了 OpenGL 函数的简单封装，从而可以简化资源申请和释放，资源设置，避免错误使用 `GLenum` 等
+UGL 是 OpenGL 的 C++ wrapper，提供了 OpenGL 对象，函数，`enum` 等的简单封装，从而可以简化资源申请和释放，简化资源设置，避免错误使用 `GLenum` 等
 
 使用方法如下
 
 - 使用 UGL 提供的 `gl::VertexArray`，`gl::Shader`，`gl::Program` 等对象
 - 使用带 c++ `namespace` 的 OpenGL 接口，如 `gl::Viewport`，同于裸接口 `glViewport` 
 - 使用裸接口，如 `glViewport`（不推荐）
+
+## 用户手册
+
+框架提供了三个项目，用户可以使用 WSADQE 和鼠标来漫游场景。
+
+另外项目 `HW8_Shader_app_1_denoise` 和 `HW8_Shader_app_2_shadow` 可使用空格键来开启/关闭相关效果（降噪、阴影），以便对比调试。
 
 ## 作业
 
