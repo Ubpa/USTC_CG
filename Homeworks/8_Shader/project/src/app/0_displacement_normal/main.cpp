@@ -87,7 +87,7 @@ int main()
     program.SetTex("displacementmap", 2);
     program.SetFloat("displacement_coefficient", 0.2f);
     program.SetVecf3("point_light_pos", { 0,10,0 });
-    program.SetVecf3("point_light_radiance", { 100,100,100 });
+    program.SetVecf3("point_light_radiance", { 200,200,200 });
     program.SetVecf3("ambient_irradiance", ambient);
     program.SetFloat("roughness", 0.8f );
     program.SetFloat("metalness", 0.f);

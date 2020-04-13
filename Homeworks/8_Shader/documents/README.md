@@ -70,7 +70,33 @@
 
 置换贴图原理简单，参照上边的说明即可，置换函数自定，项目默认为 displacement = lambda * pixel value
 
+在线法线贴图和置换贴图生成的网页：[NormalMap-Online](https://cpetry.github.io/NormalMap-Online/) 
+
+项目默认提供了一个示例的法线贴图和置换贴图，较为简单，同学可行生成或者收集一些资源来丰富测试效果
+
+![cg_normalmap.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/textures/cg_normalmap.jpg)
+
+![cg_displacementmap.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/textures/cg_displacementmap.jpg)
+
+> 示例
+>
+> ![dn_demo.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/dn_demo.jpg)
+
 ### 2.2 用置换贴图进行简单去噪
+
+项目提供的模型如下
+
+![spot.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/spot.jpg)
+
+加了随机噪声之后
+
+![noise.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/noise.jpg)
+
+虽然给顶点加了噪声，但法线还是用了原本的，所以含噪声模型在渲染的不同主要体现在纹理的扭曲和边缘的凹凸不平上。
+
+我们只需将顶点进行合理的偏移就能达到不错的去噪效果
+
+
 
 计算每个顶点的偏移量
 $$
