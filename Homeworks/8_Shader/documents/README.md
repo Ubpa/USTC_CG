@@ -107,13 +107,13 @@ $$
 - 将偏移量投影到法向上
 
 $$
-\delta^*_i=\langle\delta_i,\pmb{n}_i\rangle \pmb{n}_i
+\bar{\delta}_i=\langle\delta_i,\pmb{n}_i\rangle \pmb{n}_i
 $$
 
 - 对每一个顶点进行偏移
 
 $$
-p^*_i=p_i-\lambda \delta_i^*=p_i-\lambda\langle\delta_i,\pmb{n}_i\rangle \pmb{n}_i
+\bar{p}_i=p_i-\lambda \bar{\delta}_i=p_i-\lambda\langle\delta_i,\pmb{n}_i\rangle \pmb{n}_i
 $$
 
 - 我们将 $\langle\delta_i,\pmb{n}_i\rangle$ 存到置换贴图中，注意设置好 bias 和 scale 将值变换到 0 和 1 之间
