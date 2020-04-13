@@ -1,7 +1,14 @@
 # 作业说明
 
-
 ## 1. 基础知识
+
+### 1.0 OpenGL
+
+本次作业在 OpenGL 这一层完成，那么了解 OpenGL 的知识是很有必要的
+
+推荐学习教程 [LearnOpenGL](https://learnopengl-cn.github.io/) 的入门这一章来学习 OpenGL 的基础知识
+
+本次作业挑选了其中的部分章节，提供了框架，只需完成其中缺失部分即可
 
 ### 1.1 法向贴图
 
@@ -27,11 +34,23 @@
 
 其中置换贴图用于改变顶点的位置，0 （黑色）表示不动，1（白色）表示沿着法向偏移。
 
+将置换贴图的值转换成顶点偏移量的方式是自定义的，示例如下
+
+- 0-0.5 为下沉，0.5-1.0 为凸起，变化量用一个系数决定
+- 0-1.0 为凸起，变化量用一个系数决定
+- 上边两种方式可范化成：displacement = lambda * (bias + scale * pixel value)
+  - displacement = lambda * (-1 + 2 * pixel value)
+  - displacement = lambda * (0 + 1 * pixel value)
+
 由于要改变顶点坐标，在实时渲染中应在 vertex shader 中采样置换贴图来偏移顶点，因此简单网格应含有大量的内部顶点。
 
 由于置换贴图只改变了顶点的位置，不改变顶点的法向，所以，如果不添加相应的法线贴图的话，渲染效果不太正确，如下
 
 ![displacement_map_error](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/displacement_map_error.jpg)
+
+
+
+常见的用法有水面模拟（每帧切换置换贴图和法线贴图，从而实现水面动态效果）
 
 ### 1.3 点光源阴影
 
@@ -45,7 +64,29 @@
 
 本次作业包含三个小项目
 
-- 法线贴图和置换贴图的简单使用
-- 用置换贴图进行简单去噪
-- 点光源阴影
+### 2.1 法线贴图和置换贴图
+
+法线贴图的详细内容可参考：[LearnOpenGL - 法线贴图](https://learnopengl-cn.github.io/05%20Advanced%20Lighting/04%20Normal%20Mapping/) 
+
+置换贴图原理简单，参照上边的说明即可，置换函数自定，项目默认为 displacement = lambda * pixel value
+
+### 2.2 用置换贴图进行简单去噪
+
+计算每个顶点的偏移量
+$$
+\delta_i=p_i-\frac{1}{|N(i)|}\sum_{j\in N(i)}p_j
+$$
+然后将偏移量投影到法向上
+$$
+\delta^*_i=\langle\delta_i,\pmb{n}_i\rangle \pmb{n}_i
+$$
+对每一个顶点进行偏移
+$$
+p^*_i=p_i-\lambda \delta_i^*=p_i-\lambda\langle\delta_i,\pmb{n}_i\rangle \pmb{n}_i
+$$
+我们将 $\langle\delta_i,\pmb{n}_i\rangle$ 存到置换贴图中，注意设置好 bias 和 scale 将值变换到 0 和 1 之间
+
+### 2.3 （可选）点光源阴影
+
+详细内容可参考：[LearnOpenGL - 阴影映射](https://learnopengl-cn.github.io/05%20Advanced%20Lighting/03%20Shadows/01%20Shadow%20Mapping/) 
 
