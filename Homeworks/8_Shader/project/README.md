@@ -2,7 +2,14 @@
 
 ## 依赖配置
 
-- 用 CMake 安装 [glfw3](https://github.com/glfw/glfw) （将 `<your-path-to-GLFW>/bin` 加到系统环境变量 `Path` 中，注意删除 glfw3 的 build）
+- 用 CMake 安装 [glfw3](https://github.com/glfw/glfw) 
+  - CMake-GUI configure 后
+    - 勾选 `BUILD_SHARED_LIBS` 
+    - 去掉勾选 `GLEW_BUILD_DOCS`，`GLEW_BUILD_EXAMPLES`，`GLEW_BUILD_TESTS` 
+    - `CMAKE_INSTALL_PREFIX` 修改成自己想要的值（放在 C 盘的话需要用管理员权限打开 VS2019）
+  - CMake-GUI Generate，Open Project，执行其中的 INSTALL 项目（右键生成）
+  - 将 `<your-path-to-GLFW>/bin` 加到系统环境变量 `Path` 中
+  - 删除 glfw3 的 build
 - VS 2019
 - [Python](https://www.python.org/) 3.7（也可 VS2019->工具->获取工具和功能->下载 Python）
 
