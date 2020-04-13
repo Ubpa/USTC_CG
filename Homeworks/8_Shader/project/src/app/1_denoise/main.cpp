@@ -277,7 +277,7 @@ gl::Texture2D loadTexture(char const* path)
 
 gl::Texture2D genDisplacementmap(const SimpleLoader::OGLResources* resources) {
     const float* displacementData = new float[1024 * 1024];
-    // [TODO]
+    // TODO: HW8 - 1_denoise | genDisplacementmap
     // 1. set displacementData with resources's positions, indices, normals, ...
     // 2. change global variable: displacement_bias, displacement_scale, displacement_lambda
 

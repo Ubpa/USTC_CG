@@ -56,7 +56,8 @@ void main() {
 	float alpha = roughness * roughness;
 	
 	vec3 V = normalize(camera_pos - vs_out.WorldPos);
-	vec3 N = normalize(vs_out.TBN[2]); // TODO
+	// TODO: HW8 0_displacement_normal | use TBN
+	vec3 N = normalize(vs_out.TBN[2]);
 	vec3 fragTolight = point_light_pos - vs_out.WorldPos; // frag to light
 	float dist2 = dot(fragTolight, fragTolight);
 	float dist = sqrt(dist2);

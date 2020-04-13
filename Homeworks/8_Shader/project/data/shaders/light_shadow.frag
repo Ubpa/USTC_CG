@@ -9,7 +9,7 @@ uniform vec3 point_light_pos;
 uniform vec3 point_light_radiance;
 uniform sampler2D shadowmap;
 uniform bool have_shadow;
-// TODO:
+// TODO: HW8 - 2_Shadow | uniforms
 // add uniforms for mapping position in world space to position in shadowmap space
 
 uniform vec3 ambient_irradiance;
@@ -77,7 +77,7 @@ void main() {
 	vec3 specular = fr * D * G / (4 * max(dot(L, N)*dot(V, N), EPSILON));
 	
 	vec3 brdf = diffuse + specular;
-	// [ TODO ] shadow
+	// TODO: HW8 - 2_Shadow | shadow
 	float visible = 1.0; // if the fragment is in shadow, set it to 0
 	vec3 Lo_direct = visible * brdf * point_light_radiance * max(cos_theta, 0) / dist2;
 	vec3 Lo_ambient = (1-metalness) * albedo / PI * ambient_irradiance;

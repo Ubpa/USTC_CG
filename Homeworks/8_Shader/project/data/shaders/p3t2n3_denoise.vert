@@ -22,7 +22,8 @@ uniform bool have_denoise;
 
 void main()
 {
-    vec4 worldPos = model * vec4(aPos, 1.0); // TODO : denoise
+    // TODO: HW8 - 1_denoise | denoise
+    vec4 worldPos = model * vec4(aPos, 1.0);
 	
 	vs_out.WorldPos = worldPos.xyz / worldPos.w;
     vs_out.TexCoord = aTexCoord;

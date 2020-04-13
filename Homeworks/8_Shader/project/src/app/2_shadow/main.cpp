@@ -152,7 +152,7 @@ int main()
         gl::Viewport({ 0,0 }, SHADOW_TEXTURE_SIZE, SHADOW_TEXTURE_SIZE);
         gl::Clear(gl::BufferSelectBit::DepthBufferBit);
 
-        // [TODO] generate shadow map
+        // TODO: HW8 - 2_Shadow | generate shadow map
         // 1. set shadow_program's uniforms: model, view, projection, ...
         //   - projection: transformf::perspective(...)
         // 2. draw scene : spot->va->Draw(&shadow_program)
@@ -183,7 +183,7 @@ int main()
         // camera/view transformation
         light_shadow_program.SetMatf4("view", camera.GetViewMatrix());
 
-        // [TODO] set uniforms about shadow
+        // TODO: HW8 - 2_Shadow | set uniforms about shadow
         light_shadow_program.SetBool("have_shadow", have_shadow);
         // near plane, far plane, projection, ...
 
