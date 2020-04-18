@@ -1,5 +1,5 @@
 Ubpa_DownloadFile(
-	https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/08_Shader/stb_image.h
+	https://ubpa.github.io/USTC_CG_Data/Homeworks/08_Shader/stb_image.h
 	${CMAKE_CURRENT_SOURCE_DIR}/stb_image.h
-	SHA256 73B55B976E61DEBBB7BC10D5B31C8F043AB5D966E67F75258E0D3F57F2A0321E
+	SHA256 281C4F378083E1F195CD06FB98F1EC7EB9749353EB19C915F17C2AF46ABBAFEE
 )
