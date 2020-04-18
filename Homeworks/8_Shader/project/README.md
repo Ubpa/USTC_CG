@@ -52,7 +52,7 @@ UGL 是 OpenGL 的 C++ wrapper，提供了 OpenGL 对象，函数，`enum` 等�
 
 ### 2. 降噪
 
-完成 [src/app/1_denoise/main.cpp](src/app/1_denoise/main.cpp) 中的函数 `genDisplacementmap()`  
+完成 [src/app/1_denoise/main.cpp](src/app/1_denoise/main.cpp) 中的函数 `genDisplacementmap()` ，所生成图片会保存到 [data/](data/) 中（名为 `1_denoise_displacement_map.png`）
 
 完成 [data/shaders/p3t2n3_denoise.vert](data/shaders/p3t2n3_denoise.vert) 中的 TODO 部分
 
