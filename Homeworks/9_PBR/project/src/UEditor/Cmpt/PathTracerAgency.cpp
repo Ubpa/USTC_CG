@@ -25,15 +25,14 @@ void Cmpt::PathTracerAgency::OnRegist() {
 
 void Cmpt::PathTracerAgency::OnUpdate(const Cmpt::Camera* cam, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) {
 	auto& io = ImGui::GetIO();
-	
+	float ar = cam->ar;
 	if (io.KeysDown['P']) {
-		ptr->value->AddCommand([sobj = ptr->value, cam = *cam, ccs = cam->GenCoordinateSystem(l2w->value)]() {
-			thread ptThread([cam,ccs]() {
-				BVH bvh(SceneMngr::Instance().actived_scene);
+		ptr->value->AddCommand([sobj = ptr->value.get(), ar]() {
+			thread ptThread([sobj, ar]() {
 				size_t width = 1024;
-				auto height = static_cast<size_t>(width / cam.ar);
+				auto height = static_cast<size_t>(width / ar);
 				Image img(1024, height, 3);
-				PathTracer path_tracer(&bvh, &img, cam, ccs);
+				PathTracer path_tracer(SceneMngr::Instance().actived_scene, sobj, &img);
 				path_tracer.Run();
 				img.Save("../data/rst.png");
 			});
