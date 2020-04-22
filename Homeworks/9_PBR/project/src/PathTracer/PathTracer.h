@@ -16,26 +16,27 @@ namespace Ubpa {
 		void Run();
 
 	private:
-		// rgbf Lo(const vecf3& wo, const pointf3& p);
-		rgbf Trace(const rayf3& r);
+		rgbf Shade(const pointf3& p, const IntersectorClosest::Rst& intersection, const vecf3& wo, bool last_bounce_specular = false);
 
 		struct SampleLightResult {
-			rgbf L{ 0.f };
-			float p{ 0.f };
-			pointf3 x{ 0.f };
-			bool is_envlight{ false };
+			rgbf L{ 0.f }; // light radiance
+			float pdf{ 0.f }; // probability
+			normalf norm{ 0.f }; // normalize normal
+			pointf3 x{ 0.f }; // position on light
+			bool is_infinity{ false }; // infinity distance
 		};
 		static SampleLightResult SampleLight(const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr);
 
 		struct SampleBRDFResult {
 			rgbf brdf{ 0.f };
-			float p{ 0.f };
+			float pdf{ 0.f };
 			vecf3 wi{ 0.f };
 		};
 		static SampleBRDFResult SampleBRDF(const vecf3& wo, IntersectorClosest::Rst rst);
 
 		const Scene* const scene;
 		Image* const img;
+		const EnvLight* env_light{ nullptr };
 
 		BVH bvh;
 		IntersectorClosest clostest;

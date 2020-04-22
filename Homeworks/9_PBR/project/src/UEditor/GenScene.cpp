@@ -125,8 +125,13 @@ namespace Ubpa::detail::GenScene_ {
         auto [wall_up, geo_wall_up, mat_wall_up] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("wall_up", cornellbox);
         auto [wall_down, geo_wall_down, mat_wall_down] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("wall_down", cornellbox);
         auto [wall_back, geo_wall_back, mat_wall_back] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("wall_back", cornellbox);
-        auto [rectlight_obj, geo_rectlight, rectlight, r] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Light, Rotater>("rectlight");
+        auto [rectlight_obj, geo_rectlight, rectlight] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Light>("rectlight");
         //scene->CreateSObj<ImGUIExample>("imguiExample");
+        auto [env_obj, env_light] = scene->CreateSObj<Cmpt::Light>("env light");
+        auto env_texture = new Texture2D{ "../data/textures/newport_loft.hdr" };
+        env_texture->inv_v = true;
+        env_light->SetLight(new EnvLight(1.f, rgbf{ 1.f }, env_texture));
+
 
         camera_obj->Get<Cmpt::Position>()->value = { 0,0,0 };
 
@@ -157,12 +162,12 @@ namespace Ubpa::detail::GenScene_ {
         wall_back->Get<Cmpt::Position>()->value = { 0,0,-1 };
         wall_back->Get<Cmpt::Rotation>()->value = { vecf3{1,0,0},to_radian(90.f) };
 
-        cornellbox->Get<Cmpt::Position>()->value = { 0,0,-4 };
+        cornellbox->Get<Cmpt::Position>()->value = { 0,0,-6 };
         cornellbox->Get<Cmpt::Scale>()->value = { 2,2,2 };
 
         rectlight->SetLight(new AreaLight{ 50.f, {1,1,1} });
         geo_rectlight->SetPrimitive(new Square);
-        rectlight_obj->Get<Cmpt::Position>()->value = { 0,0,-4 };
+        rectlight_obj->Get<Cmpt::Position>()->value = { 0,1.9f,-6 };
         rectlight_obj->Get<Cmpt::Scale>()->value = { 0.5f,0.5f,0.5f };
         rectlight_obj->Get<Cmpt::Rotation>()->value = quatf{ vecf3{1,0,0}, to_radian(180.f) };
 

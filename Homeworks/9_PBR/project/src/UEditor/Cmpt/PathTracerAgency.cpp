@@ -31,10 +31,28 @@ void Cmpt::PathTracerAgency::OnUpdate(const Cmpt::Camera* cam, const Cmpt::L2W* 
 			thread ptThread([sobj, ar]() {
 				size_t width = 1024;
 				auto height = static_cast<size_t>(width / ar);
-				Image img(1024, height, 3);
+				Image img(width, height, 3);
 				PathTracer path_tracer(SceneMngr::Instance().actived_scene, sobj, &img);
 				path_tracer.Run();
-				img.Save("../data/rst.png");
+				// post process
+
+				// gamma correction
+				for (size_t j = 0; j < height; j++) {
+					for (size_t i = 0; i < width; i++) {
+						auto& color = img.At<rgbf>(i, j);
+						color[0] = std::sqrt(color[0]);
+						color[1] = std::sqrt(color[1]);
+						color[2] = std::sqrt(color[2]);
+					}
+				}
+				// flip
+				Image flipped_img(width, height, 3);
+				for (size_t j = 0; j < height; j++) {
+					for (size_t i = 0; i < width; i++)
+						flipped_img.At<rgbf>(i, height - 1 - j) = img.At<rgbf>(i, j);
+				}
+
+				flipped_img.Save("../data/rst.png");
 			});
 			ptThread.detach();
 			sobj->Detach<PathTracerAgency>();
