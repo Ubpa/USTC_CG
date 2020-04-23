@@ -22,31 +22,48 @@ $$
 > - $\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}$ 是 $\pmb{\omega_i}$ 与 $\pmb{n}(\pmb{p})$ 的夹角
 >
 
-记 $\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L=\int_{\mathcal{H}^2(\pmb{n}(\pmb{p}))} f_r(\pmb{p},\pmb{\omega}_i,\pmb{\omega}_o)L\cos\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}\mathbb{d}\pmb{\omega}_i$，则
+记
+
+$$
+\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L=\int_{\mathcal{H}^2(\pmb{n}(\pmb{p}))} f_r(\pmb{p},\pmb{\omega}_i,\pmb{\omega}_o)L\cos\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}\mathbb{d}\pmb{\omega}_i
+$$
+
+则
+
 $$
 L_o(\pmb{p},\pmb{\omega}_o)=L_e(\pmb{p},\pmb{\pmb{\omega}_o})+\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_i(\pmb{p},\pmb{\omega}_i)
 $$
+
 反射方程为
+
 $$
 L_r(\pmb{p},\pmb{\omega}_o)=\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_i(\pmb{p},\pmb{\omega}_i)
 $$
+
 对于 $L_i$ 有关系式
+
 $$
 L_i(\pmb{p},\pmb{\omega}_i)=L_o(\mathop{raytrace}(\pmb{p},\pmb{\omega_i}),-\pmb{\omega_i})
 $$
+
 > 其中 $\mathop{raytrace}$ 是射线与场景的相交函数
 
 记 $\mathop{raytrace}(\pmb{p},\pmb{\omega_i})$ 为 $\pmb{p}^\prime$，则有
+
 $$
 L_i(\pmb{p},\pmb{\omega}_i)=L_o(\pmb{p}^\prime,-\pmb{\omega_i})
 $$
+
 如此形成递归
+
 $$
 L_o(\pmb{p},\pmb{\omega}_o)=L_e(\pmb{p},\pmb{\pmb{\omega}_o})+\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_o(\pmb{p}^\prime,-\pmb{\omega_i})
 $$
+
 更有效地是对 $L_r$ 进行递归
 
 将 $L_r$ 展开一次
+
 $$
 \begin{aligned}
 L_r(\pmb{p},\pmb{\omega}_o)
@@ -55,6 +72,7 @@ L_r(\pmb{p},\pmb{\omega}_o)
 +\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_r(\pmb{p}^\prime,-\pmb{\omega}_i)
 \end{aligned}
 $$
+
 将
 
 - $\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_e(\pmb{p}^\prime,-\pmb{\omega}_i)$ 称为**直接光**，记作 $L_{\text{dir}}(\pmb{p},\pmb{\omega}_o)$ 
@@ -75,12 +93,15 @@ $$
 > 图中 $\pmb{x}$ 即为 $\pmb{p}$，$\pmb{y}$ 即为 $\pmb{p}^\prime$ 
 
 由几何关系可知
+
 $$
 \mathbb{d}\pmb{\omega}_i=\frac{|\cos\theta_{\pmb{y},\pmb{x}}|}{\|\pmb{x}-\pmb{y}\|^2}\mathbb{d}A(\pmb{y})
 $$
+
 其中 $\theta_{\pmb{y},\pmb{x}}$ 是方向 $\pmb{x}-\pmb{y}$ 与 $\pmb{n}(\pmb{y})$ 的夹角
 
 引入几何传输项（两点间的传输效率）
+
 $$
 G(\pmb{x},\pmb{y})=V(\pmb{x},\pmb{y})\frac{|\cos\theta_{\pmb{x},\pmb{y}}||\cos\theta_{\pmb{y},\pmb{x}}|}{\|\pmb{x}-\pmb{y}\|^2}
 $$
@@ -90,6 +111,7 @@ $$
 >$G$ 是对称函数，即 $G(\pmb{x},\pmb{y})=G(\pmb{y},\pmb{x})$ 
 
 故有
+
 $$
 L_{\text{dir}}(\pmb{x},\pmb{z})=\int_A f_r(\pmb{x},\pmb{y},\pmb{z})L_e(\pmb{y},\pmb{x})G(\pmb{x},\pmb{y})\mathbb{d}A(\pmb{y})
 $$
@@ -97,13 +119,15 @@ $$
 其中积分域 $A$ 为场景中所有的面积，但只有光源处 $L_e(\pmb{y},\pmb{x})\neq 0$ 
 
 记光源数 $N_e$，场景中的光源集为 $\{L_{e_i}\}_{i=1}^{N_e}$ ，对应的区域集为 $\{A(L_{e_i})\}_{i=1}^{N_e}$，则可写为
+
 $$
 L_{\text{dir}}(\pmb{x},\pmb{z})=\sum_{i=1}^{N_e}\int_{A(L_{e_i})} f_r(\pmb{x},\pmb{y},\pmb{z})L_e(\pmb{y},\pmb{x})G(\pmb{x},\pmb{y})\mathbb{d}A(\pmb{y})
 $$
 
 ### 1.3 间接光
 
-递归即可。
+递归即可
+
 $$
 L_r(\pmb{p},\pmb{\omega}_o)=\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_e(\pmb{p}^\prime,-\pmb{\omega}_i)
 +\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_r(\pmb{p}^\prime,-\pmb{\omega}_i)
@@ -118,9 +142,11 @@ $$
 ### 1.5 渲染方程的计算
 
 我们要计算的是如下积分
+
 $$
 L_r(\pmb{p},\pmb{\omega}_o)=L_{\text{dir}}+L_{\text{indir}}
 $$
+
 右侧积分式需要递归
 
 利用蒙特卡洛积分可将积分转成采样
