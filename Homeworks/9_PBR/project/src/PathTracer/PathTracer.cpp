@@ -48,10 +48,14 @@ void PathTracer::Run() {
 rgbf PathTracer::Shade(const Intersectors& intersectors, const IntersectorClosest::Rst& intersection, const vecf3& wo, bool last_bounce_specular) {
 	// TODO: HW9 - Trace
 	// [ Tips ]
-	// - env_light->Radiance(<direction>)
+	// - EnvLight::Radiance(<direction>), <direction> is pointing to environment light
 	// - rayf3: point, dir, tmin, **tmax**
 	// - Intersectors::visibility.Visit(&bvh, <rayf3>)
+	//   - tmin = EPSILON<float>
+	//   - tmax = distance to light - EPSILON<float>
 	// - Intersectors::cloest.Visit(&bvh, <rayf3>)
+	//   - tmin = as default
+	//   - tmax = as default
 	//
 	// struct Rst {
 	//	 bool IsIntersected() const noexcept { return sobj != nullptr; }
@@ -65,7 +69,7 @@ rgbf PathTracer::Shade(const Intersectors& intersectors, const IntersectorCloses
 	constexpr rgbf error_color = rgbf{ 1.f,0.f,1.f };
 
 	if (!intersection.IsIntersected()) {
-		if (!last_bounce_specular && env_light != nullptr) {
+		if (last_bounce_specular && env_light != nullptr) {
 			// TODO: environment light
 
 			return rgbf{ 0.f };
@@ -152,10 +156,9 @@ std::tuple<vecf3, float> PathTracer::SampleBRDF(IntersectorClosest::Rst intersec
 	matf3 world_to_surface = surface_to_world.inverse();
 	svecf s_wo = (world_to_surface * wo).cast_to<svecf>();
 
-	rgbf albedo = brdf->albedo_factor * brdf->albedo_texture->Sample(intersection.uv).to_rgb();
-	float roughness = brdf->roughness_factor * brdf->roughness_texture->Sample(intersection.uv)[0];
-	float metalness = brdf->metalness_factor * brdf->metalness_texture->Sample(intersection.uv)[0];
-	float alpha = roughness * roughness;
+	rgbf albedo = brdf->Albedo(intersection.uv);
+	float metalness = brdf->Metalness(intersection.uv);
+	float roughness = brdf->Roughness(intersection.uv);
 
 	auto [s_wi, pdf] = brdf->Sample(albedo, metalness, roughness, s_wo);
 	vecf3 wi = surface_to_world * s_wi;
@@ -173,10 +176,9 @@ rgbf PathTracer::BRDF(IntersectorClosest::Rst intersection, const vecf3& wi, con
 	svecf s_wi = (world_to_surface * wi).cast_to<svecf>();
 	svecf s_wo = (world_to_surface * wo).cast_to<svecf>();
 
-	rgbf albedo = brdf->albedo_factor * brdf->albedo_texture->Sample(intersection.uv).to_rgb();
-	float roughness = brdf->roughness_factor * brdf->roughness_texture->Sample(intersection.uv)[0];
-	float metalness = brdf->metalness_factor * brdf->metalness_texture->Sample(intersection.uv)[0];
-	float alpha = roughness * roughness;
+	rgbf albedo = brdf->Albedo(intersection.uv);
+	float metalness = brdf->Metalness(intersection.uv);
+	float roughness = brdf->Roughness(intersection.uv);
 
 	return brdf->BRDF(albedo, metalness, roughness, s_wi, s_wo);
 }

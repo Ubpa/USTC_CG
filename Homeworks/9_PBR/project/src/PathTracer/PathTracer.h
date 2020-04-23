@@ -29,7 +29,7 @@ namespace Ubpa {
 		};
 		static SampleLightResult SampleLight(const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr);
 
-		// wi, pd (probability density)
+		// wi (normalized), pd (probability density)
 		static std::tuple<vecf3, float> SampleBRDF(IntersectorClosest::Rst intersection, const vecf3& wo);
 		static rgbf BRDF(IntersectorClosest::Rst intersection, const vecf3& wi, const vecf3& wo);
 
