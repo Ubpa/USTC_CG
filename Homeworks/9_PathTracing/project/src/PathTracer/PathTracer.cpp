@@ -57,7 +57,7 @@ rgbf PathTracer::Shade(const Intersectors& intersectors, const IntersectorCloses
 	//   - tmin = as default
 	//   - tmax = as default
 	//
-	// struct Rst {
+	// struct IntersectorClosest::Rst {
 	//	 bool IsIntersected() const noexcept { return sobj != nullptr; }
 	//	 const SObj* sobj{ nullptr }; // intersection sobj
 	//	 pointf3 pos; // intersection point's position
@@ -67,26 +67,32 @@ rgbf PathTracer::Shade(const Intersectors& intersectors, const IntersectorCloses
 	// };
 
 	constexpr rgbf error_color = rgbf{ 1.f,0.f,1.f };
+	constexpr rgbf todo_color = rgbf{ 0.f,1.f,0.f };
+	constexpr rgbf zero_color = rgbf{ 0.f,0.f,0.f };
 
 	if (!intersection.IsIntersected()) {
 		if (last_bounce_specular && env_light != nullptr) {
 			// TODO: environment light
 
-			return rgbf{ 0.f };
+			return todo_color;
 		}
-
-		return rgbf{ 0.f };
+		else
+			return zero_color;
 	}
 	
-	if (!intersection.sobj->Get<Cmpt::Material>()) { // light (!last_bounce_specular)
+	if (!intersection.sobj->Get<Cmpt::Material>()) {
 		auto light = intersection.sobj->Get<Cmpt::Light>();
 		if(!light) return error_color;
-		auto area_light = dynamic_cast<const AreaLight*>(light->light.get());
-		if (!area_light) return error_color;
 
-		// TODO: area light (!last_bounce_specular)
+		if (last_bounce_specular) { // avoid double-count
+			auto area_light = dynamic_cast<const AreaLight*>(light->light.get());
+			if (!area_light) return error_color;
 
-		return rgbf{ 0.f };
+			// TODO: area light (!last_bounce_specular)
+
+			return todo_color;
+		}else
+			return zero_color;
 	}
 	
 	rgbf L_dir{ 0.f };
@@ -112,7 +118,7 @@ rgbf PathTracer::Shade(const Intersectors& intersectors, const IntersectorCloses
 	// - use PathTracer::SampleBRDF to get wi and pd (probability density)
 	// - use PathTracer::BRDF to get BRDF value
 
-	return rgbf{ 0.f }; // TODO: combine L_dir and L_indir
+	return todo_color; // TODO: combine L_dir and L_indir
 }
 
 PathTracer::SampleLightResult PathTracer::SampleLight(const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) {
