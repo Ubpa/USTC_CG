@@ -37,16 +37,16 @@
 
 本框架涉及的依赖库如下
 
-- [UCMake](https://github.com/Ubpa/UCMake) v0.4.1
-- [UTemplate](https://github.com/Ubpa/UTemplate) v0.3.1
-- [UDP](https://github.com/Ubpa/UDP) v0.3.1
-- [UBL](https://github.com/Ubpa/UBL) v0.1.0
-- [UGM](https://github.com/Ubpa/UGM) v0.5.1
-- [UECS](https://github.com/Ubpa/UECS) v0.5.5
-- [UScene](https://github.com/Ubpa/UScene) v0.5.0
-- [UGL](https://github.com/Ubpa/UGL) v0.2.0
-- [URTR](https://github.com/Ubpa/URTR) v0.0.5
-- [UEngine](https://github.com/Ubpa/UEngine) v0.0.2
+- [UCMake](https://github.com/Ubpa/UCMake) v0.4.1：CMake 工具库
+- [UTemplate](https://github.com/Ubpa/UTemplate) v0.3.1：C++ Template 库
+- [UDP](https://github.com/Ubpa/UDP) v0.3.1：设计模式
+- [UBL](https://github.com/Ubpa/UBL) v0.1.0：基本库
+- [UGM](https://github.com/Ubpa/UGM) v0.5.1：图形数学库
+- [UECS](https://github.com/Ubpa/UECS) v0.5.5：Entity-Component-System
+- [UScene](https://github.com/Ubpa/UScene) v0.5.0：场景库
+- [UGL](https://github.com/Ubpa/UGL) v0.2.0：C++ OpenGL Wrapper
+- [URTR](https://github.com/Ubpa/URTR) v0.0.5：实时渲染器
+- [UEngine](https://github.com/Ubpa/UEngine) v0.0.2：引擎（实时渲染器 + ECS + imgui）
 
 > 第三方库：[glad](https://github.com/Dav1dde/glad)，[glfw](https://github.com/glfw/glfw)，[imgui](https://github.com/ocornut/imgui)，[stb](https://github.com/nothings/stb)，[xsimd](https://github.com/xtensor-stack/xsimd)，[cpp-taskflow](https://github.com/cpp-taskflow/cpp-taskflow)，[RapidJSON](https://github.com/Tencent/rapidjson) 
 
@@ -61,7 +61,7 @@
 
 - WASDQE 移动相机，按住鼠标右键并移动鼠标可旋转镜头
 
-- 按 `P` 可启动路径追踪，控制台调试窗口可看到进度，达到 `1` 后会将渲染结果保存为 [data/](data/)`rst.png` 
+- 按 `P` 可启动路径追踪，控制台调试窗口可看到进度，达到 `1` 后会将渲染结果保存为 [data/](data/)`rst.png` （此部分逻辑位于 [src/UEditor/Cmpt/PathTracerAgency.h](src/UEditor/Cmpt/PathTracerAgency.h) 和 [src/UEditor/Cmpt/PathTracerAgency.cpp](src/UEditor/Cmpt/PathTracerAgency.cpp)）
 
 ## 开发手册
 
