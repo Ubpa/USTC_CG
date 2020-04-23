@@ -38,8 +38,8 @@ if(${UCMake_FOUND})
 	message(STATUS "UCMake v${UCMake_VERSION} found")
 else()
 	set(_address "https://github.com/Ubpa/UCMake")
-	message(STATUS "UCMake v0.4.1 not found, so fetch it ...\n"
-	"fetch: ${_address} with tag v0.4.1")
+	message(STATUS "UCMake v0.4.1 not found")
+	message(STATUS "fetch: ${_address} with tag v0.4.1")
 	FetchContent_Declare(
 	  UCMake
 	  GIT_REPOSITORY ${_address}

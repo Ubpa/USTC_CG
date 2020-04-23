@@ -29,7 +29,7 @@ void Cmpt::PathTracerAgency::OnUpdate(const Cmpt::Camera* cam, const Cmpt::L2W* 
 	if (io.KeysDown['P']) {
 		ptr->value->AddCommand([sobj = ptr->value.get(), ar]() {
 			thread ptThread([sobj, ar]() {
-				size_t width = 1024;
+				size_t width = 400;
 				auto height = static_cast<size_t>(width / ar);
 				Image img(width, height, 3);
 				PathTracer path_tracer(SceneMngr::Instance().actived_scene, sobj, &img);
