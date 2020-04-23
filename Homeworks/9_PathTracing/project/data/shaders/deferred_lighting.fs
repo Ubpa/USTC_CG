@@ -47,8 +47,8 @@ struct RectLight {
 #define MAX_POINT_LIGHT_NUM 8
 #define MAX_RECT_LIGHT_NUM 8
 
-uniform unsigned int pointlight_num;
-uniform unsigned int rectlight_num;
+uniform uint pointlight_num;
+uniform uint rectlight_num;
 
 uniform PointLight pointlights[MAX_POINT_LIGHT_NUM];
 uniform RectLight rectlights[MAX_RECT_LIGHT_NUM];
@@ -121,7 +121,7 @@ void main() {
 		vec3 V = normalize(camera_pos - pos); // frag to camera
 		
 		// point light
-		for(unsigned int i = 0u; i < pointlight_num; i++) {
+		for(uint i = 0u; i < pointlight_num; i++) {
 			vec3 fragTolight = pointlights[i].position - pos; // frag to light
 			float dist2 = dot(fragTolight, fragTolight);
 			float dist = sqrt(dist2);
@@ -142,7 +142,7 @@ void main() {
 			Lo += brdf * pointlights[i].radiance * max(cos_theta, 0) / dist2;
 		}
 		
-		for(unsigned int i = 0u; i < rectlight_num; i++) {
+		for(uint i = 0u; i < rectlight_num; i++) {
 			vec3 spec = LTC_Spec(N, V, pos, F0, roughness, rectlights[i]);
 			vec3 diffuse = (1 - F0) * (1 - metalness) * albedo / PI * LTC_Diffuse(N, V, pos, roughness, rectlights[i]);
 			Lo += diffuse + spec;
