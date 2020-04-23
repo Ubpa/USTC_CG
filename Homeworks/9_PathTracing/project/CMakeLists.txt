@@ -58,4 +58,5 @@ Ubpa_InitTestSwitch()
 
 Ubpa_AddDep(UEngine 0.0.2)
 
+Ubpa_AddSubDirsRec(data)
 Ubpa_AddSubDirsRec(src)
