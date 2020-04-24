@@ -13,13 +13,13 @@ $$
 > - $L_o$ 是出射 radiance
 > - $\pmb{p}$ 是渲染点
 > - $\pmb{\omega}_i$ 是入射光方向
-> - $\pmb{\omega_o}$ 是出射光方向
+> - $\pmb{\omega}_o$ 是出射光方向
 > - $L_e$ 是发光 radiance
 > - $\pmb{n}(\pmb{p})$ 
 > - ${\mathcal{H}^2(\pmb{n}(\pmb{p}))} $ 是法向 $\pmb{n}(\pmb{p})$ 所在半球
 > - $f_r$ 是双向散射分布函数（bidirectional scattering distribution function ，BRDF）
 > - $L_i$ 是入射 radiance
-> - $\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}$ 是 $\pmb{\omega_i}$ 与 $\pmb{n}(\pmb{p})$ 的夹角
+> - $\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}$ 是 $\pmb{\omega}_i$ 与 $\pmb{n}(\pmb{p})$ 的夹角
 >
 
 记
@@ -48,7 +48,7 @@ $$
 
 > 其中 $\mathop{raytrace}$ 是射线与场景的相交函数
 
-记 $\mathop{raytrace}(\pmb{p},\pmb{\omega_i})$ 为 $\pmb{p}^\prime$，则有
+记 $\mathop{raytrace}(\pmb{p},\pmb{\omega}_i)$ 为 $\pmb{p}^\prime$，则有
 
 $$
 L_i(\pmb{p},\pmb{\omega}_i)=L_o(\pmb{p}^\prime,-\pmb{\omega_i})
@@ -84,7 +84,7 @@ $$
 L_{\text{dir}}(\pmb{p},\pmb{\omega}_o)=\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_e(\pmb{p}^\prime,-\pmb{\omega}_i)
 $$
 
-积分中，对于大部分方向 $\pmb{\omega}_i$，$L_e(\pmb{p}^\prime,-\pmb{\omega_i})=0$（非光源），所以我们直接在光源所在方向上积分
+积分中，对于大部分方向 $\pmb{\omega}_i$，$L_e(\pmb{p}^\prime,-\pmb{\omega}_i)=0$（非光源），所以我们直接在光源所在方向上积分
 
 其中 $\pmb{p}$， $\pmb{\omega}_o$ 和 $\pmb{\omega}_i$ 可用三点确定，如下图所示
 
@@ -100,7 +100,7 @@ $$
 
 其中 $\theta_{\pmb{y},\pmb{x}}$ 是方向 $\pmb{x}-\pmb{y}$ 与 $\pmb{n}(\pmb{y})$ 的夹角
 
-引入几何传输项（两点间的传输效率）
+引入几何传输项（两点间的“传输效率”）
 
 $$
 G(\pmb{x}\leftrightarrow\pmb{y})=V(\pmb{x}\leftrightarrow\pmb{y})\frac{|\cos\theta_{\pmb{x},\pmb{y}}||\cos\theta_{\pmb{y},\pmb{x}}|}{\|\pmb{x}-\pmb{y}\|^2}
@@ -150,12 +150,19 @@ $$
 右侧积分式需要递归
 
 利用蒙特卡洛积分可将积分转成采样
-
+$$
+\begin{aligned}
+L_{\text{dir}}(\pmb{x}\to\pmb{z})
+&\approx\sum_{i=1}^{N_e}\sum_{j=1}^{N_i}\frac{f_r(\pmb{y}_i^{(j)}\to\pmb{x}\to\pmb{z})L_e(\pmb{y}_i^{(j)}\to\pmb{x})G(\pmb{x}\to\pmb{y}_i^{(j)})}{p(\pmb{y}_i^{(j)})}\\
+L_{\text{indir}}(\pmb{p},\pmb{\omega}_o)
+&\approx\sum_{k=1}^{N}\frac{f_r(\pmb{p},\pmb{\omega}_i^{(k)},\pmb{\omega}_o)L_r(\pmb{p}^{\prime(k)},-\pmb{\omega})\cos\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}}{p(\pmb{\omega}_i^{(k)})}
+\end{aligned}
+$$
 $L_{\text{dir}}$ 在各光源区域采样
 
 对于 $L_{\text{indir}}$ 则半球采样
 
-采样个数皆为 1
+采样个数皆为 1（$N_i=1\quad(i=1,\dots,N_e)$，$N=1$） 
 
 > 也可采用其他采样策略
 
