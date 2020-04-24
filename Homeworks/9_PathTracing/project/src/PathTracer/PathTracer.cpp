@@ -88,7 +88,7 @@ rgbf PathTracer::Shade(const Intersectors& intersectors, const IntersectorCloses
 			auto area_light = dynamic_cast<const AreaLight*>(light->light.get());
 			if (!area_light) return error_color;
 
-			// TODO: area light (!last_bounce_specular)
+			// TODO: area light
 
 			return todo_color;
 		}else
