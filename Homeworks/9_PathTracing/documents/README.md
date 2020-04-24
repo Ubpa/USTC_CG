@@ -103,25 +103,25 @@ $$
 引入几何传输项（两点间的传输效率）
 
 $$
-G(\pmb{x},\pmb{y})=V(\pmb{x},\pmb{y})\frac{|\cos\theta_{\pmb{x},\pmb{y}}||\cos\theta_{\pmb{y},\pmb{x}}|}{\|\pmb{x}-\pmb{y}\|^2}
+G(\pmb{x}\leftrightarrow\pmb{y})=V(\pmb{x}\leftrightarrow\pmb{y})\frac{|\cos\theta_{\pmb{x},\pmb{y}}||\cos\theta_{\pmb{y},\pmb{x}}|}{\|\pmb{x}-\pmb{y}\|^2}
 $$
 
->其中 $V(\pmb{x},\pmb{y})$ 是可见性函数，当 $\pmb{x}$ 和 $\pmb{y}$ 之间无阻隔时为 $1$，否则为 $0$ 
+>其中 $V(\pmb{x}\leftrightarrow\pmb{y})$ 是可见性函数，当 $\pmb{x}$ 和 $\pmb{y}$ 之间无阻隔时为 $1$，否则为 $0$ 
 >
->$G$ 是对称函数，即 $G(\pmb{x},\pmb{y})=G(\pmb{y},\pmb{x})$ 
+>$G$ 是对称函数，即 $G(\pmb{x}\leftrightarrow\pmb{y})=G(\pmb{y}\leftrightarrow\pmb{x})$ 
 
 故有
 
 $$
-L_{\text{dir}}(\pmb{x},\pmb{z})=\int_A f_r(\pmb{x},\pmb{y},\pmb{z})L_e(\pmb{y},\pmb{x})G(\pmb{x},\pmb{y})\mathbb{d}A(\pmb{y})
+L_{\text{dir}}(\pmb{x}\to\pmb{z})=\int_A f_r(\pmb{y}\to \pmb{x}\to\pmb{z})L_e(\pmb{y}\to\pmb{x})G(\pmb{x}\leftrightarrow\pmb{y})\mathbb{d}A(\pmb{y})
 $$
 
-其中积分域 $A$ 为场景中所有的面积，但只有光源处 $L_e(\pmb{y},\pmb{x})\neq 0$ 
+其中积分域 $A$ 为场景中所有的面积，但只有光源处 $L_e(\pmb{y}\to\pmb{x})\neq 0$ 
 
 记光源数 $N_e$，场景中的光源集为 $\{L_{e_i}\}_{i=1}^{N_e}$ ，对应的区域集为 $\{A(L_{e_i})\}_{i=1}^{N_e}$，则可写为
 
 $$
-L_{\text{dir}}(\pmb{x},\pmb{z})=\sum_{i=1}^{N_e}\int_{A(L_{e_i})} f_r(\pmb{x},\pmb{y},\pmb{z})L_e(\pmb{y},\pmb{x})G(\pmb{x},\pmb{y})\mathbb{d}A(\pmb{y})
+L_{\text{dir}}(\pmb{x}\to\pmb{z})=\sum_{i=1}^{N_e}\int_{A(L_{e_i})} f_r(\pmb{y}\to\pmb{x}\to\pmb{z})L_e(\pmb{y}\to\pmb{x})G(\pmb{x}\to\pmb{y})\mathbb{d}A(\pmb{y})
 $$
 
 ### 1.3 间接光
@@ -157,7 +157,7 @@ $L_{\text{dir}}$ 在各光源区域采样
 
 采样个数皆为 1
 
-> 也可采用其他采样策略来进行算法
+> 也可采用其他采样策略
 
 ## 2. 作业要求
 
