@@ -36,23 +36,22 @@ void Cmpt::PathTracerAgency::OnUpdate(const Cmpt::Camera* cam, const Cmpt::L2W* 
 				path_tracer.Run();
 				// post process
 
-				// gamma correction
+				// Reinhard tone mapping, gamma correction
 				for (size_t j = 0; j < height; j++) {
 					for (size_t i = 0; i < width; i++) {
 						auto& color = img.At<rgbf>(i, j);
-						color[0] = std::sqrt(color[0]);
-						color[1] = std::sqrt(color[1]);
-						color[2] = std::sqrt(color[2]);
+
+						color[0] = color[0] / (color[0] + 1);
+						color[1] = color[1] / (color[1] + 1);
+						color[2] = color[2] / (color[2] + 1);
+
+						color[0] = std::pow(color[0], 1.f / 2.2f);
+						color[1] = std::pow(color[1], 1.f / 2.2f);
+						color[2] = std::pow(color[2], 1.f / 2.2f);
 					}
 				}
-				// flip
-				Image flipped_img(width, height, 3);
-				for (size_t j = 0; j < height; j++) {
-					for (size_t i = 0; i < width; i++)
-						flipped_img.At<rgbf>(i, height - 1 - j) = img.At<rgbf>(i, j);
-				}
 
-				flipped_img.Save("../data/rst.png");
+				img.Save("../data/rst.png", true);
 			});
 			ptThread.detach();
 			sobj->Detach<PathTracerAgency>();

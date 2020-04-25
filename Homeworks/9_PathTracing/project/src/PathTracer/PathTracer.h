@@ -27,7 +27,7 @@ namespace Ubpa {
 			pointf3 x{ 0.f }; // position on light
 			bool is_infinity{ false }; // infinity distance
 		};
-		static SampleLightResult SampleLight(const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr);
+		static SampleLightResult SampleLight(IntersectorClosest::Rst intersection, const vecf3& wo, const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr);
 
 		// wi (normalized), pd (probability density)
 		static std::tuple<vecf3, float> SampleBRDF(IntersectorClosest::Rst intersection, const vecf3& wo);

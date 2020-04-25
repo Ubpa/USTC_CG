@@ -165,6 +165,25 @@ namespace Ubpa::detail::GenScene_ {
         cornellbox->Get<Cmpt::Position>()->value = { 0,0,-6 };
         cornellbox->Get<Cmpt::Scale>()->value = { 2,2,2 };
 
+        auto [metal_ball, metal_ball_geo, metal_ball_mat] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("metal_ball", cornellbox);
+        metal_ball_geo->SetPrimitive(new Sphere);
+        metal_ball->Get<Cmpt::Scale>()->value = 0.4f;
+        metal_ball->Get<Cmpt::Position>()->value = { -0.5f,-0.6f,-0.2f };
+        auto metal = new stdBRDF;
+        metal->albedo_factor = { 1.f, 0.8f, 0.2f };
+        metal->roughness_factor = 0.1f;
+        metal_ball_mat->SetMaterial(metal);
+
+        auto [plastic_ball, plastic_ball_geo, plastic_ball_mat] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("plastic_ball", cornellbox);
+        plastic_ball_geo->SetPrimitive(new Sphere);
+        plastic_ball->Get<Cmpt::Scale>()->value = 0.4f;
+        plastic_ball->Get<Cmpt::Position>()->value = { 0.5f,-0.6f,0.2f };
+        auto plastic = new stdBRDF;
+        plastic->albedo_factor = { 0.9f, 0.9f, 0.9f };
+        plastic->roughness_factor = 0.6f;
+        plastic->metalness_factor = 0.1f;
+        plastic_ball_mat->SetMaterial(plastic);
+
         rectlight->SetLight(new AreaLight{ 50.f, {1,1,1} });
         geo_rectlight->SetPrimitive(new Square);
         rectlight_obj->Get<Cmpt::Position>()->value = { 0,1.9f,-6 };
