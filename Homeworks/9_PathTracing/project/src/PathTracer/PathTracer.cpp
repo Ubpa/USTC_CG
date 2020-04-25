@@ -23,6 +23,8 @@ PathTracer::PathTracer(const Scene* scene, const SObj* cam_obj, Image* img)
 		env_light = static_cast<const EnvLight*>(light->light.get());
 		return false; // stop
 	});
+
+	// TODO: preprocess env_light here
 }
 
 void PathTracer::Run() {
@@ -201,10 +203,10 @@ PathTracer::SampleLightResult PathTracer::SampleLight(IntersectorClosest::Rst in
 		if (rand01<float>() < p_mat) {
 			tie(wi, pd_mat) = SampleBRDF(intersection, wo);
 			Le = env_light->Radiance(wi);
-			pd_env = env_light->PDF(wi);
+			pd_env = env_light->PDF(wi); // TODO: use your PDF
 		}
 		else {
-			tie(Le, wi, pd_env) = env_light->Sample(intersection.n);
+			tie(Le, wi, pd_env) = env_light->Sample(intersection.n); // TODO: use your sampling method
 			matf3 surface_to_world = svecf::TBN(intersection.n.cast_to<vecf3>(), intersection.tangent);
 			matf3 world_to_surface = surface_to_world.inverse();
 			svecf s_wo = (world_to_surface * wo).cast_to<svecf>();

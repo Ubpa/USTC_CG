@@ -67,4 +67,7 @@
 
 - 完成 [src/PathTracer/PathTracer.cpp](src/PathTracer/PathTracer.cpp) 中 `PathTracer::Shade` 的 TODO 部分
 - 在 [src/UEditor/GenScene.cpp](src/UEditor/GenScene.cpp) 中模仿 `GenScene0` 来增加场景（添加新的函数 `GenScene1`，并修改函数 `GenScene`，之后在 [src/UEditor/main.cpp](src/UEditor/main.cpp) 中修改 `GenScene(0)`（可改为控制台输入数字）
+- 在 `PathTracer::PathTracer` 中构建环境贴图的别名表，然后在 `PathTracer::SampleLight` 中实现 `EnvLight::Sample()` 和 `EnvLight::PDF(<wi>)` 的等价函数，但用上别名表
+
+
 
