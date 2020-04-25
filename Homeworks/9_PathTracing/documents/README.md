@@ -176,13 +176,9 @@ $L_{\text{dir}}$ 在各光源区域采样
 
 代码中的函数 `PathTracer::Shade` 即为上文中的 $L_r$ 
 
-### 2.2 搭建场景并渲染
+### 2.2 环境光贴图重要性采样
 
-TODO
-
-### （可选）2.3 环境光贴图重要性采样
-
-![image-20200425170048209](assets/README/image-20200425170048209.png)
+![is_em.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/is_em.jpg)
 
 参考：[wiki | Alias_method](https://en.wikipedia.org/wiki/Alias_method) 
 
@@ -193,19 +189,24 @@ $$
 \begin{aligned}
 \int_{I}p_{\text{img}}(i,j)\mathbb{d}i\mathbb{d}j
 &=\int_{\Theta\Phi}p_{\text{texture}}(\theta,\phi)\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\theta\mathbb{d}\phi\\
-&=\int_{\Omega}p(A)\left|J_{\theta\phi}A\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}A\\
-&=\int_{\Omega}p(\omega_i)\left|\frac{\mathrm{d}\omega_i}{\mathrm{d}A}\right|\left|J_{\theta\phi}A\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\omega_i\\
+&=\int_{A}p_{\text{area}}(A)\left|J_{\theta\phi}A\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}A\\
+&=\int_{\Omega}p(\pmb{\omega}_i)\left|\frac{\mathrm{d}\pmb{\omega}_i}{\mathrm{d}A}\right|\left|J_{\theta\phi}A\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\pmb{\omega}_i\\
 \end{aligned}
 $$
 其中
 
 ![xyz.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/xyz.jpg)
 $$
-\left|\frac{\mathrm{d}\omega_i}{\mathrm{d}A}\right|=\frac{\cos\theta_o}{\|\pmb{x}-\pmb{y}\|^2}=1\\
+\left|\frac{\mathrm{d}\pmb{\omega}_i}{\mathrm{d}A}\right|=\frac{\cos\theta_o}{\|\pmb{x}-\pmb{y}\|^2}=1\\
 \left|J_{\theta\phi}A\right|=\sin\theta\\
 \left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|=\frac{wh}{2\pi^2}
 $$
 则
 $$
-p(\omega_i)=\frac{2\pi^2}{wh\sin\theta}p_{\text{img}}(i,j)
+p(\pmb{\omega}_i)=\frac{2\pi^2}{wh\sin\theta}p_{\text{img}}(i,j)
 $$
+
+### 2.3 搭建场景并渲染
+
+TODO
+
