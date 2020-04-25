@@ -40,7 +40,9 @@ void PathTracer::Run() {
 					float u = (i + rand01<float>() - 0.5f) / img->width;
 					float v = (j + rand01<float>() - 0.5f) / img->height;
 					rayf3 r = cam->GenRay(u, v, ccs);
-					rgbf Lo = Shade(intersectors, intersectors.clostest.Visit(&bvh, r), -r.dir, true);
+					rgbf Lo;
+					do { Lo = Shade(intersectors, intersectors.clostest.Visit(&bvh, r), -r.dir, true); }
+					while (Lo.has_nan());
 					img->At<rgbf>(i, j) += Lo / float(spp);
 				}
 			}
@@ -62,7 +64,9 @@ void PathTracer::Run() {
 				float u = (i + rand01<float>() - 0.5f) / img->width;
 				float v = (j + rand01<float>() - 0.5f) / img->height;
 				rayf3 r = cam->GenRay(u, v, ccs);
-				rgbf Lo = Shade(intersectors, intersectors.clostest.Visit(&bvh, r), -r.dir, true);
+				rgbf Lo;
+				do { Lo = Shade(intersectors, intersectors.clostest.Visit(&bvh, r), -r.dir, true); }
+				while (Lo.has_nan());
 				img->At<rgbf>(i, j) += Lo / spp;
 			}
 		}
@@ -128,6 +132,7 @@ rgbf PathTracer::Shade(const Intersectors& intersectors, const IntersectorCloses
 
 	scene->Each([=, &intersectors, &L_dir](const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) {
 		// TODO: L_dir += ...
+		// - use PathTracer::BRDF to get BRDF value
 		SampleLightResult sample_light_rst = SampleLight(intersection, wo, light, l2w, ptr);
 		if (sample_light_rst.pd <= 0)
 			return;

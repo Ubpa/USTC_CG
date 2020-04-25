@@ -181,7 +181,7 @@ namespace Ubpa::detail::GenScene_ {
         auto plastic = new stdBRDF;
         plastic->albedo_factor = { 0.9f, 0.9f, 0.9f };
         plastic->roughness_factor = 0.6f;
-        plastic->metalness_factor = 0.1f;
+        plastic->metalness_factor = 0.f;
         plastic_ball_mat->SetMaterial(plastic);
 
         rectlight->SetLight(new AreaLight{ 50.f, {1,1,1} });
