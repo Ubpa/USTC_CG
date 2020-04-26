@@ -8,6 +8,7 @@
   - 提供场景 json 文件读取功能（在 [GenScene.h](src/UEditor/GenScene.h)/[cpp](src/UEditor/GenScene.cpp) 中查看相应变化）
   - 默认载入 json 文件（在 [main.cpp](src/UEditor/main.cpp) 中查看相应变化）
   - `GenScene0` 新增载入 [cube.obj](data/models/cube.obj) 
+  - 修复 `EnvLight::Sample(normalf)` 偶发的 bug（t 与 n 共线）
 
 ## 构建说明
 

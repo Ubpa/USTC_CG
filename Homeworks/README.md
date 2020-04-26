@@ -51,4 +51,6 @@
 5. ARAP 曲面参数化 [->](5_ARAP/) 
 6. 质点弹簧系统仿真 [->](6_MassSpring/) 
 7. 基于 Taichi 的仿真 [->](7_SimulationTaichi/) 
+8. 着色器 [->](8_Shader/) 
+9. 路径追踪 [->](9_PathTracing/) 
 
