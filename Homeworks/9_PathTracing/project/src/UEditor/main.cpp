@@ -8,12 +8,14 @@
 using namespace Ubpa;
 using namespace std;
 
-int main(int, char**)
+int main(int argc, char** argv)
 {
     Engine::Instance().Init("Ubpa@2020 UEditor v0.0.2");
     Editor::OnRegist();
 
-    auto scene = GenScene(0);
+    const char* path = argc == 2 ? argv[1] : "../data/models/uscene.json";
+    Scene* scene = SceneGenerator::Instance().GenScene(path);
+    // Scene* scene = SceneGenerator::Instance().GenScene(0);
 
     Editor::Instance().SetCamera(scene->root->GetSObjInTreeWith<Cmpt::Camera>());
 

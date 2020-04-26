@@ -13,12 +13,7 @@ namespace Ubpa {
 		void Run();
 
 	private:
-		struct Intersectors {
-			IntersectorClosest clostest;
-			IntersectorVisibility visibility;
-		};
-
-		rgbf Shade(const Intersectors& intersectors, const IntersectorClosest::Rst& intersection, const vecf3& wo, bool last_bounce_specular = false);
+		rgbf Shade(const IntersectorClosest::Rst& intersection, const vecf3& wo, bool last_bounce_specular = false);
 
 		struct SampleLightResult {
 			rgbf L{ 0.f }; // light radiance

@@ -9,7 +9,7 @@
 
 #include <UEngine/Engine.h>
 
-#include <UDP/Visitor/InfVisitor.h>
+#include <UDP/Visitor.h>
 #include <UDP/Reflection/VarPtrVisitor.h>
 #include <UDP/Reflection/ReflTraits.h>
 
@@ -19,14 +19,14 @@ using namespace std;
 class Cmpt::Inspector::Viewer_Cmpt : public ReflTraitsVisitor {
 public:
 	Viewer_Cmpt() {
-		ReflTraitsIniter::Instance().InitNC(*this);
+		ReflTraitsIniter::Instance().Init(*this);
 	}
 
 private:
 	// obj is used for special visit (not just name and vars)
-	virtual void Receive(void* obj, std::string_view name, const xMap<std::string, std::shared_ptr<VarPtrBase>>& vars) override {
+	virtual void Receive(void* obj, std::string_view name, ReflectionBase& refl) override {
 		if (ImGui::CollapsingHeader(name.data())) {
-			for (const auto& [name, var] : vars) {
+			for (const auto& [name, var] : refl.VarPtrs(obj)) {
 				ImGui::Text(name.data());
 				// TODO: edit
 			}

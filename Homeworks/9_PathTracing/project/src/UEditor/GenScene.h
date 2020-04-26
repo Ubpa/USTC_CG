@@ -1,8 +1,22 @@
 #pragma once
 
+#include <string>
+
 namespace Ubpa {
 	class Scene;
 
-	// n : [0, 0]
-	Scene* GenScene(size_t n);
+	class SceneGenerator {
+	public:
+		static SceneGenerator& Instance() {
+			static SceneGenerator instance;
+			return instance;
+		}
+
+		Scene* GenScene(const std::string& path);
+		// n : [0, 0]
+		Scene* GenScene(size_t n);
+
+	private:
+		SceneGenerator();
+	};
 }

@@ -187,7 +187,7 @@ $L_{\text{dir}}$ 在各光源区域采样
 生成别名表后，可采用离散的像素，相关概率关系如下
 $$
 \begin{aligned}
-\int_{I}p_{\text{img}}(i,j)\mathbb{d}i\mathbb{d}j
+1=\int_{I}p_{\text{img}}(i,j)\mathbb{d}i\mathbb{d}j
 &=\int_{\Theta}p_{\text{img}}(\theta,\phi)\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\theta\mathbb{d}\phi\\
 &=\int_{A}p_{\text{img}}(A)\left|\det J_A\Theta\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}A\\
 &=\int_{\Omega}p_{\text{img}}(\pmb{\omega}_i)\left|\frac{\mathrm{d}A}{\mathrm{d}\pmb{\omega}_i}\right|\left|\det J_A{\Theta}\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\pmb{\omega}_i\\
@@ -209,5 +209,59 @@ $$
 
 ### 2.3 搭建场景并渲染
 
-TODO
+框架目前提供了两种方式（未来可能新增第三种方式——UI 编辑）创建场景
+
+- 代码
+- json
+
+#### 2.3.1 代码方式
+
+对于代码的方式，同学们可以查看框架中 `class Ubpa::SceneGenerator` 的实现来了解具体使用方式
+
+框架的场景层为 [UScene](https://github.com/Ubpa/UScene)，底层框架为**实体-组件-系统**（Entity-Component-System，ECS），相应库为 [UECS](https://github.com/Ubpa/UECS) 
+
+实体由组件构成，组件是数据，系统则视为数据的变换，三者构成一个**世界**（上下文）
+
+世界对应的类为 `class Ubpa::Scene`，统一管理了实体，组件，系统的资源。
+
+实体对应的类为 `class Ubpa::SObj`（**S**cene **Obj**ect），成树状结构
+
+系统为组件的 `OnStart()`，`OnUpdate`，`OnStop` 等函数
+
+组件（[UScene/core/Cmpt/](https://github.com/Ubpa/UScene/tree/master/include/UScene/core/Cmpt)）包括
+
+- [Cmpt::Camera](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Camera.h)：（针孔）相机，用于离线渲染和实时渲染
+- [Cmpt::Geometry](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Geometry.h)：几何体，内含成员 `Cmpt::Geometry::primitive`（[UScene/core/Primitive/](UScene/core/Primitive/)），目前可为 [Sphere](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Primitive/Sphere.h)，[Square](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Primitive/Square.h)，[Triangle Mesh](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Primitive/TriMesh.h)（[Triangle](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Primitive/Triangle.h) 仅做算法使用，不可将其设置给 `Cmpt::Geometry::primitive`），通过 `Cmpt::Geometry::SetPrimitive` 设置，资源所有权归 `Cmpt::Geometry`。
+- [Cmpt::Light](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Light.h)：光源，内含成员 `Cmpt::Geometry::light`（[UScene/core/Light/](UScene/core/Light/)），目前可为 [Area Light](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Light/AreaLight.h)，[Environment Light](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Light/EnvLight.h)，[Point Light](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Light/PointLight.h)，通过 `Cmpt::Light::SetLight` 设置，资源所有权归 `Cmpt::Light`。
+- [Cmpt::Material](https://github.com/Ubpa/UScene/tree/master/include/UScene/core/Material)：材质，内含成员 `Cmpt::Material::material`（[UScene/core/Material/](UScene/core/Material/)），目前仅有一种材质 [standard BRDF](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Material/stdBRDF.h)，采用金属工作流，GGX 和 Fresnel-Schlick。通过 `Cmpt::Material::SetMaterial` 设置，资源所有权归 `Cmpt::Material`。
+- [Cmpt::Position](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Position.h)：局部位置
+- [Cmpt::Scale](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Scale.h)：局部缩放
+- [Cmpt::Rotation](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Rotation.h)：局部旋转，内含单位四元数
+- [Cmpt::Transform](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Transform.h)：变换，由 `Cmpt::Position`，`Cmpt::Scale`，`Cmpt::Rotation` 决定
+- [Cmpt::L2W](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/L2W.h)：local to world 变换，`SObj` 成树状结构，从一个 `SObj` 出发往根走，将所有变换累成则可得到 local to world 变换。
+- [Cmpt::Root](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/L2W.h)：根节点，场景仅有一个根节点 `Scene::root` 
+- [Cmpt::SObjPtr](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/SObjPtr.h)：储存了 `SObj` 指针
+
+其中 [Cmpt::Position](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Position.h)，[Cmpt::Scale](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Scale.h)，[Cmpt::Rotation](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Rotation.h)，[Cmpt::Transform](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/Transform.h)，[Cmpt::L2W](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/L2W.h)，[Cmpt::SObjPtr](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/SObjPtr.h) 是必要节点，框架会自动添加，[Cmpt::Root](https://github.com/Ubpa/UScene/blob/master/include/UScene/core/Cmpt/L2W.h) 是特殊节点，仅有 `Scene::root` 拥有
+
+代码通过组织以上元素实现场景的构建与运作
+
+这次作业要求同学构建静态场景，不涉及系统。
+
+#### 2.3.2 json
+
+场景可将其所有内容保存起来，形成一个场景文件，为 [json 格式](http://www.json.org/json-zh.html)。该场景文件后续可再载入到程序中，恢复场景。
+
+本框架提供了一个示例场景 [uscene.json](https://github.com/Ubpa/USTC_CG/tree/master/Homeworks/9_PathTracing/project/data/models/uscene.json)，运行 UEditor 后会默认载入该文件
+
+json 将对象视为一个**键值对**的集合，本框架也通过**反射机制**（代码元信息获取）实现该模型，从而实现序列化（C++ 对象 => json）和反序列化（json => C++ 对象）。键即为变量名。
+
+同学们可通过编辑 json 文件来实现创建、修改场景，从而加快迭代速度（直接从代码编辑工作量大）
+
+模仿为主，关键在于
+
+- `type` 
+- 键名（通过查头文件获知）
+- 默认值（不必写出一个类的所有键值对，缺失的键值即视为默认值，可在头文件查到）
+- 路径（路径采用绝对路径或相对路径，目前相对路径的工作目录为 `bin/`，因此一般为 `../data/...`）
 

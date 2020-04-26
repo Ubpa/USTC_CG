@@ -16,6 +16,9 @@ PathTracer::PathTracer(const Scene* scene, const SObj* cam_obj, Image* img)
 	cam{ cam_obj->Get<Cmpt::Camera>() },
 	ccs{ cam->GenCoordinateSystem(cam_obj->Get<Cmpt::L2W>()->value) }
 {
+	IntersectorVisibility::Instance();
+	IntersectorClosest::Instance();
+
 	scene->Each([this](const Cmpt::Light* light) ->bool {
 		if (!vtable_is<EnvLight>(light->light.get()))
 			return true; // continue
@@ -35,7 +38,6 @@ void PathTracer::Run() {
 #ifdef NDEBUG
 	const size_t core_num = std::thread::hardware_concurrency();
 	auto work = [this, core_num, spp](size_t id) {
-		Intersectors intersectors;
 		for (size_t j = id; j < img->height; j += core_num) {
 			for (size_t i = 0; i < img->width; i++) {
 				for (size_t k = 0; k < spp; k++) {
@@ -43,7 +45,7 @@ void PathTracer::Run() {
 					float v = (j + rand01<float>() - 0.5f) / img->height;
 					rayf3 r = cam->GenRay(u, v, ccs);
 					rgbf Lo;
-					do { Lo = Shade(intersectors, intersectors.clostest.Visit(&bvh, r), -r.dir, true); }
+					do { Lo = Shade(IntersectorClosest::Instance().Visit(&bvh, r), -r.dir, true); }
 					while (Lo.has_nan());
 					img->At<rgbf>(i, j) += Lo / float(spp);
 				}
@@ -58,8 +60,6 @@ void PathTracer::Run() {
 	for (auto& worker : workers)
 		worker.join();
 #else
-	Intersectors intersectors;
-
 	for (size_t j = 0; j < img->height; j++) {
 		for (size_t i = 0; i < img->width; i++) {
 			for (size_t k = 0; k < spp; k++) {
@@ -67,7 +67,7 @@ void PathTracer::Run() {
 				float v = (j + rand01<float>() - 0.5f) / img->height;
 				rayf3 r = cam->GenRay(u, v, ccs);
 				rgbf Lo;
-				do { Lo = Shade(intersectors, intersectors.clostest.Visit(&bvh, r), -r.dir, true); }
+				do { Lo = Shade(IntersectorClosest::Instance().Visit(&bvh, r), -r.dir, true); }
 				while (Lo.has_nan());
 				img->At<rgbf>(i, j) += Lo / spp;
 			}
@@ -78,16 +78,16 @@ void PathTracer::Run() {
 #endif
 }
 
-rgbf PathTracer::Shade(const Intersectors& intersectors, const IntersectorClosest::Rst& intersection, const vecf3& wo, bool last_bounce_specular) {
+rgbf PathTracer::Shade(const IntersectorClosest::Rst& intersection, const vecf3& wo, bool last_bounce_specular) {
 	// TODO: HW9 - Trace
 	// [ Tips ]
 	// - EnvLight::Radiance(<direction>), <direction> is pointing to environment light
 	// - AreaLight::Radiance(<uv>)
 	// - rayf3: point, dir, tmin, **tmax**
-	// - Intersectors::visibility.Visit(&bvh, <rayf3>)
+	// - IntersectorVisibility::Instance().Visit(&bvh, <rayf3>)
 	//   - tmin = EPSILON<float>
 	//   - tmax = distance to light - EPSILON<float>
-	// - Intersectors::cloest.Visit(&bvh, <rayf3>)
+	// - IntersectorCloest::Instance().Visit(&bvh, <rayf3>)
 	//   - tmin as default (EPSILON<float>)
 	//   - tmax as default (FLT_MAX)
 	//
@@ -132,7 +132,7 @@ rgbf PathTracer::Shade(const Intersectors& intersectors, const IntersectorCloses
 	rgbf L_dir{ 0.f };
 	rgbf L_indir{ 0.f };
 
-	scene->Each([=, &intersectors, &L_dir](const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) {
+	scene->Each([=, &L_dir](const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) {
 		// TODO: L_dir += ...
 		// - use PathTracer::BRDF to get BRDF value
 		SampleLightResult sample_light_rst = SampleLight(intersection, wo, light, l2w, ptr);
