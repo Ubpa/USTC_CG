@@ -188,22 +188,23 @@ $L_{\text{dir}}$ 在各光源区域采样
 $$
 \begin{aligned}
 \int_{I}p_{\text{img}}(i,j)\mathbb{d}i\mathbb{d}j
-&=\int_{\Theta\Phi}p_{\text{texture}}(\theta,\phi)\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\theta\mathbb{d}\phi\\
-&=\int_{A}p_{\text{area}}(A)\left|J_{\theta\phi}A\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}A\\
-&=\int_{\Omega}p(\pmb{\omega}_i)\left|\frac{\mathrm{d}\pmb{\omega}_i}{\mathrm{d}A}\right|\left|J_{\theta\phi}A\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\pmb{\omega}_i\\
+&=\int_{\Theta}p_{\text{img}}(\theta,\phi)\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\theta\mathbb{d}\phi\\
+&=\int_{A}p_{\text{img}}(A)\left|\det J_A\Theta\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}A\\
+&=\int_{\Omega}p_{\text{img}}(\pmb{\omega}_i)\left|\frac{\mathrm{d}A}{\mathrm{d}\pmb{\omega}_i}\right|\left|\det J_A{\Theta}\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\pmb{\omega}_i\\
+&=\int_{\Omega}p(\pmb{\omega}_i)\mathbb{d}\pmb{\omega}_i\\
 \end{aligned}
 $$
 其中
 
 ![dwi_dA.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/dwi_dA.jpg)
 $$
-\left|\frac{\mathrm{d}\pmb{\omega}_i}{\mathrm{d}A}\right|=\frac{|\cos\theta_o|}{\|\pmb{x}-\pmb{y}\|^2}=1\\
-\left|J_{\theta\phi}A\right|=\sin\theta\\
+\left|\frac{\mathrm{d}\pmb{\omega}_i}{\mathrm{d}A}\right|=\frac{|\cos\theta_o|}{\|\pmb{x}-\pmb{y}\|^2}=\frac{1}{R^2}\\
+\left|\det J_A\Theta\right|=\frac{R^2}{\sin\theta}\\
 \left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|=\frac{wh}{2\pi^2}
 $$
 则
 $$
-p(\pmb{\omega}_i)=\frac{2\pi^2}{wh\sin\theta}p_{\text{img}}(i,j)
+p(\pmb{\omega}_i)=\frac{wh}{2\pi^2\sin\theta}p_{\text{img}}(i,j)
 $$
 
 ### 2.3 搭建场景并渲染
