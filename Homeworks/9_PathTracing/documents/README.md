@@ -199,7 +199,7 @@ $$
 ![dwi_dA.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/dwi_dA.jpg)
 $$
 \left|\frac{\mathrm{d}\pmb{\omega}_i}{\mathrm{d}A}\right|=\frac{|\cos\theta_o|}{\|\pmb{x}-\pmb{y}\|^2}=\frac{1}{R^2}\\
-\left|\det J_A\Theta\right|=\frac{R^2}{\sin\theta}\\
+\left|\det J_A\Theta\right|=\frac{1}{R^2\sin\theta}\\
 \left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|=\frac{wh}{2\pi^2}
 $$
 则
