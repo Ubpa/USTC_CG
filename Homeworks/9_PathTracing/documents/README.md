@@ -15,7 +15,7 @@ $$
 > - $\pmb{\omega}_{i}$ 是入射光方向
 > - $\pmb{\omega}_{o}$ 是出射光方向
 > - $L_{e}$ 是发光 radiance
-> - $\pmb{n}(\pmb{p})$ 
+> - $\pmb{n}(\pmb{p})$ 为 $\pmb{p}$ 处法向
 > - ${\mathcal{H}^2(\pmb{n}(\pmb{p}))} $ 是法向 $\pmb{n}(\pmb{p})$ 所在半球
 > - $f_{r}$ 是双向散射分布函数（bidirectional scattering distribution function ，BRDF）
 > - $L_{i}$ 是入射 radiance
@@ -205,7 +205,7 @@ $$
 $$
 \left|\frac{\mathrm{d}\pmb{\omega}_{i}}{\mathrm{d}A}\right|=\frac{|\cos\theta_{o}|}{\|\pmb{x}-\pmb{y}\|^2}=\frac{1}{R^2}\\
 \left|\det J_A\Theta\right|=\frac{1}{R^2\sin\theta}\\
-\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|=\frac{wh}{2\pi^2}
+\left|\frac{\partial(i,j)}{\partial(\theta,\phi)}\right|=\frac{wh}{2\pi^2}
 $$
 
 则
