@@ -150,6 +150,7 @@ $$
 右侧积分式需要递归
 
 利用蒙特卡洛积分可将积分转成采样
+
 $$
 \begin{aligned}
 L_{\text{dir}}(\pmb{x}\to\pmb{z})
@@ -158,6 +159,7 @@ L_{\text{indir}}(\pmb{p},\pmb{\omega}_{o})
 &\approx\sum_{k=1}^{N}\frac{f_{r}(\pmb{p},\pmb{\omega}_{i}^{(k)},\pmb{\omega}_{o})L_{r}(\pmb{p}^{\prime(k)},-\pmb{\omega})\cos\theta_{\pmb{\omega}_{i},\pmb{n}(\pmb{p})}}{p(\pmb{\omega}_{i}^{(k)})}
 \end{aligned}
 $$
+
 $L_{\text{dir}}$ 在各光源区域采样
 
 对于 $L_{\text{indir}}$ 则半球采样
@@ -185,6 +187,7 @@ $L_{\text{dir}}$ 在各光源区域采样
 优点是采样时间复杂度为 $O(1)$ 
 
 生成别名表后，可采用离散的像素，相关概率关系如下
+
 $$
 \begin{aligned}
 1=\int_{I}p_{\text{img}}(i,j)\mathbb{d}i\mathbb{d}j
@@ -194,15 +197,19 @@ $$
 &=\int_{\Omega}p(\pmb{\omega}_{i})\mathbb{d}\pmb{\omega}_{i}\\
 \end{aligned}
 $$
+
 其中
 
 ![dwi_dA.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/dwi_dA.jpg)
+
 $$
 \left|\frac{\mathrm{d}\pmb{\omega}_{i}}{\mathrm{d}A}\right|=\frac{|\cos\theta_{o}|}{\|\pmb{x}-\pmb{y}\|^2}=\frac{1}{R^2}\\
 \left|\det J_A\Theta\right|=\frac{1}{R^2\sin\theta}\\
 \left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|=\frac{wh}{2\pi^2}
 $$
+
 则
+
 $$
 p(\pmb{\omega}_{i})=\frac{wh}{2\pi^2\sin\theta}p_{\text{img}}(i,j)
 $$
