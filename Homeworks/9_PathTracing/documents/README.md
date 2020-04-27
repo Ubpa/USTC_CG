@@ -5,7 +5,7 @@
 ### 1.1 渲染方程
 
 $$
-L_o(\pmb{p},\pmb{\omega}_o)=L_e(\pmb{p},\pmb{\pmb{\omega}_o})+\int_{\mathcal{H}^2(\pmb{n}(\pmb{p}))} f_r(\pmb{p},\pmb{\omega}_i,\pmb{\omega}_o)L_i(\pmb{p},\pmb{\omega}_i)\cos\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}\mathbb{d}\pmb{\omega}_i
+L_o(\pmb{p},\pmb{\omega}_o)=L_e(\pmb{p},\pmb{\omega}_o)+\int_{\mathcal{H}^2(\pmb{n}(\pmb{p}))} f_r(\pmb{p},\pmb{\omega}_i,\pmb{\omega}_o)L_i(\pmb{p},\pmb{\omega}_i)\cos\theta_{\pmb{\omega}_i,\pmb{n}(\pmb{p})}\mathbb{d}\pmb{\omega}_i
 $$
 
 > 其中
@@ -31,7 +31,7 @@ $$
 则
 
 $$
-L_o(\pmb{p},\pmb{\omega}_o)=L_e(\pmb{p},\pmb{\pmb{\omega}_o})+\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_i(\pmb{p},\pmb{\omega}_i)
+L_o(\pmb{p},\pmb{\omega}_o)=L_e(\pmb{p},\pmb{\omega}_o)+\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_i(\pmb{p},\pmb{\omega}_i)
 $$
 
 反射方程为
@@ -57,7 +57,7 @@ $$
 如此形成递归
 
 $$
-L_o(\pmb{p},\pmb{\omega}_o)=L_e(\pmb{p},\pmb{\pmb{\omega}_o})+\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_o(\pmb{p}^\prime,-\pmb{\omega_i})
+L_o(\pmb{p},\pmb{\omega}_o)=L_e(\pmb{p},\pmb{\omega}_o)+\int_{\pmb{p},\pmb{\omega}_o,\pmb{\omega}_i}L_o(\pmb{p}^\prime,-\pmb{\omega_i})
 $$
 
 更有效地是对 $L_r$ 进行递归
