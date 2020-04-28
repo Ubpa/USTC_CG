@@ -78,7 +78,7 @@ void PathTracer::Run() {
 #endif
 }
 
-rgbf PathTracer::Shade(const IntersectorClosest::Rst& intersection, const vecf3& wo, bool last_bounce_specular) {
+rgbf PathTracer::Shade(const IntersectorClosest::Rst& intersection, const vecf3& wo, bool last_bounce_specular) const {
 	// TODO: HW9 - Trace
 	// [ Tips ]
 	// - EnvLight::Radiance(<direction>), <direction> is pointing to environment light
@@ -161,7 +161,7 @@ rgbf PathTracer::Shade(const IntersectorClosest::Rst& intersection, const vecf3&
 	return todo_color; // you should commemt this line
 }
 
-PathTracer::SampleLightResult PathTracer::SampleLight(IntersectorClosest::Rst intersection, const vecf3& wo, const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) {
+PathTracer::SampleLightResult PathTracer::SampleLight(IntersectorClosest::Rst intersection, const vecf3& wo, const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) const {
 	PathTracer::SampleLightResult rst;
 	if (vtable_is<AreaLight>(light->light.get())) {
 		auto area_light = static_cast<const AreaLight*>(light->light.get());

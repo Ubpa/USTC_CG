@@ -13,7 +13,7 @@ namespace Ubpa {
 		void Run();
 
 	private:
-		rgbf Shade(const IntersectorClosest::Rst& intersection, const vecf3& wo, bool last_bounce_specular = false);
+		rgbf Shade(const IntersectorClosest::Rst& intersection, const vecf3& wo, bool last_bounce_specular = false) const;
 
 		struct SampleLightResult {
 			rgbf L{ 0.f }; // light radiance
@@ -22,7 +22,7 @@ namespace Ubpa {
 			pointf3 x{ 0.f }; // position on light
 			bool is_infinity{ false }; // infinity distance
 		};
-		static SampleLightResult SampleLight(IntersectorClosest::Rst intersection, const vecf3& wo, const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr);
+		SampleLightResult SampleLight(IntersectorClosest::Rst intersection, const vecf3& wo, const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) const;
 
 		// wi (normalized), pd (probability density)
 		static std::tuple<vecf3, float> SampleBRDF(IntersectorClosest::Rst intersection, const vecf3& wo);

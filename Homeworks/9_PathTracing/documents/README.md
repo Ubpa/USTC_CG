@@ -139,6 +139,32 @@ $$
 
 ![is.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/is.jpg)
 
+> **补充** 
+>
+> 多重重要性采样
+>
+> 一个重要性采样的策略就会有一个采样概率分布 $p_i(x)$， 假设可供选择的策略为 $N$ 个 $\{p_i(x)\}_{i=1}^N$，我们可以混合他们得到一个采样新策略
+>
+> 概率分布为 $p(x)=\sum_{i=1}^N w_i(x)p_i(x)$，其中 $\sum_1^N w_i(x)=1,w_i(x)\ge0$ 
+>
+> > $w_i(x)$ 的选择是任意的，如均匀
+>
+> 采样的伪代码如下
+>
+> ```c++
+> float sample(float rnd){
+>     if(rnd < w1)
+>         return sample1();
+>     else if(rnd < w1 + w2)
+>         return sample2();
+>     else if(rnd < w1 + w2 + w3)
+>         return sample3();
+>     ...
+>     else
+>         return sampleN();
+> }
+> ```
+
 ### 1.5 渲染方程的计算
 
 我们要计算的是如下积分
@@ -186,7 +212,7 @@ $L_{\text{dir}}$ 在各光源区域采样
 
 优点是采样时间复杂度为 $O(1)$ 
 
-生成概率表和别名表后，可采用离散的像素，相关概率关系如下
+生成概率表和别名表后，可采样离散的像素，相关概率关系如下
 
 $$
 \begin{aligned}
