@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 # 设定项目
-project(HW9 VERSION 0.0.4)
+project(HW9 VERSION 0.0.5)
 message(STATUS "[Project] ${PROJECT_NAME}")
 
 # 在 Debug 模式下自动对 dll 和 lib 文件名后边加 d，但 exe 仍然需要手动设置
@@ -56,7 +56,7 @@ Ubpa_InitInstallPrefix()
 Ubpa_InitTestSwitch()
 #set(Ubpa_BuildTest ON)
 
-Ubpa_AddDep(UEngine 0.0.4)
+Ubpa_AddDep(UEngine 0.0.5)
 
 Ubpa_AddSubDirsRec(data)
 Ubpa_AddSubDirsRec(src)

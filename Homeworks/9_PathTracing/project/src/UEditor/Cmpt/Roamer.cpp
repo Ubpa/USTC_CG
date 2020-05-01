@@ -9,7 +9,7 @@ using namespace Ubpa;
 using namespace std;
 
 void Cmpt::Roamer::OnRegist() {
-	detail::dynamic_reflection::ReflRegist_Roamer();
+	detail::dynamic_reflection::ReflRegister_Roamer();
 }
 
 void Cmpt::Roamer::OnUpdate(CmptTag::LastFrame<Cmpt::L2W> l2w, Position* pos, Rotation* rot) {

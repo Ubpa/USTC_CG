@@ -14,7 +14,7 @@ namespace Ubpa {
 
 		void SetCamera(SObj* cameraobj);
 
-		static void OnRegist();
+		static void OnRegister();
 
 	private:
 		Editor();

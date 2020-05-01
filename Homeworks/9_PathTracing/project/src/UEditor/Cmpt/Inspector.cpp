@@ -12,41 +12,135 @@
 #include <UDP/Visitor.h>
 #include <UDP/Reflection/VarPtrVisitor.h>
 #include <UDP/Reflection/ReflTraits.h>
+#include <UDP/Reflection/Reflection.h>
 
 using namespace Ubpa;
 using namespace std;
 
-class Cmpt::Inspector::Viewer_Cmpt : public ReflTraitsVisitor {
+class Cmpt::Inspector::Viewer_Obj : public ReflTraitsVisitor
+{
 public:
+	static Viewer_Obj& Instance() {
+		static Viewer_Obj instance;
+		return instance;
+	}
+
+private:
+	Viewer_Obj() {
+		ReflTraitsIniter::Instance().Init(*this);
+	}
+
+private:
+	virtual void Receive(void* obj, string_view name, ReflectionBase& refl) override;
+};
+
+class Cmpt::Inspector::Viewer_Var :
+	public VarPtrVisitor<void(Viewer_Var::*)(string_view, const string&, ReflectionBase&)> {
+public:
+	static Viewer_Var& Instance() {
+		static Viewer_Var instance;
+		return instance;
+	}
+
+private:
+	Viewer_Var() {
+		Register<
+			Primitive*, Ubpa::Light*, Ubpa::Material*,
+			Texture2D*,
+
+			bool, float, 
+
+			valf1, valf2, valf3, valf4,
+			//vali1, vali2, vali3, vali4,
+			//valu1, valu2, valu3, valu4,
+
+			vecf1, vecf2, vecf3, vecf4,
+			//veci1, veci2, veci3, veci4,
+			//vecu1, vecu2, vecu3, vecu4,
+
+			pointf1, pointf2, pointf3, pointf4,
+			//pointi1, pointi2, pointi3, pointi4,
+			//pointu1, pointu2, pointu3, pointu4,
+
+			scalef1, scalef2, scalef3, scalef4,
+
+			rgbf>();
+	}
+
+protected:
+	template<template<typename,size_t>class FloatVec,size_t N>
+	void ImplVisit(FloatVec<float, N>& floatN, string_view classname, const string& name, ReflectionBase& refl) {
+		float f32_max = numeric_limits<float>::max();
+		float f32_min = -numeric_limits<float>::max();
+		if constexpr (N == 1)
+			ImGui::DragScalar((string(classname) + "::" + name).c_str(), ImGuiDataType_Float, floatN.data(), 0.01f, &f32_min, &f32_max);
+		else if constexpr (N == 2)
+			ImGui::DragFloat2((string(classname) + "::" + name).c_str(), floatN.data(), 0.01f, f32_min, f32_max);
+		else if constexpr (N == 3)
+			ImGui::DragFloat3((string(classname) + "::" + name).c_str(), floatN.data(), 0.01f, f32_min, f32_max);
+		else if constexpr (N == 4)
+			ImGui::DragFloat4((string(classname) + "::" + name).c_str(), floatN.data(), 0.01f, f32_min, f32_max);
+		else
+			static_assert(false, "N = 1, 2, 3, 4");
+	};
+
+	template<typename Obj>
+	void ImplVisit(Obj* const& obj, string_view classname, const string& name, ReflectionBase& refl) {
+		ImGui::Text(name.data());
+		if(obj != nullptr)
+			Viewer_Obj::Instance().Visit(obj);
+		else
+			ImGui::Text("null");
+	};
+
+	void ImplVisit(rgbf& c, string_view classname, const string& name, ReflectionBase& refl) {
+		ImGui::ColorEdit3((string(classname)+"::"+name).c_str(), c.data());
+	}
+
+	void ImplVisit(float& f, string_view classname, const string& name, ReflectionBase& refl) {
+		float f32_max = numeric_limits<float>::max();
+		float f32_min = -numeric_limits<float>::max();
+		ImGui::DragScalar((string(classname) + "::" + name).c_str(), ImGuiDataType_Float, &f, 0.01f, &f32_min, &f32_max, "%f", 1.0f);
+	};
+
+	void ImplVisit(bool& b, string_view classname, const string& name, ReflectionBase& refl) {
+		ImGui::Checkbox((string(classname) + "::" + name).c_str(), &b);
+	};
+};
+
+class Cmpt::Inspector::Viewer_Cmpt : public ReflTraitsVisitor
+{
+public:
+	static Viewer_Cmpt& Instance() {
+		static Viewer_Cmpt instance;
+		return instance;
+	}
+
+private:
 	Viewer_Cmpt() {
 		ReflTraitsIniter::Instance().Init(*this);
 	}
 
 private:
-	// obj is used for special visit (not just name and vars)
-	virtual void Receive(void* obj, std::string_view name, ReflectionBase& refl) override {
-		if (ImGui::CollapsingHeader(name.data())) {
+	virtual void Receive(void* obj, string_view classname, ReflectionBase& refl) override {
+		if (ImGui::CollapsingHeader(classname.data())) {
 			for (const auto& [name, var] : refl.VarPtrs(obj)) {
-				ImGui::Text(name.data());
-				// TODO: edit
+				if (Viewer_Var::Instance().IsRegistered(var))
+					Viewer_Var::Instance().Visit(var, classname, name, refl);
 			}
 		}
-	};
+	}
 };
 
-Cmpt::Inspector::Inspector() = default;
-
-void Cmpt::Inspector::OnStart() {
-	viewer_cmpt = new Viewer_Cmpt;
+void Cmpt::Inspector::Viewer_Obj::Receive(void* obj, string_view classname, ReflectionBase& refl) {
+	for (const auto& [name, var] : refl.VarPtrs(obj)) {
+		if (Viewer_Var::Instance().IsRegistered(var))
+			Viewer_Var::Instance().Visit(var, classname, name, refl);
+	}
 }
 
-void Cmpt::Inspector::OnStop() {
-	delete viewer_cmpt;
-	viewer_cmpt = nullptr;
-}
-
-void Cmpt::Inspector::OnRegist() {
-	detail::dynamic_reflection::ReflRegist_Inspector();
+void Cmpt::Inspector::OnRegister() {
+	detail::dynamic_reflection::ReflRegister_Inspector();
 }
 
 void Cmpt::Inspector::OnUpdate(const Hierarchy* hierarchy) {
@@ -60,7 +154,7 @@ void Cmpt::Inspector::OnUpdate(const Hierarchy* hierarchy) {
 		auto cmpts = sobj->Components();
 		ImGui::Text(("number of components: " + to_string(cmpts.size())).c_str());
 		for (auto [cmpt, size] : cmpts)
-			viewer_cmpt->Visit(cmpt);
+			Viewer_Cmpt::Instance().Visit(cmpt);
 		ImGui::End();
 	});
 }

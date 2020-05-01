@@ -15,8 +15,8 @@ Cmpt::Hierarchy::Hierarchy()
 {
 }
 
-void Cmpt::Hierarchy::OnRegist() {
-	detail::dynamic_reflection::ReflRegist_Hierarchy();
+void Cmpt::Hierarchy::OnRegister() {
+	detail::dynamic_reflection::ReflRegister_Hierarchy();
 }
 
 void Cmpt::Hierarchy::View_SObj(SObj* sobj) {

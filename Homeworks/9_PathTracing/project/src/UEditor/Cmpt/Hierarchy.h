@@ -19,7 +19,7 @@ namespace Ubpa::Cmpt {
 
 		void OnUpdate();
 
-		static void OnRegist();
+		static void OnRegister();
 
 	private:
 		void View_SObj(SObj* sobj);

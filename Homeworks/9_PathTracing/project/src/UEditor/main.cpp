@@ -11,11 +11,11 @@ using namespace std;
 int main(int argc, char** argv)
 {
     Engine::Instance().Init("Ubpa@2020 UEditor v0.0.2");
-    Editor::OnRegist();
+    Editor::OnRegister();
 
     const char* path = argc == 2 ? argv[1] : "../data/models/uscene.json";
     Scene* scene = SceneGenerator::Instance().GenScene(path);
-    // Scene* scene = SceneGenerator::Instance().GenScene(0);
+    //Scene* scene = SceneGenerator::Instance().GenScene(0);
 
     Editor::Instance().SetCamera(scene->root->GetSObjInTreeWith<Cmpt::Camera>());
 
@@ -27,6 +27,8 @@ int main(int argc, char** argv)
     Engine::Instance().Loop();
 
     Engine::Instance().CleanUp();
+
+    SceneGenerator::Instance().PrintSerializedScene(scene);
 
     delete scene;
 

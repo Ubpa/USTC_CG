@@ -203,7 +203,7 @@ PathTracer::SampleLightResult PathTracer::SampleLight(IntersectorClosest::Rst in
 		if (rand01<float>() < p_mat) {
 			tie(wi, pd_mat) = SampleBRDF(intersection, wo);
 			Le = env_light->Radiance(wi);
-			pd_env = env_light->PDF(wi); // TODO: use your PDF
+			pd_env = env_light->PDF(wi, intersection.n); // TODO: use your PDF
 		}
 		else {
 			tie(Le, wi, pd_env) = env_light->Sample(intersection.n); // TODO: use your sampling method

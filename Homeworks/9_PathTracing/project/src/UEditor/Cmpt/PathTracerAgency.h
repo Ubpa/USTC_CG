@@ -17,7 +17,7 @@ namespace Ubpa::Cmpt {
 	class PathTracerAgency : public Component {
 	public:
 		void OnUpdate(const Cmpt::Camera* cam, const Cmpt::L2W* l2w, const SObjPtr* ptr);
-		static void OnRegist();
+		static void OnRegister();
 
 	private:
 		BVH* bvh{ nullptr };

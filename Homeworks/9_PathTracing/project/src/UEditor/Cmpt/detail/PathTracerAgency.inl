@@ -11,11 +11,11 @@
 #include <UScene/core/SObj.h>
 
 namespace Ubpa::Cmpt::detail::dynamic_reflection {
-    void ReflRegist_PathTracerAgency() {
+    void ReflRegister_PathTracerAgency() {
         Reflection<PathTracerAgency>::Instance() // name : class Ubpa::Cmpt::PathTracerAgency
             ;
         if constexpr (std::is_base_of_v<Component, PathTracerAgency>) {
-            Reflection<PathTracerAgency>::Instance().RegistConstructor([](SObj* sobj) {
+            Reflection<PathTracerAgency>::Instance().RegisterConstructor([](SObj* sobj) {
                 if constexpr (std::is_base_of_v<Component, PathTracerAgency>) {
                     if constexpr (Ubpa::detail::SObj_::IsNecessaryCmpt<PathTracerAgency>)
                         return sobj->Get<PathTracerAgency>();

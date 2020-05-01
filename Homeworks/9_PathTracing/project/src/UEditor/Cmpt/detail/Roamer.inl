@@ -11,13 +11,13 @@
 #include <UScene/core/SObj.h>
 
 namespace Ubpa::Cmpt::detail::dynamic_reflection {
-    void ReflRegist_Roamer() {
+    void ReflRegister_Roamer() {
         Reflection<Roamer>::Instance() // name : class Ubpa::Cmpt::Roamer
-            .Regist(&Roamer::move_speed, "move_speed") //  float
-            .Regist(&Roamer::rotate_speed, "rotate_speed") //  float
+            .Register(&Roamer::move_speed, "move_speed") //  float
+            .Register(&Roamer::rotate_speed, "rotate_speed") //  float
             ;
         if constexpr (std::is_base_of_v<Component, Roamer>) {
-            Reflection<Roamer>::Instance().RegistConstructor([](SObj* sobj) {
+            Reflection<Roamer>::Instance().RegisterConstructor([](SObj* sobj) {
                 if constexpr (std::is_base_of_v<Component, Roamer>) {
                     if constexpr (Ubpa::detail::SObj_::IsNecessaryCmpt<Roamer>)
                         return sobj->Get<Roamer>();

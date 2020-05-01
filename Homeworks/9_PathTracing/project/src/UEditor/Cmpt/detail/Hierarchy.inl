@@ -11,11 +11,11 @@
 #include <UScene/core/SObj.h>
 
 namespace Ubpa::Cmpt::detail::dynamic_reflection {
-    void ReflRegist_Hierarchy() {
+    void ReflRegister_Hierarchy() {
         Reflection<Hierarchy>::Instance() // name : class Ubpa::Cmpt::Hierarchy
             ;
         if constexpr (std::is_base_of_v<Component, Hierarchy>) {
-            Reflection<Hierarchy>::Instance().RegistConstructor([](SObj* sobj) {
+            Reflection<Hierarchy>::Instance().RegisterConstructor([](SObj* sobj) {
                 if constexpr (std::is_base_of_v<Component, Hierarchy>) {
                     if constexpr (Ubpa::detail::SObj_::IsNecessaryCmpt<Hierarchy>)
                         return sobj->Get<Hierarchy>();

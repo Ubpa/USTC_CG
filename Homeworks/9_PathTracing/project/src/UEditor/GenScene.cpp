@@ -87,7 +87,7 @@ namespace Ubpa::detail::dynamic_reflection {
         Reflection<Rotater>::Instance() // name : struct ::Rotater
             ;
         if constexpr (std::is_base_of_v<Component, Rotater>) {
-            Reflection<Rotater>::Instance().RegistConstructor([](SObj* sobj) {
+            Reflection<Rotater>::Instance().RegisterConstructor([](SObj* sobj) {
                 if constexpr (std::is_base_of_v<Component, Rotater>) {
                     if constexpr (Ubpa::detail::SObj_::IsNecessaryCmpt<Rotater>)
                         return sobj->Get<Rotater>();
@@ -101,11 +101,11 @@ namespace Ubpa::detail::dynamic_reflection {
 namespace Ubpa::detail::dynamic_reflection {
     void ReflRegist_ImGUIExample() {
         Reflection<ImGUIExample>::Instance() // name : class ::ImGUIExample
-            .Regist(&ImGUIExample::show_demo_window, "show_demo_window") //  bool
-            .Regist(&ImGUIExample::show_another_window, "show_another_window") //  bool
+            .Register(&ImGUIExample::show_demo_window, "show_demo_window") //  bool
+            .Register(&ImGUIExample::show_another_window, "show_another_window") //  bool
             ;
         if constexpr (std::is_base_of_v<Component, ImGUIExample>) {
-            Reflection<ImGUIExample>::Instance().RegistConstructor([](SObj* sobj) {
+            Reflection<ImGUIExample>::Instance().RegisterConstructor([](SObj* sobj) {
                 if constexpr (std::is_base_of_v<Component, ImGUIExample>) {
                     if constexpr (Ubpa::detail::SObj_::IsNecessaryCmpt<ImGUIExample>)
                         return sobj->Get<ImGUIExample>();
@@ -118,7 +118,12 @@ namespace Ubpa::detail::dynamic_reflection {
 }
 
 SceneGenerator::SceneGenerator() {
-    CmptRegister::Instance().Regist<Rotater, ImGUIExample, Cmpt::PathTracerAgency>();
+    CmptRegistrar::Instance().Register<Rotater, ImGUIExample, Cmpt::PathTracerAgency>();
+}
+
+void SceneGenerator::PrintSerializedScene(Scene* scene) {
+    SerializerJSON serializer;
+    cout << serializer.Serialize(scene) << endl;
 }
 
 Scene* SceneGenerator::GenScene(const string& path) {
@@ -146,7 +151,7 @@ namespace Ubpa::detail::GenScene_ {
         auto [wall_down, geo_wall_down, mat_wall_down] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("wall_down", cornellbox);
         auto [wall_back, geo_wall_back, mat_wall_back] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("wall_back", cornellbox);
         auto [rectlight_obj, geo_rectlight, rectlight] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Light>("rectlight");
-        //scene->CreateSObj<ImGUIExample>("imguiExample");
+        scene->CreateSObj<ImGUIExample>("imguiExample");
         auto [env_obj, env_light] = scene->CreateSObj<Cmpt::Light>("env light");
         auto env_texture = new Texture2D{ "../data/textures/newport_loft.hdr" };
         env_texture->inv_v = true;
@@ -212,15 +217,14 @@ namespace Ubpa::detail::GenScene_ {
 
         auto [cube, geo_cube, mat_cube] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("cube", cornellbox);
         auto cube_BRDF = new stdBRDF;
-        cube_BRDF->albedo_factor = { 1.f, 0.8f, 0.2f };
+        cube_BRDF->albedo_factor = { 0.1f, 0.63f, 0.84f };
         cube_BRDF->roughness_factor = 0.5f;
         mat_cube->SetMaterial(cube_BRDF);
         geo_cube->SetPrimitive(new TriMesh("../data/models/cube.obj"));
         cube->Get<Cmpt::Scale>()->value = { 0.15f,0.1f,0.15f };
         cube->Get<Cmpt::Position>()->value = { -0.2f,-0.9f,0.65f };
 
-        SerializerJSON serializer;
-        cout << serializer.Serialize(scene) << endl;
+        SceneGenerator::Instance().PrintSerializedScene(scene);
 
         return scene;
 	}

@@ -19,8 +19,8 @@
 using namespace Ubpa;
 using namespace std;
 
-void Cmpt::PathTracerAgency::OnRegist() {
-	detail::dynamic_reflection::ReflRegist_PathTracerAgency();
+void Cmpt::PathTracerAgency::OnRegister() {
+	detail::dynamic_reflection::ReflRegister_PathTracerAgency();
 }
 
 void Cmpt::PathTracerAgency::OnUpdate(const Cmpt::Camera* cam, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) {

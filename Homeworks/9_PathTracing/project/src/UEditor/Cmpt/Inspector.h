@@ -17,16 +17,14 @@ namespace Ubpa::Cmpt {
 	[[description("SObj's components Viewer")]]
 	Inspector : public Component/*, public VarPtrVisitor<Inspector>*/ {
 	public:
-		Inspector();
 
-		void OnStart();
 		void OnUpdate(const Hierarchy* hierarchy);
-		void OnStop();
 
-		static void OnRegist();
+		static void OnRegister();
 
 	protected:
 		class Viewer_Cmpt;
-		Viewer_Cmpt* viewer_cmpt{ nullptr };
+		class Viewer_Obj;
+		class Viewer_Var;
 	};
 }
