@@ -3,7 +3,7 @@
 ## Change Log
 
 - v0.0.5
-  - 修复 `EnvLight::Sample(<vecf3>)` 的 bug，现使用 `EnvLight::Sample(<vecf3>,<normalf>)` 
+  - 修复 `EnvLight::PDF(<vecf3>)` 的 bug，现使用 `EnvLight::PDF(<vecf3>,<normalf>)` 
   - 添加 ArcBall 功能（[ArcBall.h](src/UEditor/Cmpt/ArcBall.h)/[cpp](src/UEditor/Cmpt/ArcBall.cpp)）
   - 丰富 `Inspector` 面板功能 （[Inspector.h](src/UEditor/Cmpt/Inspector.h)/[cpp](src/UEditor/Cmpt/Inspector.cpp)）
   - 底层依赖 [UECS](https://github.com/Ubpa/UECS) 升级至 v0.6.0
