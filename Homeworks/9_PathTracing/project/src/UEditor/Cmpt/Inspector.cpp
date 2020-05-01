@@ -100,6 +100,19 @@ protected:
 	void ImplVisit(float& f, string_view classname, const string& name, ReflectionBase& refl) {
 		float f32_max = numeric_limits<float>::max();
 		float f32_min = -numeric_limits<float>::max();
+		
+		// range
+		auto range = refl.FieldMeta(name, ReflAttr::range);
+		auto seperator = range.find(',');
+		if (seperator != string::npos) {
+			auto min_str = range.substr(0, seperator);
+			auto max_str = range.substr(seperator + 1, range.size() - seperator - 1);
+			if (!min_str.empty())
+				f32_min = static_cast<float>(atof(min_str.data()));
+			if (!max_str.empty())
+				f32_max = static_cast<float>(atof(max_str.data()));
+		}
+
 		ImGui::DragScalar((string(classname) + "::" + name).c_str(), ImGuiDataType_Float, &f, 0.01f, &f32_min, &f32_max, "%f", 1.0f);
 	};
 

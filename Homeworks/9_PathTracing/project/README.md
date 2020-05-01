@@ -2,6 +2,9 @@
 
 ## Change Log
 
+- v0.0.6
+  - `Inspector` 添加 `range` 
+  - `stdBRDF` 在入/出射方向在表面下方时 `PDF == 0` 
 - v0.0.5
   - 修复 `EnvLight::PDF(<vecf3>)` 的 bug，现使用 `EnvLight::PDF(<vecf3>,<normalf>)` 
   - 添加 ArcBall 功能（[ArcBall.h](src/UEditor/Cmpt/ArcBall.h)/[cpp](src/UEditor/Cmpt/ArcBall.cpp)）
@@ -59,10 +62,10 @@
 - [UBL](https://github.com/Ubpa/UBL) v0.1.3：基本库
 - [UGM](https://github.com/Ubpa/UGM) v0.5.3：图形数学库
 - [UECS](https://github.com/Ubpa/UECS) v0.6.0：Entity-Component-System
-- [UScene](https://github.com/Ubpa/UScene) v0.5.3：场景库
+- [UScene](https://github.com/Ubpa/UScene) v0.5.4：场景库
 - [UGL](https://github.com/Ubpa/UGL) v0.2.3：C++ OpenGL Wrapper
-- [URTR](https://github.com/Ubpa/URTR) v0.0.8：实时渲染器
-- [UEngine](https://github.com/Ubpa/UEngine) v0.0.5：引擎（实时渲染器 + ECS + imgui）
+- [URTR](https://github.com/Ubpa/URTR) v0.0.9：实时渲染器
+- [UEngine](https://github.com/Ubpa/UEngine) v0.0.6：引擎（实时渲染器 + ECS + imgui）
 
 > 第三方库：[glad](https://github.com/Dav1dde/glad)，[glfw](https://github.com/glfw/glfw)，[imgui](https://github.com/ocornut/imgui)，[stb](https://github.com/nothings/stb)，[xsimd](https://github.com/xtensor-stack/xsimd)，[cpp-taskflow](https://github.com/cpp-taskflow/cpp-taskflow)，[RapidJSON](https://github.com/Tencent/rapidjson)，[tinyobjloader](https://github.com/tinyobjloader/tinyobjloader) 
 

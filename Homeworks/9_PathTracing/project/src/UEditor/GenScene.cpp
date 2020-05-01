@@ -151,7 +151,7 @@ namespace Ubpa::detail::GenScene_ {
         auto [wall_down, geo_wall_down, mat_wall_down] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("wall_down", cornellbox);
         auto [wall_back, geo_wall_back, mat_wall_back] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("wall_back", cornellbox);
         auto [rectlight_obj, geo_rectlight, rectlight] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Light>("rectlight");
-        scene->CreateSObj<ImGUIExample>("imguiExample");
+        // scene->CreateSObj<ImGUIExample>("imguiExample");
         auto [env_obj, env_light] = scene->CreateSObj<Cmpt::Light>("env light");
         auto env_texture = new Texture2D{ "../data/textures/newport_loft.hdr" };
         env_texture->inv_v = true;
