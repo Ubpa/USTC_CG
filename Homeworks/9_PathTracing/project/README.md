@@ -46,7 +46,7 @@
   - Generate
   - Open Project，打开 vs2019
 - VS 2019
-  - （可选）找到项目 `INSTALL`，右键执行，安装 `Ubpa` 系列库（编译时间较久）
+  - （可选）找到项目 `INSTALL`，右键执行，安装 `Ubpa` 系列库（debug 和 release 都要安装一遍）（编译时间较久），然后重新 cmake
   - 找到项目 `HW9/HW9_UEditor`，右键设为启动项，并启动（编译时间较久）
 
 ## 框架说明

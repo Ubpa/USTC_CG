@@ -240,6 +240,15 @@ $$
 p(\pmb{\omega}_{i})=\frac{wh}{2\pi^2\sin\theta}p_{\text{img}}(i,j)
 $$
 
+> **补充** 
+>
+> - $i \in [0, w]$，$w$ 是图像宽度
+> - $j\in[0,h]$，$h$ 是图像高度
+> - $u,v\in[0,1]$，且 $u=i/w$，$v=j/h$ 
+> - $\theta\in[0,\pi]$，$\theta=\pi(1-v)$ 
+> - $\phi\in[0,2\pi]$，$\phi=2\pi u$ 
+> - $\pmb{\omega}_i=(\sin\theta\sin\phi,\cos\theta,\sin\theta\cos\phi)$ 
+
 ### 2.3 搭建场景并渲染
 
 框架目前提供了两种方式（未来可能新增第三种方式——UI 编辑）创建场景
