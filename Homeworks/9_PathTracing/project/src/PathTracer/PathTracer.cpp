@@ -170,8 +170,12 @@ PathTracer::SampleLightResult PathTracer::SampleLight(const IntersectorClosest::
 	rgbf albedo = brdf->Albedo(intersection.uv);
 	float metalness = brdf->Metalness(intersection.uv);
 	float roughness = brdf->Roughness(intersection.uv);
-	float lambda = (1 + metalness) / 2 * (1 - stdBRDF::Alpha(roughness)); // 0 - 1
-	float p_mat = lambda; // 1 / (2 - lambda); // 0.5 - 1
+	//          roughness    0     0.5     1
+	// metalness----------------------------
+	//     0    |           0.5    0.38    0
+	//    0.5   |           0.75   0.56    0
+	//     1    |            1     0.75    0
+	float p_mat = (1 + metalness) / 2 * (1 - stdBRDF::Alpha(roughness)); // 0 - 1
 
 	auto w2l = l2w->value->inverse();
 
@@ -215,7 +219,7 @@ PathTracer::SampleLightResult PathTracer::SampleLight(const IntersectorClosest::
 				// pd_mat : dw -> dA
 				float dist2 = light_p.distance2(p_on_light);
 				float cos_theta_l = (-light_wi)[1];
-				pd_mat = dist2 * pd_mat / std::abs(cos_theta_l);
+				pd_mat *= std::abs(cos_theta_l) / dist2;
 			}
 			else {
 				pd_light = 0.f;
@@ -248,7 +252,7 @@ PathTracer::SampleLightResult PathTracer::SampleLight(const IntersectorClosest::
 
 			// pd_mat : dw -> dA
 			float cos_theta_l = (-light_wi)[1];
-			pd_mat = dist2 * pd_mat / std::abs(cos_theta_l);
+			pd_mat *= std::abs(cos_theta_l) / dist2;
 		}
 	}
 	else if (vtable_is<EnvLight>(light->light.get())) {

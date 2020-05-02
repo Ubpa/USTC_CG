@@ -4,7 +4,7 @@
 
 - v0.0.7
   - 修复 `SampleBRDF()` 在 `pd==0` 时引发的 bug
-  - `SampleLight()` 给面光源添加了**多重重要性采样**，从而修复了金色噪点问题
+  - `SampleLight()` 给面光源添加了**多重重要性采样**，~~从而修复了金色噪点问题~~ 
   - `CMakeLists.txt` 大幅优化
 - v0.0.6
   - `Inspector` 添加 `range` 
