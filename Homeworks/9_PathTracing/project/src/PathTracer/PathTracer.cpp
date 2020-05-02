@@ -36,7 +36,7 @@ void PathTracer::Run() {
 
 #ifdef NDEBUG
 	const size_t core_num = std::thread::hardware_concurrency();
-	auto work = [this, core_num, spp](size_t id) {
+	auto work = [this, core_num](size_t id) {
 		for (size_t j = id; j < img->height; j += core_num) {
 			for (size_t i = 0; i < img->width; i++) {
 				for (size_t k = 0; k < spp; k++) {
