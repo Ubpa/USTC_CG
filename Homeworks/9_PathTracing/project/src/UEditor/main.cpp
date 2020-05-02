@@ -10,7 +10,7 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    Engine::Instance().Init("Ubpa@2020 UEditor v0.0.6");
+    Engine::Instance().Init("Ubpa@2020 UEditor v0.0.7");
     Editor::OnRegister();
 
     const char* path = argc == 2 ? argv[1] : "../data/models/uscene.json";

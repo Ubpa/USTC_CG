@@ -68,7 +68,7 @@ void PathTracer::Run() {
 				rgbf Lo;
 				do { Lo = Shade(IntersectorClosest::Instance().Visit(&bvh, r), -r.dir, true); }
 				while (Lo.has_nan());
-				img->At<rgbf>(i, j) += Lo / spp;
+				img->At<rgbf>(i, j) += Lo / static_cast<float>(spp);
 			}
 		}
 		float progress = (j + 1) / float(img->height);
@@ -167,6 +167,10 @@ PathTracer::SampleLightResult PathTracer::SampleLight(const IntersectorClosest::
 	if (!mat) return rst; // invalid
 	auto brdf = dynamic_cast<const stdBRDF*>(mat->material.get());
 	if (!brdf) return rst; // not support
+
+	if (wo.dot(intersection.n.cast_to<vecf3>()) < 0)
+		return rst;
+
 	rgbf albedo = brdf->Albedo(intersection.uv);
 	float metalness = brdf->Metalness(intersection.uv);
 	float roughness = brdf->Roughness(intersection.uv);
