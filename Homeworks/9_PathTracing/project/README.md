@@ -2,6 +2,10 @@
 
 ## Change Log
 
+- v0.0.7
+  - 修复 `SampleBRDF()` 在 `pd==0` 时引发的 bug
+  - `SampleLight()` 给面光源添加了**多重重要性采样**，从而修复了金色噪点问题
+  - `CMakeLists.txt` 大幅优化
 - v0.0.6
   - `Inspector` 添加 `range` 
   - `stdBRDF` 在入/出射方向在表面下方时 `PDF == 0` 
@@ -56,16 +60,16 @@
 
 本框架涉及的依赖库如下
 
-- [UCMake](https://github.com/Ubpa/UCMake) v0.4.2：CMake 工具库
-- [UTemplate](https://github.com/Ubpa/UTemplate) v0.3.3：C++ Template 库
-- [UDP](https://github.com/Ubpa/UDP) v0.4.1：设计模式
-- [UBL](https://github.com/Ubpa/UBL) v0.1.3：基本库
-- [UGM](https://github.com/Ubpa/UGM) v0.5.3：图形数学库
-- [UECS](https://github.com/Ubpa/UECS) v0.6.0：Entity-Component-System
-- [UScene](https://github.com/Ubpa/UScene) v0.5.4：场景库
-- [UGL](https://github.com/Ubpa/UGL) v0.2.3：C++ OpenGL Wrapper
-- [URTR](https://github.com/Ubpa/URTR) v0.0.9：实时渲染器
-- [UEngine](https://github.com/Ubpa/UEngine) v0.0.6：引擎（实时渲染器 + ECS + imgui）
+- [UCMake](https://github.com/Ubpa/UCMake) v0.5.0：CMake 工具库
+- [UTemplate](https://github.com/Ubpa/UTemplate) v0.3.4：C++ Template 库
+- [UDP](https://github.com/Ubpa/UDP) v0.4.2：设计模式
+- [UBL](https://github.com/Ubpa/UBL) v0.1.4：基本库
+- [UGM](https://github.com/Ubpa/UGM) v0.5.4：图形数学库
+- [UECS](https://github.com/Ubpa/UECS) v0.6.1：Entity-Component-System
+- [UScene](https://github.com/Ubpa/UScene) v0.5.5：场景库
+- [UGL](https://github.com/Ubpa/UGL) v0.2.4：C++ OpenGL Wrapper
+- [URTR](https://github.com/Ubpa/URTR) v0.0.10：实时渲染器
+- [UEngine](https://github.com/Ubpa/UEngine) v0.0.7：引擎（实时渲染器 + ECS + imgui）
 
 > 第三方库：[glad](https://github.com/Dav1dde/glad)，[glfw](https://github.com/glfw/glfw)，[imgui](https://github.com/ocornut/imgui)，[stb](https://github.com/nothings/stb)，[xsimd](https://github.com/xtensor-stack/xsimd)，[cpp-taskflow](https://github.com/cpp-taskflow/cpp-taskflow)，[RapidJSON](https://github.com/Tencent/rapidjson)，[tinyobjloader](https://github.com/tinyobjloader/tinyobjloader) 
 
@@ -80,7 +84,8 @@
 
 - WASDQE 移动相机，按住鼠标右键并移动鼠标可旋转镜头
 - 按 `P` 可启动路径追踪，控制台调试窗口可看到进度，达到 `1` 后会将渲染结果保存为 [data/](data/)`rst.png` （此部分逻辑位于 [src/UEditor/Cmpt/PathTracerAgency.h](src/UEditor/Cmpt/PathTracerAgency.h) 和 [src/UEditor/Cmpt/PathTracerAgency.cpp](src/UEditor/Cmpt/PathTracerAgency.cpp)）
-- `HW9_UEditor.exe` 可接受一个命令行参数——场景 json 文件路径，如未提供，则默认为 [../data/models/uscene.json](data/models/uscene.json)。在 VS2019 中，可右键项目 -> 属性 -> 调试 -> 命令参数中填写命令行参数，如 `../data/models/uscene.json`，也可在编译后在 `bin/` 下用命令行执行 `HW9_UEditor.exe`。
+- 在 `Hierarchy` 中找到 `scene` 下的 `camera_obj`，点击后在 `Inspector` 的 `PathTracerAgency` 中可调节离线渲染的 `spp` 和 `width` 
+- `HW9_UEditor.exe` 可接受一个命令行参数——场景 json 文件路径，如未提供，则默认为 [../data/models/uscene.json](data/models/uscene.json)。在 VS2019 中，可右键项目 -> 属性 -> 调试 -> 命令参数中填写命令行参数，如 `../data/models/uscene.json`，也可在编译后在 `bin/` 下用命令行执行 `HW9_UEditor.exe` 
 - 在 `Hierarchy` 中选择一个 `SObj`（**S**cene **Obj**ect） 后，按住 `alt` 键可以启动 ArcBall 功能，鼠标点击左键开始旋转物体，释放鼠标左键结束旋转，可在 `Editor Scene` 中找到 `SObj : ui` 下的 `ArcBall` 组件配置方向反转和旋转速度。
 - 在 `Hierarchy` 中选择一个 `SObj`（**S**cene **Obj**ect） 后，`Inspector` 可查看其组件，部分组件的部分域可修改（如 `Cmpt::Position::value`）
 - 程序运行结束后，控制台调试窗口会输出场景的序列化结果
@@ -88,7 +93,7 @@
 ## 开发手册
 
 - 完成 [src/PathTracer/PathTracer.cpp](src/PathTracer/PathTracer.cpp) 中 `PathTracer::Shade` 的 TODO 部分
-- 在 `PathTracer::PathTracer` 中构建环境贴图的别名表，然后在 `PathTracer::SampleLight` 中实现 `EnvLight::Sample()` 和 `EnvLight::PDF(<wi>)` 的等价函数，但用上别名法
+- 在 `PathTracer::PathTracer` 中构建环境贴图的别名表，然后在 `PathTracer::SampleLight` 中实现 `EnvLight::Sample()` 和 `EnvLight::PDF()` 的等价函数，用上别名法
 - 在 [src/UEditor/GenScene.cpp](src/UEditor/GenScene.cpp) 中模仿 `GenScene0` 来增加场景（添加新的函数 `GenScene1`，并修改函数 `GenScene`，之后在 [src/UEditor/main.cpp](src/UEditor/main.cpp) 中修改 `GenScene(0)`（可改为控制台输入数字）
 - 模仿 `uscene.json` 来创建场景
 

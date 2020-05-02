@@ -8,7 +8,6 @@
 #include <UScene/core/Cmpt/SObjPtr.h>
 
 #include <_deps/imgui/imgui.h>
-#include <_deps/taskflow/taskflow.hpp>
 #include <UBL/Image.h>
 #include <UEngine/SceneMngr.h>
 
@@ -27,12 +26,11 @@ void Cmpt::PathTracerAgency::OnUpdate(const Cmpt::Camera* cam, const Cmpt::L2W* 
 	auto& io = ImGui::GetIO();
 	float ar = cam->ar;
 	if (io.KeysDown['P']) {
-		ptr->value->AddCommand([sobj = ptr->value.get(), ar]() {
-			thread ptThread([sobj, ar]() {
-				size_t width = 400;
+		ptr->value->AddCommand([this, sobj = ptr->value.get(), ar]() {
+			thread ptThread([this, sobj, ar]() {
 				auto height = static_cast<size_t>(width / ar);
 				Image img(width, height, 3);
-				PathTracer path_tracer(SceneMngr::Instance().actived_scene, sobj, &img);
+				PathTracer path_tracer(SceneMngr::Instance().actived_scene, sobj, &img, spp);
 				path_tracer.Run();
 				// post process
 

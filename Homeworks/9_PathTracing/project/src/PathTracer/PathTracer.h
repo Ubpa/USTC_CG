@@ -8,7 +8,7 @@ namespace Ubpa {
 
 	class PathTracer {
 	public:
-		PathTracer(const Scene* scene, const SObj* cam_obj, Image* img);
+		PathTracer(const Scene* scene, const SObj* cam_obj, Image* img, size_t spp);
 
 		void Run();
 
@@ -22,10 +22,10 @@ namespace Ubpa {
 			pointf3 x{ 0.f }; // position on light
 			bool is_infinity{ false }; // infinity distance
 		};
-		SampleLightResult SampleLight(IntersectorClosest::Rst intersection, const vecf3& wo, const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) const;
+		SampleLightResult SampleLight(const IntersectorClosest::Rst& intersection, const vecf3& wo, const Cmpt::Light* light, const Cmpt::L2W* l2w, const Cmpt::SObjPtr* ptr) const;
 
 		// wi (normalized), pd (probability density)
-		static std::tuple<vecf3, float> SampleBRDF(IntersectorClosest::Rst intersection, const vecf3& wo);
+		static std::tuple<vecf3, float> SampleBRDF(const IntersectorClosest::Rst& intersection, const vecf3& wo);
 		static rgbf BRDF(IntersectorClosest::Rst intersection, const vecf3& wi, const vecf3& wo);
 
 		const Scene* const scene;
@@ -34,6 +34,7 @@ namespace Ubpa {
 
 		BVH bvh;
 
+		const size_t spp;
 		const Cmpt::Camera* const cam;
 		const Cmpt::Camera::CoordinateSystem ccs;
 	};

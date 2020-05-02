@@ -13,6 +13,10 @@
 namespace Ubpa::Cmpt::detail::dynamic_reflection {
     void ReflRegister_PathTracerAgency() {
         Reflection<PathTracerAgency>::Instance() // name : class Ubpa::Cmpt::PathTracerAgency
+            .Register(&PathTracerAgency::spp, "spp") //  size_t
+            .Register("spp", "range", "1,")
+            .Register(&PathTracerAgency::width, "width") //  size_t
+            .Register("width", "range", "100,")
             ;
         if constexpr (std::is_base_of_v<Component, PathTracerAgency>) {
             Reflection<PathTracerAgency>::Instance().RegisterConstructor([](SObj* sobj) {

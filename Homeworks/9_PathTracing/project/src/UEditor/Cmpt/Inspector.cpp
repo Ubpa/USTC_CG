@@ -48,7 +48,7 @@ private:
 			Primitive*, Ubpa::Light*, Ubpa::Material*,
 			Texture2D*,
 
-			bool, float, 
+			bool, float, int, size_t,
 
 			valf1, valf2, valf3, valf4,
 			//vali1, vali2, vali3, vali4,
@@ -114,6 +114,44 @@ protected:
 		}
 
 		ImGui::DragScalar((string(classname) + "::" + name).c_str(), ImGuiDataType_Float, &f, 0.01f, &f32_min, &f32_max, "%f", 1.0f);
+	};
+
+	void ImplVisit(int& i, string_view classname, const string& name, ReflectionBase& refl) {
+		int i_max = numeric_limits<int>::max();
+		int i_min = -numeric_limits<int>::max();
+
+		// range
+		auto range = refl.FieldMeta(name, ReflAttr::range);
+		auto seperator = range.find(',');
+		if (seperator != string::npos) {
+			auto min_str = range.substr(0, seperator);
+			auto max_str = range.substr(seperator + 1, range.size() - seperator - 1);
+			if (!min_str.empty())
+				i_min = static_cast<size_t>(atoi(min_str.data()));
+			if (!max_str.empty())
+				i_max = static_cast<size_t>(atoi(max_str.data()));
+		}
+
+		ImGui::DragInt((string(classname) + "::" + name).c_str(), &i, 1, i_min, i_max);
+	};
+
+	void ImplVisit(size_t& s, string_view classname, const string& name, ReflectionBase& refl) {
+		size_t s_max = numeric_limits<size_t>::max();
+		size_t s_min = numeric_limits<size_t>::min();
+
+		// range
+		auto range = refl.FieldMeta(name, ReflAttr::range);
+		auto seperator = range.find(',');
+		if (seperator != string::npos) {
+			auto min_str = range.substr(0, seperator);
+			auto max_str = range.substr(seperator + 1, range.size() - seperator - 1);
+			if (!min_str.empty())
+				s_min = static_cast<size_t>(atoi(min_str.data()));
+			if (!max_str.empty())
+				s_max = static_cast<size_t>(atoi(max_str.data()));
+		}
+
+		ImGui::DragScalar((string(classname) + "::" + name).c_str(), ImGuiDataType_U64, &s, 1, &s_min, &s_max);
 	};
 
 	void ImplVisit(bool& b, string_view classname, const string& name, ReflectionBase& refl) {

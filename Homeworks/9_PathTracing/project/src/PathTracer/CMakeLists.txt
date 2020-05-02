@@ -1,3 +1,5 @@
-Ubpa_AddTarget(MODE "LIB"
-	LIBS "Ubpa::UEngine_core"
+Ubpa_AddTarget(
+  MODE STATIC
+  LIB
+    Ubpa::UEngine_core
 )
