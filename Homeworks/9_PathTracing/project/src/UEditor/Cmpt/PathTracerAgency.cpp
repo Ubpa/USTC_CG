@@ -26,8 +26,8 @@ void Cmpt::PathTracerAgency::OnUpdate(const Cmpt::Camera* cam, const Cmpt::L2W* 
 	auto& io = ImGui::GetIO();
 	float ar = cam->ar;
 	if (io.KeysDown['P']) {
-		ptr->value->AddCommand([this, sobj = ptr->value.get(), ar]() {
-			thread ptThread([this, sobj, ar]() {
+		ptr->value->AddCommand([spp = this->spp, width = this->width, sobj = ptr->value.get(), ar]() {
+			thread ptThread([spp, width, sobj, ar]() {
 				auto height = static_cast<size_t>(width / ar);
 				Image img(width, height, 3);
 				PathTracer path_tracer(SceneMngr::Instance().actived_scene, sobj, &img, spp);
