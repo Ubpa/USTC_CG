@@ -217,9 +217,9 @@ $L _ {\text{dir}}$ 在各光源区域采样
 $$
 \begin{aligned}
 1=\int _ {I}p _ {\text{img}}(i,j)\mathbb{d}i\mathbb{d}j
-&=\int _ {\Theta}p _ {\text{img}}(\theta,\phi)\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\theta\mathbb{d}\phi\newline 
-&=\int _ {A}p _ {\text{img}}(A)\left|\det J _ A\Theta\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}A\newline 
-&=\int _ {\Omega}p _ {\text{img}}(\pmb{\omega} _ {i})\left|\frac{\mathrm{d}A}{\mathrm{d}\pmb{\omega} _ {i}}\right|\left|\det J _ A{\Theta}\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\pmb{\omega} _ {i}\newline 
+&=\int _ {\Theta}p _ {\text{img}}(\theta,\phi)\left|\frac{\partial(i,j)}{\partial(\theta,\phi)}\right|\mathbb{d}\theta\mathbb{d}\phi\newline 
+&=\int _ {A}p _ {\text{img}}(A)\left|\det J _ A\Theta\right|\left|\frac{\partial(i,j)}{\partial(\theta,\phi)}\right|\mathbb{d}A\newline 
+&=\int _ {\Omega}p _ {\text{img}}(\pmb{\omega} _ {i})\left|\frac{\mathrm{d}A}{\mathrm{d}\pmb{\omega} _ {i}}\right|\left|\det J _ A{\Theta}\right|\left|\frac{\partial(i,j)}{\partial(\theta,\phi)}\right|\mathbb{d}\pmb{\omega} _ {i}\newline 
 &=\int _ {\Omega}p(\pmb{\omega} _ {i})\mathbb{d}\pmb{\omega} _ {i}\newline 
 \end{aligned}
 $$
@@ -231,7 +231,7 @@ $$
 $$
 \left|\frac{\mathrm{d}\pmb{\omega} _ {i}}{\mathrm{d}A}\right|=\frac{|\cos\theta _ {o}|}{\|\pmb{x}-\pmb{y}\|^2}=\frac{1}{R^2}\newline 
 \left|\det J _ A\Theta\right|=\frac{1}{R^2\sin\theta}\newline 
-\left|\frac{\partial(i,j)}{\partial(\theta,\phi)}\right|=\frac{wh}{2\pi^2}
+\left|\frac{\partialial(i,j)}{\partialial(\theta,\phi)}\right|=\frac{wh}{2\pi^2}
 $$
 
 则
