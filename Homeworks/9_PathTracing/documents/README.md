@@ -67,7 +67,7 @@ $$
 $$
 \begin{aligned}
 L _ {r}(\pmb{p},\pmb{\omega} _ {o})
-&=\int _ {\pmb{p},\pmb{\omega} _ {o},\pmb{\omega} _ {i}}\left(L _ {e}(\pmb{p}^\prime,-\pmb{\omega} _ {i})+L _ {r}(\pmb{p}^\prime,-\pmb{\omega} _ {i})\right)\\
+&=\int _ {\pmb{p},\pmb{\omega} _ {o},\pmb{\omega} _ {i}}\left(L _ {e}(\pmb{p}^\prime,-\pmb{\omega} _ {i})+L _ {r}(\pmb{p}^\prime,-\pmb{\omega} _ {i})\right)\newline 
 &=\int _ {\pmb{p},\pmb{\omega} _ {o},\pmb{\omega} _ {i}}L _ {e}(\pmb{p}^\prime,-\pmb{\omega} _ {i})
 +\int _ {\pmb{p},\pmb{\omega} _ {o},\pmb{\omega} _ {i}}L _ {r}(\pmb{p}^\prime,-\pmb{\omega} _ {i})
 \end{aligned}
@@ -88,7 +88,7 @@ $$
 
 其中 $\pmb{p}$， $\pmb{\omega} _ {o}$ 和 $\pmb{\omega} _ {i}$ 可用三点确定，如下图所示
 
-![xyz.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC _ CG _ Data@master/Homeworks/09 _ PathTracing/xyz.jpg)
+![xyz.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/xyz.jpg)
 
 > 图中 $\pmb{x}$ 即为 $\pmb{p}$，$\pmb{y}$ 即为 $\pmb{p}^\prime$ 
 
@@ -135,9 +135,9 @@ $$
 
 ### 1.4 蒙特卡洛积分与重要性采样
 
-![mc.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC _ CG _ Data@master/Homeworks/09 _ PathTracing/mc.jpg)
+![mc.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/mc.jpg)
 
-![is.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC _ CG _ Data@master/Homeworks/09 _ PathTracing/is.jpg)
+![is.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/is.jpg)
 
 > **补充** 
 >
@@ -180,7 +180,7 @@ $$
 $$
 \begin{aligned}
 L _ {\text{dir}}(\pmb{x}\to\pmb{z})
-&\approx\sum _ {i=1}^{N _ {e}}\sum _ {j=1}^{N _ {i}}\frac{f _ {r}(\pmb{y} _ {i}^{(j)}\to\pmb{x}\to\pmb{z})L _ {e}(\pmb{y} _ {i}^{(j)}\to\pmb{x})G(\pmb{x}\to\pmb{y} _ {i}^{(j)})}{p(\pmb{y} _ {i}^{(j)})}\\
+&\approx\sum _ {i=1}^{N _ {e}}\sum _ {j=1}^{N _ {i}}\frac{f _ {r}(\pmb{y} _ {i}^{(j)}\to\pmb{x}\to\pmb{z})L _ {e}(\pmb{y} _ {i}^{(j)}\to\pmb{x})G(\pmb{x}\to\pmb{y} _ {i}^{(j)})}{p(\pmb{y} _ {i}^{(j)})}\newline 
 L _ {\text{indir}}(\pmb{p},\pmb{\omega} _ {o})
 &\approx\sum _ {k=1}^{N}\frac{f _ {r}(\pmb{p},\pmb{\omega} _ {i}^{(k)},\pmb{\omega} _ {o})L _ {r}(\pmb{p}^{\prime(k)},-\pmb{\omega})\cos\theta _ {\pmb{\omega} _ {i},\pmb{n}(\pmb{p})}}{p(\pmb{\omega} _ {i}^{(k)})}
 \end{aligned}
@@ -206,7 +206,7 @@ $L _ {\text{dir}}$ 在各光源区域采样
 
 ### 2.2 环境光贴图重要性采样
 
-![is _ em.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC _ CG _ Data@master/Homeworks/09 _ PathTracing/is _ em.jpg)
+![is _ em.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/is_em.jpg)
 
 参考：[wiki | Alias _ method](https://en.wikipedia.org/wiki/Alias _ method) 
 
@@ -217,20 +217,20 @@ $L _ {\text{dir}}$ 在各光源区域采样
 $$
 \begin{aligned}
 1=\int _ {I}p _ {\text{img}}(i,j)\mathbb{d}i\mathbb{d}j
-&=\int _ {\Theta}p _ {\text{img}}(\theta,\phi)\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\theta\mathbb{d}\phi\\
-&=\int _ {A}p _ {\text{img}}(A)\left|\det J _ A\Theta\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}A\\
-&=\int _ {\Omega}p _ {\text{img}}(\pmb{\omega} _ {i})\left|\frac{\mathrm{d}A}{\mathrm{d}\pmb{\omega} _ {i}}\right|\left|\det J _ A{\Theta}\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\pmb{\omega} _ {i}\\
-&=\int _ {\Omega}p(\pmb{\omega} _ {i})\mathbb{d}\pmb{\omega} _ {i}\\
+&=\int _ {\Theta}p _ {\text{img}}(\theta,\phi)\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\theta\mathbb{d}\phi\newline 
+&=\int _ {A}p _ {\text{img}}(A)\left|\det J _ A\Theta\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}A\newline 
+&=\int _ {\Omega}p _ {\text{img}}(\pmb{\omega} _ {i})\left|\frac{\mathrm{d}A}{\mathrm{d}\pmb{\omega} _ {i}}\right|\left|\det J _ A{\Theta}\right|\left|\frac{\part(i,j)}{\part(\theta,\phi)}\right|\mathbb{d}\pmb{\omega} _ {i}\newline 
+&=\int _ {\Omega}p(\pmb{\omega} _ {i})\mathbb{d}\pmb{\omega} _ {i}\newline 
 \end{aligned}
 $$
 
 其中
 
-![dwi _ dA.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC _ CG _ Data@master/Homeworks/09 _ PathTracing/dwi _ dA.jpg)
+![dwi _ dA.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/dwi_dA.jpg)
 
 $$
-\left|\frac{\mathrm{d}\pmb{\omega} _ {i}}{\mathrm{d}A}\right|=\frac{|\cos\theta _ {o}|}{\|\pmb{x}-\pmb{y}\|^2}=\frac{1}{R^2}\\
-\left|\det J _ A\Theta\right|=\frac{1}{R^2\sin\theta}\\
+\left|\frac{\mathrm{d}\pmb{\omega} _ {i}}{\mathrm{d}A}\right|=\frac{|\cos\theta _ {o}|}{\|\pmb{x}-\pmb{y}\|^2}=\frac{1}{R^2}\newline 
+\left|\det J _ A\Theta\right|=\frac{1}{R^2\sin\theta}\newline 
 \left|\frac{\partial(i,j)}{\partial(\theta,\phi)}\right|=\frac{wh}{2\pi^2}
 $$
 
@@ -306,4 +306,3 @@ json 将对象视为一个**键值对**的集合，本框架也通过**反射机
 - 键名（通过查头文件获知）
 - 默认值（不必写出一个类的所有键值对，缺失的键值即视为默认值，可在头文件查到）
 - 路径（路径采用绝对路径或相对路径，目前相对路径的工作目录为 `bin/`，因此一般为 `../data/...`）
-
