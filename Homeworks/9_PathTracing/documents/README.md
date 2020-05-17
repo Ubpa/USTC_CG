@@ -208,7 +208,7 @@ $L _ {\text{dir}}$ 在各光源区域采样
 
 ![is _ em.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/is_em.jpg)
 
-参考：[wiki | Alias _ method](https://en.wikipedia.org/wiki/Alias _ method) 
+参考：[wiki | Alias _ method](https://en.wikipedia.org/wiki/Alias_method) 
 
 优点是采样时间复杂度为 $O(1)$ 
 
@@ -229,9 +229,11 @@ $$
 ![dwi _ dA.jpg](https://cdn.jsdelivr.net/gh/Ubpa/USTC_CG_Data@master/Homeworks/09_PathTracing/dwi_dA.jpg)
 
 $$
-\left|\frac{\mathrm{d}\pmb{\omega} _ {i}}{\mathrm{d}A}\right|=\frac{|\cos\theta _ {o}|}{\|\pmb{x}-\pmb{y}\|^2}=\frac{1}{R^2}\newline 
-\left|\det J _ A\Theta\right|=\frac{1}{R^2\sin\theta}\newline 
-\left|\frac{\partialial(i,j)}{\partialial(\theta,\phi)}\right|=\frac{wh}{2\pi^2}
+\begin{align}
+\left|\frac{\mathrm{d}\pmb{\omega} _ {i}}{\mathrm{d}A}\right|&=\frac{|\cos\theta _ {o}|}{\|\pmb{x}-\pmb{y}\|^2}=\frac{1}{R^2}\newline 
+\left|\det J _ A\Theta\right|&=\frac{1}{R^2\sin\theta}\newline 
+\left|\frac{\partial(i,j)}{\partial(\theta,\phi)}\right|&=\frac{wh}{2\pi^2}
+\end{align}
 $$
 
 则
