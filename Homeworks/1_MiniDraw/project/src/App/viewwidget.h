@@ -13,6 +13,8 @@
 #include <qevent.h>
 #include <qpainter.h>
 #include <QWidget>
+#include <QColorDialog>
+#include <QInputDialog>
 
 #include <vector>
 
@@ -32,7 +34,9 @@ private:
 	QPoint start_point_;
 	QPoint end_point_;
 	Shape::Type type_;
-	Shape* shape_;
+	Shape* currentShape_;
+	QPen currentPen_;
+
 	std::vector<Shape*> shape_list_;
 
 
@@ -52,6 +56,9 @@ public slots:
 	void setEllip();
 	void setPolyg();
 	void setFreeHand();
+	void setColor();
+	void setWidth();
+	void Undo();
 
 };
 

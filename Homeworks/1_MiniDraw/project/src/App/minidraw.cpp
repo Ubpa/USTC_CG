@@ -5,10 +5,12 @@ MiniDraw::MiniDraw(QWidget* parent)
 {
 	ui.setupUi(this);
 	view_widget_ = new ViewWidget();
+	setCentralWidget(view_widget_);
+
 	Creat_Action();
 	Creat_ToolBar();
 	Creat_Menu();
-	setCentralWidget(view_widget_);
+	this->setStyleSheet("background-color:white;");
 }
 
 void MiniDraw::Creat_Action()
@@ -29,6 +31,15 @@ void MiniDraw::Creat_Action()
 	
 	Action_FreeHand = new QAction(tr("&FreeHand"), this);
 	connect(Action_FreeHand, &QAction::triggered, view_widget_, &ViewWidget::setFreeHand);
+
+	Action_Undo = new QAction(tr("&Undo"), this);
+	connect(Action_Undo, &QAction::triggered, view_widget_, &ViewWidget::Undo);
+
+	Action_Color = new QAction(tr("&Color"), this);
+	connect(Action_Color, &QAction::triggered, view_widget_, &ViewWidget::setColor);
+	
+	Action_Width = new QAction(tr("&Width"), this);
+	connect(Action_Width, &QAction::triggered, view_widget_, &ViewWidget::setWidth);
 }
 
 void MiniDraw::Creat_ToolBar()
@@ -41,10 +52,15 @@ void MiniDraw::Creat_ToolBar()
 
 void MiniDraw::Creat_Menu()
 {
-	pMenu = menuBar()->addMenu(tr("&Figure Tool"));	pMenu->addAction(Action_About);	pMenu->addAction(Action_Line);	pMenu->addAction(Action_Rect);
-	pMenu->addAction(Action_Ellip);
-	pMenu->addAction(Action_Polyg);
-	pMenu->addAction(Action_FreeHand);
+	pMenuFigure = menuBar()->addMenu(tr("&Figure"));	pMenuFigure->addAction(Action_About);	pMenuFigure->addAction(Action_Line);	pMenuFigure->addAction(Action_Rect);
+	pMenuFigure->addAction(Action_Ellip);
+	pMenuFigure->addAction(Action_Polyg);
+	pMenuFigure->addAction(Action_FreeHand);
+
+	pMenuEdit = menuBar()->addMenu(tr("&Edit"));
+	pMenuEdit->addAction(Action_Undo);
+	pMenuEdit->addAction(Action_Color);
+	pMenuEdit->addAction(Action_Width);
 }
 
 void MiniDraw::AboutBox()

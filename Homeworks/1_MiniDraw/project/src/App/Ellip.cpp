@@ -10,6 +10,7 @@ Ellip::~Ellip()
 
 void Ellip::Draw(QPainter& painter)
 {
-	painter.drawEllipse(start, 
-		end.x() - start.x(), end.y() - start.y());
+	painter.setPen(pen_);
+	painter.drawEllipse(start_, 
+		end_.x() - start_.x(), end_.y() - start_.y());
 }

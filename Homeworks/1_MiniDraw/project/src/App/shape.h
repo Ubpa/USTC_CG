@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtGui>
+#include <qpainter.h>
 
 class Shape
 {
@@ -8,6 +9,7 @@ public:
 	Shape();
 	virtual ~Shape();
 	virtual void Draw(QPainter &paint) = 0;	virtual void set_mid(QPoint m);	void set_start(QPoint s);	void set_end(QPoint e);
+	void set_pen(QPen pen);
 
 public:
 	enum Type
@@ -21,7 +23,8 @@ public:
 	};
 	
 protected:
-	QPoint start;
-	QPoint end;
+	QPoint start_;
+	QPoint end_;
+	QPen pen_;
 };
 

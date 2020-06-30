@@ -5,7 +5,7 @@ ViewWidget::ViewWidget(QWidget* parent)
 {
 	ui.setupUi(this);
 	draw_status_ = false;
-	shape_ = NULL;
+	currentShape_ = NULL;
 	type_ = Shape::kDefault;
 }
 
@@ -46,6 +46,29 @@ void ViewWidget::setFreeHand()
 	type_ = Shape::kFreeHand;
 }
 
+void ViewWidget::setColor()
+{
+	QColor color = QColorDialog::getColor();
+	currentPen_.setColor(color);
+}
+
+void ViewWidget::setWidth()
+{
+	int width = QInputDialog::getInt(this, "width setting", "input width", 0, 0, 50);
+	currentPen_.setWidth(width);
+}
+
+void ViewWidget::Undo()
+{
+	if (shape_list_.empty())
+		return;
+	else
+	{
+		delete shape_list_.back();
+		shape_list_.pop_back();
+	}
+}
+
 void ViewWidget::mousePressEvent(QMouseEvent* event)
 {
 	if (Qt::LeftButton == event->button())
@@ -53,40 +76,41 @@ void ViewWidget::mousePressEvent(QMouseEvent* event)
 		switch (type_)
 		{
 		case Shape::kLine:
-			shape_ = new Line();
+			currentShape_ = new Line();
 			break;
 
 		case Shape::kRect:
-			shape_ = new Rect();
+			currentShape_ = new Rect();
 			break;
 
 		case Shape::kEllip:
-			shape_ = new Ellip();
+			currentShape_ = new Ellip();
 			break;
 
 		case Shape::kPolyg:
-			shape_ = new Polyg();
+			currentShape_ = new Polyg();
 			break;
 
 		case Shape::kFreeHand:
-			shape_ = new FreeHand();
+			currentShape_ = new FreeHand();
 			break;
 
 		case Shape::kDefault:
 			break;
 		}
-		if (shape_ != NULL)
+		if (currentShape_ != NULL)
 		{
 			draw_status_ = true;
 			start_point_ = end_point_ = event->pos();
-			shape_->set_start(start_point_);
-			shape_->set_end(end_point_);
+			currentShape_->set_start(start_point_);
+			currentShape_->set_end(end_point_);
+			currentShape_->set_pen(currentPen_);
 		}
 	}
 
 	if (Qt::RightButton == event->button() && Shape::kPolyg == type_)
 	{
-		shape_->set_mid(event->pos());
+		currentShape_->set_mid(event->pos());
 	}
 
 	update();	//QPaintEvent triggered
@@ -95,12 +119,12 @@ void ViewWidget::mousePressEvent(QMouseEvent* event)
 void ViewWidget::mouseMoveEvent(QMouseEvent* event)
 {
 	if (draw_status_ && type_ == Shape::kFreeHand)
-		shape_->set_mid(event->pos());
+		currentShape_->set_mid(event->pos());
 
-	if (draw_status_ && shape_ != NULL)
+	if (draw_status_ && currentShape_ != NULL)
 	{
 		end_point_ = event->pos();
-		shape_->set_end(end_point_);
+		currentShape_->set_end(end_point_);
 	}
 }
 
@@ -108,11 +132,11 @@ void ViewWidget::mouseReleaseEvent(QMouseEvent* event)
 {
 	if (Qt::LeftButton == event->button())
 	{
-		if (shape_ != NULL)
+		if (currentShape_ != NULL)
 		{
 			draw_status_ = false;
-			shape_list_.push_back(shape_);
-			shape_ = NULL;
+			shape_list_.push_back(currentShape_);
+			currentShape_ = NULL;
 		}
 	}
 }
@@ -128,8 +152,8 @@ void ViewWidget::paintEvent(QPaintEvent*)
 	}
 
 	//draw the shape that is being drawn
-	if (shape_ != NULL) {
-		shape_->Draw(painter);
+	if (currentShape_ != NULL) {
+		currentShape_->Draw(painter);
 	}
 
 	update();	//keep QPaintEvent triggered

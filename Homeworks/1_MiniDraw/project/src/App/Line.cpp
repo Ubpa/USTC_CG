@@ -10,5 +10,6 @@ Line::~Line()
 
 void Line::Draw(QPainter& painter)
 {
-	painter.drawLine(start, end);
+	painter.setPen(pen_);
+	painter.drawLine(start_, end_);
 }

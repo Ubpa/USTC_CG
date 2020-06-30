@@ -6,6 +6,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include <qmessagebox.h>
+#include <qtoolbar.h> 
 
 class MiniDraw : public QMainWindow
 {
@@ -15,14 +16,19 @@ public:
 	MiniDraw(QWidget *parent = 0);
 	~MiniDraw();
 
-	QMenu *pMenu;
+	QMenu *pMenuFigure;
+	QMenu *pMenuEdit;
 	QToolBar *pToolBar;
+
 	QAction *Action_About;
 	QAction *Action_Line;
 	QAction *Action_Rect;
 	QAction *Action_Ellip;
 	QAction *Action_Polyg;
 	QAction *Action_FreeHand;
+	QAction* Action_Undo;
+	QAction* Action_Color;
+	QAction *Action_Width;
 
 	void Creat_Menu();
 	void Creat_ToolBar();

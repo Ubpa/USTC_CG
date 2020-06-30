@@ -10,6 +10,7 @@ Rect::~Rect()
 
 void Rect::Draw(QPainter& painter)
 {
-	painter.drawRect(start.x(), start.y(),
-		end.x() - start.x(), end.y() - start.y());
+	painter.setPen(pen_);
+	painter.drawRect(start_.x(), start_.y(),
+		end_.x() - start_.x(), end_.y() - start_.y());
 }
