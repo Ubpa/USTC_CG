@@ -11,6 +11,14 @@ ViewWidget::ViewWidget(QWidget* parent)
 
 ViewWidget::~ViewWidget()
 {
+	for (size_t i = 0; i < shape_list_.size(); i++)
+	{
+		if (shape_list_[i])
+		{
+			delete shape_list_[i];
+			shape_list_[i] = NULL;
+		}
+	}
 }
 
 void ViewWidget::setLine()
@@ -23,6 +31,16 @@ void ViewWidget::setRect()
 	type_ = Shape::kRect;
 }
 
+void ViewWidget::setEllip()
+{
+	type_ = Shape::kEllip;
+}
+
+void ViewWidget::setPolyg()
+{
+	type_ = Shape::kPolyg;
+}
+
 void ViewWidget::mousePressEvent(QMouseEvent* event)
 {
 	if (Qt::LeftButton == event->button())
@@ -32,11 +50,16 @@ void ViewWidget::mousePressEvent(QMouseEvent* event)
 		case Shape::kLine:
 			shape_ = new Line();
 			break;
-		case Shape::kDefault:
-			break;
 
 		case Shape::kRect:
 			shape_ = new Rect();
+			break;
+
+		case Shape::kEllip:
+			shape_ = new Ellip();
+			break;
+
+		case Shape::kDefault:
 			break;
 		}
 		if (shape_ != NULL)
@@ -47,7 +70,7 @@ void ViewWidget::mousePressEvent(QMouseEvent* event)
 			shape_->set_end(end_point_);
 		}
 	}
-	update();
+	update();	//QPaintEvent triggered
 }
 
 void ViewWidget::mouseMoveEvent(QMouseEvent* event)
@@ -73,14 +96,16 @@ void ViewWidget::paintEvent(QPaintEvent*)
 {
 	QPainter painter(this);
 
+	//draw shapes that have been drawn
 	for (int i = 0; i < shape_list_.size(); i++)
 	{
 		shape_list_[i]->Draw(painter);
 	}
 
+	//draw the shape that is being drawn
 	if (shape_ != NULL) {
 		shape_->Draw(painter);
 	}
 
-	update();
+	update();	//keep QPaintEvent triggered
 }

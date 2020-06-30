@@ -6,6 +6,8 @@
 #include "shape.h"
 #include "Line.h"
 #include "Rect.h"
+#include "Ellip.h"
+#include "Polyg.h"
 
 #include <qevent.h>
 #include <qpainter.h>
@@ -40,10 +42,14 @@ public:
 
 public:
 	void paintEvent(QPaintEvent*);
+
 signals:
+
 public slots:
 	void setLine();
 	void setRect();
+	void setEllip();
+	void setPolyg();
 
 };
 

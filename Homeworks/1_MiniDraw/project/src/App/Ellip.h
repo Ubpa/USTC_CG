@@ -2,11 +2,11 @@
 
 #include "shape.h"
 
-class Line : public Shape
+class Ellip : public Shape
 {
 public:
-	Line();
-	~Line();
+	Ellip();
+	~Ellip();
 
 	void Draw(QPainter& painter);
 };
