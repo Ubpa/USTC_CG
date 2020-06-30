@@ -41,6 +41,11 @@ void ViewWidget::setPolyg()
 	type_ = Shape::kPolyg;
 }
 
+void ViewWidget::setFreeHand()
+{
+	type_ = Shape::kFreeHand;
+}
+
 void ViewWidget::mousePressEvent(QMouseEvent* event)
 {
 	if (Qt::LeftButton == event->button())
@@ -61,6 +66,10 @@ void ViewWidget::mousePressEvent(QMouseEvent* event)
 
 		case Shape::kPolyg:
 			shape_ = new Polyg();
+			break;
+
+		case Shape::kFreeHand:
+			shape_ = new FreeHand();
 			break;
 
 		case Shape::kDefault:
@@ -85,6 +94,9 @@ void ViewWidget::mousePressEvent(QMouseEvent* event)
 
 void ViewWidget::mouseMoveEvent(QMouseEvent* event)
 {
+	if (draw_status_ && type_ == Shape::kFreeHand)
+		shape_->set_mid(event->pos());
+
 	if (draw_status_ && shape_ != NULL)
 	{
 		end_point_ = event->pos();

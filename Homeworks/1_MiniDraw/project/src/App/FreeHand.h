@@ -4,11 +4,11 @@
 
 #include <vector>
 
-class Polyg : public Shape
+class FreeHand : public Shape
 {
 public:
-	Polyg();
-	~Polyg();
+	FreeHand();
+	~FreeHand();
 
 	void Draw(QPainter &painter);
 	void set_mid(QPoint m);

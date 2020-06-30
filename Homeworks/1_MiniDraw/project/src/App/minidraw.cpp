@@ -26,6 +26,9 @@ void MiniDraw::Creat_Action()
 
 	Action_Polyg = new QAction(tr("&Polyg"), this);
 	connect(Action_Polyg, &QAction::triggered, view_widget_, &ViewWidget::setPolyg);
+	
+	Action_FreeHand = new QAction(tr("&FreeHand"), this);
+	connect(Action_FreeHand, &QAction::triggered, view_widget_, &ViewWidget::setFreeHand);
 }
 
 void MiniDraw::Creat_ToolBar()
@@ -33,7 +36,7 @@ void MiniDraw::Creat_ToolBar()
 	pToolBar = addToolBar(tr("&Main"));	pToolBar->addAction(Action_About);	pToolBar->addAction(Action_Line);	pToolBar->addAction(Action_Rect);
 	pToolBar->addAction(Action_Ellip);
 	pToolBar->addAction(Action_Polyg);
-
+	pToolBar->addAction(Action_FreeHand);
 }
 
 void MiniDraw::Creat_Menu()
@@ -41,11 +44,12 @@ void MiniDraw::Creat_Menu()
 	pMenu = menuBar()->addMenu(tr("&Figure Tool"));	pMenu->addAction(Action_About);	pMenu->addAction(Action_Line);	pMenu->addAction(Action_Rect);
 	pMenu->addAction(Action_Ellip);
 	pMenu->addAction(Action_Polyg);
+	pMenu->addAction(Action_FreeHand);
 }
 
 void MiniDraw::AboutBox()
 {
-	QMessageBox::about(this, tr("MiniDraw by Adven-00"), tr("MiniDraw"));
+	QMessageBox::about(this, tr("MiniDraw"), tr("MiniDraw by Adven-00"));
 }
 
 MiniDraw::~MiniDraw()

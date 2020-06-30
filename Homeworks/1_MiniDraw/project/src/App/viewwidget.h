@@ -8,6 +8,7 @@
 #include "Rect.h"
 #include "Ellip.h"
 #include "Polyg.h"
+#include "FreeHand.h"
 
 #include <qevent.h>
 #include <qpainter.h>
@@ -50,6 +51,7 @@ public slots:
 	void setRect();
 	void setEllip();
 	void setPolyg();
+	void setFreeHand();
 
 };
 

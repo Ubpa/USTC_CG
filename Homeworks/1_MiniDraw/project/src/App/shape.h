@@ -17,6 +17,7 @@ public:
 		kRect = 2,
 		kEllip = 3,
 		kPolyg = 4,
+		kFreeHand = 5
 	};
 	
 protected:
