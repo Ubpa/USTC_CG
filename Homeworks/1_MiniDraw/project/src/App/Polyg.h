@@ -2,6 +2,7 @@
 
 #include "Shape.h"
 #include "Line.h"
+
 #include <vector>
 
 class Polyg : public Shape
@@ -11,8 +12,9 @@ public:
 	~Polyg();
 
 	void Draw(QPainter &painter);
+	void set_mid(QPoint m);
 
 private:
-	std::vector<Line> line_list;
+	std::vector<QPoint> points_;
 };
 

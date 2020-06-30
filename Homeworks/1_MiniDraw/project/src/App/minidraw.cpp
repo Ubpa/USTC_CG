@@ -21,25 +21,31 @@ void MiniDraw::Creat_Action()
 	Action_Rect = new QAction(tr("&Rect"), this);
 	connect(Action_Rect, &QAction::triggered, view_widget_, &ViewWidget::setRect);
 
-	Action_Ellip = new QAction(tr("&Ellipse"), this);
+	Action_Ellip = new QAction(tr("&Ellip"), this);
 	connect(Action_Ellip, &QAction::triggered, view_widget_, &ViewWidget::setEllip);
+
+	Action_Polyg = new QAction(tr("&Polyg"), this);
+	connect(Action_Polyg, &QAction::triggered, view_widget_, &ViewWidget::setPolyg);
 }
 
 void MiniDraw::Creat_ToolBar()
 {
 	pToolBar = addToolBar(tr("&Main"));	pToolBar->addAction(Action_About);	pToolBar->addAction(Action_Line);	pToolBar->addAction(Action_Rect);
 	pToolBar->addAction(Action_Ellip);
+	pToolBar->addAction(Action_Polyg);
+
 }
 
 void MiniDraw::Creat_Menu()
 {
 	pMenu = menuBar()->addMenu(tr("&Figure Tool"));	pMenu->addAction(Action_About);	pMenu->addAction(Action_Line);	pMenu->addAction(Action_Rect);
 	pMenu->addAction(Action_Ellip);
+	pMenu->addAction(Action_Polyg);
 }
 
 void MiniDraw::AboutBox()
 {
-	QMessageBox::about(this, tr("About"), tr("MiniDraw"));
+	QMessageBox::about(this, tr("MiniDraw by Adven-00"), tr("MiniDraw"));
 }
 
 MiniDraw::~MiniDraw()

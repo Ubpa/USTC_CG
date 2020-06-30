@@ -8,6 +8,10 @@ Shape::~Shape()
 {
 }
 
+void Shape::set_mid(QPoint m)
+{
+}
+
 void Shape::set_start(QPoint s)
 {
 	start = s;

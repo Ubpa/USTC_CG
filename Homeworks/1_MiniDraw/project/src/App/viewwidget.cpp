@@ -59,6 +59,10 @@ void ViewWidget::mousePressEvent(QMouseEvent* event)
 			shape_ = new Ellip();
 			break;
 
+		case Shape::kPolyg:
+			shape_ = new Polyg();
+			break;
+
 		case Shape::kDefault:
 			break;
 		}
@@ -70,6 +74,12 @@ void ViewWidget::mousePressEvent(QMouseEvent* event)
 			shape_->set_end(end_point_);
 		}
 	}
+
+	if (Qt::RightButton == event->button() && Shape::kPolyg == type_)
+	{
+		shape_->set_mid(event->pos());
+	}
+
 	update();	//QPaintEvent triggered
 }
 
@@ -84,11 +94,14 @@ void ViewWidget::mouseMoveEvent(QMouseEvent* event)
 
 void ViewWidget::mouseReleaseEvent(QMouseEvent* event)
 {
-	if (shape_ != NULL)
+	if (Qt::LeftButton == event->button())
 	{
-		draw_status_ = false;
-		shape_list_.push_back(shape_);
-		shape_ = NULL;
+		if (shape_ != NULL)
+		{
+			draw_status_ = false;
+			shape_list_.push_back(shape_);
+			shape_ = NULL;
+		}
 	}
 }
 
