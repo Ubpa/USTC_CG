@@ -1,7 +1,9 @@
 #pragma once
 
 #include <QVector2D>
+#include <QPainter>
 #include <QWidget>
+#include <cmath>
 
 class Warp
 {
@@ -9,12 +11,13 @@ public:
 	Warp() = default;
 	~Warp() = default;
 
-	virtual QPointF Output(QPointF p) = 0;
+	virtual void Render(QImage *ptr_image) = 0;
+	void SetBeginPoint(QPoint qb);
+	void SetEndPoint(QPoint qe);
+	void DrawControlPoints(QPainter *painter, QPoint *image_pos);
 
-	void SetControlPoint(QPointF q);
-	void SetControlVec(QVector2D v);
-
-private:
-	QVector<QPointF> control_points_;
-	QVector<QVector2D> control_vecs_;
+protected:
+	virtual QPoint Output(QPoint p) = 0;
+	QVector<QPoint> begin_points_;
+	QVector<QPoint> end_points_;
 };

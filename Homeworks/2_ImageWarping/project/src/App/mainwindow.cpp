@@ -75,11 +75,11 @@ void MainWindow::CreateActions()
 
 	action_warp_IDW_ = new QAction(tr("Warp(IDW)"), this);
 	action_warp_IDW_->setStatusTip(tr("Warp image using IDW"));
-	connect(action_warp_IDW_, &QAction::triggered, imagewidget_, &ImageWidget::Warp_IDW);
+	connect(action_warp_IDW_, &QAction::triggered, imagewidget_, &ImageWidget::SetIDW);
 
 	action_warp_RBF_ = new QAction(tr("Warp(RBF)"), this);
 	action_warp_RBF_->setStatusTip(tr("Warp image using RBF"));
-	connect(action_warp_RBF_, &QAction::triggered, imagewidget_, &ImageWidget::Warp_RBF);
+	connect(action_warp_RBF_, &QAction::triggered, imagewidget_, &ImageWidget::SetRBF);
 
 	action_gray_ = new QAction(tr("Grayscale"), this);
 	action_gray_->setStatusTip(tr("Gray-scale map"));

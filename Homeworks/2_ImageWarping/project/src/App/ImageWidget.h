@@ -1,5 +1,7 @@
 #pragma once
 #include <QWidget>
+#include <QLine>
+#include "WarpIDW.h"
 
 QT_BEGIN_NAMESPACE
 class QImage;
@@ -17,6 +19,8 @@ public:
 
 protected:
 	void paintEvent(QPaintEvent *paintevent);
+	void mousePressEvent(QMouseEvent *event);
+	void mouseReleaseEvent(QMouseEvent* event);
 
 public slots:
 	// File IO
@@ -29,11 +33,15 @@ public slots:
 	void Mirror(bool horizontal=false, bool vertical=true);		// Mirror image vertically or horizontally
 	void TurnGray();											// Turn image to gray-scale map
 	void Restore();												// Restore image to origin
-	void Warp_IDW();                                            // Warp image using IDW
-	void Warp_RBF();                                            // warp image using RBF
+	void SetIDW();                                            // Warp image using IDW
+	void SetRBF();                                            // warp image using RBF
 
 private:
+	Warp        *warp_;
 	QImage		*ptr_image_;				// image 
 	QImage		*ptr_image_backup_;
+	QPoint      *image_pos_;
+
+	bool warp_set_mode_;
 };
 
