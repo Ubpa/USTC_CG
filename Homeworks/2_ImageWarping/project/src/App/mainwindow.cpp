@@ -23,7 +23,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-
 }
 
 void MainWindow::closeEvent(QCloseEvent *e)
@@ -74,6 +73,18 @@ void MainWindow::CreateActions()
 	action_gray_->setStatusTip(tr("Gray-scale map"));
 	connect(action_gray_, &QAction::triggered, imagewidget_, &ImageWidget::TurnGray);
 
+	action_warp_IDW_ = new QAction(tr("Warp(IDW)"), this);
+	action_warp_IDW_->setStatusTip(tr("Warp image using IDW"));
+	connect(action_warp_IDW_, &QAction::triggered, imagewidget_, &ImageWidget::Warp_IDW);
+
+	action_warp_RBF_ = new QAction(tr("Warp(RBF)"), this);
+	action_warp_RBF_->setStatusTip(tr("Warp image using RBF"));
+	connect(action_warp_RBF_, &QAction::triggered, imagewidget_, &ImageWidget::Warp_RBF);
+
+	action_gray_ = new QAction(tr("Grayscale"), this);
+	action_gray_->setStatusTip(tr("Gray-scale map"));
+	connect(action_gray_, &QAction::triggered, imagewidget_, &ImageWidget::TurnGray);
+
 	action_restore_ = new QAction(tr("Restore"), this);
 	action_restore_->setStatusTip(tr("Show origin image"));
 	connect(action_restore_, &QAction::triggered, imagewidget_, &ImageWidget::Restore);
@@ -93,6 +104,8 @@ void MainWindow::CreateMenus()
 	menu_edit_->addAction(action_invert_);
 	menu_edit_->addAction(action_mirror_);
 	menu_edit_->addAction(action_gray_);
+	menu_edit_->addAction(action_warp_IDW_);
+	menu_edit_->addAction(action_warp_RBF_);
 	menu_edit_->addAction(action_restore_);
 }
 
@@ -108,6 +121,8 @@ void MainWindow::CreateToolBars()
 	toolbar_file_->addAction(action_invert_);
 	toolbar_file_->addAction(action_mirror_);
 	toolbar_file_->addAction(action_gray_);
+	toolbar_file_->addAction(action_warp_IDW_);
+	toolbar_file_->addAction(action_warp_RBF_);
 	toolbar_file_->addAction(action_restore_);
 }
 

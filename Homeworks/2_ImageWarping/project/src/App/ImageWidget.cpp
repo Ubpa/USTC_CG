@@ -155,3 +155,13 @@ void ImageWidget::Restore()
 	*(ptr_image_) = *(ptr_image_backup_);
 	update();
 }
+
+void ImageWidget::Warp_IDW()
+{
+	// todo
+}
+
+void ImageWidget::Warp_RBF()
+{
+	// todo
+}

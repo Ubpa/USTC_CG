@@ -29,6 +29,8 @@ public slots:
 	void Mirror(bool horizontal=false, bool vertical=true);		// Mirror image vertically or horizontally
 	void TurnGray();											// Turn image to gray-scale map
 	void Restore();												// Restore image to origin
+	void Warp_IDW();                                            // Warp image using IDW
+	void Warp_RBF();                                            // warp image using RBF
 
 private:
 	QImage		*ptr_image_;				// image 
