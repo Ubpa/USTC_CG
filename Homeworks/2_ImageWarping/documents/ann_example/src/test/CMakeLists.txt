@@ -1,1 +1,6 @@
-Ubpa_AddTarget(MODE "EXE" LIBS "UANN_ann_static")
+Ubpa_AddTarget(
+  TEST
+  MODE EXE
+  LIB
+    Ubpa::UANN_ann
+)
