@@ -98,6 +98,7 @@ int	DArray<DataType>::PrintArray()
 			printf(" %s: %lf ", typen, pData[i] );
 		else if( !strcmp( typen, "int" ) )
 			printf(" %s: %d ", typen, pData[i] );
+
 		printf("\n");
 	}
 
