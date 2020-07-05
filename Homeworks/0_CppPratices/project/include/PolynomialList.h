@@ -1,14 +1,23 @@
 #pragma once
-#ifndef POLYNOMIALLIST_H
-#define POLYNOMIALLIST_H
+
+#if defined(_WIN32) && defined(Ubpa_AsShared_PolynomialList)
+#  ifdef Ubpa_Export_PolynomialList
+#    define DECLSPEC_PolynomialList __declspec(dllexport)
+#  else
+#    define DECLSPEC_PolynomialList __declspec(dllimport)
+#  endif
+#else
+#  define DECLSPEC_PolynomialList
+#endif
 
 #include <list>
 #include <string>
 #include <vector>
 
-class PolynomialList {
+class DECLSPEC_PolynomialList PolynomialList
+{
 public:
-    PolynomialList() { }
+    PolynomialList() { };
     PolynomialList(const PolynomialList& other);
     PolynomialList(const std::string& file); // initialization using file
     PolynomialList(const double* cof, const int* deg, int n);
@@ -41,5 +50,3 @@ private:
 private:
     std::list<Term> m_Polynomial; // high degree -> low degree
 };
-
-#endif // POLYNOMIALLIST_H

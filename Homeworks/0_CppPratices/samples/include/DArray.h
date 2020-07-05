@@ -1,19 +1,17 @@
 #pragma once
-#ifndef _DYNAMICARRAY_H_
-#define _DYNAMICARRAY_H_
 
-#ifdef _WIN32
-#  ifdef DArray_EXPORTS
-#    define DECLSPEC __declspec(dllexport)
+#if defined(_WIN32) && defined(Ubpa_AsShared_DArray)
+#  ifdef Ubpa_Export_DArray
+#    define DECLSPEC_DArray __declspec(dllexport)
 #  else
-#    define DECLSPEC __declspec(dllimport)
+#    define DECLSPEC_DArray __declspec(dllimport)
 #  endif
-#else // non windows
-#  define DECLSPEC
+#else
+#  define DECLSPEC_DArray
 #endif
 
 // interfaces of Dynamic Array class DArray
-class DECLSPEC DArray {
+class DECLSPEC_DArray DArray {
 public:
 	DArray(); // default constructor
 	DArray(int nSize, double dValue = 0); // set an array with default values
@@ -40,12 +38,10 @@ public:
 private:
 	double* m_pData; // the pointer to the array memory
 	int m_nSize; // the size of the array
-	int m_nMax; // allocate enough memory
+	int m_nMax;
 
 private:
 	void Init(); // initilize the array
 	void Free(); // free the array
-	void Reserve(int nSize);
+	void Reserve(int nSize); // allocate enough memory
 };
-
-#endif // !_DYNAMICARRAY_H_

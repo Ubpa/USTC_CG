@@ -20,13 +20,13 @@ PolynomialList::PolynomialList(const vector<int>& deg, const vector<double>& cof
 
 double PolynomialList::coff(int i) const {
     // TODO
-    return 0.;
+    return 0.; // you should return a correct value
 }
 
 double& PolynomialList::coff(int i) {
     // TODO
     static double ERROR; // you should delete this line
-    return ERROR;
+    return ERROR; // you should return a correct value
 }
 
 void PolynomialList::compress() {
@@ -35,17 +35,17 @@ void PolynomialList::compress() {
 
 PolynomialList PolynomialList::operator+(const PolynomialList& right) const {
     // TODO
-    return {};
+    return {}; // you should return a correct value
 }
 
 PolynomialList PolynomialList::operator-(const PolynomialList& right) const {
     // TODO
-    return {};
+    return {}; // you should return a correct value
 }
 
 PolynomialList PolynomialList::operator*(const PolynomialList& right) const {
     // TODO
-    return {};
+    return {}; // you should return a correct value
 }
 
 PolynomialList& PolynomialList::operator=(const PolynomialList& right) {
@@ -59,11 +59,11 @@ void PolynomialList::Print() const {
 
 bool PolynomialList::ReadFromFile(const string& file) {
     // TODO
-    return false;
+    return false; // you should return a correct value
 }
 
 PolynomialList::Term& PolynomialList::AddOneTerm(const Term& term) {
     // TODO
     static Term ERROR; // you should delete this line
-    return ERROR;
+    return ERROR; // you should return a correct value
 }

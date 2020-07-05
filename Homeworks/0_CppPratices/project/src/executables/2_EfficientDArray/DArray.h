@@ -1,17 +1,7 @@
 #pragma once
 
-#if defined(_WIN32) && defined(Ubpa_AsShared_DArray)
-#  ifdef Ubpa_Export_DArray
-#    define DECLSPEC_DArray __declspec(dllexport)
-#  else
-#    define DECLSPEC_DArray __declspec(dllimport)
-#  endif
-#else
-#  define DECLSPEC_DArray
-#endif
-
 // interfaces of Dynamic Array class DArray
-class DECLSPEC_DArray DArray {
+class DArray {
 public:
 	DArray(); // default constructor
 	DArray(int nSize, double dValue = 0); // set an array with default values

@@ -38,7 +38,7 @@ void DArray::Free() {
 // get the size of the array
 int DArray::GetSize() const {
 	//TODO
-	return 0;
+	return 0; // you should return a correct value
 }
 
 // set the size of the array
@@ -50,7 +50,7 @@ void DArray::SetSize(int nSize) {
 const double& DArray::GetAt(int nIndex) const {
 	//TODO
 	static double ERROR; // you should delete this line
-	return ERROR;
+	return ERROR; // you should return a correct value
 }
 
 // set the value of an element 
@@ -62,7 +62,7 @@ void DArray::SetAt(int nIndex, double dValue) {
 const double& DArray::operator[](int nIndex) const {
 	//TODO
 	static double ERROR; // you should delete this line
-	return ERROR;
+	return ERROR; // you should return a correct value
 }
 
 // add a new element at the end of the array

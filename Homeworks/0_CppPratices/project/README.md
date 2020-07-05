@@ -42,44 +42,19 @@
 
 > 详细说明见于 [documents/4_list_Polynomial](../documents/4_list_Polynomial) 
 
-完成 [4_list_Polynomial](src/executables/4_list_Polynomial) 
+这里将 PolynomialList 编写成了动态库，具体查看 [src/libraries/shared](src/libraries/shared)，编译后会生成 [lib/](lib)CppPractices_libraries_shared(d).dll
+
+你需要补充完成 [src/libraries/shared/PolynomialList.cpp](src/libraries/shared/PolynomialList.cpp) 
+
+[4_list_Polynomial](src/executables/4_list_Polynomial) 会测试该动态库
 
 ###  小练习 5. 基于 `map` 的多项式类
 
 > 详细说明见于 [documents/5_map_Polynomial](../documents/5_map_Polynomial) 
 
-在文件夹 [src/executables/](src/executables) 中添加文件夹 `5_map_DArray`，并在其内
+这里将 PolynomialMap 编写成了静态库，具体查看 [src/libraries/static](src/libraries/static)，编译后会生成 [lib/](lib)CppPractices_libraries_static(d).dll
 
-- 添加文件 `PolynomialMap.h` 
-- 添加文件 `PolynomialMap.cpp` 
-- 添加文件 `main.cpp` 
-- 添加文件 `CMakeLists.txt`，同于 [src/executables/1_BasicDArray/CMakeLists.txt](src/executables/1_BasicDArray/CMakeLists.txt) 
+你需要补充完成 [src/libraries/static/PolynomialMap.cpp](src/libraries/static/PolynomialMap.cpp) 
 
-重新 CMake 后得到新子项目 5_map_DArray
-
-测试小练习 4 和小练习 5 的性能差异
-
-### 小练习 6. 静态库
-
-> 详细说明见于 [documents/6_Lib](../documents/6_Lib) 
-
-本练习无需编写任何代码，只需看看
-
-- [src/libraries/static/CMakeLists.txt](src/libraries/static/CMakeLists.txt) 
-- [src/executables/6_UseStaticLib](src/executables/6_UseStaticLib) 
-  - [src/executables/6_UseStaticLib/main.cpp](src/executables/6_UseStaticLib/CMakeLists.txt) 
-  - [src/executables/6_UseStaticLib/CMakeLists.txt](src/executables/6_UseStaticLib/CMakeLists.txt) 
-- [lib/](lib/) 
-
-### 小练习 7. 动态库
-
-> 详细说明见于 [documents/7_Dll](../documents/7_Dll) 
-
-本练习无需编写任何代码，只需看看
-
-- [src/libraries/shared/CMakeLists.txt](src/libraries/shared/CMakeLists.txt) 
-- [src/executables/7_UseSharedLib](src/executables/7_UseSharedLib) 
-  - [src/executables/7_UseSharedLib/main.cpp](src/executables/7_UseSharedLib/CMakeLists.txt) 
-  - [src/executables/7_UseSharedLib/CMakeLists.txt](src/executables/7_UseSharedLib/CMakeLists.txt) 
-- [bin/](bin/) 
+[5_map_Polynomial](src/executables/5_map_Polynomial) 会测试该静态库，另外该子项目还用到了小练习 4 的动态库 PolynomialList，其中会测试小练习 4 和小练习 5 的性能差异
 

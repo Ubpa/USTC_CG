@@ -1,4 +1,4 @@
-#include <DArray.h>
+#include "DArray.h"
 
 int main(int argc, char** argv) {
 	DArray a;

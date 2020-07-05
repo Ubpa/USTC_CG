@@ -1,8 +1,4 @@
 Ubpa_AddTarget(
   TEST
   MODE EXE
-  INC
-    "include"
-  SOURCE
-    "${PROJECT_SOURCE_DIR}/include/DArray.h"
 )
