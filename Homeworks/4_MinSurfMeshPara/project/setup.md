@@ -2,6 +2,10 @@
 
 ## 项目配置方式更新
 
+> 2020/07/06
+
+找到文件 `Num.h`，注释掉 29 - 46 行
+
 > 2020/03/18
 
 1. 删除 [4_MinSurfMeshPara/project/external](../4_MinSurfMeshPara/project/external) 文件夹
