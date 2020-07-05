@@ -3,7 +3,7 @@
 
 #include "DArray.h"
 
-#include <assert.h>
+#include <cassert>
 
 using namespace std;
 
@@ -34,7 +34,7 @@ DArray::~DArray() {
 
 // display the elements of the array
 void DArray::Print() const {
-	cout << "size= " << m_nSize << ":";
+	cout << "size = " << m_nSize << ":";
 	for (int i = 0; i < m_nSize; i++)
 		cout << " " << GetAt(i);
 

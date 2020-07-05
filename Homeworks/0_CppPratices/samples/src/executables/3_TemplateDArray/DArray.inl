@@ -71,19 +71,20 @@ void DArray<T>::Reserve(int nSize) {
 	if (m_nMax >= nSize)
 		return;
 
-	T* pData = new T[nSize];
+	while (m_nMax < nSize)
+		m_nMax *= 2;
+
+	T* pData = new T[m_nMax];
 
 	for (int i = 0; i < m_nSize; i++)
 		pData[i] = m_pData[i];
 
 	delete[] m_pData;
 	m_pData = pData;
-	m_nMax = nSize;
 }
 
 // set the size of the array
 template<typename T>
-// set the size of the array
 void DArray<T>::SetSize(int nSize) {
 	if (m_nSize == nSize)
 		return;
@@ -154,11 +155,15 @@ void DArray<T>::InsertAt(int nIndex, const T& dValue) {
 // overload operator '='
 template<typename T>
 DArray<T>& DArray<T>::operator = (const DArray& arr) {
+	if (this == &arr)
+		return *this;
+
 	delete[] m_pData;
 
 	m_nSize = arr.m_nSize;
-	m_nMax = arr.m_nSize;
-	m_pData = new T[m_nSize];
+	m_nMax = arr.m_nMax;
+
+	m_pData = new T[m_nMax];
 
 	for (int i = 0; i < m_nSize; i++)
 		m_pData[i] = arr[i];

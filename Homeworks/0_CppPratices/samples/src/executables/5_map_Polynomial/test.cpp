@@ -1,5 +1,5 @@
-#include "PolynomialList.h"
-#include "PolynomialMap.h"
+#include <PolynomialList.h>
+#include <PolynomialMap.h>
 #include "TestPolynomial.h"
 
 #include <string>

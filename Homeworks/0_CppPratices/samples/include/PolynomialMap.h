@@ -1,6 +1,4 @@
 #pragma once
-#ifndef POLYNOMIALMAP_H
-#define POLYNOMIALMAP_H
 
 #include <map>
 #include <string>
@@ -34,5 +32,3 @@ private:
 private:
     std::map<int, double> m_Polynomial; // deg -> cof
 };
-
-#endif // POLYNOMIALMAP_H

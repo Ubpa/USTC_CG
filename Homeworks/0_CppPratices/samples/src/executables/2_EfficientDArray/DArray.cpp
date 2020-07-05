@@ -66,21 +66,21 @@ void DArray::Reserve(int nSize) {
 	if (m_nMax >= nSize)
 		return;
 
-	double* pData = new double[nSize];
+	while (m_nMax < nSize)
+		m_nMax *= 2;
 
-	for (int i = 0; i < m_nSize; i++)
-		pData[i] = m_pData[i];
+	double* pData = new double[m_nMax];
+	memcpy(pData, m_pData, m_nSize * sizeof(double));
 
 	delete[] m_pData;
 	m_pData = pData;
-	m_nMax = nSize;
 }
 
 // set the size of the array
 void DArray::SetSize(int nSize) {
 	if (m_nSize == nSize)
 		return;
-
+	
 	Reserve(nSize);
 
 	for (int i = m_nSize; i < nSize; i++)
@@ -140,14 +140,10 @@ void DArray::InsertAt(int nIndex, double dValue) {
 
 // overload operator '='
 DArray& DArray::operator = (const DArray& arr) {
-	delete[] m_pData;
+	Reserve(arr.m_nSize);
 
 	m_nSize = arr.m_nSize;
-	m_nMax = arr.m_nSize;
-	m_pData = new double[m_nSize];
-
-	for (int i = 0; i < m_nSize; i++)
-		m_pData[i] = arr[i];
+	memcpy(m_pData, arr.m_pData, arr.m_nSize * sizeof(double));
 
 	return *this;
 }

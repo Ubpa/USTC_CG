@@ -1,6 +1,4 @@
 #pragma once
-#ifndef _DYNAMICARRAY_H_
-#define _DYNAMICARRAY_H_
 
 // interfaces of Dynamic Array class DArray
 class DArray {
@@ -11,6 +9,8 @@ public:
 	~DArray(); // deconstructor
 
 	void Print() const; // print the elements of the array
+
+	void Reserve(int nSize); // allocate enough memory
 
 	int GetSize() const; // get the size of the array
 	void SetSize(int nSize); // set the size of the array
@@ -35,7 +35,4 @@ private:
 private:
 	void Init(); // initilize the array
 	void Free(); // free the array
-	void Reserve(int nSize); // allocate enough memory
 };
-
-#endif // !_DYNAMICARRAY_H_

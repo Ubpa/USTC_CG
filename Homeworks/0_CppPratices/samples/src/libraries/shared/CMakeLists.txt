@@ -1,13 +1,19 @@
+set(c_options "")
+if(MSVC)
+  list(APPEND c_options "/wd4251")
+endif()
+
 Ubpa_AddTarget(
   TEST
   MODE SHARED
   INC
     "include"
   DEFINE
-    Ubpa_AsShared_DArray
+    Ubpa_AsShared_PolynomialList
   DEFINE_PRIVATE
-	Ubpa_Export_DArray
+	Ubpa_Export_PolynomialList
+  C_OPTION
+    ${c_options}
   SOURCE
-    "${PROJECT_SOURCE_DIR}/include/DArray.h"
-	"${PROJECT_SOURCE_DIR}/src/executables/2_EfficientDArray/DArray.cpp"
+    "${PROJECT_SOURCE_DIR}/include/PolynomialList.h"
 )
