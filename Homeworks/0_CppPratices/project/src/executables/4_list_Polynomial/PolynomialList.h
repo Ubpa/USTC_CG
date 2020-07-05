@@ -1,6 +1,4 @@
 #pragma once
-#ifndef POLYNOMIALLIST_H
-#define POLYNOMIALLIST_H
 
 #include <list>
 #include <string>
@@ -42,5 +40,3 @@ private:
 private:
     std::list<Term> m_Polynomial; // high degree -> low degree
 };
-
-#endif // POLYNOMIALLIST_H

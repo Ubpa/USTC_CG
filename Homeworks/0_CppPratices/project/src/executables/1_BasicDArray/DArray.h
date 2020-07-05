@@ -1,6 +1,4 @@
 #pragma once
-#ifndef _DYNAMICARRAY_H_
-#define _DYNAMICARRAY_H_
 
 // interfaces of Dynamic Array class DArray
 class DArray {
@@ -35,5 +33,3 @@ private:
 	void Init(); // initilize the array
 	void Free(); // free the array
 };
-
-#endif // !_DYNAMICARRAY_H_
