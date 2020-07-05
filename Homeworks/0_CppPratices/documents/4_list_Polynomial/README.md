@@ -14,10 +14,39 @@ http://staff.ustc.edu.cn/~lgliu/Courses/CodingTraining/CodingSkills/InsideSTL.ra
 
 是的，你实现的 template DArray 就是 `vector` 的基本原理，可以说是你已经写了一个 `vector` 的“雏形”！因此，你使用 STL 的 `vector` 及其他容器没有任何障碍！ 
 
+## 动态库
+
+动态链接库（Dynamic Link Library 或者 Dynamic-link Library，缩写为 DLL），是微软公司在微软 Windows 操作系统中，实现共享函数库概念的一种方式。这些库函数的扩展名是 ”.dll"、".ocx"（包含ActiveX控制的库）或者 ".drv"（旧式的系统驱动程序）。
+
+在 Windows 中，动态库项目默认不导出任何符号（全局变量，函数，类等），需要标记 `__declspec(dllexport)` 才表示导出该符号
+
+当使用动态库时，需要对导出的符号标记上 `__declspec(dllimport)` 才能导入该符号
+
+对于该需求，我们使用一个条件宏，用来表明是否导出/导出
+
+```c++
+#if defined(_WIN32) && defined(Ubpa_AsShared)
+#  ifdef Ubpa_Export
+#    define DECLSPEC __declspec(dllexport)
+#  else
+#    define DECLSPEC __declspec(dllimport)
+#  endif
+#else
+#  define DECLSPEC
+#endif
+```
+
+对于需要输出的类，在关键字 `class` 后添加 `DECLSPEC`，如下
+
+```C++
+class DECLSPEC DArray{ /*...*/ };
+```
+
 ## 作业要求
 
 - 学会使用 `vector` 和 `list`，并了解数组和链表的区别和各自的优点及不足；
-- 用 `list` 完成一个多项式的类，具体接口为：[PolynomialList.h](../../project/src/executables/4_list_Polynomial/PolynomialList.h) 
+- 了解生成和使用动态库
+- 用 `list` 完成一个多项式的类，具体接口为：[PolynomialList.h](../../project/include/PolynomialList.h) 
 
 **数据格式** 
 
