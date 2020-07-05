@@ -1,9 +1,8 @@
-#ifndef VIEWWIDGET_H
-#define VIEWWIDGET_H
+#pragma once
 
-#include "ui_viewwidget.h"
+#include <ui_viewwidget.h>
 
-#include "shape.h"
+#include "Shape.h"
 #include "Line.h"
 #include "Rect.h"
 
@@ -46,5 +45,3 @@ public slots:
 	void setRect();
 
 };
-
-#endif // VIEWWIDGET_H

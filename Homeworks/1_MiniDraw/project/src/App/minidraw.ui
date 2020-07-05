@@ -16,7 +16,6 @@
    <string>MiniDraw</string>
   </property>
   <widget class="QMenuBar" name="menuBar" />
-  <widget class="QToolBar" name="mainToolBar" />
   <widget class="QWidget" name="centralWidget" />
   <widget class="QStatusBar" name="statusBar" />
  </widget>

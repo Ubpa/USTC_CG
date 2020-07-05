@@ -1,5 +1,4 @@
-#ifndef MINIDRAW_H
-#define MINIDRAW_H
+#pragma once
 
 #include <ui_minidraw.h>
 #include <viewwidget.h>
@@ -7,19 +6,18 @@
 #include <QtWidgets/QMainWindow>
 #include <qmessagebox.h>
 
-class MiniDraw : public QMainWindow
-{
+class MiniDraw : public QMainWindow {
 	Q_OBJECT
 
 public:
-	MiniDraw(QWidget *parent = 0);
+	MiniDraw(QWidget* parent = 0);
 	~MiniDraw();
 
-	QMenu *pMenu;
-	QToolBar *pToolBar;
-	QAction *Action_About;
-	QAction *Action_Line;
-	QAction *Action_Rect;
+	QMenu* pMenu;
+	QToolBar* pToolBar;
+	QAction* Action_About;
+	QAction* Action_Line;
+	QAction* Action_Rect;
 
 	void Creat_Menu();
 	void Creat_ToolBar();
@@ -29,7 +27,5 @@ public:
 
 private:
 	Ui::MiniDrawClass ui;
-	ViewWidget*	view_widget_;
+	ViewWidget* view_widget_;
 };
-
-#endif // MINIDRAW_H
