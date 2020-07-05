@@ -5,8 +5,6 @@
 本项目目录包含以下若干子目录：
 
 - [src/](src/)：源代码
-- [include/](include/)：头文件
-  - [_deps/](include/_deps/)：依赖（目前为空）
 
 ## 使用说明
 
