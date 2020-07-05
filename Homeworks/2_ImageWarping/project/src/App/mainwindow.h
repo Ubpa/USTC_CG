@@ -11,6 +11,7 @@ QT_BEGIN_NAMESPACE
 	class QImage;
 	class QPainter;
 	class QRect;
+	class QCheckBox;
 	class ImageWidget;
 QT_END_NAMESPACE
 
@@ -53,7 +54,8 @@ private:
 	QAction     *action_warp_IDW_;
 	QAction     *action_warp_RBF_;
 
-	ImageWidget		*imagewidget_;
+	QCheckBox   *check_box_;
+	ImageWidget	*imagewidget_;
 };
 
 #endif // MAINWINDOW_H

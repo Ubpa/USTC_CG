@@ -15,6 +15,9 @@ MainWindow::MainWindow(QWidget *parent)
 	imagewidget_ = new ImageWidget();
 	setCentralWidget(imagewidget_);
 
+	check_box_ = new QCheckBox(tr("&Hide control points"), this);
+	connect(check_box_, &QCheckBox::stateChanged, imagewidget_, &ImageWidget::SetWarpDrawMode);
+
 	CreateActions();
 	CreateMenus();
 	CreateToolBars();
@@ -27,12 +30,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeEvent(QCloseEvent *e)
 {
-
 }
 
 void MainWindow::paintEvent(QPaintEvent* paintevent)
 {
-	
 }
 
 void MainWindow::CreateActions()
@@ -124,6 +125,9 @@ void MainWindow::CreateToolBars()
 	toolbar_file_->addAction(action_warp_IDW_);
 	toolbar_file_->addAction(action_warp_RBF_);
 	toolbar_file_->addAction(action_restore_);
+
+	toolbar_file_->addSeparator();
+	toolbar_file_->addWidget(check_box_);
 }
 
 void MainWindow::CreateStatusBar()

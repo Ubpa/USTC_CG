@@ -10,7 +10,6 @@ class WarpIDW : public Warp
 public:
 	WarpIDW();
 	~WarpIDW() = default;
-	void Render(QImage* ptr_image);
 
 protected:
 	QPoint Output(QPoint p);

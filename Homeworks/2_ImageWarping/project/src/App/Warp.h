@@ -11,10 +11,8 @@ public:
 	Warp() = default;
 	~Warp() = default;
 
-	virtual void Render(QImage *ptr_image) = 0;
-	void SetBeginPoint(QPoint qb);
-	void SetEndPoint(QPoint qe);
-	void DrawControlPoints(QPainter *painter, QPoint *image_pos);
+	virtual void Render(QImage *ptr_image);
+	void SetControlPoints(QVector<QPoint> &bps, QVector<QPoint> &eps);
 
 protected:
 	virtual QPoint Output(QPoint p) = 0;

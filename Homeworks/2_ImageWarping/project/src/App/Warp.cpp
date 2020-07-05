@@ -1,36 +1,31 @@
 #include "Warp.h"
 
-void Warp::SetBeginPoint(QPoint qb)
+void Warp::Render(QImage* ptr_image)
 {
-	begin_points_.push_back(qb);
-}
+	QImage image_tmp(*(ptr_image));
 
-void Warp::SetEndPoint(QPoint qe)
-{
-	end_points_.push_back(qe);
-}
+	int width = ptr_image->width();
+	int height = ptr_image->height();
 
-void Warp::DrawControlPoints(QPainter *painter, QPoint *image_pos)
-{
-	for (int i = 0; i < begin_points_.size(); i++)
+	ptr_image->fill(Qt::lightGray);
+
+	for (int i = 0; i < width; i++)
 	{
-		QPen pen;
-		pen.setCapStyle(Qt::RoundCap);
+		for (int j = 0; j < height; j++)
+		{
+			QPoint p(i, j);
+			QPoint po = Output(p);
 
-		pen.setWidth(3);
-		pen.setColor(Qt::red);
-		painter->setPen(pen);
-		painter->drawEllipse(begin_points_[i] + (*image_pos), 3, 3);
+			if (po.x() >= 0 && po.x() < width && po.y() >= 0 && po.y() < height)
+				ptr_image->setPixel(Output(p), image_tmp.pixel(p));
 
-		pen.setWidth(2);
-		pen.setColor(Qt::darkYellow);
-		painter->setPen(pen);
-		painter->drawLine(begin_points_[i] + *(image_pos), 
-			end_points_[i] + *(image_pos));
-
-		pen.setWidth(3);
-		pen.setColor(Qt::blue);
-		painter->setPen(pen);
-		painter->drawEllipse(end_points_[i] + (*image_pos), 3, 3);
+			//FixHole(ptr_image);
+		}
 	}
+}
+
+void Warp::SetControlPoints(QVector<QPoint> &bps, QVector<QPoint> &eps)
+{
+	begin_points_ = bps;
+	end_points_ = eps;
 }

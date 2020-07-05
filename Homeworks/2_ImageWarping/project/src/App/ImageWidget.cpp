@@ -1,5 +1,4 @@
 #include "ImageWidget.h"
-#include "WarpIDW.h"
 
 #include <QImage>
 #include <QPainter>
@@ -9,13 +8,12 @@
 using std::cout;
 using std::endl;
 
-ImageWidget::ImageWidget(void) : warp_set_mode_(false), warp_(nullptr)
+ImageWidget::ImageWidget(void) : warp_set_mode_(false), warp_(nullptr), warp_draw_mode_(true)
 {
 	ptr_image_ = new QImage();
 	ptr_image_backup_ = new QImage();
 	image_pos_ = new QPoint(0, 0);
 }
-
 
 ImageWidget::~ImageWidget(void)
 {
@@ -35,9 +33,9 @@ void ImageWidget::paintEvent(QPaintEvent *paintevent)
 	QRect rect = QRect(image_pos_->x(), image_pos_->y(), ptr_image_->width(), ptr_image_->height());
 	painter.drawImage(rect, *ptr_image_); 
 
-	if (warp_set_mode_)
+	if (warp_draw_mode_ && warp_)
 	{
-		warp_->DrawControlPoints(&painter, image_pos_);
+		DrawControlPoints(&painter);
 	}
 
 	painter.end();
@@ -47,21 +45,29 @@ void ImageWidget::mousePressEvent(QMouseEvent* event)
 {
 	if (warp_set_mode_ && Qt::LeftButton == event->button())
 	{
-		warp_->SetBeginPoint(event->pos() - (*image_pos_));
+		begin_points_buffer_.push_back(event->pos() - (*image_pos_));
 	}
 
 	if (warp_set_mode_ && Qt::RightButton == event->button())
 	{
 		warp_set_mode_ = false;
+		warp_->SetControlPoints(begin_points_buffer_, end_points_buffer_);
 		warp_->Render(ptr_image_);
 
-		if (!warp_)
-		{
-			delete warp_;
-			warp_ = nullptr;
-		}
+		// render picture
+		update();
+	}
+}
 
-		update();	//clean control points and render
+void ImageWidget::mouseMoveEvent(QMouseEvent* event)
+{
+	if (warp_draw_mode_ && warp_)
+	{
+		end_points_buffer_.push_back(event->pos() - (*image_pos_));
+
+		// draw moving control points
+		update();	                       
+		end_points_buffer_.pop_back();
 	}
 }
 
@@ -69,8 +75,11 @@ void ImageWidget::mouseReleaseEvent(QMouseEvent* event)
 {
 	if (Qt::LeftButton == event->button() && warp_set_mode_)
 	{
-		warp_->SetEndPoint(event->pos() - (*image_pos_));
-		update();	//refresh control points
+		end_points_buffer_.push_back(event->pos() - (*image_pos_));
+		warp_->SetControlPoints(begin_points_buffer_, end_points_buffer_);
+
+		// draw control points
+		update();
 	}
 }
 
@@ -193,13 +202,24 @@ void ImageWidget::TurnGray()
 
 void ImageWidget::Restore()
 {
+	// release buffer
+	QVector<QPoint>().swap(begin_points_buffer_);
+	QVector<QPoint>().swap(end_points_buffer_);
+
 	*(ptr_image_) = *(ptr_image_backup_);
+	warp_draw_mode_ = false;
+
 	update();
 }
 
 void ImageWidget::SetIDW()
 {
-	warp_set_mode_ = true;
+	// release buffer
+	QVector<QPoint>().swap(begin_points_buffer_);
+	QVector<QPoint>().swap(end_points_buffer_);
+
+	// clean control points
+	update();
 
 	if (!warp_)
 	{
@@ -207,10 +227,63 @@ void ImageWidget::SetIDW()
 		warp_ = nullptr;
 	}
 
+	warp_set_mode_ = true;
+	warp_draw_mode_ = true;
+
 	warp_ = new WarpIDW;
 }
 
 void ImageWidget::SetRBF()
 {
-	
+	// release buffer
+	QVector<QPoint>().swap(begin_points_buffer_);
+	QVector<QPoint>().swap(end_points_buffer_);
+
+	// clean control points
+	update();
+
+	if (!warp_)
+	{
+		delete warp_;
+		warp_ = nullptr;
+	}
+
+	warp_set_mode_ = true;
+	warp_draw_mode_ = true;
+
+	warp_ = new WarpRBF;
+}
+
+void ImageWidget::SetWarpDrawMode(int state)
+{
+	if (state == 0)
+		warp_draw_mode_ = true;
+	else
+		warp_draw_mode_ = false;
+
+	// refresh control points state
+	update();
+}
+
+void ImageWidget::DrawControlPoints(QPainter* painter)
+{
+	for (int i = 0; i < begin_points_buffer_.size(); i++)
+	{
+		QPen pen;
+		pen.setWidth(3);
+		pen.setCapStyle(Qt::RoundCap);
+
+		pen.setColor(Qt::red);
+		painter->setPen(pen);
+		painter->drawEllipse(begin_points_buffer_[i] + (*image_pos_), 3, 3);
+
+		pen.setColor(Qt::darkYellow);
+		painter->setPen(pen);
+		painter->drawLine(begin_points_buffer_[i] + *(image_pos_),
+			end_points_buffer_[i] + *(image_pos_));
+
+		pen.setColor(Qt::blue);
+		painter->setPen(pen);
+		painter->drawEllipse(end_points_buffer_[i] + (*image_pos_), 3, 3);
+	}
 }
