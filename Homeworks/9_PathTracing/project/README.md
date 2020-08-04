@@ -1,5 +1,16 @@
 # 作业项目
 
+## 安装说明
+
+cmake configure 后，执行以下操作
+
+- 注释掉 [Num.h](build/_deps/utemplate-src/include/UTemplate/Num.h) 的 29-46 行
+- 下载 [CMakeLists.txt](https://github.com/Ubpa/UGM/blob/0.5.8/include/UGM/Interfaces/IArray/_deps/CMakeLists.txt) 到 [build/_deps/ugm-src/include/UGM/Interfaces/IArray](build/_deps/ugm-src/include/UGM/Interfaces/IArray)/_deps/CMakeLists.txt
+- 下载 [CMakeLists.txt](https://github.com/Ubpa/UECS/blob/master/include/UECS/detail/_deps/CMakeLists.txt) 到 [build/_deps/uecs-src/include/UECS/detail](build/_deps/uecs-src/include/UECS/detail)/_deps/CMakeLists.txt
+- 打开目录 [build/_deps/ugl-src/config/enums/tools](build/_deps/ugl-src/config/enums/tools) 双击运行 `src2enum.py` 
+
+然后重新 cmake configure generate
+
 ## Change Log
 
 - v0.0.7
