@@ -5,6 +5,7 @@
 #include <UGM/normal.h>
 #include <UGM/point.h>
 
+#include <algorithm>
 #include <vector>
 using namespace std;
 void Ubpa::TetMesh::Init(const std::vector<pointf3>& plist, const std::vector<unsigned>& tlist)

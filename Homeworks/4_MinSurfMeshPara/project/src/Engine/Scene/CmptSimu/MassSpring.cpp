@@ -4,6 +4,7 @@
 #include <UGM/normal.h>
 #include <UGM/point.h>
 
+#include <algorithm>
 #include <vector>
 using namespace std;
 
