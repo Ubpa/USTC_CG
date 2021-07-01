@@ -66,8 +66,10 @@ PolynomialList PolynomialList::operator+(const PolynomialList& right) const {
 }
 
 PolynomialList PolynomialList::operator-(const PolynomialList& right) const {
-    PolynomialList poly(right);
-    for (const auto& term : m_Polynomial)
+    PolynomialList poly;
+    for (const auto& term : m_Polynomial)            //原代码中减数与被减数似乎反了，需要调换一下；测试中p3=p1-p2可以证明，正确答案应为-2x
+        poly.AddOneTerm(Term(term));
+    for (const auto& term : right.m_Polynomial)
         poly.AddOneTerm(Term(term.deg, -term.cof));
 
     poly.compress();
