@@ -33,7 +33,7 @@ PolynomialList::PolynomialList(const vector<int>& deg, const vector<double>& cof
 
 double PolynomialList::coff(int i) const {
     for (const Term& term : m_Polynomial) {
-        if (term.deg > i)
+        if (term.deg < i) 
             break;
         if (term.deg == i)
             return term.cof;
@@ -57,8 +57,8 @@ void PolynomialList::compress() {
 }
 
 PolynomialList PolynomialList::operator+(const PolynomialList& right) const {
-    PolynomialList poly(right);
-    for (const auto& term : m_Polynomial)
+    PolynomialList poly(*this);
+    for (const auto& term : right.m_Polynomial)
         poly.AddOneTerm(term);
 
     poly.compress();
@@ -66,8 +66,8 @@ PolynomialList PolynomialList::operator+(const PolynomialList& right) const {
 }
 
 PolynomialList PolynomialList::operator-(const PolynomialList& right) const {
-    PolynomialList poly(right);
-    for (const auto& term : m_Polynomial)
+    PolynomialList poly(*(this);
+    for (const auto& term : right.m_Polynomial)
         poly.AddOneTerm(Term(term.deg, -term.cof));
 
     poly.compress();
@@ -84,7 +84,7 @@ PolynomialList PolynomialList::operator*(const PolynomialList& right) const {
             rst.AddOneTerm(Term(deg, cof));
         }
     }
-
+    rst.compress();
     return rst;
 }
 
@@ -94,6 +94,7 @@ PolynomialList& PolynomialList::operator=(const PolynomialList& right) {
 }
 
 void PolynomialList::Print() const {
+    rst.compress();
     auto itr = m_Polynomial.begin();
     if (itr == m_Polynomial.end()) {
         cout << "0" << endl;
