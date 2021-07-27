@@ -72,7 +72,7 @@ void DArray<T>::Reserve(int nSize) {
 		return;
 
 	while (m_nMax < nSize)
-		m_nMax *= 2;
+		m_nMax = (m_nMax == 0) ? 1 : 2 * m_nMax;
 
 	T* pData = new T[m_nMax];
 
