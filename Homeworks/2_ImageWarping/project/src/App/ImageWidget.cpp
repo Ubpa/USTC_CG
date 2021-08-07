@@ -104,13 +104,13 @@ void ImageWidget::Mirror(bool ishorizontal, bool isvertical)
 				}
 			}
 		} 
-		else
+		else			//仅水平翻转			
 		{
 			for (int i=0; i<width; i++)
 			{
 				for (int j=0; j<height; j++)
 				{
-					ptr_image_->setPixel(i, j, image_tmp.pixel(i, height-1-j));
+					ptr_image_->setPixel(i, j, image_tmp.pixel(width-1-i, j));
 				}
 			}
 		}
@@ -118,13 +118,13 @@ void ImageWidget::Mirror(bool ishorizontal, bool isvertical)
 	}
 	else
 	{
-		if (isvertical)
+		if (isvertical)		//仅垂直翻转
 		{
 			for (int i=0; i<width; i++)
 			{
 				for (int j=0; j<height; j++)
 				{
-					ptr_image_->setPixel(i, j, image_tmp.pixel(width-1-i, j));
+					ptr_image_->setPixel(i, j, image_tmp.pixel(i, height-1-j));
 				}
 			}
 		}
