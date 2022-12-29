@@ -73,9 +73,8 @@ void ViewWidget::paintEvent(QPaintEvent*)
 {
 	QPainter painter(this);
 
-	for (int i = 0; i < shape_list_.size(); i++)
-	{
-		shape_list_[i]->Draw(painter);
+	for (int i = 0; i < figure_list_.size(); i++) {
+		figure_list_[i]->Draw(painter);
 	}
 
 	if (shape_ != NULL) {
