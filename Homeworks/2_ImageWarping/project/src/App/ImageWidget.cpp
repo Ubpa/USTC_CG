@@ -6,11 +6,13 @@
 
 using std::cout;
 using std::endl;
-
+//public:
 ImageWidget::ImageWidget(void)
 {
 	ptr_image_ = new QImage();
 	ptr_image_backup_ = new QImage();
+	image_warping_ = nullptr;
+	warping_method_ = IDW;
 }
 
 
@@ -18,6 +20,7 @@ ImageWidget::~ImageWidget(void)
 {
 }
 
+//protected:
 void ImageWidget::paintEvent(QPaintEvent *paintevent)
 {
 	QPainter painter;
@@ -32,8 +35,66 @@ void ImageWidget::paintEvent(QPaintEvent *paintevent)
 	QRect rect = QRect( (width()-ptr_image_->width())/2, (height()-ptr_image_->height())/2, ptr_image_->width(), ptr_image_->height());
 	painter.drawImage(rect, *ptr_image_); 
 
+	if (select_mode_) {
+		QPen pen(Qt::red, 4);
+		painter.setPen(pen);
+		const int num_ctrl_pts = source_points_.size();
+		for (int i = 0; i < num_ctrl_pts; ++i) {
+			QPoint p1(static_cast<int>(source_points_[i][0]),
+				static_cast<int>(source_points_[i][1]));
+			QPoint p2(static_cast<int>(target_points_[i][0]),
+				static_cast<int>(target_points_[i][1]));
+			painter.drawLine(p1, p2);
+		}
+		if (is_drawing_) {
+			painter.drawLine(point_start_, point_end_);
+		}
+	}
+
+
 	painter.end();
 }
+
+void ImageWidget::mousePressEvent(QMouseEvent* mouseevent)
+{
+	if (select_mode_ && mouseevent->button() == Qt::LeftButton) {
+		is_drawing_ = true;
+		auto pt = mouseevent->pos();
+		point_start_ = pt;
+		point_end_ = pt;
+		update();
+	}
+	
+}
+
+void ImageWidget::mouseMoveEvent(QMouseEvent* mouseevent)
+{
+	if (select_mode_ && is_drawing_) {
+		point_end_ = mouseevent->pos();
+		update();
+	}
+}
+
+void ImageWidget::mouseReleaseEvent(QMouseEvent* mouseevent)
+{
+	if (select_mode_ && is_drawing_) {
+		Eigen::Vector2f pt;
+		pt[0] = point_start_.x();
+		pt[1] = point_start_.y();
+		source_points_.push_back(pt);
+
+		pt[0] = point_end_.x();
+		pt[1] = point_end_.y();
+		target_points_.push_back(pt);
+
+		printf("start:(%d, %d), end: (%d, %d)\n", point_start_.x(), point_start_.y(), point_end_.x(), point_end_.y());
+		is_drawing_ = false;
+		update();
+	}
+}
+
+//public slots:
+
 
 void ImageWidget::Open()
 {
@@ -155,3 +216,48 @@ void ImageWidget::Restore()
 	*(ptr_image_) = *(ptr_image_backup_);
 	update();
 }
+
+void ImageWidget::Warp()
+{
+	if (image_warping_ != nullptr)
+		delete image_warping_;
+	int w = (width() - ptr_image_->width()) / 2;
+	int h = (height() - ptr_image_->height()) / 2;
+	if (warping_method_ == RBF)
+		image_warping_ = new RBFImageWarping(w,h);
+	else if (warping_method_ == IDW)
+		image_warping_ = new IDWImageWarping(w,h);
+	image_warping_->SetAnchorPoints(source_points_, target_points_);
+	image_warping_->WarpImage(ptr_image_);
+
+	update();
+}
+
+void ImageWidget::ClearControlPoints()
+{
+	source_points_.clear();
+	target_points_.clear();
+
+	update();
+}
+
+void ImageWidget::UndoSelect()
+{
+	if (!source_points_.empty() && !target_points_.empty()) {
+		source_points_.pop_back();
+		target_points_.pop_back();
+	}
+
+	update();
+}
+
+void ImageWidget::SetSelectPointsMode(bool status)
+{
+	select_mode_ = status;
+	if (!select_mode_) {
+		ClearControlPoints();
+	}
+
+	update();
+}
+

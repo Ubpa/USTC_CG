@@ -1,14 +1,12 @@
 #include "Line.h"
 
-Line::Line()
-{
+Line::Line():Figure(kLine){
 }
 
-Line::~Line()
-{
+
+Line::~Line() {
 }
 
-void Line::Draw(QPainter& painter)
-{
+void Line::Draw(QPainter& painter) {
 	painter.drawLine(start, end);
 }

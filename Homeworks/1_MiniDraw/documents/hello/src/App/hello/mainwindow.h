@@ -17,7 +17,7 @@ public:
 
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow *ui;// 由 *.ui 文件定义，Qt 会自动生成相关 ui_*.h 文件
 
     QAction* hello_world_action_;
     QMenu* main_menu_;

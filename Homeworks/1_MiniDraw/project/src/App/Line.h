@@ -1,9 +1,8 @@
 #pragma once
 
-#include"shape.h"
+#include"figure.h"
 
-class Line :public Shape
-{
+class Line :public Figure {
 public:
 	Line();
 	~Line();

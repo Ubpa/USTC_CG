@@ -1,13 +1,13 @@
 #pragma once
 
-#include"Shape.h"
+#include"figure.h"
 
-class Rect:public Shape
+class Rect:public Figure
 {
 public:
 	Rect();
 	~Rect();
 
-	void Draw(QPainter &painter);
+	void Draw(QPainter& painter);
 };
 
