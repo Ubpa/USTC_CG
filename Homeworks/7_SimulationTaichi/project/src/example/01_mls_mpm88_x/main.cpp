@@ -68,9 +68,10 @@ void advance(real dt) {
   // P2G
   for (auto &p : particles) {
     // element-wise floor
-    Vector2i base_coord = (p.x * inv_dx - Vec(0.5f)).cast<int>();
+    Vector2i base_coord = (p.x * inv_dx - Vec(0.5f)).cast<int>();//将粒子坐标换到格点坐标系中,base是格点坐标系中处于(0,0)位置的格点
 
-    Vec fx = p.x * inv_dx - base_coord.cast<real>();
+    Vec fx = p.x * inv_dx - base_coord.cast<real>();//粒子平移后与基点坐标的相对位置
+    
 
     // Quadratic kernels [http://mpm.graphics Eqn. 123, with x=fx, fx-1,fx-2]
     Vec w[3] = {
@@ -226,7 +227,7 @@ int main() {
       // Box
       canvas.rect(Vec(0.04), Vec(0.96)).radius(2).color(0x4FB99F).close();
       // Particles
-      for (auto p : particles) {
+      for (auto& p : particles) {
         canvas.circle(p.x).radius(2).color(p.c);
       }
       // Update image

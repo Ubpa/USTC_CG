@@ -23,7 +23,8 @@ void advance(real dt) {
              Vec(0.5) * sqr(fx - Vec(0.5))};
     auto e = std::exp(hardening * (1.0_f - p.Jp)), mu=0.0_f, lambda=lambda_0*e;
     real J = determinant(p.F);         //                         Current volume
-    Mat r, s; polar_decomp(p.F, r, s); //Polar decomp. for fixed corotated model
+    Mat r, s;
+    polar_decomp(p.F, r, s); //Polar decomp. for fixed corotated model
     auto stress =                           // Cauchy stress times dt and inv_dx
         -4*inv_dx*inv_dx*dt*vol*(2*mu*(p.F-r) * transposed(p.F)+lambda*(J-1)*J);
     auto affine = stress+particle_mass*p.C;

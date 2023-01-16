@@ -23,7 +23,8 @@ void advance(real dt) {
              Vec(0.5) * sqr(fx - Vec(0.5))};
     auto e = std::exp(hardening * (1.0_f - p.Jp)), mu=mu_0*e, lambda=lambda_0*e;
     real J = determinant(p.F);         //                         Current volume
-    Mat r, s; polar_decomp(p.F, r, s); //Polar decomp. for fixed corotated model
+    Mat r, s; 
+    polar_decomp(p.F, r, s);             // 矩阵极分解. for fixed corotated model
     auto stress =                           // Cauchy stress times dt and inv_dx
         -4*inv_dx*inv_dx*dt*vol*(2*mu*(p.F-r) * transposed(p.F)+lambda*(J-1)*J);
     auto affine = stress+particle_mass*p.C;
@@ -73,14 +74,16 @@ void add_object(Vec center, int c) {   // Seed particles with position and color
 }
 int main() {
   GUI gui("Real-time 2D MLS-MPM", window_size, window_size);
-  add_object(Vec(0.55,0.45), 0xED553B); add_object(Vec(0.45,0.65), 0xF2B134);
-  add_object(Vec(0.55,0.85), 0x068587); auto &canvas = gui.get_canvas();int f=0;
+  add_object(Vec(0.55,0.45), 0xED553B);
+  add_object(Vec(0.45,0.65), 0xF2B134);
+  add_object(Vec(0.55,0.85), 0x068587); 
+  auto &canvas = gui.get_canvas();int f=0;
   for (int i = 0;; i++) {                              //              Main Loop
     advance(dt);                                       //     Advance simulation
     if (i % int(frame_dt / dt) == 0) {                 //        Visualize frame
       canvas.clear(0x112F41);                          //       Clear background
       canvas.rect(Vec(0.04), Vec(0.96)).radius(2).color(0x4FB99F).close();// Box
-      for(auto p:particles)canvas.circle(p.x).radius(2).color(p.c);//Particles
+      for (auto& p : particles)canvas.circle(p.x).radius(2).color(p.c);//Particles
       gui.update();                                              // Update image
       // canvas.img.write_as_image(fmt::format("tmp/{:05d}.png", f++));
     }

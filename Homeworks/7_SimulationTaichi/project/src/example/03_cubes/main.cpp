@@ -14,7 +14,8 @@ struct Particle { Vec x, v; Mat F, C; real Jp; int c/*color*/;
   Particle(Vec x, int c, Vec v=Vec(0), int ptype=2) : x(x), v(v), F(1), C(0), Jp(1), c(c), ptype(ptype){}};
 ////////////////////////////////////////////////////////////////////////////////
 std::vector<Particle> particles;
-Vector3 grid[n + 1][n + 1];          // velocity + mass, node_res = cell_res + 1
+// velocity + mass, node_res = cell_res + 1
+Vector3 grid[n + 1][n + 1];          
 
 void advance(real dt) {
   std::memset(grid, 0, sizeof(grid));                              // Reset grid
@@ -25,22 +26,29 @@ void advance(real dt) {
     Vec w[3]{Vec(0.5) * sqr(Vec(1.5) - fx), Vec(0.75) - sqr(fx - Vec(1.0)),
              Vec(0.5) * sqr(fx - Vec(0.5))};
 /***********************************(2)*****************************************/
-	auto e = std::exp(hardening * (1.0_f - p.Jp));
-	if (p.ptype == 1) e = 0.3;
+	//改变 e, mu 的值来改变物体的材质
+  auto e = std::exp(hardening * (1.0_f - p.Jp));
+	if (p.ptype == 1) //果冻
+    e = 0.3;
 	auto mu = mu_0 * e, lambda = lambda_0 * e;
-	if (p.ptype == 0) mu = 0;
+	if (p.ptype == 0) //流体
+    mu = 0;
 ////////////////////////////////////////////////////////////////////////////////
-    real J = determinant(p.F);         //                         Current volume
-    Mat r, s; polar_decomp(p.F, r, s); //Polar decomp. for fixed corotated model
+  real J = determinant(p.F);         //行列式                   Current volume
+    Mat r, s;
+    polar_decomp(p.F, r, s);             // 矩阵极分解. for fixed corotated model
     auto stress =                           // Cauchy stress times dt and inv_dx
         -4*inv_dx*inv_dx*dt*vol*(2*mu*(p.F-r) * transposed(p.F)+lambda*(J-1)*J);
     auto affine = stress+particle_mass*p.C;
-    for (int i = 0; i < 3; i++) for (int j = 0; j < 3; j++) { // Scatter to grid
+    // Scatter to grid
+    for (int i = 0; i < 3; i++) { 
+      for (int j = 0; j < 3; j++) {
         auto dpos = (Vec(i, j) - fx) * dx;
         Vector3 mv(p.v * particle_mass, particle_mass); //translational momentum
-        grid[base_coord.x + i][base_coord.y + j] +=
-            w[i].x*w[j].y * (mv + Vector3(affine*dpos, 0));
+        grid[base_coord.x + i][base_coord.y + j] += 
+          (w[i].x * w[j].y * (mv + Vector3(affine * dpos, 0)));
       }
+    }
   }
   for(int i = 0; i <= n; i++) for(int j = 0; j <= n; j++) { //For all grid nodes
       auto &g = grid[i][j];
@@ -68,23 +76,34 @@ void advance(real dt) {
     p.x += dt * p.v;                                                // Advection
     auto F = (Mat(1) + dt * p.C) * p.F;                      // MLS-MPM F-update
 /***********************************(3)*****************************************/
-	if (p.ptype == 0) { p.F = Mat(1) * sqrt(determinant(F)); }
-	else if (p.ptype == 1) { p.F = F; }
-	else if (p.ptype == 2) {
-		Mat svd_u, sig, svd_v; svd(F, svd_u, sig, svd_v);
-		for (int i = 0; i < 2 * int(plastic); i++)                // Snow Plasticity
-			sig[i][i] = clamp(sig[i][i], 1.0_f - 2.5e-2_f, 1.0_f + 7.5e-3_f);
-		real oldJ = determinant(F); F = svd_u * sig * transposed(svd_v);
-		real Jp_new = clamp(p.Jp * oldJ / determinant(F), 0.6_f, 20.0_f);
-		p.Jp = Jp_new; p.F = F;
-	}
+    if (p.ptype == 0) {
+      p.F = Mat(1) * sqrt(determinant(F));
+    }  // Jelly
+    else if (p.ptype == 1) {
+      p.F = F;
+    }  // Fluid
+    else if (p.ptype == 2) {
+      Mat svd_u, sig, svd_v;
+      svd(F, svd_u, sig, svd_v);
+      for (int i = 0; i < 2 * int(plastic); i++)  // Snow Plasticity
+        sig[i][i] = clamp(sig[i][i], 1.0_f - 2.5e-2_f, 1.0_f + 7.5e-3_f);
+      real oldJ = determinant(F);
+      F = svd_u * sig * transposed(svd_v);
+      real Jp_new = clamp(p.Jp * oldJ / determinant(F), 0.6_f, 20.0_f);
+      p.Jp = Jp_new;
+      p.F = F;
+    }
 ////////////////////////////////////////////////////////////////////////////////
   }
 }
 /***********************************(4)*****************************************/
 void add_object(Vec center, int c, int ptype=2) {   // Seed particles with position and color
   for (int i = 0; i < 1000; i++)  // Randomly sample 1000 particles in the square
-    particles.push_back(Particle((Vec::rand()*2.0_f-Vec(1))*0.08_f + center, c, Vec(0.0), ptype));
+    particles.push_back(Particle((Vec::rand()*2.0_f-Vec(1))*0.08_f + center, 
+                                  c, 
+                                  Vec(0.0), 
+                                  ptype)
+                        );
 }
 ////////////////////////////////////////////////////////////////////////////////
 int main() {
@@ -100,7 +119,7 @@ int main() {
     if (i % int(frame_dt / dt) == 0) {                 //        Visualize frame
       canvas.clear(0x112F41);                          //       Clear background
       canvas.rect(Vec(0.04), Vec(0.96)).radius(2).color(0x4FB99F).close();// Box
-      for(auto p:particles)canvas.circle(p.x).radius(2).color(p.c);//Particles
+      for(auto &p:particles)canvas.circle(p.x).radius(2).color(p.c);//Particles
       gui.update();                                              // Update image
       // canvas.img.write_as_image(fmt::format("tmp/{:05d}.png", f++));
     }

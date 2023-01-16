@@ -35,6 +35,8 @@ const bool plastic = true;
 const real mu_0 = E / (2 * (1 + nu));
 const real lambda_0 = E * nu / ((1+nu) * (1 - 2 * nu));
 
+enum Material { Water, Jelly,Snow};
+
 struct Particle {
   // Position and velocity
   Vec x, v;
@@ -47,13 +49,16 @@ struct Particle {
   // Color
   int c;
 
-  Particle(Vec x, int c, Vec v=Vec(0)) :
+  Material material;
+
+  Particle(Vec x, int c, Vec v=Vec(0), Material m=Snow) :
     x(x),
     v(v),
     F(1),
     C(0),
     Jp(1),
-    c(c) {}
+    c(c),
+    material(m) {}
 };
 
 std::vector<Particle> particles;
@@ -79,10 +84,17 @@ void advance(real dt) {
       Vec(0.5) * sqr(fx - Vec(0.5))
     };
 
+    /***********************************(2)*****************************************/
     // Compute current Lamé parameters [http://mpm.graphics Eqn. 86]
-    auto e = std::exp(hardening * (1.0f - p.Jp));
-    auto mu = mu_0 * e;
-    auto lambda = lambda_0 * e;
+
+    // 改变 e, mu 的值来改变物体的材质
+    auto e = std::exp(hardening * (1.0_f - p.Jp));
+    if (p.material == Jelly)  // 果冻
+        e = 0.3;
+    auto mu = mu_0 * e, lambda = lambda_0 * e;
+    if (p.material == Water)  // 流体
+        mu = 0;
+    /////////////////////////////////////////////////////////////////////////////////
 
     // Current volume
     real J = determinant(p.F);
@@ -178,29 +190,31 @@ void advance(real dt) {
     // MLS-MPM F-update
     auto F = (Mat(1) + dt * p.C) * p.F;
 
-    Mat svd_u, sig, svd_v;
-    svd(F, svd_u, sig, svd_v);
-
-    // Snow Plasticity
-    for (int i = 0; i < 2 * int(plastic); i++) {
-      sig[i][i] = clamp(sig[i][i], 1.0f - 2.5e-2f, 1.0f + 7.5e-3f);
+    /***********************************(3)*****************************************/
+    if (p.material == Water) {  // Water
+      p.F = Mat(1) * sqrt(determinant(F));
+    } else if (p.material == Jelly) {  // Jelly
+      p.F = F;
+    } else if (p.material == Snow) {  // Snow
+      Mat svd_u, sig, svd_v;
+      svd(F, svd_u, sig, svd_v);
+      for (int i = 0; i < 2 * int(plastic); i++)  // Snow Plasticity
+        sig[i][i] = clamp(sig[i][i], 1.0_f - 2.5e-2_f, 1.0_f + 7.5e-3_f);
+      real oldJ = determinant(F);
+      F = svd_u * sig * transposed(svd_v);
+      real Jp_new = clamp(p.Jp * oldJ / determinant(F), 0.6_f, 20.0_f);
+      p.Jp = Jp_new;
+      p.F = F;
     }
-
-    real oldJ = determinant(F);
-    F = svd_u * sig * transposed(svd_v);
-
-    real Jp_new = clamp(p.Jp * oldJ / determinant(F), 0.6f, 20.0f);
-
-    p.Jp = Jp_new;
-    p.F = F;
+    ////////////////////////////////////////////////////////////////////////////////
   }
 }
 
 // Seed particles with position and color
-void add_object(Vec center, int c) {
+void add_object(Vec center, int c, Material material = Snow) {
   // Randomly sample 1000 particles in the square
   for (int i = 0; i < 1000; i++) {
-    particles.push_back(Particle((Vec::rand()*2.0f-Vec(1))*0.08f + center, c));
+    particles.push_back(Particle((Vec::rand()*2.0f-Vec(1))*0.08f + center, c, Vec(0), material));
   }
 }
 
@@ -208,9 +222,9 @@ int main() {
   GUI gui("Real-time 2D MLS-MPM", window_size, window_size);
   auto &canvas = gui.get_canvas();
 
-  add_object(Vec(0.55,0.45), 0xED553B);
-  add_object(Vec(0.45,0.65), 0xF2B134);
-  add_object(Vec(0.55,0.85), 0x068587);
+  add_object(Vec(0.55, 0.45), 0x87CEFA, Water);
+  add_object(Vec(0.45, 0.65), 0xFFFAFA, Snow);
+  add_object(Vec(0.55, 0.85), 0xED553B, Jelly);
 
   int frame = 0;
 
@@ -226,14 +240,14 @@ int main() {
       // Box
       canvas.rect(Vec(0.04), Vec(0.96)).radius(2).color(0x4FB99F).close();
       // Particles
-      for (auto p : particles) {
+      for (auto& p : particles) {
         canvas.circle(p.x).radius(2).color(p.c);
       }
-      // Update image
+      // Update image  
       gui.update();
 
       // Write to disk (optional)
-      // canvas.img.write_as_image(fmt::format("tmp/{:05d}.png", frame++));
+      // canvas.img.write_as_image(fmt::format("pre/{:05d}.png", frame++));
     }
   }
 }

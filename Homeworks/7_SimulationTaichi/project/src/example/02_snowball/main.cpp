@@ -1,6 +1,6 @@
 //88-Line 2D Moving Least Squares Material Point Method (MLS-MPM)[with comments]
 //#define TC_IMAGE_IO   // Uncomment this line for image exporting functionality
-#include <taichi.h>    // Note: You DO NOT have to install taichi or taichi_mpm.
+#include "taichi.h"    // Note: You DO NOT have to install taichi or taichi_mpm.
 using namespace taichi;// You only need [taichi.h] - see below for instructions.
 const int n = 80 /*grid resolution (cells)*/, window_size = 800;
 const real dt = 1e-4_f, frame_dt = 1e-3_f, dx = 1.0_f / n, inv_dx = 1.0_f / dx;
