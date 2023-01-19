@@ -76,13 +76,11 @@ void advance(real dt) {
     p.x += dt * p.v;                                                // Advection
     auto F = (Mat(1) + dt * p.C) * p.F;                      // MLS-MPM F-update
 /***********************************(3)*****************************************/
-    if (p.ptype == 0) {
+    if (p.ptype == 0) {         // Jelly
       p.F = Mat(1) * sqrt(determinant(F));
-    }  // Jelly
-    else if (p.ptype == 1) {
+    } else if (p.ptype == 1) {  // Fluid
       p.F = F;
-    }  // Fluid
-    else if (p.ptype == 2) {
+    } else if (p.ptype == 2) {
       Mat svd_u, sig, svd_v;
       svd(F, svd_u, sig, svd_v);
       for (int i = 0; i < 2 * int(plastic); i++)  // Snow Plasticity

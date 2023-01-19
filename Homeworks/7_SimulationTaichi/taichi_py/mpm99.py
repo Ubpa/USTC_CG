@@ -110,8 +110,9 @@ def g2p():
             weight = w[i][0] * w[j][1]
             new_v += weight * g_v
             new_C += 4 * inv_dx * weight * g_v.outer_product(dpos)
-        v[p], C[p] = new_v, new_C
+        v[p] = new_v
         x[p] += dt * v[p]  # advection
+        C[p] = new_C
 
 
 group_size = n_particles // 3

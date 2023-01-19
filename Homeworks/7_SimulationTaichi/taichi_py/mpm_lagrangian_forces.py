@@ -91,7 +91,7 @@ def p2g():
         base = ti.cast(x[p] * inv_dx - 0.5, ti.i32)
         fx = x[p] * inv_dx - ti.cast(base, float)
         w = [0.5 * (1.5 - fx)**2, 0.75 - (fx - 1)**2, 0.5 * (fx - 0.5)**2]
-        affine = p_mass * C[p]
+        affine = p_mass * C[p] #stress = 0 in this example like liquid
         for i, j in ti.static(ti.ndrange(3, 3)):
                 offset = ti.Vector([i, j])
                 dpos = (float(offset) - fx) * dx
@@ -147,7 +147,7 @@ def g2p():
                 new_C += 4 * weight * g_v.outer_product(dpos) * inv_dx
 
         v[p] = new_v
-        x[p] += dt * v[p]
+        x[p] += dt * v[p]  # advection
         C[p] = new_C
 
 
