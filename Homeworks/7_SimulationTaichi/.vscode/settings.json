@@ -3,7 +3,8 @@
   "files.associations": {
     "Library": "babelian",
     "*.cpp": "cpp",
-    "algorithm": "cpp"
+    "algorithm": "cpp",
+    "cmath": "cpp"
   },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
