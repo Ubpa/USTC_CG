@@ -50,8 +50,8 @@ link_directories (
 #add_subdirectory(src)
 
 # first create relevant static libraries required for other projects
-add_library(STB_IMAGE "src/stb_image.cpp")
-set(LIBS ${LIBS} STB_IMAGE)
+# add_library(STB_IMAGE "src/stb_image.cpp")
+# set(LIBS ${LIBS} STB_IMAGE)
 
 add_library(GLAD "src/glad.c")
 set(LIBS ${LIBS} GLAD)
@@ -66,11 +66,5 @@ endif()
 set(LIBS ${LIBS} glfw)
 
 add_executable(${PROJECT_NAME} "src/main.cpp")
-add_executable(${PROJECT_NAME}_ex1 "src/ex1.cpp")
-add_executable(${PROJECT_NAME}_ex2 "src/ex2.cpp")
-add_executable(${PROJECT_NAME}_ex3 "src/ex3.cpp")
 
 target_link_libraries(${PROJECT_NAME} ${LIBS})
-target_link_libraries(${PROJECT_NAME}_ex1 ${LIBS})
-target_link_libraries(${PROJECT_NAME}_ex2 ${LIBS})
-target_link_libraries(${PROJECT_NAME}_ex3 ${LIBS})
