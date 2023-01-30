@@ -4,7 +4,9 @@
             "name": "windows-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**",
-                "D:\\ComputerScience\\cpp_lib\\include"
+                "D:/ComputerScience/cpp_lib/include/**",
+                "${workspaceFolder}/include",
+                "${workspaceFolder}/include"
             ],
             "compilerPath": "D:/ComputerScience/minGW/mingw64/bin/gcc.exe",
             "cStandard": "${default}",
@@ -12,7 +14,8 @@
             "intelliSenseMode": "windows-gcc-x64",
             "compilerArgs": [
                 ""
-            ]
+            ],
+            "configurationProvider": "ms-vscode.cmake-tools"
         }
     ],
     "version": 4

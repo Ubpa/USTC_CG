@@ -32,5 +32,10 @@
     "**/.*/**",
     "**/.vscode",
     "**/.vscode/**"
-  ]
+  ],
+  "files.associations": {
+    "Library": "babelian",
+    "*.cpp": "cpp",
+    "glad.h": "c"
+  }
 }

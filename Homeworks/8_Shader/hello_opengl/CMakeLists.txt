@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.9 FATAL_ERROR)
 
 # 设定项目
-project(Hello_OpenGL)
+project(Textures)
 message(STATUS "[Project] ${PROJECT_NAME}")
 
 # 修改默认的安装路径前缀
@@ -50,12 +50,14 @@ link_directories (
 #add_subdirectory(src)
 
 # first create relevant static libraries required for other projects
-# add_library(STB_IMAGE "src/stb_image.cpp")
-# set(LIBS ${LIBS} STB_IMAGE)
+add_library(STB_IMAGE "src/stb_image.cpp")
+set(LIBS ${LIBS} STB_IMAGE)
 
 add_library(GLAD "src/glad.c")
 set(LIBS ${LIBS} GLAD)
 
+add_library(SHADER "src/shader.cpp")
+set(LIBS ${LIBS} SHADER)
 
 message(STATUS "----------")
 find_package(glfw3 REQUIRED)
@@ -66,5 +68,6 @@ endif()
 set(LIBS ${LIBS} glfw)
 
 add_executable(${PROJECT_NAME} "src/main.cpp")
+
 
 target_link_libraries(${PROJECT_NAME} ${LIBS})
