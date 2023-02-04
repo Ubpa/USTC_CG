@@ -57,7 +57,9 @@ void main() {
 	
 	vec3 V = normalize(camera_pos - vs_out.WorldPos);
 	// TODO: HW8 0_displacement_normal | use TBN
-	vec3 N = normalize(vs_out.TBN[2]);
+	vec3 normal = texture(normalmap, vs_out.TexCoord).rgb * 2 - 1;
+	vec3 N = normalize(vs_out.TBN*normal);
+	//vec3 N = normalize(vs_out.TBN[2]);
 	vec3 fragTolight = point_light_pos - vs_out.WorldPos; // frag to light
 	float dist2 = dot(fragTolight, fragTolight);
 	float dist = sqrt(dist2);

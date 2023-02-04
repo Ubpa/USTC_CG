@@ -122,8 +122,6 @@ void BaseImageWarping::FillHole(QImage&image, int threshold, int K) {
 	{
 		for (int j = 0; j < image.height(); j++)
 		{
-
-
 			QVector<int> colors(3);
 			colors[0] = colors[1] = colors[2] = 0;
 			ANNpoint pt = annAllocPt(2);

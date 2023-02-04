@@ -21,9 +21,17 @@ uniform float displacement_lambda;
 uniform bool have_denoise;
 
 void main()
-{
+{   
+    float displacement = texture(displacementmap, aTexCoord).r;
+    vec3 Pos;
     // TODO: HW8 - 1_denoise | denoise
-    vec4 worldPos = model * vec4(aPos, 1.0);
+    if(have_denoise){
+        displacement = displacement * displacement_scale + displacement_bias;
+        Pos = aPos - displacement * displacement_lambda * aNormal;
+    }else{
+        Pos = aPos;
+    }
+    vec4 worldPos = model * vec4(Pos, 1.0);
 	
 	vs_out.WorldPos = worldPos.xyz / worldPos.w;
     vs_out.TexCoord = aTexCoord;

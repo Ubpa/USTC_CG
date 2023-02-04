@@ -117,8 +117,12 @@ int main()
     for (size_t j = 0; j < N; j++) {
         for (size_t i = 0; i < N; i++) {
             size_t two_tri[6] = {
-                j * (N + 1) + i, j * (N + 1) + i + 1, (j + 1) * (N + 1) + i,
-                (j + 1) * (N + 1) + i + 1,(j + 1) * (N + 1) + i,j * (N + 1) + i + 1
+                j * (N + 1) + i, 
+                j * (N + 1) + i + 1,
+                (j + 1) * (N + 1) + i,
+                (j + 1) * (N + 1) + i + 1,
+                (j + 1) * (N + 1) + i,
+                j * (N + 1) + i + 1
             };
             for (auto idx : two_tri)
                 indices.push_back(static_cast<GLuint>(idx));

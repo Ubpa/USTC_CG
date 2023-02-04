@@ -1,0 +1,224 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wenneker Assignment
+% LaTeX Template
+% Version 2.0 (12/1/2019)
+%
+% This template originates from:
+% http://www.LaTeXTemplates.com
+%
+% Authors:
+% Vel (vel@LaTeXTemplates.com)
+% Frits Wenneker
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+% 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[14pt]{scrartcl} % Font size
+
+\input{structure.tex} % Include the file specifying the document structure and custom commands
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{	
+	\normalfont\normalsize
+	%\vspace{25pt} % Whitespace
+	\rule{\linewidth}{0.5pt}\\ % Thin top horizontal rule
+	\vspace{20pt} % Whitespace
+	{\huge 实验八	Shader}\\ % The assignment title
+	\vspace{12pt} % Whitespace
+	\rule{\linewidth}{2pt}\\ % Thick bottom horizontal rule
+	\vspace{12pt} % Whitespace
+}
+
+\author{\LARGE ID: 58		陈文博} % Your name
+
+\date{\normalsize\today} % Today's date (\today) or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	FIGURE EXAMPLE
+%----------------------------------------------------------------------------------------
+
+\section{实验要求}
+
+%\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+%	\centering
+%	\includegraphics[width=0.5\columnwidth]{swallow.jpg} % Example image
+%	\caption{European swallow.}
+%\end{figure}
+
+\begin{itemize}
+	\item[*] 实现 normal map 和 displacement map
+	\item[*] 利用 displacement map 在 vertex shader 中进行简单降噪
+	\item[*] 实现点光源阴影（可选）
+\end{itemize}
+
+%------------------------------------------------
+
+\section{开发环境}
+
+\textbf{IDE}：Microsoft Visual Studio 2019 community\\
+\textbf{CMake}：3.16.3\\
+\textbf{Assimp}：5.0.1\\
+\textbf{GLFW}：3.4.0\\
+\textbf{Others}
+
+%----------------------------------------------------------------------------------------
+%	TEXT EXAMPLE
+%----------------------------------------------------------------------------------------
+\pagebreak
+\section{算法原理}
+
+\subsection{法向贴图}
+
+典型使用方式如下：
+
+\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=1\columnwidth]{normal_map_usage.jpg} % Example image
+	\caption{法向贴图的使用}
+\end{figure}
+由于贴图中的法向是定义在切空间中的，上方向为 z 方向，对应于 RGB 的 B 通道，故法线贴图一般为蓝紫色。根据表面细微的细节对法线向量进行改变，可以获得一种表面看起来要复杂得多的幻觉：
+\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=1\columnwidth]{normal_mapping_surfaces.png} % Example image
+	\caption{法向贴图的原理}
+\end{figure}
+
+\pagebreak
+\subsection{置换贴图}
+典型使用方式如下：
+\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=1\columnwidth]{displacement_map_usage.jpg} % Example image
+	\caption{置换贴图的使用}
+\end{figure}
+
+置换贴图中黑色(0)表示不动，白色(1)表示沿法向移动，可以定义置换贴图像素值与偏移量的关系：
+
+displacement=lambda*(bias+scale*pixel value)
+\begin{itemize}
+	\item [*] bias=-1, scale=2: 0-0.5 为下沉，0.5-1.0 为凸起，变化量用一个系数决定
+	\item [*] bias=0, scale=1: 0-1.0 为凸起，变化量用一个系数决定
+\end{itemize}
+
+在实时渲染中在vertex shader中采样置换贴图，计算顶点偏移量来偏移顶点，同时添加相应的法向贴图，使渲染效果更加正确。
+
+\textbf{置换贴图用于降噪：}
+\begin{itemize}
+	\item 计算每个顶点的偏移量
+	\begin{equation}
+	\delta_i=p_i-\frac{1}{|N(i)|}\sum\limits_{j\in N(i)}p_j
+	\end{equation}
+	\item 将偏移量投影到法向上
+	\begin{equation}
+	\bar{\delta}_i=\langle\delta_i,\pmb{n}_i\rangle \pmb{n}_i
+	\end{equation}
+	\item 对每一个顶点进行偏移
+	\begin{equation}
+	\bar{p}_i=p_i-\lambda \bar{\delta}_i=p_i-\lambda\langle\delta_i,\pmb{n}_i\rangle \pmb{n}_i
+	\end{equation}
+	\item 将 $\langle\delta_i,\pmb{n}_i\rangle$ 插值存到置换贴图中
+\end{itemize}
+
+
+\pagebreak
+\subsection{点光源阴影}
+\subsubsection{从光源渲染出深度图}
+\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=1\columnwidth]{render_from_light.png} % Example image
+	\caption{从光源渲染}
+\end{figure}
+
+\subsubsection{从摄像机渲染}
+\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=1\columnwidth]{render_from_camera.png} % Example image
+	\caption{从摄像机渲染}
+\end{figure}
+
+
+
+%------------------------------------------------
+\pagebreak
+\section{设计难点与解决}
+
+\subsection{用置换贴图去噪时displacementData插值}
+使用Homework2中的ANN库进行k近邻插值，实际运行效果还行，但速度较慢
+
+\subsection{置换贴图去噪时出现裂痕}
+产生原因：由于网格拼接处相同位置的顶点采用相同的噪声，对其进行重心偏移后彼此分离造成裂痕。解决思路：遍历顶点寻找坐标相同点（衔接点）并保存，衔接点的偏移量设置为所有具有相同坐标的点偏移量的平均值。
+
+\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=0.5\columnwidth]{crack.png} % Example image
+	\caption{裂痕现象}
+		\centering
+	\includegraphics[width=0.5\columnwidth]{fix.png} % Example image
+	\caption{裂痕修复}
+\end{figure}
+
+\pagebreak
+
+\section{实验效果}
+\subsection{法向贴图}
+\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=0.8\columnwidth]{normal_map.png} % Example image
+	\caption{法向贴图}
+\end{figure}
+
+\pagebreak
+\subsection{置换贴图}
+\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=0.6\columnwidth]{displacement_map.png} % Example image
+	\caption{置换贴图}
+\end{figure}
+
+\textbf{其他效果：}
+\begin{figure}[h] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=0.6\columnwidth]{poem_map.png} % Example image
+	\caption{台词贴图}
+\end{figure}
+\pagebreak
+\begin{figure}[htbp] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=0.6\columnwidth]{code_map.png} % Example image
+	\caption{立体代码}
+		\centering
+	\includegraphics[width=0.6\columnwidth]{USTC_map.png} % Example image
+	\caption{校徽贴图}
+\end{figure}
+
+
+
+\pagebreak
+\subsection{降噪}
+\begin{figure}[htbp] % [h] forces the figure to be output where it is defined in the code (it suppresses floating)
+	\centering
+	\includegraphics[width=0.6\columnwidth]{noise.png} % Example image
+	\caption{带噪声的模型}
+	
+		\centering
+	\includegraphics[width=0.6\columnwidth]{fix.png} % Example image
+	\caption{降噪后的模型}
+\end{figure}
+
+
+\pagebreak
+
+\end{document}

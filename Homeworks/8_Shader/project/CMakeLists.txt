@@ -60,10 +60,46 @@ if(TARGET glfw)
 	message(STATUS "glfw3_DIR: ${glfw3_DIR}")
 endif()
 
-include_directories(${PROJECT_SOURCE_DIR}/include/_deps/)
+set(USE_ANN OFF CACHE BOOL OFF)
+if(USE_ANN)
+	include(FetchContent)
+	FetchContent_Declare(
+	  UANN
+	  GIT_REPOSITORY https://github.com/Ubpa/UANN
+	  GIT_TAG        47688f0
+	)
+	FetchContent_MakeAvailable(UANN)
+else()
+	include(FetchContent)
+	FetchContent_Declare(
+	  UCMake
+	  GIT_REPOSITORY https://github.com/Ubpa/UCMake
+	  GIT_TAG        1713889
+	)
+	FetchContent_MakeAvailable(UCMake)
+endif()
+
+
+add_library(STB_IMAGE src/tool/stb_image.cpp)
+
+include_directories(
+	${PROJECT_SOURCE_DIR}/include/_deps/
+	${uann_SOURCE_DIR}/include
+)
+
+link_directories (
+	${PROJECT_SOURCE_DIR}/lib
+	# $ENV{XXX_LIB_PATH}
+	# ...
+)
 
 Ubpa_AddDep(UGL 0.1.3)
 
 Ubpa_AddSubDirsRec(include)
 Ubpa_AddSubDirsRec(data)
 Ubpa_AddSubDirsRec(src)
+
+include (InstallRequiredSystemLibraries)
+set (CPACK_PACKAGE_VERSION_MAJOR "${${PROJECT_NAME}_VERSION_MAJOR}")
+set (CPACK_PACKAGE_VERSION_MINOR "${${PROJECT_NAME}_VERSION_MINOR}")
+include (CPack)

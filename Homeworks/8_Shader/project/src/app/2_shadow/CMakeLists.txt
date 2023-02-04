@@ -4,7 +4,10 @@ set(src
 	${PROJECT_SOURCE_DIR}/data/shaders/p3.vert
 	${PROJECT_SOURCE_DIR}/data/shaders/light_shadow.frag
 	${PROJECT_SOURCE_DIR}/data/shaders/empty.frag
+	${PROJECT_SOURCE_DIR}/data/shaders/debug_depthmap.vert
+	${PROJECT_SOURCE_DIR}/data/shaders/debug_depthmap.frag
 )
+
 
 Ubpa_GetTargetName(tool "${PROJECT_SOURCE_DIR}/src/tool")
 Ubpa_AddTarget(MODE "EXE" SOURCES ${src} LIBS "Ubpa::UGL_core;glfw;${tool}")
