@@ -11,12 +11,11 @@
 #include <learnopengl/model.h>
 #include <learnopengl/shader.h>
 
-//#include "../../tool/SimpleLoader.h"
+#include "../../tool/SimpleLoader.h"
+
 
 #include <iostream>
-
-//using namespace Ubpa;
-
+using namespace Ubpa;
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
@@ -37,13 +36,22 @@ float lastY = (float)SCR_HEIGHT / 2.0;
 bool firstMouse = true;
 
 // timing
-float deltaTime = 0.0f;
+float deltaTime = 0.0f;  // time between current frame and last frame
 float lastFrame = 0.0f;
 
+float LastGLFTime = 0.0f;
+float startTime = 0.0f;
+float deltaGLFTime = 0.0f;
+
 // meshes
+unsigned int planeVAO;
+unsigned int spotVAO;
+unsigned int spot_index_num;
+SimpleLoader::OGLResources* spot;
 
 // Control
 bool shadows = true;
+bool have_rotate = false;
 
 // keyboard
 bool SpacePressState = false;
@@ -90,57 +98,16 @@ int main() {
 
     // build and compile shaders
     // -------------------------
+    //Shader shader("../data/shaders/p3t2n3.vert", "../data/shaders/light_shadow.frag");
     Shader shader("../data/shaders/shadow_mapping.vs", "../data/shaders/shadow_mapping.fs");
-    Shader simpleDepthShader("../data/shaders/depthmap.vs", "../data/shaders/depthmap.fs");
+    Shader depthShader("../data/shaders/depthmap.vs", "../data/shaders/depthmap.fs");
     Shader debugDepthQuad("../data/shaders/debug_depthmap.vs", "../data/shaders/debug_depthmap.fs");
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-
     // spot
-    /*auto spot = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj");
-    std::vector<pointf3> &positions = spot->positions;
-    std::vector<normalf> &normals = spot->normals;
-    std::vector<pointf2> &texcoords = spot->texcoords;
-    std::vector<unsigned> &indices = spot->indices;
-
-    size_t spot_size = positions.size();
-    float *spot_vertices = new float[spot_size * 8];
-    for (size_t i = 0; i < spot_size; i++) {
-        spot_vertices[i * 8 + 0] = positions[i][0];
-        spot_vertices[i * 8 + 1] = positions[i][1];
-        spot_vertices[i * 8 + 2] = positions[i][2];
-        spot_vertices[i * 8 + 3] = normals[i][0];
-        spot_vertices[i * 8 + 4] = normals[i][1];
-        spot_vertices[i * 8 + 5] = normals[i][2];
-        spot_vertices[i * 8 + 6] = texcoords[i][0];
-        spot_vertices[i * 8 + 7] = texcoords[i][1];
-    }
-    unsigned int* spot_indices = new unsigned int[indices.size()];
-    int spot_vertex_num = indices.size();
-    for (size_t i = 0; i < indices.size(); i++) {
-        spot_indices[i] = indices[i];
-    }
-    delete spot;
-    unsigned int spotVAO, spotVBO, spotEBO;
-    glGenVertexArrays(1, &spotVAO);
-    glGenBuffers(1, &spotVBO);
-    glGenBuffers(1, &spotEBO);
-    glBindVertexArray(spotVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, spotVBO);
-    glBufferData(GL_ARRAY_BUFFER, spot_size * 8 * sizeof(float), spot_vertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,spotEBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(spot_indices),spot_indices,GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glBindVertexArray(0);*/
-
-
-    // plane VAO
+    spot = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj");
+    // plane
     float planeVertices[] = {
         // positions            // normals         // texcoords
         25.0f, -0.5f, 25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 0.0f,
@@ -151,7 +118,6 @@ int main() {
         -25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 0.0f, 25.0f,
         25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 25.0f};
     // plane VAO
-    unsigned int planeVAO;
     unsigned int planeVBO;
     glGenVertexArrays(1, &planeVAO);
     glGenBuffers(1, &planeVBO);
@@ -181,8 +147,10 @@ int main() {
     glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    GLfloat borderColor[] = {1.0, 1.0, 1.0, 1.0};
+    glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
     // attach depth texture as FBO's depth buffer
     glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
@@ -192,11 +160,17 @@ int main() {
 
     // shader configuration
     // --------------------
+    glm::vec3 ambient{0.2f, 0.2f, 0.2f};
     shader.use();
     shader.setInt("diffuseTexture", 0);
-    shader.setInt("shadowMap", 1);
+    shader.setInt("shadowmap", 1);
+    shader.setVec3("point_light_radiance", { 100,100,100 });
+    shader.setVec3("ambient_irradiance", ambient);
+    shader.setFloat("roughness", 0.5f);
+    shader.setFloat("metalness", 0.0f);
+
     debugDepthQuad.use();
-    debugDepthQuad.setInt("depthMap", 0);
+    debugDepthQuad.setInt("depthmap", 0);
 
     // lighting info
     // -------------
@@ -216,40 +190,46 @@ int main() {
 
         // render
         // ------
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        gl::ClearColor({0.2, 0.2, 0.2, 1.0f});
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // 1. render depth of scene to texture (from light's perspective)
         // --------------------------------------------------------------
         glm::mat4 lightProjection, lightView;
         glm::mat4 lightSpaceMatrix;
-        float near_plane = 0.1f, far_plane = 100.0f;
+
+        float angle;
+        if (have_rotate)
+            angle = 20.0f + 10.f * ((float)glfwGetTime() - startTime + LastGLFTime);
+        else
+            angle = 20.0f + 10.f * (LastGLFTime);
+        glm::vec3 lightPos(3 * cos(to_radian(angle)), 5.0f, 3 * sin(to_radian(angle)));
+
+        float near_plane = 1.f, far_plane = 100.0f;
         //lightProjection = glm::perspective(glm::radians(45.0f), static_cast<float>(SHADOW_WIDTH) / static_cast<float>(SHADOW_HEIGHT), near_plane, far_plane);
-        lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 0.1f, 7.5f);
+        lightProjection = glm::ortho(-10.0f, 10.0f, -10.0f, 10.0f, 1.f, 10.f);
         lightView = glm::lookAt(lightPos, glm::vec3(0.0f), glm::vec3(0.0, 1.0, 0.0));
         lightSpaceMatrix = lightProjection * lightView;
         // render scene from light's point of view
-        simpleDepthShader.use();
-        simpleDepthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+        depthShader.use();
+        depthShader.setMat4("light_space_matrix", lightSpaceMatrix);
 
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
         glClear(GL_DEPTH_BUFFER_BIT);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, woodTexture);
-        glm::mat4 model = glm::mat4(1.0f);
-        shader.setMat4("model", model);
-        glBindVertexArray(planeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        renderScene(simpleDepthShader);
-        //glBindVertexArray(spotVAO);
-        //glDrawElements(GL_TRIANGLES, spot_vertex_num, GL_UNSIGNED_INT, 0);
-        //=================================
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        // glActiveTexture(GL_TEXTURE0);
+        // glBindTexture(GL_TEXTURE_2D, woodTexture);
 
-        // reset viewport
-        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        renderScene(depthShader);
+        //=================================
+        // // reset viewport
+        // glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        // glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+        // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        gl::FrameBuffer::BindReset();  // default framebuffer
+        gl::Viewport({0, 0}, SCR_WIDTH, SCR_WIDTH);
+        gl::ClearColor({0.2,0.2,0.2, 1.0f});
+        gl::Clear(gl::BufferSelectBit::ColorBufferBit | gl::BufferSelectBit::DepthBufferBit);
 
         // 2. render scene as normal using the generated depth/shadow map
         // --------------------------------------------------------------
@@ -259,10 +239,10 @@ int main() {
         shader.setMat4("projection", projection);
         shader.setMat4("view", view);
         // set light uniforms
-        shader.setVec3("viewPos", camera.Position);
-        shader.setVec3("lightPos", lightPos);
-        shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-        shader.setBool("shadows", shadows); // enable/disable shadows by pressing 'SPACE'
+        shader.setVec3("camera_pos", camera.Position);
+        shader.setVec3("point_light_pos", lightPos);
+        shader.setMat4("light_space_matrix", lightSpaceMatrix);
+        shader.setBool("have_shadow", shadows); // enable/disable shadows by pressing 'SPACE'
         shader.setFloat("far_plane", far_plane);
         shader.setFloat("near_plane", near_plane);
         
@@ -270,13 +250,8 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, woodTexture);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, depthMap);
-        model = glm::mat4(1.0f);
-        shader.setMat4("model", model);
-        glBindVertexArray(planeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
         renderScene(shader);
-        //glBindVertexArray(spotVAO);
-        //glDrawElements(GL_TRIANGLES, spot_vertex_num, GL_UNSIGNED_INT, 0);
+
         // render Depth map to quad for visual debugging
         // ---------------------------------------------
         debugDepthQuad.use();
@@ -296,10 +271,7 @@ int main() {
     // ------------------------------------------------------------------------
     glDeleteVertexArrays(1, &planeVAO);
     glDeleteBuffers(1, &planeVBO);
-    //glDeleteVertexArrays(1, &spotVAO);
-    //glDeleteBuffers(1, &spotVBO);
-    //delete[] spot_vertices;
-    //delete[] spot_indices;
+
     glfwTerminate();
     return 0;
 }
@@ -307,8 +279,13 @@ int main() {
 // renders the 3D scene
 // --------------------
 void renderScene(const Shader& shader) {
-    // floor
     glm::mat4 model;
+    // floor
+    model = glm::mat4(1.0f);
+    shader.setMat4("model", model);
+    glBindVertexArray(planeVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+
     // cubes
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(0.0f, 1.5f, 0.0));
@@ -326,6 +303,14 @@ void renderScene(const Shader& shader) {
     model = glm::scale(model, glm::vec3(0.25));
     shader.setMat4("model", model);
     renderCube();
+
+    // spot
+     model = glm::mat4(1.0f);
+     model = glm::translate(model, glm::vec3(-2.0f, 0.1f, 3.0));
+     shader.setMat4("model", model);
+     spot->va->Bind();
+     gl::DrawElements(spot->eb->primitive, spot->eb->numPnts);
+     spot->va->BindReset();
 }
 
 // renderCube() renders a 1x1 3D cube in NDC.
@@ -454,6 +439,18 @@ void processInput(GLFWwindow* window) {
         shadows = !shadows;
     } else if ((glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_RELEASE) && EnterPressState) {
         EnterPressState = false;
+    }
+
+    if ((glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) && !SpacePressState) {
+        SpacePressState = true;
+        if (have_rotate) {
+            LastGLFTime = (float)glfwGetTime() - startTime + LastGLFTime;
+        } else {
+            startTime = (float)glfwGetTime();
+        }
+        have_rotate = !have_rotate;
+    } else if ((glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_RELEASE) && SpacePressState) {
+        SpacePressState = false;
     }
 }
 

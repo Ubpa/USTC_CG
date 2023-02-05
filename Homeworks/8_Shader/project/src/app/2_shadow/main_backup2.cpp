@@ -20,7 +20,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void processInput(GLFWwindow *window);
 gl::Texture2D loadTexture(char const* path);
-void renderScene(gl::Program& shader, const gl::VertexArray& va);
+void renderScene(gl::Program& shader, const std::vector<gl::VertexArray*> va_list);
 // settings
 unsigned int scr_width = 800;
 unsigned int scr_height = 600;
@@ -119,7 +119,10 @@ int main()
 
     // load model
     // ------------------------------------------------------------------
+    std::vector<gl::VertexArray*> va_list;
+    // 1:Spot
     auto spot = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj");
+    va_list.push_back(spot->va);
     // Plane
     // ------------------------------------------------------------------
     float planeVertices[] = {
@@ -157,6 +160,7 @@ int main()
     plane_format.eb = &plane_eb;
 
     gl::VertexArray plane({0, 1, 2}, plane_format);
+    va_list.push_back(&plane);
 
     // cube
     // ------------------------------------------------------------------
@@ -228,6 +232,7 @@ int main()
     cub_format.eb = &cub_eb;
 
     gl::VertexArray cube({0, 1, 2}, cub_format);
+    va_list.push_back(&cube);
 
 
     // quad 
@@ -336,7 +341,7 @@ int main()
         // ------
 
         // [ shadow ]
-        //shadowFB.Bind();
+        shadowFB.Bind();
         gl::ClearColor({ ambient, 1.0f });
         gl::Clear(gl::BufferSelectBit::ColorBufferBit|gl::BufferSelectBit::DepthBufferBit);
         
@@ -366,17 +371,15 @@ int main()
         transformf lightView = transformf::look_at(lightPos, pointf3(0.0f, 0.0f, 0.0f), vecf3(0.0f, 1.0f, 0.0f));
         transformf lightSpaceMatrix = lightProjection * lightView;
         //---------------------------------
-        gl::Viewport({ 0,0 }, SHADOW_TEXTURE_SIZE, SHADOW_TEXTURE_SIZE);
-        glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
-        glClear(GL_DEPTH_BUFFER_BIT);
+        // gl::Viewport({ 0,0 }, SHADOW_TEXTURE_SIZE, SHADOW_TEXTURE_SIZE);
+        // glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
+        // glClear(GL_DEPTH_BUFFER_BIT);
         //---------------------------------
         shadow_program.Use();
         shadow_program.SetMatf4("light_space_matrix", lightSpaceMatrix);
-        
-        renderScene(shadow_program,cube);
-        transformf model(pointf3(0.0f));
-        shadow_program.SetMatf4("model", model);
-        plane.Draw(&shadow_program);
+
+        renderScene(shadow_program, va_list);
+
         //model = transformf(pointf3{0, 0, 0}, quatf { vecf3(0.0f, 1.0f, 0.0f), to_radian(20.0f) });
         //shadow_program.SetMatf4("model", model);
         //spot->va->Draw(&shadow_program);
@@ -398,9 +401,9 @@ int main()
         light_shadow_program.Active(0, &wood_texture);
 
         // 绑定深度纹理
-        //light_shadow_program.Active(1, &shadowmap);
-        glActiveTexture(GL_TEXTURE1);
-        glBindTexture(GL_TEXTURE_2D, depthMap);
+        light_shadow_program.Active(1, &shadowmap);
+        // glActiveTexture(GL_TEXTURE1);
+        // glBindTexture(GL_TEXTURE_2D, depthMap);
 
         // pass projection matrix to shader (note that in this case it could change every frame)
         transformf projection = transformf::perspective(to_radian(camera.Zoom), (float)scr_width / (float)scr_height, 0.1f, 100.f);
@@ -420,10 +423,7 @@ int main()
         light_shadow_program.SetFloat("far_plane", far_plane);
         light_shadow_program.SetFloat("near_plane", near_plane);
 
-        //renderScene(light_shadow_program, cube);
-        //model = transformf(pointf3(0.0f));
-        //light_shadow_program.SetMatf4("model", model);
-        //plane.Draw(&light_shadow_program);
+        renderScene(light_shadow_program, va_list);
         
         //light_shadow_program.SetMatf4("model", model);
         //spot->va->Draw(&light_shadow_program);
@@ -431,12 +431,12 @@ int main()
         // Debug
         // --------------------------------------
         debug_depthmap_program.Use();
-        //debug_depthmap_program.Active(0, &shadowmap);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, depthMap);
+        debug_depthmap_program.Active(0, &shadowmap);
+        // glActiveTexture(GL_TEXTURE0);
+        // glBindTexture(GL_TEXTURE_2D, depthMap);
         debug_depthmap_program.SetFloat("near_plane", near_plane);
         debug_depthmap_program.SetFloat("far_plane", far_plane);
-        quad.Draw(&debug_depthmap_program);
+        //quad.Draw(&debug_depthmap_program);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
@@ -569,17 +569,23 @@ gl::Texture2D loadTexture(char const* path)
 
 // renders the 3D scene
 // --------------------
-void renderScene(gl::Program& shader, const gl::VertexArray& va) {
-    // floor
+void renderScene(gl::Program& shader, const std::vector<gl::VertexArray*> va_list) {
+    gl::VertexArray* spot = va_list[0];
+    gl::VertexArray* plane = va_list[1];
+    gl::VertexArray* cube = va_list[2];
     transformf model;
+    // floor
+    model = transformf(pointf3(0.0f));
+    shader.SetMatf4("model", model);
+    plane->Draw(&shader);
     // cubes
     model = transformf({0.0f, 1.5f, 0.0f},scalef3(0.5f));
     shader.SetMatf4("model", model);
-    va.Draw(&shader);
+    cube->Draw(&shader);
     model = transformf({2.0f, 0.0f, 1.0f},scalef3(0.5f));
     shader.SetMatf4("model", model);
-    va.Draw(&shader);
+    cube->Draw(&shader);
     model = transformf({-1.0f, 0.0f, 2.0f}, scalef3(0.25f), quatf{vecf3{1.0, 0.0, 1.0}, to_radian(60.0f)});
     shader.SetMatf4("model", model);
-    va.Draw(&shader);
+    cube->Draw(&shader);
 }

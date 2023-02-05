@@ -5,9 +5,14 @@
 
 out vec4 FragColor;
 
-uniform vec3 point_light_pos;
-uniform vec3 point_light_radiance;
+
+uniform sampler2D diffuseTexture;
 uniform sampler2D shadowmap;
+
+uniform vec3 point_light_pos;
+uniform vec3 camera_pos;
+uniform vec3 point_light_radiance;
+
 uniform bool have_shadow;
 // TODO: HW8 - 2_Shadow | uniforms
 // add uniforms for mapping position in world space to position in shadowmap space
@@ -16,11 +21,9 @@ uniform float near_plane;
 uniform float far_plane;
 
 uniform vec3 ambient_irradiance;
-uniform sampler2D albedo_texture;
 uniform float roughness;
 uniform float metalness;
 
-uniform vec3 camera_pos;
 
 in VS_OUT {
     vec3 WorldPos;
@@ -104,7 +107,7 @@ float shadow_calculation(vec4 fragPosLightSpace){
 }
 
 void main() {
-	// vec3 albedo = texture(albedo_texture, vs_out.TexCoord).rgb;
+	// vec3 albedo = texture(diffuseTexture, vs_out.TexCoord).rgb;
 	// float alpha = roughness * roughness;
 	
 	// vec3 V = normalize(camera_pos - vs_out.WorldPos);
@@ -139,7 +142,7 @@ void main() {
 	
 	// FragColor = vec4(Lo, 1);
 	//================================================================================================
-	vec3 color=texture(albedo_texture,vs_out.TexCoord).rgb;
+	vec3 color=texture(diffuseTexture,vs_out.TexCoord).rgb;
 	vec3 normal=normalize(vs_out.Normal);
 	vec3 lightColor=vec3(.4);
 	// Ambient

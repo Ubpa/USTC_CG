@@ -301,39 +301,39 @@ int main()
         debug_depthmap_program.Active(0, &shadowmap);
         debug_depthmap_program.SetFloat("near_plane", near_plane);
         debug_depthmap_program.SetFloat("far_plane", far_plane);
-        renderQuad();
+        //renderQuad();
 
-        //// 场景添加阴影
-        //light_shadow_program.Use();
-        //light_shadow_program.SetVecf3("camera_pos", camera.Position);
+        // 场景添加阴影
+        light_shadow_program.Use();
+        light_shadow_program.SetVecf3("camera_pos", camera.Position);
 
-        //// bind textures on corresponding texture units
-        //// 绑定目标纹理
-        //light_shadow_program.Active(0, &wood_texture);
+        // bind textures on corresponding texture units
+        // 绑定目标纹理
+        light_shadow_program.Active(0, &wood_texture);
 
-        //// 绑定深度纹理
-        //light_shadow_program.Active(1, &shadowmap);
+        // 绑定深度纹理
+        light_shadow_program.Active(1, &shadowmap);
 
-        //// pass projection matrix to shader (note that in this case it could change every frame)
-        //transformf projection = transformf::perspective(to_radian(camera.Zoom), (float)scr_width / (float)scr_height, 0.1f, 100.f);
-        //light_shadow_program.SetMatf4("projection", projection);
+        // pass projection matrix to shader (note that in this case it could change every frame)
+        transformf projection = transformf::perspective(to_radian(camera.Zoom), (float)scr_width / (float)scr_height, 0.1f, 100.f);
+        light_shadow_program.SetMatf4("projection", projection);
 
-        //// camera/view transformation
-        //light_shadow_program.SetMatf4("view", camera.GetViewMatrix());
+        // camera/view transformation
+        light_shadow_program.SetMatf4("view", camera.GetViewMatrix());
 
-        //// TODO: HW8 - 2_Shadow | set uniforms about shadow
-        //light_shadow_program.SetBool("have_shadow", have_shadow);
-        //// near plane, far plane, projection, ...
+        // TODO: HW8 - 2_Shadow | set uniforms about shadow
+        light_shadow_program.SetBool("have_shadow", have_shadow);
+        // near plane, far plane, projection, ...
 
-        //light_shadow_program.SetVecf3("point_light_pos", lightPos);
+        light_shadow_program.SetVecf3("point_light_pos", lightPos);
 
-        //light_shadow_program.SetMatf4("light_space_matrix", lightSpaceMatrix);
+        light_shadow_program.SetMatf4("light_space_matrix", lightSpaceMatrix);
 
-        //light_shadow_program.SetFloat("far_plane", far_plane);
-        //light_shadow_program.SetFloat("near_plane", near_plane);
+        light_shadow_program.SetFloat("far_plane", far_plane);
+        light_shadow_program.SetFloat("near_plane", near_plane);
 
-        //light_shadow_program.SetMatf4("model", model);
-        //spot_plane.Draw(&light_shadow_program);
+        light_shadow_program.SetMatf4("model", model);
+        spot_plane.Draw(&light_shadow_program);
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
