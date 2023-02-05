@@ -12,11 +12,20 @@ in VS_OUT{
 
 uniform sampler2D diffuseTexture;
 uniform sampler2D shadowMap;
+uniform float near_plane;
+uniform float far_plane;
 
 uniform vec3 lightPos;
 uniform vec3 viewPos;
 
 uniform bool shadows;
+
+// required when using a perspective projection matrix
+float LinearizeDepth(float depth)
+{
+    float z=depth*2.-1.;// Back to NDC
+    return(2.*near_plane*far_plane)/(far_plane+near_plane-z*(far_plane-near_plane));
+}
 
 float ShadowCalculation(vec4 fragPosLightSpace)
 {
@@ -25,7 +34,7 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     // Transform to [0,1] range
     projCoords=projCoords*.5+.5;
     // Get closest depth value from light's perspective (using [0,1] range fragPosLight as coords)
-    float closestDepth=texture(shadowMap,projCoords.xy).r;
+    // float closestDepth=texture(shadowMap,projCoords.xy).r;
     // Get depth of current fragment from light's perspective
     float currentDepth=projCoords.z;
     // Calculate bias (based on depth map resolution and slope)
@@ -41,7 +50,9 @@ float ShadowCalculation(vec4 fragPosLightSpace)
     {
         for(int y=-1;y<=1;++y)
         {
-            float pcfDepth=texture(shadowMap,projCoords.xy+vec2(x,y)*texelSize).r;
+            float closestDepth=texture(shadowMap,projCoords.xy+vec2(x,y)*texelSize).r;
+            float pcfDepth = LinearizeDepth(closestDepth)/far_plane;
+            pcfDepth = closestDepth;
             shadow+=currentDepth-bias>pcfDepth?1.:0.;
         }
     }

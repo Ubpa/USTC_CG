@@ -1,6 +1,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 #include <stb_image.h>
 
 #include <glm/glm.hpp>
@@ -11,11 +12,11 @@
 #include <learnopengl/model.h>
 #include <learnopengl/shader.h>
 
-//#include "../../tool/SimpleLoader.h"
+#include "../../tool/SimpleLoader.h"
 
 #include <iostream>
 
-//using namespace Ubpa;
+using namespace Ubpa;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -41,6 +42,7 @@ float deltaTime = 0.0f;
 float lastFrame = 0.0f;
 
 // meshes
+unsigned int planeVAO;
 
 // Control
 bool shadows = true;
@@ -90,55 +92,29 @@ int main() {
 
     // build and compile shaders
     // -------------------------
-    Shader shader("../data/shaders/shadow_mapping.vs", "../data/shaders/shadow_mapping.fs");
-    Shader simpleDepthShader("../data/shaders/depthmap.vs", "../data/shaders/depthmap.fs");
-    Shader debugDepthQuad("../data/shaders/debug_depthmap.vs", "../data/shaders/debug_depthmap.fs");
+    Shader shader("../data/shaders/p3t2n3.vert", "../data/shaders/light_shadow.frag");
+
+    Shader simpleDepthShader("../data/shaders/p3.vert", "../data/shaders/empty.frag");
+    Shader debugDepthQuad("../data/shaders/debug_depthmap.vert", "../data/shaders/debug_depthmap.frag");
+
+    // shader configuration
+    // --------------------
+    glm::vec3 ambient(0.2f, 0.2f, 0.2f);
+    shader.use();
+    shader.setInt("albedo_texture", 0);
+    shader.setInt("shadowmap", 1);
+    shader.setVec3("point_light_radiance", 100, 100, 100);
+    shader.setVec3("ambient_irradiance", ambient);
+    shader.setFloat("roughness", 0.5f);
+    shader.setFloat("metalness", 0.f);
+
+    debugDepthQuad.use();
+    debugDepthQuad.setInt("depthmap", 0);
 
     // set up vertex data (and buffer(s)) and configure vertex attributes
     // ------------------------------------------------------------------
-
     // spot
-    /*auto spot = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj");
-    std::vector<pointf3> &positions = spot->positions;
-    std::vector<normalf> &normals = spot->normals;
-    std::vector<pointf2> &texcoords = spot->texcoords;
-    std::vector<unsigned> &indices = spot->indices;
-
-    size_t spot_size = positions.size();
-    float *spot_vertices = new float[spot_size * 8];
-    for (size_t i = 0; i < spot_size; i++) {
-        spot_vertices[i * 8 + 0] = positions[i][0];
-        spot_vertices[i * 8 + 1] = positions[i][1];
-        spot_vertices[i * 8 + 2] = positions[i][2];
-        spot_vertices[i * 8 + 3] = normals[i][0];
-        spot_vertices[i * 8 + 4] = normals[i][1];
-        spot_vertices[i * 8 + 5] = normals[i][2];
-        spot_vertices[i * 8 + 6] = texcoords[i][0];
-        spot_vertices[i * 8 + 7] = texcoords[i][1];
-    }
-    unsigned int* spot_indices = new unsigned int[indices.size()];
-    int spot_vertex_num = indices.size();
-    for (size_t i = 0; i < indices.size(); i++) {
-        spot_indices[i] = indices[i];
-    }
-    delete spot;
-    unsigned int spotVAO, spotVBO, spotEBO;
-    glGenVertexArrays(1, &spotVAO);
-    glGenBuffers(1, &spotVBO);
-    glGenBuffers(1, &spotEBO);
-    glBindVertexArray(spotVAO);
-    glBindBuffer(GL_ARRAY_BUFFER, spotVBO);
-    glBufferData(GL_ARRAY_BUFFER, spot_size * 8 * sizeof(float), spot_vertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,spotEBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER,sizeof(spot_indices),spot_indices,GL_STATIC_DRAW);
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glBindVertexArray(0);*/
-
+    //auto spot = SimpleLoader::LoadObj("../data/models/spot_triangulated_good.obj");
 
     // plane VAO
     float planeVertices[] = {
@@ -151,7 +127,6 @@ int main() {
         -25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 0.0f, 25.0f,
         25.0f, -0.5f, -25.0f, 0.0f, 1.0f, 0.0f, 25.0f, 25.0f};
     // plane VAO
-    unsigned int planeVAO;
     unsigned int planeVBO;
     glGenVertexArrays(1, &planeVAO);
     glGenBuffers(1, &planeVBO);
@@ -169,6 +144,7 @@ int main() {
     // load textures
     // -------------
     unsigned int woodTexture = loadTexture("../data/textures/wood.png");
+
     // configure depth map FBO
     // -----------------------
     const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
@@ -190,13 +166,6 @@ int main() {
     glReadBuffer(GL_NONE);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    // shader configuration
-    // --------------------
-    shader.use();
-    shader.setInt("diffuseTexture", 0);
-    shader.setInt("shadowMap", 1);
-    debugDepthQuad.use();
-    debugDepthQuad.setInt("depthMap", 0);
 
     // lighting info
     // -------------
@@ -230,20 +199,15 @@ int main() {
         lightSpaceMatrix = lightProjection * lightView;
         // render scene from light's point of view
         simpleDepthShader.use();
-        simpleDepthShader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
+        simpleDepthShader.setMat4("light_space_matrix", lightSpaceMatrix);
 
         glViewport(0, 0, SHADOW_WIDTH, SHADOW_HEIGHT);
         glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
         glClear(GL_DEPTH_BUFFER_BIT);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, woodTexture);
-        glm::mat4 model = glm::mat4(1.0f);
-        shader.setMat4("model", model);
-        glBindVertexArray(planeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+
         renderScene(simpleDepthShader);
-        //glBindVertexArray(spotVAO);
-        //glDrawElements(GL_TRIANGLES, spot_vertex_num, GL_UNSIGNED_INT, 0);
         //=================================
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -255,14 +219,13 @@ int main() {
         // --------------------------------------------------------------
         shader.use();
         glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
-        glm::mat4 view = camera.GetViewMatrix();
         shader.setMat4("projection", projection);
-        shader.setMat4("view", view);
+        shader.setMat4("view", camera.GetViewMatrix());
         // set light uniforms
-        shader.setVec3("viewPos", camera.Position);
-        shader.setVec3("lightPos", lightPos);
-        shader.setMat4("lightSpaceMatrix", lightSpaceMatrix);
-        shader.setBool("shadows", shadows); // enable/disable shadows by pressing 'SPACE'
+        shader.setVec3("camera_pos", camera.Position);
+        shader.setVec3("point_light_pos", lightPos);
+        shader.setMat4("light_space_matrix", lightSpaceMatrix);
+        shader.setBool("have_shadow", shadows); // enable/disable shadows by pressing 'SPACE'
         shader.setFloat("far_plane", far_plane);
         shader.setFloat("near_plane", near_plane);
         
@@ -270,13 +233,8 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, woodTexture);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, depthMap);
-        model = glm::mat4(1.0f);
-        shader.setMat4("model", model);
-        glBindVertexArray(planeVAO);
-        glDrawArrays(GL_TRIANGLES, 0, 6);
         renderScene(shader);
-        //glBindVertexArray(spotVAO);
-        //glDrawElements(GL_TRIANGLES, spot_vertex_num, GL_UNSIGNED_INT, 0);
+
         // render Depth map to quad for visual debugging
         // ---------------------------------------------
         debugDepthQuad.use();
@@ -296,10 +254,7 @@ int main() {
     // ------------------------------------------------------------------------
     glDeleteVertexArrays(1, &planeVAO);
     glDeleteBuffers(1, &planeVBO);
-    //glDeleteVertexArrays(1, &spotVAO);
-    //glDeleteBuffers(1, &spotVBO);
-    //delete[] spot_vertices;
-    //delete[] spot_indices;
+
     glfwTerminate();
     return 0;
 }
@@ -308,7 +263,10 @@ int main() {
 // --------------------
 void renderScene(const Shader& shader) {
     // floor
-    glm::mat4 model;
+    glm::mat4 model = glm::mat4(1.0f);
+    shader.setMat4("model", model);
+    glBindVertexArray(planeVAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
     // cubes
     model = glm::mat4(1.0f);
     model = glm::translate(model, glm::vec3(0.0f, 1.5f, 0.0));
