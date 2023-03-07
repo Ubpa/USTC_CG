@@ -19,9 +19,17 @@ uniform mat4 light_space_matrix;
 
 void main()
 {
-    vs_out.FragPos=vec3(model*vec4(aPos,1.));
-    vs_out.Normal=transpose(inverse(mat3(model)))*aNormal;
-    vs_out.TexCoords=aTexCoords;
-    vs_out.FragPosLightSpace=light_space_matrix*vec4(vs_out.FragPos,1.);
-    gl_Position=projection*view*model*vec4(aPos,1.);
+    vec4 worldPos = model * vec4(aPos, 1.0);
+    vs_out.FragPos = worldPos.xyz;
+    vs_out.Normal = transpose(inverse(mat3(model))) * aNormal;
+    vs_out.TexCoords = aTexCoords;
+    vs_out.FragPosLightSpace = light_space_matrix * vec4(vs_out.FragPos, 1.0);
+    gl_Position = projection * view * worldPos;
+
+
+    // vs_out.FragPos=vec3(model*vec4(aPos,1.));
+    // vs_out.Normal=transpose(inverse(mat3(model)))*aNormal;
+    // vs_out.TexCoords=aTexCoords;
+    // vs_out.FragPosLightSpace=light_space_matrix*vec4(vs_out.FragPos,1.);
+    // gl_Position=projection*view*model*vec4(aPos,1.);
 }

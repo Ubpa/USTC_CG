@@ -18,16 +18,16 @@ uniform mat4 light_space_matrix;
 
 void main()
 {
-    // vec4 worldPos = model * vec4(aPos, 1.0);
-    
-	// vs_out.WorldPos = vec3(worldPos);
-    // vs_out.TexCoord = aTexCoord;
-    // vs_out.Normal = normalize(transpose(inverse(mat3(model))) * aNormal);
-	// vs_out.WorldPosLightSpace = light_space_matrix * worldPos;
-    // gl_Position = projection * view * worldPos;
-    vs_out.WorldPos=vec3(model*vec4(aPos,1.));
-    vs_out.Normal=transpose(inverse(mat3(model)))*aNormal;
+    vec4 worldPos=model*vec4(aPos,1.);
+
+    vs_out.WorldPos=worldPos.xyz/worldPos.w;
     vs_out.TexCoord=aTexCoord;
+    vs_out.Normal=normalize(transpose(inverse(mat3(model)))*aNormal);
     vs_out.WorldPosLightSpace=light_space_matrix*vec4(vs_out.WorldPos,1.);
-    gl_Position=projection*view*model*vec4(aPos,1.);
+    gl_Position=projection*view*worldPos;
+    // vs_out.WorldPos=vec3(model*vec4(aPos,1.));
+    // vs_out.Normal=transpose(inverse(mat3(model)))*aNormal;
+    // vs_out.TexCoord=aTexCoord;
+    // vs_out.WorldPosLightSpace=light_space_matrix*vec4(vs_out.WorldPos,1.);
+    // gl_Position=projection*view*model*vec4(aPos,1.);
 }

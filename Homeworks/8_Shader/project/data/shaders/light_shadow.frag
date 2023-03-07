@@ -13,9 +13,9 @@ uniform vec3 point_light_pos;
 uniform vec3 camera_pos;
 uniform vec3 point_light_radiance;
 
-uniform bool have_shadow;
 // TODO: HW8 - 2_Shadow | uniforms
 // add uniforms for mapping position in world space to position in shadowmap space
+uniform bool have_shadow;
 uniform mat4 light_space_matrix;
 uniform float near_plane;
 uniform float far_plane;
@@ -107,60 +107,60 @@ float shadow_calculation(vec4 fragPosLightSpace){
 }
 
 void main() {
-	// vec3 albedo = texture(diffuseTexture, vs_out.TexCoord).rgb;
-	// float alpha = roughness * roughness;
-	
-	// vec3 V = normalize(camera_pos - vs_out.WorldPos);
-	// vec3 N = normalize(vs_out.Normal);
-	// vec3 fragTolight = point_light_pos - vs_out.WorldPos; // frag to light
-	// float dist2 = dot(fragTolight, fragTolight);
-	// float dist = sqrt(dist2);
-	// vec3 L = fragTolight / dist; // normalized
-	// vec3 H = normalize(L + V);
-	
-	// float cos_theta = dot(N, L);
-	
-	// vec3 fr = fresnel(albedo, metalness, cos_theta);
-	// float D = GGX_D(alpha, N, H);
-	// float G = GGX_G(alpha, L, V, N);
-	
-	// vec3 diffuse = (1 - fr) * (1 - metalness) * albedo / PI;
-	
-	// vec3 specular = fr * D * G / (4 * max(dot(L, N)*dot(V, N), EPSILON));
-	
-	// vec3 brdf = diffuse + specular;
-	// // TODO: HW8 - 2_Shadow | shadow
-	// float visible;
+	vec3 albedo=texture(diffuseTexture,vs_out.TexCoord).rgb;
+	float alpha=roughness*roughness;
+
+	vec3 V=normalize(camera_pos-vs_out.WorldPos);
+	vec3 N=normalize(vs_out.Normal);
+	vec3 fragTolight=point_light_pos-vs_out.WorldPos;// frag to light
+	float dist2=dot(fragTolight,fragTolight);
+	float dist=sqrt(dist2);
+	vec3 L=fragTolight/dist;// normalized
+	vec3 H=normalize(L+V);
+
+	float cos_theta=dot(N,L);
+
+	vec3 fr=fresnel(albedo,metalness,cos_theta);
+	float D=GGX_D(alpha,N,H);
+	float G=GGX_G(alpha,L,V,N);
+
+	vec3 diffuse=(1-fr)*(1-metalness)*albedo/PI;
+
+	vec3 specular=fr*D*G/(4*max(dot(L,N)*dot(V,N),EPSILON));
+
+	vec3 brdf=diffuse+specular;
+	// TODO: HW8 - 2_Shadow | shadow
+	float visible=1;
 	// if(have_shadow)
 	// 	visible = 1 - shadow_calculation(vs_out.WorldPosLightSpace); // if the fragment is in shadow, set it to 0
-	// else	
+	// else
 	// 	visible = 1;
-	
-	// vec3 Lo_direct = visible * brdf * point_light_radiance * max(cos_theta, 0) / dist2;
-	// vec3 Lo_ambient = (1-metalness) * albedo / PI * ambient_irradiance;
-	// vec3 Lo = Lo_direct + Lo_ambient;
-	
-	// FragColor = vec4(Lo, 1);
-	//================================================================================================
-	vec3 color=texture(diffuseTexture,vs_out.TexCoord).rgb;
-	vec3 normal=normalize(vs_out.Normal);
-	vec3 lightColor=vec3(.4);
-	// Ambient
-	vec3 ambient=.2*color;
-	// Diffuse
-	vec3 lightDir=normalize(point_light_pos-vs_out.WorldPos);
-	float diff=max(dot(lightDir,normal),0.);
-	vec3 diffuse=diff*lightColor;
-	// Specular
-	vec3 viewDir=normalize(camera_pos-vs_out.WorldPos);
-	float spec=0.;
-	vec3 halfwayDir=normalize(lightDir + viewDir);
-	spec=pow(max(dot(normal,halfwayDir),0.),64.);
-	vec3 specular=spec*lightColor;
-	// Calculate shadow
-	float shadow=have_shadow ? shadow_calculation(vs_out.WorldPosLightSpace):0.;
-	shadow=min(shadow,.75);// reduce shadow strength a little: allow some diffuse/specular light in shadowed regions
-	vec3 lighting=(ambient+(1.-shadow)*(diffuse+specular))*color;
 
-	FragColor=vec4(lighting,1.f);
+	vec3 Lo_direct=visible*brdf*point_light_radiance*max(cos_theta,0)/dist2;
+	vec3 Lo_ambient=(1-metalness)*albedo/PI*ambient_irradiance;
+	vec3 Lo=Lo_direct+Lo_ambient;
+
+	FragColor=vec4(Lo,1);
+	//================================================================================================
+	// vec3 color=texture(diffuseTexture,vs_out.TexCoord).rgb;
+	// vec3 normal=normalize(vs_out.Normal);
+	// vec3 lightColor=vec3(.4);
+	// // Ambient
+	// vec3 ambient=.2*color;
+	// // Diffuse
+	// vec3 lightDir=normalize(point_light_pos-vs_out.WorldPos);
+	// float diff=max(dot(lightDir,normal),0.);
+	// vec3 diffuse=diff*lightColor;
+	// // Specular
+	// vec3 viewDir=normalize(camera_pos-vs_out.WorldPos);
+	// float spec=0.;
+	// vec3 halfwayDir=normalize(lightDir + viewDir);
+	// spec=pow(max(dot(normal,halfwayDir),0.),64.);
+	// vec3 specular=spec*lightColor;
+	// // Calculate shadow
+	// float shadow=have_shadow ? shadow_calculation(vs_out.WorldPosLightSpace):0.;
+	// shadow=min(shadow,.75);// reduce shadow strength a little: allow some diffuse/specular light in shadowed regions
+	// vec3 lighting=(ambient+(1.-shadow)*(diffuse+specular))*color;
+
+	// FragColor=vec4(lighting,1.f);
 }

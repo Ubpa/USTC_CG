@@ -1,0 +1,435 @@
+{
+    "type":"class Ubpa::Scene",
+    "root":{
+        "type":"class Ubpa::SObj",
+        "children":[
+            {
+                "type":"class Ubpa::SObj",
+                "name":"rectlight",
+                "Components":[
+                    {
+                        "type":"class Ubpa::Cmpt::Position",
+                        "value":[
+                            0,
+                            1.899999976158142,
+                            -6
+                        ]
+                    },
+                    {
+                        "type":"class Ubpa::Cmpt::Geometry",
+                        "primitive":{
+                            "type":"class Ubpa::Square"
+                        }
+                    },
+                    {
+                        "type":"class Ubpa::Cmpt::Light",
+                        "light":{
+                            "type":"struct Ubpa::AreaLight",
+                            "intensity":50
+                        }
+                    },
+                    {
+                        "type":"class Ubpa::Cmpt::Rotation",
+                        "value":[
+                            1,
+                            0,
+                            0,
+                            -4.371138828673793e-8
+                        ]
+                    },
+                    {
+                        "type":"class Ubpa::Cmpt::Scale",
+                        "value":[
+                            0.5,
+                            0.5,
+                            0.5
+                        ]
+                    }
+                ]
+            },
+            {
+                "type":"class Ubpa::SObj",
+                "name":"env light",
+                "Components":[
+                    {
+                        "type":"class Ubpa::Cmpt::Light",
+                        "light":{
+                            "type":"struct Ubpa::EnvLight",
+                            "texture":{
+                                "type":"class Ubpa::Texture2D",
+                                "inv_v":true,
+                                "path":"../data/textures/newport_loft.hdr"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "type":"class Ubpa::SObj",
+                "children":[
+                    {
+                        "type":"class Ubpa::SObj",
+                        "name":"wall_down",
+                        "Components":[
+                            {
+                                "type":"class Ubpa::Cmpt::Position",
+                                "value":[
+                                    0,
+                                    -1,
+                                    0
+                                ]
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Geometry",
+                                "primitive":{
+                                    "type":"class Ubpa::Square"
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Material",
+                                "material":{
+                                    "type":"struct Ubpa::stdBRDF",
+                                    "albedo_factor":[
+                                        0.800000011920929,
+                                        0.800000011920929,
+                                        0.800000011920929
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "type":"class Ubpa::SObj",
+                        "name":"wall_up",
+                        "Components":[
+                            {
+                                "type":"class Ubpa::Cmpt::Position",
+                                "value":[
+                                    0,
+                                    1,
+                                    0
+                                ]
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Geometry",
+                                "primitive":{
+                                    "type":"class Ubpa::Square"
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Material",
+                                "material":{
+                                    "type":"struct Ubpa::stdBRDF",
+                                    "albedo_factor":[
+                                        0.800000011920929,
+                                        0.800000011920929,
+                                        0.800000011920929
+                                    ]
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Rotation",
+                                "value":[
+                                    0,
+                                    0,
+                                    1,
+                                    -4.371138828673793e-8
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type":"class Ubpa::SObj",
+                        "name":"plastic_ball",
+                        "Components":[
+                            {
+                                "type":"class Ubpa::Cmpt::Position",
+                                "value":[
+                                    0.5,
+                                    -0.6000000238418579,
+                                    0.20000000298023224
+                                ]
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Geometry",
+                                "primitive":{
+                                    "type":"class Ubpa::Sphere"
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Material",
+                                "material":{
+                                    "type":"struct Ubpa::stdBRDF",
+                                    "albedo_factor":[
+                                        0.8999999761581421,
+                                        0.8999999761581421,
+                                        0.8999999761581421
+                                    ],
+                                    "metalness_factor":0,
+                                    "roughness_factor":0.6000000238418579
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Scale",
+                                "value":[
+                                    0.4000000059604645,
+                                    0.4000000059604645,
+                                    0.4000000059604645
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type":"class Ubpa::SObj",
+                        "name":"wall_right",
+                        "Components":[
+                            {
+                                "type":"class Ubpa::Cmpt::Position",
+                                "value":[
+                                    1,
+                                    0,
+                                    0
+                                ]
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Geometry",
+                                "primitive":{
+                                    "type":"class Ubpa::Square"
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Material",
+                                "material":{
+                                    "type":"struct Ubpa::stdBRDF",
+                                    "albedo_factor":[
+                                        0.20000000298023224,
+                                        0.20000000298023224,
+                                        0.800000011920929
+                                    ]
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Rotation",
+                                "value":[
+                                    0,
+                                    0,
+                                    0.7071067690849304,
+                                    0.7071067690849304
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type":"class Ubpa::SObj",
+                        "name":"metal_ball",
+                        "Components":[
+                            {
+                                "type":"class Ubpa::Cmpt::Position",
+                                "value":[
+                                    -0.5,
+                                    -0.6000000238418579,
+                                    -0.20000000298023224
+                                ]
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Geometry",
+                                "primitive":{
+                                    "type":"class Ubpa::Sphere"
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Material",
+                                "material":{
+                                    "type":"struct Ubpa::stdBRDF",
+                                    "albedo_factor":[
+                                        1,
+                                        0.800000011920929,
+                                        0.20000000298023224
+                                    ],
+                                    "roughness_factor":0.10000000149011612
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Scale",
+                                "value":[
+                                    0.4000000059604645,
+                                    0.4000000059604645,
+                                    0.4000000059604645
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type":"class Ubpa::SObj",
+                        "name":"wall_left",
+                        "Components":[
+                            {
+                                "type":"class Ubpa::Cmpt::Position",
+                                "value":[
+                                    -1,
+                                    0,
+                                    0
+                                ]
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Geometry",
+                                "primitive":{
+                                    "type":"class Ubpa::Square"
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Material",
+                                "material":{
+                                    "type":"struct Ubpa::stdBRDF",
+                                    "albedo_factor":[
+                                        0.800000011920929,
+                                        0.20000000298023224,
+                                        0.20000000298023224
+                                    ]
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Rotation",
+                                "value":[
+                                    0,
+                                    0,
+                                    -0.7071067690849304,
+                                    0.7071067690849304
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type":"class Ubpa::SObj",
+                        "name":"wall_back",
+                        "Components":[
+                            {
+                                "type":"class Ubpa::Cmpt::Position",
+                                "value":[
+                                    0,
+                                    0,
+                                    -1
+                                ]
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Geometry",
+                                "primitive":{
+                                    "type":"class Ubpa::Square"
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Material",
+                                "material":{
+                                    "type":"struct Ubpa::stdBRDF",
+                                    "albedo_factor":[
+                                        0.800000011920929,
+                                        0.800000011920929,
+                                        0.800000011920929
+                                    ]
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Rotation",
+                                "value":[
+                                    0.7071067690849304,
+                                    0,
+                                    0,
+                                    0.7071067690849304
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "type":"class Ubpa::SObj",
+                        "name":"cube",
+                        "Components":[
+                            {
+                                "type":"class Ubpa::Cmpt::Position",
+                                "value":[
+                                    0.10000000149011612,
+                                    0.10000000149011612,
+                                    0.10000000149011612
+                                ]
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Geometry",
+                                "primitive":{
+                                    "type":"class Ubpa::TriMesh",
+                                    "path":"../data/models/cube.obj"
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Material",
+                                "material":{
+                                    "type":"struct Ubpa::stdBRDF",
+                                    "albedo_factor":[
+                                        0.1,
+                                        0.63,
+                                        0.84
+                                    ],
+                                    "metalness_factor":0.5,
+                                    "roughness_factor":0.5
+                                }
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Scale",
+                                "value":[
+                                    0.2,
+                                    0.1,
+                                    0.2
+                                ]
+                            },
+                            {
+                                "type":"class Ubpa::Cmpt::Position",
+                                "value":[
+                                    -0.2,
+                                    -0.9,
+                                    0.65
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "name":"cornellbox",
+                "Components":[
+                    {
+                        "type":"class Ubpa::Cmpt::Position",
+                        "value":[
+                            0,
+                            0,
+                            -6
+                        ]
+                    },
+                    {
+                        "type":"class Ubpa::Cmpt::Scale",
+                        "value":[
+                            2,
+                            2,
+                            2
+                        ]
+                    }
+                ]
+            },
+            {
+                "type":"class Ubpa::SObj",
+                "name":"camera_obj",
+                "Components":[
+                    {
+                        "type":"class Ubpa::Cmpt::PathTracerAgency"
+                    },
+                    {
+                        "type":"class Ubpa::Cmpt::Camera",
+                        "ar":1.7777777910232545,
+                        "fov":1.0471975803375245
+                    }
+                ]
+            }
+        ],
+        "name":"scene",
+        "Components":[
+            {
+                "type":"class Ubpa::Cmpt::Root"
+            }
+        ]
+    }
+}

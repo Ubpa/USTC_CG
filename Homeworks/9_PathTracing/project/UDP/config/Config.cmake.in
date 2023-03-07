@@ -1,0 +1,9 @@
+message(STATUS "config @PROJECT_NAME@ @PROJECT_VERSION@ ...")
+
+@PACKAGE_INIT@
+
+@UBPA_PACKAGE_INIT@
+
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_NAME@Targets.cmake")
+
+message(STATUS "config @PROJECT_NAME@ @PROJECT_VERSION@ done")
