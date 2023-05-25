@@ -53,6 +53,18 @@ $$
 
 最小化该能量可求得 $\mathbf{D} _ i=\left(\begin{array}{c}d _ {i,11} & d _ {i,12}\newline d _ {i,21} & d _ {i,22}\end{array}\right)$ 
 
+直接对矩阵 $\mathbf{D}_i$ 求偏导，参考[这篇文章](https://zhuanlan.zhihu.com/p/24709748)
+
+$$
+\frac{\partial E_i}{\partial \mathbf{D}_i}=\sum_{j=1,j\ne i}^n\sigma_i(\mathbf{p}_j)(\mathbf{D}_i \Delta^{\mathbf{p}}_{ji}-\Delta^{\mathbf{q}}_{ji})(\Delta^{\mathbf{p}}_{ji})^T=0
+$$
+其中 $\Delta^{\mathbf{p}}_{ji}=\mathbf{p}_j-\mathbf{p}_i$，$\Delta^{\mathbf{q}}_{ji}=\mathbf{q}_j-\mathbf{q}_i$
+
+$$
+\sum_{j=1,j\ne i}^n\sigma_j(\mathbf{p}_j)\Delta^{\mathbf{p}}_{ji}(\Delta^{\mathbf{p}}_{ji})^T \mathbf{D}_i^T=\sum_{j=1,j\ne i}^n\sigma_j(\mathbf{p}_j)\mathbf\Delta^{\mathbf{p}}_{ji}(\Delta^{\mathbf{q}}_{ji})^T
+$$
+这是一个形如 $\mathbf{A}_i\mathbf{D}_i^T = \mathbf{B}_i$ 的最小二乘优化问题，分别对 $\mathbf{D}_i^T$ 的每一列求解
+
 ## 参考文献
 
 [^IDW]: Ruprecht D, Muller H. [**Image warping with scattered data interpolation**](https://pdfs.semanticscholar.org/5a9e/2604064d08f2a8b7dcef4cd4e9a2ce2a88c2.pdf)[J]. IEEE Computer Graphics and Applications, 1995, 15(2): 37-43.
