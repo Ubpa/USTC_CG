@@ -81,7 +81,7 @@ protected:
 		else if constexpr (N == 4)
 			ImGui::DragFloat4((string(classname) + "::" + name).c_str(), floatN.data(), 0.01f, f32_min, f32_max);
 		else
-			static_assert(false, "N = 1, 2, 3, 4");
+			static_assert(N > 4 || N < 0, "N = 1, 2, 3, 4");
 	};
 
 	template<typename Obj>
