@@ -59,7 +59,7 @@ namespace Ubpa {
 		};
 		void SetPDMethod() { 
 			method = kPD; 
-			h = 0.03f;
+			h = 0.003f;
 			Init();
 		}
 		

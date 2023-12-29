@@ -1,107 +1,70 @@
-# Authored by Tiantian Liu, Taichi Graphics.
-import math
+# Welcome to Cursor
+
+
+# 1. Try generating with command K on a new line. Ask for a pytorch script of a feedforward neural network
+# 2. Then, select the outputted code and hit chat. Ask if there's a bug. Ask how to improve.
+# 3. Try selecting some code and hitting edit. Ask the bot to add residual layers.
+# 4. To try out cursor on your own projects, go to the file menu (top left) and open a folder.
 
 import taichi as ti
+import numpy as np
+ti.init(arch=ti.gpu)
 
-ti.init(arch=ti.cpu)
+# Constants
+dt = 1e-4
+dx = 1 / 64
+inv_dx = 1 / dx
+half_inv_dx = 0.5 * inv_dx
+particle_mass = 1
+particle_radius = dx * 0.5
+particle_volume = (4 / 3) * np.pi * particle_radius ** 3
+rho0 = 1000
+pressure_constant = 1e4
+viscosity_constant = 0.1
+gravity = ti.Vector([0, -9.8])
+boundary_width = 3
+max_num_particles = 5000
 
-# global control
-paused = ti.field(ti.i32, ())
+# Variables
+x = ti.Vector(2, dt=ti.f32, shape=max_num_particles)
+v = ti.Vector(2, dt=ti.f32, shape=max_num_particles)
+C = ti.Matrix(2, 2, dt=ti.f32, shape=max_num_particles)
+J = ti.var(dt=ti.f32, shape=max_num_particles)
+grid_v = ti.Vector(2, dt=ti.f32, shape=(64, 64))
+grid_m = ti.var(dt=ti.f32, shape=(64, 64))
+num_particles = ti.var(dt=ti.i32, shape=())
+num_cells = ti.Vector(2, dt=ti.i32, shape=())
 
-# gravitational constant 6.67408e-11, using 1 for simplicity
-G = 1
+# GUI
+gui = ti.GUI("SPH", (512, 512), background_color=0x112F41)
+particle_color = 0x068587
 
-# number of planets
-N = 3000
-# unit mass
-m = 1
-# galaxy size
-galaxy_size = 0.4
-# planet radius (for rendering)
-planet_radius = 2
-# init vel
-init_vel = 120
-
-# time-step size
-h = 1e-4
-# substepping
-substepping = 10
-
-# center of the screen
-center = ti.Vector.field(2, ti.f32, ())
-
-# pos, vel and force of the planets
-# Nx2 vectors
-pos = ti.Vector.field(2, ti.f32, N)
-vel = ti.Vector.field(2, ti.f32, N)
-force = ti.Vector.field(2, ti.f32, N)
-
-
-@ti.kernel
-def initialize():
-    center[None] = [0.5, 0.5]
-    for i in range(N):
-        theta = ti.random() * 2 * math.pi
-        r = (ti.sqrt(ti.random()) * 0.6 + 0.4) * galaxy_size
-        offset = r * ti.Vector([ti.cos(theta), ti.sin(theta)])
-        pos[i] = center[None] + offset
-        vel[i] = [-offset.y, offset.x]
-        vel[i] *= init_vel
+# Functions
 
 
-@ti.kernel
-def compute_force():
-
-    # clear force
-    for i in range(N):
-        force[i] = [0.0, 0.0]
-
-    # compute gravitational force
-    for i in range(N):
-        p = pos[i]
-        for j in range(N):
-            if i != j:  # double the computation for a better memory footprint and load balance
-                diff = p - pos[j]
-                r = diff.norm(1e-5)
-
-                # gravitational force -(GMm / r^2) * (diff/r) for i
-                f = -G * m * m * (1.0 / r)**3 * diff
-
-                # assign to each particle
-                force[i] += f
+@ti.func
+def poly6_value(s, h):
+    if 0 < s < h:
+        return 315 / (64 * np.pi * h ** 9) * (h ** 2 - s ** 2) ** 3
+    else:
+        return 0
 
 
-@ti.kernel
-def update():
-    dt = h / substepping
-    for i in range(N):
-        #symplectic euler
-        vel[i] += dt * force[i] / m
-        pos[i] += dt * vel[i]
+@ti.func
+def spiky_gradient(r, h):
+    if 0 < r < h:
+        return -45 / (np.pi * h ** 6) * (h - r) ** 2 / r
+    else:
+        return 0
 
 
-def main():
-    gui = ti.GUI('N-body problem', (800, 800))
-
-    initialize()
-    while gui.running:
-
-        for e in gui.get_events(ti.GUI.PRESS):
-            if e.key in [ti.GUI.ESCAPE, ti.GUI.EXIT]:
-                exit()
-            elif e.key == 'r':
-                initialize()
-            elif e.key == ti.GUI.SPACE:
-                paused[None] = not paused[None]
-
-        if not paused[None]:
-            for i in range(substepping):
-                compute_force()
-                update()
-
-        gui.circles(pos.to_numpy(), color=0xffffff, radius=planet_radius)
-        gui.show()
-
-
-if __name__ == '__main__':
-    main()
+@ti.func
+def compute_scorr(C):
+    trace = C[0, 0] + C[1, 1]
+    # Continue from here
+    S = ti.Matrix([[C[0, 0], C[0, 1]], [C[1, 0], C[1, 1]]])
+    # Debugging: Print the trace and S matrix values
+    print("Trace:", trace)
+    print("S matrix:", S)
+    gui.circles(x.to_numpy()[:num_particles], color=particle_color, radius=1.5)
+    gui.show()

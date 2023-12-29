@@ -1,8 +1,10 @@
 resources/
-build/
-lib/
-students/
-.vs/
+build
+bin
+lib
+students
+.vs
+.vscode
 _deps/
 
 *Config.h

@@ -196,7 +196,7 @@ namespace Ubpa::detail::GenScene_ {
         metal_ball->Get<Cmpt::Position>()->value = { -0.5f,-0.6f,-0.2f };
         auto metal = new stdBRDF;
         metal->albedo_factor = { 1.f, 0.8f, 0.2f };
-        metal->roughness_factor = 0.1f;
+        metal->roughness_factor = 0.2f;
         metal_ball_mat->SetMaterial(metal);
 
         auto [plastic_ball, plastic_ball_geo, plastic_ball_mat] = scene->CreateSObj<Cmpt::Geometry, Cmpt::Material>("plastic_ball", cornellbox);
@@ -205,13 +205,13 @@ namespace Ubpa::detail::GenScene_ {
         plastic_ball->Get<Cmpt::Position>()->value = { 0.5f,-0.6f,0.2f };
         auto plastic = new stdBRDF;
         plastic->albedo_factor = { 0.9f, 0.9f, 0.9f };
-        plastic->roughness_factor = 0.6f;
+        plastic->roughness_factor = 0.7f;
         plastic->metalness_factor = 0.f;
         plastic_ball_mat->SetMaterial(plastic);
 
         rectlight->SetLight(new AreaLight{ 50.f, {1,1,1} });
         geo_rectlight->SetPrimitive(new Square);
-        rectlight_obj->Get<Cmpt::Position>()->value = { 0,1.9f,-6 };
+        rectlight_obj->Get<Cmpt::Position>()->value = { 0,2.0f,-6.f };
         rectlight_obj->Get<Cmpt::Scale>()->value = { 0.5f,0.5f,0.5f };
         rectlight_obj->Get<Cmpt::Rotation>()->value = quatf{ vecf3{1,0,0}, to_radian(180.f) };
 

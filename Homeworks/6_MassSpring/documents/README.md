@@ -37,7 +37,7 @@
 
 $$
 \boldsymbol x_{n+1}=\boldsymbol x_n+h\boldsymbol v_{n+1},\\
-\boldsymbol v_{n+1}=\boldsymbol v_n+h\boldsymbol M^{-1}(\boldsymbol f_{int}(t_{n+1}) +\boldsymbol f_{ext}),
+\boldsymbol v_{n+1}=\boldsymbol v_n+h\boldsymbol M^{-1}(\boldsymbol f_{int}(x_{n+1},t_{n+1}) +\boldsymbol f_{ext}),
 $$
 
 记
@@ -56,8 +56,6 @@ $$
 迭代初值可选为$\boldsymbol x^{(0)}=y$ .
 
 迭代得到位移$x$后更新速度$v_{n+1}=(x_{n+1}-x_{n})/h$
-
- 
 
 
 
@@ -100,15 +98,15 @@ $$
 $$
 故对方程$(*)$的求解可以转为为一个最小化问题：
 $$
-\boldsymbol x_{n+1}=\min\limits_{x}\frac{1}{2}(\boldsymbol x-\boldsymbol y)^T\boldsymbol M(\boldsymbol x-\boldsymbol y)+h^2E(\boldsymbol x)
+\boldsymbol x_{n+1}=\arg\min\limits_{x}\frac{1}{2}(\boldsymbol x-\boldsymbol y)^T\boldsymbol M(\boldsymbol x-\boldsymbol y)+h^2E(\boldsymbol x)
 $$
 同时对于弹簧的弹性势能可以描述为一个最小化问题：
 $$
-\frac{1}{2}k(||\boldsymbol p_1-\boldsymbol p_2||-r)^2=\frac{1}{2}k \min\limits_{||\boldsymbol d||=r}||\boldsymbol p_1-\boldsymbol p_2-\boldsymbol d||^2,
+\frac{1}{2}k(||\boldsymbol x_1-\boldsymbol x_2||-r)^2=\frac{1}{2}k \min\limits_{||\boldsymbol d||=r}||\boldsymbol x_1-\boldsymbol x_2-\boldsymbol d||^2,
 $$
 从而原问题转化为：
 $$
-\boldsymbol x_{n+1}=\min\limits_{x,\boldsymbol d\in\boldsymbol U}\frac{1}{2}\boldsymbol x^T(\boldsymbol M+h^2\boldsymbol L)\boldsymbol x-h^2\boldsymbol x^T\boldsymbol J \boldsymbol d-\boldsymbol x^T \boldsymbol M \boldsymbol y
+\boldsymbol x_{n+1}=\arg\min\limits_{x,\boldsymbol d\in\boldsymbol U}\frac{1}{2}\boldsymbol x^T(\boldsymbol M+h^2\boldsymbol L)\boldsymbol x-h^2\boldsymbol x^T\boldsymbol J \boldsymbol d-\boldsymbol x^T \boldsymbol M \boldsymbol y
 $$
 其中
 $$
@@ -121,7 +119,7 @@ $$
 \boldsymbol x 优化：求解方程(\boldsymbol M+h^2\boldsymbol L)\boldsymbol x=h^2\boldsymbol J \boldsymbol d+ \boldsymbol M \boldsymbol y（这里可以预分解矩阵），\\
 $$
 $$
-\boldsymbol d 优化：\boldsymbol d_i=l_i\frac{\boldsymbol p_{i_1}-\boldsymbol p_{i_2}}{||\boldsymbol p_{i_1}-\boldsymbol p_{i_2}||}（这里l_i为第i个弹簧原长，\boldsymbol p_{i_1}，\boldsymbol p_{i_2}为其两端点），
+\boldsymbol d 优化：\boldsymbol d_i=l_i\frac{\boldsymbol x_{i_1}-\boldsymbol x_{i_2}}{||\boldsymbol x_{i_1}-\boldsymbol x_{i_2}||}（这里l_i为第i个弹簧原长，\boldsymbol x_{i_1}，\boldsymbol x_{i_2}为其两端点），
 $$
 
 重复迭代过程直到收敛。
@@ -159,9 +157,8 @@ $$
 K(\boldsymbol M+h^2\boldsymbol L)K^T\boldsymbol x_f=K(h^2\boldsymbol J \boldsymbol d+ \boldsymbol M \boldsymbol y-(\boldsymbol M+h^2\boldsymbol L)\boldsymbol b)
 $$
 
-## 4.作业要求
+## 4. Summary
 
-- 了解四面体网格数据及其数据结构，了解使用 Tetgen 库完成对 3D 网格的四面体剖分
 - 实现弹簧质点模型的欧拉隐式方法及加速方法
 
 

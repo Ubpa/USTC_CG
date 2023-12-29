@@ -1,11 +1,11 @@
-# 作业项目
+# 项目
 
 ## 文件说明
 
 - [include/](inculde/)：头文件
   - [_deps/](_deps/)：依赖库（目前为空）
 - [src/](src/)：源代码
-- [data/](data/)：资源文件夹（目前为空）
+- [data/](data/)：资源文件夹
 
 ## 使用说明
 
@@ -19,11 +19,7 @@
 
 ### Eigen 配置
 
-作业 2 ImageWarping 的项目 [documents/eigen_example](../../2_ImageWarping/documents/eigen_example) 所述的方法是将 Eigen 源码放在了项目内部。
-
-本次项目可采用更合理的方式
-
-> 当然你**可以**沿用之前的方法（将 Eigen/ 放在 [include/_deps/](include/_deps/)），本项目提供了支持
+> 当然你**可以**使用别的方法（将 Eigen/ 放在 [include/_deps/](include/_deps/)），本项目提供了支持
 >
 > 但不推荐，这样又拷贝了一份 Eigen
 
@@ -86,7 +82,6 @@
 
 ## 其他说明
 
-- Qt：[简易说明](../../../Softwares/Qt.md) 
 - CMake-GUI 在 configure 的时候，Optional platform for generator 要选 **x64** 
 - CMake 一开始会拉取 [UCMake](https://github.com/Ubpa/UCMake)，所以会稍微久一点，拉取的 UCMake 位于 `build/_deps/`，内含一些自定义函数 `Ubpa_xxx` 
 

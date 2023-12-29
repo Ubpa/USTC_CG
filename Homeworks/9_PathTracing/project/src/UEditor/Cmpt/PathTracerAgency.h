@@ -13,9 +13,9 @@ namespace Ubpa::Cmpt {
 	class PathTracerAgency : public Component {
 	public:
 		[[range("1,")]]
-		size_t spp{ 20 };
+		size_t spp{ 1024};
 		[[range("100,")]]
-		size_t width{ 400 };
+		size_t width{ 1024 };
 
 		void OnUpdate(const Cmpt::Camera* cam, const Cmpt::L2W* l2w, const SObjPtr* ptr);
 		static void OnRegister();

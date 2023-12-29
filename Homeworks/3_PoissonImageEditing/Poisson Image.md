@@ -34,7 +34,7 @@ $$
 		\Delta \widetilde f= 0\ \mathrm{over}\ \Omega \ \ \mathrm{with}\widetilde f|_{\partial \Omega}=(f^*-g)|_{\partial \Omega}=\varphi|_{\partial \Omega}
 	\end{equation}\tag3
 $$
-这里的 $f^*，g$都是已知的边界条件，而 $\widetilde f$ 是待求解的函数。
+这里的 $f^*, g, \varphi$都是已知的边界条件，而 $\widetilde f$ 是待求解的函数。
 
 ### 数值方程
 
@@ -69,13 +69,18 @@ $$
 对于更加一般的边界，算法描述如下
 
 0. 初始化，设 $\Omega\backslash\part\Omega$内的像素点共有 $N$ 个，建立 $N\times N$ 系数矩阵`coe_sparse_mat=0`,以及代求N维待求向量 `vec` 。同时假设区域 $S$ 内公有 $n\times m$各像素点，从起始点出发。
-
 1. 遍历区域 S 内的像素点（i,j）
-2. 如果 $(i,j)\in\Omega\backslash\part\Omega$，设`index(i,j)=i*n+j`
+2. 如果 $(i,j)\in\Omega\backslash\part\Omega$，设`index(i,j)=i * n+j`
    - `coe_sparse_mat[index(i,j)][index(i,j)]= 4`
    - 如果 $(i,j)$周围的点 $\bold q\in \Omega\backslash\part\Omega$,那么 `coe_sparse_mat(q)=-1`
    - 如果 $(i,j)$周围的点 $\bold q\in \part\Omega$,那么 `vec[index(q)]=`$\varphi$`[index(q)]`
-3. 求解方程 `coe_sparse_mat`*`x`=`vec`
+3. 求解方程 `coe_sparse_mat` * `x`=`vec`, where `x(index(i,j)) = u(i,j)`.
+
+最终解得 $\widetilde f_{ij}=u_{ij}$，得到最终图像的像素值为：
+$$
+f(i,j)=\widetilde f(i,j)+g(i,j)
+$$
+其中 $g(i,j)$ 为原来的图像的像素值，$\widetilde f(i,j)$ 为刚求解得到的值。
 
 ## 多边形扫描算法
 
@@ -144,6 +149,18 @@ void Polygonfill(EdgeTable ET,  COLORREF color)
 
 ## 结果展示
 
+在游泳池里有一个女孩在开心的游泳，而一只熊在另一条河里游泳，他们所在的水域不同，如下图所示
+
+
+
 <img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\image-20221204105602310.png" alt="image-20221204105602310" style="zoom:50%;" />
 
-## 作业4
+现在我们将这两个倒霉的家伙放到海洋里，如果只是简单拷贝与复制的话，则有一下结果
+
+![](./project/data/normal_paste.bmp)
+
+然而，借助我们的Poisson 融合图像算法，可以使他们更加自然的融入大海
+
+![](./project/data/Poisson_paste.bmp)
+
+正如你所见，使用我们的算法后图像更加自然的与周围的环境匹配，不过还有可以改善的空间！

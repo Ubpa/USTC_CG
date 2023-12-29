@@ -33,18 +33,17 @@ PathTracer::PathTracer(const Scene* scene, const SObj* cam_obj, Image* img, size
 	// TODO: preprocess env_light here
 	int h = env_light->texture->img.get()->height;
 	int w = env_light->texture->img.get()->width;
-	std::vector<float> prob_list(h * w);
+	env_prob_list.reserve(h * w);
 	float sum_prob=0;
 	for (int i = 0; i < h; i++) {
 		for (int j = 0; j < w; j++) {
-			prob_list.push_back(env_light->texture->img.get()->At(j, i).to_rgb().illumination());
-			sum_prob += prob_list.back();
+			env_prob_list.push_back(env_light->texture->img.get()->At(j, i).to_rgb().illumination());
+			sum_prob += env_prob_list.back();
 		}
 	}
-	for (auto& prob : prob_list)
+	for (auto& prob : env_prob_list)
 		prob /= sum_prob;
-	aliasInit(prob_list);
-	env_prob_list.assign(prob_list.begin(), prob_list.end());
+	aliasInit(env_prob_list);
 }
 
 void PathTracer::Run() {
@@ -116,7 +115,7 @@ rgbf PathTracer::Shade(const IntersectorClosest::Rst& intersection, const vecf3&
 	// };
 
 	constexpr rgbf error_color = rgbf{ 1.f,0.f,1.f };
-	rgbf todo_color = rgbf{ 0.f,1.f,0.f };
+	constexpr rgbf todo_color = rgbf{ 0.f,1.f,0.f };
 	constexpr rgbf zero_color = rgbf{ 0.f,0.f,0.f };
 
 	if (!intersection.IsIntersected()) {
@@ -128,7 +127,7 @@ rgbf PathTracer::Shade(const IntersectorClosest::Rst& intersection, const vecf3&
 			return zero_color;
 	}
 	
-	if (!intersection.sobj->Get<Cmpt::Material>()) {// 与物体相交且没有材质（光滑）
+	if (!intersection.sobj->Get<Cmpt::Material>()) {// 与物体相交且材质光滑
 		auto light = intersection.sobj->Get<Cmpt::Light>();
 		if(!light) return error_color;
 
@@ -137,8 +136,8 @@ rgbf PathTracer::Shade(const IntersectorClosest::Rst& intersection, const vecf3&
 			if (!area_light) return error_color;
 
 			// TODO: area light
-			todo_color = area_light->Radiance(intersection.uv);
-			return todo_color;
+			return area_light->Radiance(intersection.uv);
+			//return zero_color;
 		}else
 			return zero_color;
 	}
@@ -169,18 +168,20 @@ rgbf PathTracer::Shade(const IntersectorClosest::Rst& intersection, const vecf3&
 		else {
 			// TODO: L_dir of area light
 			// 光源
-			vecf3 wi = sample_light_rst.x - intersection.pos;//物体交点与光源采样点的矢量
-			float dist2 = wi.norm2();//距离
-			normalf direc_xy = wi.normalize().cast_to<normalf>();//方向
-			float cosin_xy = intersection.n.dot(direc_xy);
-			float cosin_yx = sample_light_rst.n.dot(-direc_xy);
-			
-			if (cosin_xy > 0) {//保证光源在物体表面弹射
-				rayf3 r(sample_light_rst.x, -wi, EPSILON<float>, 1 - EPSILON<float>);
+			vecf3 direc_xy = sample_light_rst.x - intersection.pos;//物体交点与光源采样点的矢量
+			float dist2 = direc_xy.norm2();//距离
+			normalf wi = direc_xy.normalize().cast_to<normalf>();//方向
+			float cosin_xy = intersection.n.dot(wi);
+			float cosin_yx = sample_light_rst.n.dot(-wi);
+			//std::cout << "insersection pos:" << intersection.pos<<endl;
+			//std::cout << "sample_light_rst pos:" << sample_light_rst.x << endl;
+			if (cosin_xy > 0  && cosin_yx > 0) {//保证光源在物体表面弹射
+				rayf3 r(intersection.pos, wi.cast_to<vecf3>(), EPSILON<float>, sqrt(dist2) - EPSILON<float>);
+				//printf("distance:%f\n", sqrt(dist2));
 				bool visibility = IntersectorVisibility::Instance().Visit(&bvh, r);//光线追踪，防止被其他物体遮挡
 				if (visibility) {
-					float Gxy = abs(cosin_xy * cosin_yx/ dist2);
-					L_dir += sample_light_rst.L * BRDF(intersection, wi.normalize(), wo.normalize()) * Gxy / (sample_light_rst.pd);
+					float Gxy = cosin_xy * cosin_yx/ dist2;
+					L_dir += sample_light_rst.L * BRDF(intersection, wi.cast_to<vecf3>(), wo.normalize()) * Gxy / (sample_light_rst.pd);
 				}
 			}
 			
@@ -191,9 +192,9 @@ rgbf PathTracer::Shade(const IntersectorClosest::Rst& intersection, const vecf3&
 	// TODO: Russian Roulette
 	// - rand01<float>() : random in [0, 1)
 	// 俄罗斯轮盘赌 
-	float p_RR = 0.8;
+	float p_RR = 0.8f;
 	if (rand01<float>() > p_RR) return L_dir;
-
+	//if (rand01<float>() > p_RR) return zero_color;
 	// TODO: recursion
 	// - use PathTracer::SampleBRDF to get wi and pd (probability density)
 	// wi may be **under** the surface
@@ -205,9 +206,21 @@ rgbf PathTracer::Shade(const IntersectorClosest::Rst& intersection, const vecf3&
 		float cosin = intersection.n.cast_to<vecf3>().dot(wi.normalize());
 		if (cosin > 0) {
 			rayf3 r(intersection.pos, wi);
-			auto obj = IntersectorClosest::Instance().Visit(&bvh, r);//与新的物体交汇
+			auto new_obj = IntersectorClosest::Instance().Visit(&bvh, r);//与新的物体交汇
 			rgbf fr = BRDF(intersection, wi.normalize(), wo.normalize());
-			L_indir += Shade(obj, -wi, false) * fr * cosin / pd / p_RR;
+			bool last_bounce_s = false;
+			auto mat = intersection.sobj->Get<Cmpt::Material>();
+			const stdBRDF* brdf;
+			if (mat) {
+				brdf = dynamic_cast<const stdBRDF*>(mat->material.get());
+				if (brdf && brdf->Roughness(new_obj.uv) < 0.4) {
+					last_bounce_s = true;
+					L_indir += Shade(new_obj, -wi, true) * fr * cosin / pd / p_RR;
+				}
+			}
+			else {
+				L_indir += Shade(new_obj, -wi, false) * fr * cosin / pd / p_RR;
+			}
 		}
 	}
 	// TODO: combine L_dir and L_indir
@@ -328,14 +341,13 @@ PathTracer::SampleLightResult PathTracer::SampleLight(const IntersectorClosest::
 			rst.L = env_light->Radiance(light_wi);
 			// pd_light : dwi
 			//pd_light = env_light->PDF(light_wi, light_n); // TODO: use your PDF
-			pd_light = aliasPDF(wi);
+			pd_light = aliasPDF(light_wi);
 		}
 		else {
 			// pd_light : dwi
 			//tie(rst.L, light_wi, pd_light) = env_light->Sample(light_n); // TODO: use your sampling method
-			//wi = (l2w->value * light_wi).normalize();
-			tie(rst.L, wi, pd_light) = aliasSample(light_n);
-			
+			tie(rst.L, light_wi, pd_light) = aliasSample(light_n);
+			wi = (l2w->value * light_wi).normalize();
 			matf3 surface_to_world = svecf::TBN(intersection.n.cast_to<vecf3>(), intersection.tangent);
 			matf3 world_to_surface = surface_to_world.inverse();
 			svecf s_wo = (world_to_surface * wo).cast_to<svecf>();
@@ -399,14 +411,11 @@ void PathTracer::aliasInit(const std::vector<float>& prob_list) {
 	size_t size = prob_list.size();
 	alias_prob_list.resize(size,1);//默认值设置为1
 	alias_index_list.resize(size);
-	for (size_t i = 0; i < size; i++) {
-		alias_index_list[i] = i;
-	}
-	
 	std::queue<tuple<float,int>> big_queue, small_queue;
 	for (size_t i = 0; i < size; i++) {
 		float p  = prob_list[i] * size;
-		if (alias_prob_list[i] < 1.f)
+		alias_index_list[i] = i;
+		if (p < 1.f)
 			small_queue.push({ p, i });
 		else
 			big_queue.push({ p, i});
@@ -440,8 +449,10 @@ float PathTracer::aliasPDF(const vecf3& dir) const noexcept {
 	float phi = std::atan2(dir[0], dir[2]) + PI<float>;
 	float u = phi / (2 * PI<float>);
 	float v = 1 - theta / PI<float>;
-	auto i = (int)std::round(w * u - 0.5);
-	auto j = (int)std::round(h * v - 0.5);
+	int i = (int)(std::round(w * u)-0.5);
+	int j = (int)(std::round(h * v)-0.5);
+	i = i < 0 ? 0 : i;
+	j = j < 0 ? 0 : j;
 	int index = j * w + i;
 	float p_env = env_prob_list[index];
 	return p_env*w*h / (2.f * PI<float>*PI<float>*sin(theta));
@@ -450,7 +461,6 @@ std::tuple<rgbf, vecf3, float> PathTracer::aliasSample(const normalf& n)const no
 	assert(n.is_normalized());
 	auto vn = n.cast_to<vecf3>();
 	
-
 	auto index = (size_t)rand01<float>() * env_prob_list.size();
 	if (rand01<float>() > alias_prob_list[index])
 		index = alias_index_list[index];

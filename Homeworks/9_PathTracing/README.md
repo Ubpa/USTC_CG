@@ -1,28 +1,93 @@
-# 9. 路径追踪算法
+# 9. Ray Tracing
 
-> Path Tracing
+> Rainzor
 
-## 作业递交
+## Content
 
-- 递交内容：程序代码及实验报告（可选：演示视频）
-- 递交时间：2020 年 5 月 2 日星期六
+- Implement path tracing algorithm.
+- Importance sampling for environment map lighting.
+- Set up scene (code, json) and render it
 
-## 作业要求
+The requirements and methods based on the contents of two folders: `(1) documents` and `(2) project`.
 
-- 实现路径追踪算法
-- 环境光贴图重要性采样
-- 搭建场景（代码，json）并渲染
+### (1) Documentation `documents` [->](documents/) 
 
+Requirements and some auxiliary materials for this assignment.
 
-## 提供的材料
+### (2) Source code `project ` [->](project/)
 
-根据上述要求和方法根据两个文件夹`(1) documents`和`(2) project`的内容进行练习。
+Basic code framework for this project (Complete).
 
-### (1) 说明文档 `documents` [->](documents/) 
+## Result
 
-本次作业的要求说明和一些辅助资料
+<center>
+    <img style = "
+        border-radius: 0.3125em;
+        box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+        src = ".\images\img-path-tracing\rst_dir.png" 
+        width = "50%">
+    <br>
+    <div style = "
+        color: orange;
+        border-bottom: 1px solid #d9d9d9;
+        display: inline-block;
+        color: #999;
+        padding: 2px;">
+        Figure 1: Only direct light
+    </div>
+    <p> </p>
+</center>
 
-### (2) 作业项目 `project` [->](project/) 
+<center>
+    <img style = "
+        border-radius: 0.3125em;
+        box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+        src = ".\images\img-path-tracing\rst_full.png" 
+        width = "50%">
+    <br>
+    <div style = "
+        color: orange;
+        border-bottom: 1px solid #d9d9d9;
+        display: inline-block;
+        color: #999;
+        padding: 2px;">
+        Figure 2: Full light
+    </div>
+    <p> </p>
+</center>
 
-本次作业的基础代码框架
+<center>
+    <img style = "
+        border-radius: 0.3125em;
+        box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+        src = ".\images\img-path-tracing\rst_full_impSamp.png" 
+        width = "50%">
+    <br>
+    <div style = "
+        color: orange;
+        border-bottom: 1px solid #d9d9d9;
+        display: inline-block;
+        color: #999;
+        padding: 2px;">
+        Figure 3: Full light by important sampling
+    </div>
+    <p> </p>
+</center>
 
+<center>
+    <img style = "
+        border-radius: 0.3125em;
+        box-shadow: 0 2px 4px 0 rgba(34,36,38,.12),0 2px 10px 0 rgba(34,36,38,.08);" 
+        src = ".\images\img-path-tracing\rst_high_spp.png" 
+        width = "50%">
+    <br>
+    <div style = "
+        color: orange;
+        border-bottom: 1px solid #d9d9d9;
+        display: inline-block;
+        color: #999;
+        padding: 2px;">
+        Figure 4: Full light in high spp
+    </div>
+    <p> </p>
+</center>

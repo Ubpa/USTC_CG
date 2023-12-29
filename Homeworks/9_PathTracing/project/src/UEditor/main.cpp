@@ -14,8 +14,8 @@ int main(int argc, char** argv)
     Editor::OnRegister();
 
     const char* path = argc == 2 ? argv[1] : "../data/models/uscene.json";
-    Scene* scene = SceneGenerator::Instance().GenScene(path);
-    //Scene* scene = SceneGenerator::Instance().GenScene(0);
+    //Scene* scene = SceneGenerator::Instance().GenScene(path);
+    Scene* scene = SceneGenerator::Instance().GenScene(0);
 
     Editor::Instance().SetCamera(scene->root->GetSObjInTreeWith<Cmpt::Camera>());
 

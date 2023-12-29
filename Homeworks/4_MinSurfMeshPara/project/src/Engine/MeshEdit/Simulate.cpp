@@ -67,7 +67,7 @@ void Ubpa::Simulate::SetLeftFix()
 
 	for (int i = 0; i < positions.size(); i++)
 	{
-		if (abs(positions[i][0] - x) < 1e-5)
+		if (abs(positions[i][0] - x) < 1e-2)
 		{
 			fixed_id.push_back(i);
 			fixed_coords.push_back(positions[i]);
@@ -94,7 +94,7 @@ void Ubpa::Simulate::SetRightFix()
 
 	for (int i = 0; i < positions.size(); i++)
 	{
-		if (abs(positions[i][0] - x) < 1e-5)
+		if (abs(positions[i][0] - x) < 1e-2)
 		{
 			fixed_id.push_back(i);
 			fixed_coords.push_back(positions[i]);
@@ -109,18 +109,18 @@ void Ubpa::Simulate::SetUpFix()
 	//固定网格y坐标最大点
 	fixed_id.clear();
 	fixed_coords.clear();
-	double z = -100000;
+	double y = -100000;
 	for (int i = 0; i < positions.size(); i++)
 	{
-		if (positions[i][1] > z)
+		if (positions[i][1] > y)
 		{
-			z = positions[i][1];
+			y = positions[i][1];
 		}
 	}
 
 	for (int i = 0; i < positions.size(); i++)
 	{
-		if (abs(positions[i][1] - z) < 1e-5)
+		if (abs(positions[i][1] - y) < 1e-2)
 		{
 			fixed_id.push_back(i);
 			fixed_coords.push_back(positions[i]);
@@ -134,18 +134,18 @@ void Ubpa::Simulate::SetDownFix()
 	//固定网格y坐标最小点
 	fixed_id.clear();
 	fixed_coords.clear();
-	double z = 100000;
+	double y = 100000;
 	for (int i = 0; i < positions.size(); i++)
 	{
-		if (positions[i][1] < z)
+		if (positions[i][1] < y)
 		{
-			z = positions[i][1];
+			y = positions[i][1];
 		}
 	}
 
 	for (int i = 0; i < positions.size(); i++)
 	{
-		if (abs(positions[i][1] - z) < 1e-5)
+		if (abs(positions[i][1] - y) < 1e-2)
 		{
 			fixed_id.push_back(i);
 			fixed_coords.push_back(positions[i]);
@@ -468,12 +468,16 @@ void Simulate::UpdateVelocity(const std::vector<pointf3>& new_positions, const s
 void Simulate::ProjectiveDynamics() {
 	InitY();
 	float error = 10000;
-	while (abs(error) > 1e-4)
+	while (abs(error) > 1e-6)
 	{
 		error = IterationOnceOptimize();
 		//std::cout << error << std::endl;
 	}
 	UpdateVelocity();
+	for (size_t i = 0; i < fixed_coords.size(); i++) {
+		for (int j = 0; j < 3; j++)
+			x_vec(fixed_id[i], j) = fixed_coords[i][j];
+	}
 	Mat2Pos(x_vec,positions);
 }
 
